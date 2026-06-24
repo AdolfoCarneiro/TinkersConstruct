@@ -31,7 +31,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
-import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -184,7 +183,7 @@ public class PiggyBackPackItem extends TooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getCommandSenderWorld().isClientSide) {
-          livingEntityIn.getCapability(PiggybackCapability.PIGGYBACK, null).ifPresent(PiggybackHandler::updatePassengers);
+          livingEntityIn.getData(PiggybackCapability.PIGGYBACK).updatePassengers();
         }
       }
     }
