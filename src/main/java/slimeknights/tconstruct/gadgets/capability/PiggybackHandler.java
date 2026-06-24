@@ -8,7 +8,7 @@ import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 
 import javax.annotation.Nullable;
