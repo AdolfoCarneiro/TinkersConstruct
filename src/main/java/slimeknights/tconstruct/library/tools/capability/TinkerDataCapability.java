@@ -15,7 +15,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.bus.api.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 
@@ -40,7 +39,7 @@ public class TinkerDataCapability {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
+    TConstruct.getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
     NeoForge.EVENT_BUS.addGenericListener(Entity.class, TinkerDataCapability::attachCapability);
   }
 

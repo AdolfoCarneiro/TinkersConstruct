@@ -21,7 +21,6 @@ import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
@@ -49,7 +48,7 @@ public class EquipmentChangeWatcher {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, event -> event.register(PlayerLastEquipment.class));
+    TConstruct.getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, event -> event.register(PlayerLastEquipment.class));
 
     // equipment change is used on both sides
     NeoForge.EVENT_BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);

@@ -21,7 +21,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -352,7 +351,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     FluidEffectManager.INSTANCE.init();
-    MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+    MODIFIERS.register(TConstruct.getModEventBus());
     TinkerDataKeys.init();
   }
 

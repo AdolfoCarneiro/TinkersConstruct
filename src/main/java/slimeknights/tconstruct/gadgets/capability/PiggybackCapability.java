@@ -10,7 +10,6 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.bus.api.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
 
 /** Capability logic */
@@ -22,7 +21,7 @@ public class PiggybackCapability {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PiggybackCapability::register);
+    TConstruct.getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PiggybackCapability::register);
     NeoForge.EVENT_BUS.addGenericListener(Entity.class, PiggybackCapability::attachCapability);
   }
 

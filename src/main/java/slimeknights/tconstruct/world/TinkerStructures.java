@@ -16,7 +16,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
@@ -47,7 +46,7 @@ public final class TinkerStructures extends TinkerModule {
 
 
   public TinkerStructures() {
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    IEventBus bus = TConstruct.getModEventBus();
     FEATURES.register(bus);
     STRUCTURE_TYPE.register(bus);
     STRUCTURE_PIECE.register(bus);
