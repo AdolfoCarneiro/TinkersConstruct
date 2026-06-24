@@ -42,8 +42,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.bus.api.Event.Result;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
@@ -91,7 +90,7 @@ import java.util.Objects;
 /**
  * Event subscriber for tool events
  */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID)
 public class ToolEvents {
   @SuppressWarnings("removal")
   @SubscribeEvent

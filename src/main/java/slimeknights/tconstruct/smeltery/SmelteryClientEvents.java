@@ -7,8 +7,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.render.ChannelFluids;
 import slimeknights.mantle.client.render.FaucetFluid;
@@ -32,7 +31,7 @@ import slimeknights.tconstruct.smeltery.client.screen.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.screen.SingleItemScreenFactory;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT, bus= Bus.MOD)
+@EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT)
 public class SmelteryClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent event) {

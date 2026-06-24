@@ -31,8 +31,7 @@ import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -94,7 +93,7 @@ import static slimeknights.tconstruct.TConstruct.getResource;
 import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT)
 public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
   private static final KeyMapping HELMET_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.z"), "key.categories.tconstruct");

@@ -7,8 +7,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent.RegisterAdditional;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
@@ -16,7 +15,7 @@ import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
 import slimeknights.tconstruct.tools.client.material.ThrownShurikenRenderer;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT)
 public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerModels(RegisterAdditional event) {
