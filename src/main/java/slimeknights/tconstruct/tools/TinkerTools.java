@@ -23,6 +23,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.RegistryObject;
@@ -60,12 +61,9 @@ import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModul
 import slimeknights.tconstruct.library.recipe.ingredient.ToolHookIngredient;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
-import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
-import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
@@ -285,12 +283,13 @@ public final class TinkerTools extends TinkerModule {
    */
 
   @SubscribeEvent
+  void registerCapabilities(RegisterCapabilitiesEvent event) {
+    ToolCapabilityProvider.register(event);
+  }
+
+  @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {
     EquipmentChangeWatcher.register();
-    ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
-    ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
-    ToolCapabilityProvider.register((stack, tool) -> new ToolEnergyCapability.Provider(tool));
-    ToolCapabilityProvider.register((stack, tool) -> new BlockItemProviderModifierHook.Provider(tool));
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }

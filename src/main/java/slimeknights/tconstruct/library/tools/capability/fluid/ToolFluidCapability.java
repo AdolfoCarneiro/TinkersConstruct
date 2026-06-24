@@ -4,19 +4,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -316,19 +313,13 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
     }
   }
 
-  /** Provider instance for a fluid cap */
-  public static class Provider implements IToolCapabilityProvider {
-    private final LazyOptional<IFluidHandlerItem> fluidCap;
-    public Provider(ItemStack stack, Supplier<? extends IToolStackView> toolStack) {
-      this.fluidCap = LazyOptional.of(() -> new ToolFluidCapability(stack, toolStack));
+  /** Capability provider, registered for all {@link slimeknights.tconstruct.library.tools.item.IModifiableDisplay} items by {@link slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider} */
+  @Nullable
+  public static IFluidHandlerItem createIfPresent(ItemStack stack, @Nullable Void context) {
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
+      return new ToolFluidCapability(stack, () -> tool);
     }
-
-    @Override
-    public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
-      if (cap == ForgeCapabilities.FLUID_HANDLER_ITEM && tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
-        return fluidCap.cast();
-      }
-      return LazyOptional.empty();
-    }
+    return null;
   }
 }
