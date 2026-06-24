@@ -118,14 +118,13 @@ public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, bo
    * @param amount   Amount to add
    */
   public static void addStat(EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    context.getTinkerData().ifPresent(data -> {
-      float totalLevels = data.get(key, 0f) + amount;
-      if (totalLevels <= 0.005f) {
-        data.remove(key);
-      } else {
-        data.put(key, totalLevels);
-      }
-    });
+    TinkerDataCapability.Holder data = context.getTinkerData();
+    float totalLevels = data.get(key, 0f) + amount;
+    if (totalLevels <= 0.005f) {
+      data.remove(key);
+    } else {
+      data.put(key, totalLevels);
+    }
   }
 
   /**
@@ -149,7 +148,7 @@ public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, bo
    * @return  Level from the key
    */
   public static float getStat(Entity living, TinkerDataKey<Float> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
+    return living.getData(TinkerDataCapability.ATTACHMENT).get(key, 0f);
   }
 
 

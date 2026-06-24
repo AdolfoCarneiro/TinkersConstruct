@@ -16,7 +16,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
-import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -70,15 +69,13 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
-      if (data != null) {
-        // set the map to the selected one
-        ItemStack map = modifier.getHook(ToolInventoryCapability.HOOK).getStack(tool, modifier, tool.getPersistentData().getInt(SELECTED_SLOT));
-        if (!map.isEmpty()) {
-          data.put(MAP, map);
-        } else {
-          data.remove(MAP);
-        }
+      TinkerDataCapability.Holder data = context.getTinkerData();
+      // set the map to the selected one
+      ItemStack map = modifier.getHook(ToolInventoryCapability.HOOK).getStack(tool, modifier, tool.getPersistentData().getInt(SELECTED_SLOT));
+      if (!map.isEmpty()) {
+        data.put(MAP, map);
+      } else {
+        data.remove(MAP);
       }
     }
   }
@@ -86,10 +83,7 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
-      if (data != null) {
-        data.remove(MAP);
-      }
+      context.getTinkerData().remove(MAP);
     }
   }
 

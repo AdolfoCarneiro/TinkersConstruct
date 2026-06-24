@@ -91,7 +91,6 @@ import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 
 import java.util.List;
-import java.util.Optional;
 
 /** Events to implement modifier specific behaviors, such as those defined by {@link TinkerDataKeys}. General hooks will typically be in {@link ToolEvents} */
 @EventBusSubscriber(modid = TConstruct.MOD_ID)
@@ -106,24 +105,19 @@ public class ModifierEvents {
   /** Volatile data int for making a modifier on a shield grant reflecting */
   public static final ResourceLocation REFLECTING = TConstruct.getResource("reflecting");
 
-  @SuppressWarnings("removal")
   @SubscribeEvent
   static void onKnockback(LivingKnockBackEvent event) {
     LivingEntity entity = event.getEntity();
-    Optional<TinkerDataCapability.Holder> dataCap = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve();
-    double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get())
-                     + dataCap.map(data -> data.get(TinkerDataKeys.KNOCKBACK)).orElse(0f);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(entity);
+    double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get()) + data.get(TinkerDataKeys.KNOCKBACK, 0f);
     if (knockback != 1) {
       event.setStrength((float) (event.getStrength() * knockback));
     }
-    // handle crystalstrike
-    dataCap.ifPresent(data -> {
-      // apply crystalbound bonus
-      int crystalbound = data.get(TinkerDataKeys.CRYSTALSTRIKE, 0);
-      if (crystalbound > 0) {
-        RestrictAngleModule.onKnockback(event, crystalbound);
-      }
-    });
+    // handle crystalstrike, apply crystalbound bonus
+    int crystalbound = data.get(TinkerDataKeys.CRYSTALSTRIKE, 0);
+    if (crystalbound > 0) {
+      RestrictAngleModule.onKnockback(event, crystalbound);
+    }
   }
 
   /** Reduce fall distance for fall damage */

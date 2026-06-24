@@ -122,33 +122,32 @@ public class ModifierClientEvents {
   /** Handles the zoom modifier zooming */
   @SubscribeEvent
   static void handleZoom(ComputeFovModifierEvent event) {
-    event.getPlayer().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      float newFov = event.getNewFovModifier();
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(event.getPlayer());
+    float newFov = event.getNewFovModifier();
 
-      // scaled effects only apply if we have FOV scaling, nothing to do if 0
-      float effectScale = Minecraft.getInstance().options.fovEffectScale().get().floatValue();
-      if (effectScale > 0) {
-        FloatMultiplier scaledZoom = data.get(TinkerDataKeys.SCALED_FOV_MODIFIER);
-        if (scaledZoom != null) {
-          // much easier when 1, save some effort
-          if (effectScale == 1) {
-            newFov *= scaledZoom.getValue();
-          } else {
-            // unlerp the fov before multiplitying to make sure we apply the proper amount
-            // we could use the original FOV, but someone else may have modified it
-            float original = event.getFovModifier();
-            newFov *= Mth.lerp(effectScale, 1.0F, scaledZoom.getValue() * original) / original;
-          }
+    // scaled effects only apply if we have FOV scaling, nothing to do if 0
+    float effectScale = Minecraft.getInstance().options.fovEffectScale().get().floatValue();
+    if (effectScale > 0) {
+      FloatMultiplier scaledZoom = data.get(TinkerDataKeys.SCALED_FOV_MODIFIER);
+      if (scaledZoom != null) {
+        // much easier when 1, save some effort
+        if (effectScale == 1) {
+          newFov *= scaledZoom.getValue();
+        } else {
+          // unlerp the fov before multiplitying to make sure we apply the proper amount
+          // we could use the original FOV, but someone else may have modified it
+          float original = event.getFovModifier();
+          newFov *= Mth.lerp(effectScale, 1.0F, scaledZoom.getValue() * original) / original;
         }
       }
+    }
 
-      // non-scaled effects are much easier to deal with
-      FloatMultiplier constZoom = data.get(TinkerDataKeys.FOV_MODIFIER);
-      if (constZoom != null) {
-        newFov *= constZoom.getValue();
-      }
-      event.setNewFovModifier(newFov);
-    });
+    // non-scaled effects are much easier to deal with
+    FloatMultiplier constZoom = data.get(TinkerDataKeys.FOV_MODIFIER);
+    if (constZoom != null) {
+      newFov *= constZoom.getValue();
+    }
+    event.setNewFovModifier(newFov);
   }
 
 

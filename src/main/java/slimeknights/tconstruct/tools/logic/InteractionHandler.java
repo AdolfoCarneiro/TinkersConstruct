@@ -403,7 +403,7 @@ public class InteractionHandler {
     }
     // ensure we have not fired this tick
     Player player = event.getEntity();
-    if (player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {
+    if (!TinkerDataCapability.getData(player).computeIfAbsent(LAST_TICK).update(player)) {
       return;
     }
     // must support interaction

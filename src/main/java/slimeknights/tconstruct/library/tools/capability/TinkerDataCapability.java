@@ -2,23 +2,14 @@ package slimeknights.tconstruct.library.tools.capability;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.neoforge.common.NeoForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -32,63 +23,22 @@ import java.util.function.Supplier;
 public class TinkerDataCapability {
   private TinkerDataCapability() {}
 
-  /** Capability ID */
-  private static final ResourceLocation ID = TConstruct.getResource("modifier_data");
-  /** Capability type */
-  public static final Capability<Holder> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, TConstruct.MOD_ID);
+  /** Attachment type. Works on any {@link net.minecraft.world.entity.Entity}, not saved to NBT */
+  public static final Supplier<AttachmentType<Holder>> ATTACHMENT = ATTACHMENT_TYPES.register("modifier_data", () -> AttachmentType.builder(Holder::new).build());
 
   /** Registers this capability */
   public static void register() {
-    TConstruct.getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
-    NeoForge.EVENT_BUS.addGenericListener(Entity.class, TinkerDataCapability::attachCapability);
+    ATTACHMENT_TYPES.register(TConstruct.getModEventBus());
   }
 
-  /** Registers the capability with the event bus */
-  private static void register(RegisterCapabilitiesEvent event) {
-    event.register(Holder.class);
-  }
-
-  /** Event listener to attach the capability */
-  private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-    if (event.getObject() instanceof LivingEntity) {
-      Provider provider = new Provider();
-      event.addCapability(ID, provider);
-      event.addListener(provider);
-    }
-  }
-
-  /** Gets the data capability from an entity, or null if missing */
-  @SuppressWarnings("DataFlowIssue")
-  @Nullable
+  /** Gets the data capability from an entity. Never null, creates an empty holder if missing. */
   public static TinkerDataCapability.Holder getData(LivingEntity entity) {
-    return entity.getCapability(CAPABILITY).orElse(null);
+    return entity.getData(ATTACHMENT);
   }
 
 
   /* Required methods */
-
-  /** Capability provider instance */
-  private static class Provider implements ICapabilityProvider, Runnable {
-    private LazyOptional<Holder> data;
-    private Provider() {
-      this.data = LazyOptional.of(Holder::new);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-      return CAPABILITY.orEmpty(cap, data);
-    }
-
-    @Override
-    public void run() {
-      // called when capabilities invalidate, just invalidate but preserve the old data
-      // (as if they revive the equipment change event does not fire again, see dimension change)
-      Holder oldData = data.orElse(new Holder());
-      data.invalidate();
-      data = LazyOptional.of(() -> oldData);
-    }
-  }
 
   /** Class for generic keys */
   @SuppressWarnings("unused")

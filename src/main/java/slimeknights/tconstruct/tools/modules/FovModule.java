@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modules;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -11,7 +10,6 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModif
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -44,20 +42,14 @@ public record FovModule(LevelingValue value, FovAction action) implements Modifi
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (!tool.isBroken()) {
-      TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
-      if (data != null) {
-        data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(getKey(modifier, context), action.apply(value.compute(modifier.getEffectiveLevel())));
-      }
+      context.getTinkerData().computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(getKey(modifier, context), action.apply(value.compute(modifier.getEffectiveLevel())));
     }
   }
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (!tool.isBroken()) {
-      TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
-      if (data != null) {
-        data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(getKey(modifier, context));
-      }
+      context.getTinkerData().computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(getKey(modifier, context));
     }
   }
 

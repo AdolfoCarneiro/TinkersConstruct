@@ -42,14 +42,12 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      context.getTinkerData().ifPresent(data -> {
-        GoldGuardGold gold = data.get(TOTAL_GOLD);
-        if (gold == null) {
-          data.computeIfAbsent(TOTAL_GOLD).initialize(context);
-        } else {
-          gold.setGold(EquipmentSlot.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL), context.getEntity());
-        }
-      });
+      GoldGuardGold gold = context.getTinkerData().get(TOTAL_GOLD);
+      if (gold == null) {
+        context.getTinkerData().computeIfAbsent(TOTAL_GOLD).initialize(context);
+      } else {
+        gold.setGold(EquipmentSlot.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL), context.getEntity());
+      }
     }
   }
 
@@ -59,7 +57,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
       IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
-        context.getTinkerData().ifPresent(data -> data.remove(TOTAL_GOLD));
+        context.getTinkerData().remove(TOTAL_GOLD);
         AttributeInstance instance = context.getEntity().getAttribute(Attributes.MAX_HEALTH);
         if (instance != null) {
           instance.removeModifier(GOLD_GUARD_UUID);
@@ -75,7 +73,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
-      context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living));
+      context.getTinkerData().computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living);
     }
   }
 

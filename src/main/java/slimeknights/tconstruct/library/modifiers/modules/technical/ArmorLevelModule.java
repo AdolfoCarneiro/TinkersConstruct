@@ -4,11 +4,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
@@ -68,14 +66,12 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
    * @param amount   Amount to add
    */
   public static void addLevels(EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
-    TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
-    if (data != null) {
-      int totalLevels = data.get(key, 0) + amount;
-      if (totalLevels <= 0) {
-        data.remove(key);
-      } else {
-        data.put(key, totalLevels);
-      }
+    TinkerDataCapability.Holder data = context.getTinkerData();
+    int totalLevels = data.get(key, 0) + amount;
+    if (totalLevels <= 0) {
+      data.remove(key);
+    } else {
+      data.put(key, totalLevels);
     }
   }
 
@@ -105,17 +101,16 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
    * @return  Level from the key
    */
   public static int getLevel(LivingEntity living, TinkerDataKey<Integer> key) {
-    return getLevel(living.getCapability(TinkerDataCapability.CAPABILITY), key);
+    return getLevel(TinkerDataCapability.getData(living), key);
   }
 
   /**
    * Gets the total level from the key in the entity modifier data
-   * @param cap    Capability instance
+   * @param data   Data holder instance
    * @param key    Key to get
    * @return  Level from the key
    */
-  public static int getLevel(LazyOptional<TinkerDataCapability.Holder> cap, TinkerDataKey<Integer> key) {
-    TinkerDataCapability.Holder data = LogicHelper.orElseNull(cap);
-    return data != null ? data.get(key, 0) : 0;
+  public static int getLevel(TinkerDataCapability.Holder data, TinkerDataKey<Integer> key) {
+    return data.get(key, 0);
   }
 }
