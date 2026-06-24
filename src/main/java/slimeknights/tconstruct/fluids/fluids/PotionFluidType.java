@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.fluids;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -9,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -71,7 +73,11 @@ public class PotionFluidType extends FluidType {
     if (potion != Potions.EMPTY_ID) {
       tag = potionTag(potion.location());
     }
-    return new FluidStack(TinkerFluids.potion.get(), size, tag);
+    FluidStack stack = new FluidStack(TinkerFluids.potion.get(), size);
+    if (tag != null) {
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
+    return stack;
   }
 
   /** Creates a fluid stack for the given potion */
@@ -81,7 +87,11 @@ public class PotionFluidType extends FluidType {
     if (potion != Potions.EMPTY) {
       tag = potionTag(BuiltInRegistries.POTION.getKey(potion));
     }
-    return new FluidStack(TinkerFluids.potion.get(), size, tag);
+    FluidStack stack = new FluidStack(TinkerFluids.potion.get(), size);
+    if (tag != null) {
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
+    return stack;
   }
 
   /** Creates a fluid output for the given potion */

@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.TagParser;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -37,7 +39,11 @@ public class FluidParticleData implements ParticleOptions {
       if (reader.canRead() && reader.peek() == '{') {
         nbt = new TagParser(reader).readStruct();
       }
-      return new FluidParticleData(type, new FluidStack(fluid, FluidType.BUCKET_VOLUME, nbt));
+      FluidStack stack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
+      if (nbt != null) {
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+      }
+      return new FluidParticleData(type, stack);
     }
 
     @Override

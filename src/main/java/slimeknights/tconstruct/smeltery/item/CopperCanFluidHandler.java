@@ -3,8 +3,10 @@ package slimeknights.tconstruct.smeltery.item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
@@ -67,6 +69,16 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return CopperCanItem.getFluidTag(container);
   }
 
+  /** Builds a fluid stack of the given fluid/amount, tagged with this container's stored NBT if present */
+  private FluidStack stackWithTag(Fluid fluid, int amount) {
+    FluidStack stack = new FluidStack(fluid, amount);
+    CompoundTag tag = getFluidTag();
+    if (tag != null) {
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
+    return stack;
+  }
+
   @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
@@ -74,7 +86,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     if (fluid == Fluids.EMPTY) {
       return FluidStack.EMPTY;
     }
-    return new FluidStack(getFluid(), getCapacity(), getFluidTag());
+    return stackWithTag(getFluid(), getCapacity());
   }
 
 
@@ -109,7 +121,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // make sure NBT matches the requested NBT
-    FluidStack output = new FluidStack(fluid, capacity, getFluidTag());
+    FluidStack output = stackWithTag(fluid, capacity);
     if (!FluidStack.areFluidStackTagsEqual(resource, output)) {
       return FluidStack.EMPTY;
     }
@@ -134,7 +146,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, capacity, getFluidTag());
+    FluidStack output = stackWithTag(fluid, capacity);
     if (action.execute()) {
       CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }

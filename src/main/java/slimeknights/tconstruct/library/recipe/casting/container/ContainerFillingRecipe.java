@@ -3,11 +3,14 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -99,7 +102,12 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
     ItemStack stack = inv.getStack().copy();
     return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
-      handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
+      FluidStack toFill = new FluidStack(inv.getFluid(), this.fluidAmount);
+      CompoundTag fluidTag = inv.getFluidTag();
+      if (fluidTag != null) {
+        toFill.set(DataComponents.CUSTOM_DATA, CustomData.of(fluidTag));
+      }
+      handler.fill(toFill, FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(stack);
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -94,7 +96,11 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
           fluidNBT.putString(PotionUtils.TAG_POTION, id);
           // create the recipe
           return new DisplayCastingRecipe(getId(), getType(), tools, fluid.getFluids().stream()
-            .map(fluid -> new FluidStack(fluid.getFluid(), fluid.getAmount(), fluidNBT))
+            .map(fluid -> {
+              FluidStack tipped = new FluidStack(fluid.getFluid(), fluid.getAmount());
+              tipped.set(DataComponents.CUSTOM_DATA, CustomData.of(fluidNBT));
+              return tipped;
+            })
             .toList(),
             results, coolingTime, true);
         }).toList();
