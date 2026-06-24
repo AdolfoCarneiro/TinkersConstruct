@@ -4,6 +4,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.advancements.critereon.SlimePredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -42,7 +42,7 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
 
   @Override
   protected Stream<EntityType<?>> getKnownEntityTypes() {
-    return ForgeRegistries.ENTITY_TYPES.getEntries().stream()
+    return BuiltInRegistries.ENTITY_TYPE.entrySet().stream()
                                    // remove earth slime entity, we redirect to the vanilla loot table
                                    .filter(entry -> TConstruct.MOD_ID.equals(entry.getKey().location().getNamespace()))
                                    .map(Entry::getValue);

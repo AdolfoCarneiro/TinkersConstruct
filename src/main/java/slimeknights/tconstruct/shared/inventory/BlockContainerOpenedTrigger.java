@@ -14,7 +14,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
@@ -32,7 +31,7 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
   @Override
   protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext pDeserializationContext) {
     ResourceLocation id = ResourceLocation.parse(GsonHelper.getAsString(json, "type"));
-    BlockEntityType<?> type = ForgeRegistries.BLOCK_ENTITY_TYPES.getValue(id);
+    BlockEntityType<?> type = BuiltInRegistries.BLOCK_ENTITY_TYPE.get(id);
     if (type == null) {
       throw new JsonSyntaxException("Unknown tile entity '" + id + "'");
     }

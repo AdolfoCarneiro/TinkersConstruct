@@ -69,7 +69,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.holdersets.AndHolderSet;
 import net.neoforged.neoforge.registries.holdersets.NotHolderSet;
 import net.neoforged.neoforge.registries.holdersets.OrHolderSet;
@@ -153,7 +153,7 @@ public class WorldgenProvider {
     builder.add(Registries.PLACED_FEATURE, WorldgenProvider::registerPlacedFeatures);
     builder.add(Registries.STRUCTURE, WorldgenProvider::registerStructures);
     builder.add(Registries.STRUCTURE_SET, WorldgenProvider::registerStructureSets);
-    builder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, WorldgenProvider::registerBiomeModifiers);
+    builder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, WorldgenProvider::registerBiomeModifiers);
   }
 
   /** Registers all configured features */

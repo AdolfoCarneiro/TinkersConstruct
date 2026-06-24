@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -81,7 +81,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
       List<ItemStack> tools = Arrays.stream(bottle.getItems())
         .map(stack -> IDisplayModifierRecipe.withModifiers(IModifiableDisplay.getDisplayStack(stack), List.of(new ModifierEntry(modifier, 1))))
         .toList();
-      displayRecipes = ForgeRegistries.POTIONS.getValues().stream()
+      displayRecipes = BuiltInRegistries.POTION.stream()
         .filter(potion -> potion != Potions.EMPTY)
         .map(potion -> {
           // add the potion to the tool list
