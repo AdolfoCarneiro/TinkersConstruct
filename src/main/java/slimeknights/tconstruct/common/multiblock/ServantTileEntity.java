@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.common.multiblock;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -20,7 +20,6 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   private static final String TAG_MASTER_POS = "masterOffset";
   private static final String TAG_MASTER_BLOCK = "masterBlock";
 
-  @Getter
   @Nullable
   private BlockPos masterPos;
   @Nullable
@@ -28,6 +27,12 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
 
   public ServantTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
+  }
+
+  @Override
+  @Nullable
+  public BlockPos getMasterPos() {
+    return masterPos;
   }
 
   /** Checks if this servant has a master */
@@ -128,8 +133,8 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   }
 
   @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
+  protected void loadAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.loadAdditional(tags, registries);
     readMaster(tags);
   }
 
@@ -146,8 +151,8 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   }
 
   @Override
-  public void saveAdditional(CompoundTag tags) {
-    super.saveAdditional(tags);
+  protected void saveAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveAdditional(tags, registries);
     writeMaster(tags);
   }
 }

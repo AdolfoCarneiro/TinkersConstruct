@@ -463,6 +463,10 @@ public final class TinkerSmeltery extends TinkerModule {
     if (!tankItems.isEmpty()) {
       event.registerItem(Capabilities.FluidHandler.ITEM, TankItem::createIfPresent, tankItems.toArray(new ItemLike[0]));
     }
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, tank.get(), TankBlockEntity::createFluidHandler);
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, castingTank.get(), CastingTankBlockEntity::createFluidHandler);
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, proxyTank.get(), ProxyTankBlockEntity::createCapability);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, proxyTank.get(), ProxyTankBlockEntity::createCapability);
   }
 
   @SubscribeEvent

@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -14,13 +13,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.IFluidTank;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -63,12 +60,8 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   }
 
   /** Internal fluid tank instance */
-  @Getter
   protected final FluidTankAnimated tank;
-  /** Capability holder for the tank */
-  private final LazyOptional<IFluidHandler> holder;
   /** Last comparator strength to reduce block updates */
-  @Getter @Setter
   private int lastStrength = -1;
 
   public TankBlockEntity(BlockPos pos, BlockState state) {
@@ -87,7 +80,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   protected TankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ITankBlock block) {
     super(type, pos, state);
     tank = new FluidTankAnimated(block.getCapacity(), this);
-    holder = LazyOptional.of(() -> tank);
   }
 
 
@@ -96,18 +88,24 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
    */
 
   @Override
-  @Nonnull
-  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
-      return holder.cast();
-    }
-    return super.getCapability(capability, facing);
+  public FluidTankAnimated getTank() {
+    return tank;
   }
 
   @Override
-  public void invalidateCaps() {
-    super.invalidateCaps();
-    holder.invalidate();
+  public int getLastStrength() {
+    return lastStrength;
+  }
+
+  @Override
+  public void setLastStrength(int lastStrength) {
+    this.lastStrength = lastStrength;
+  }
+
+  /** Capability provider, registered for this block entity type by {@link slimeknights.tconstruct.smeltery.TinkerSmeltery} */
+  @Nullable
+  public static IFluidHandler createFluidHandler(TankBlockEntity be, @Nullable Direction side) {
+    return be.tank;
   }
 
   @Nonnull
@@ -171,7 +169,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     if (nbt.isEmpty()) {
       tank.setFluid(FluidStack.EMPTY);
     } else {
-      tank.readFromNBT(nbt);
+      tank.readFromNBT(TConstruct.STATIC_PROVIDER, nbt);
       updateLight(this, tank);
     }
   }
@@ -182,18 +180,18 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   }
 
   @Override
-  public void load(CompoundTag tag) {
+  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     tank.setCapacity(getCapacity(getBlockState().getBlock()));
     updateTank(tag.getCompound(NBTTags.TANK));
-    super.load(tag);
+    super.loadAdditional(tag, registries);
   }
 
   @Override
-  public void saveSynced(CompoundTag tag) {
-    super.saveSynced(tag);
+  protected void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveSynced(tag, registries);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
-      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+      tag.put(NBTTags.TANK, tank.writeToNBT(registries, new CompoundTag()));
     }
   }
 

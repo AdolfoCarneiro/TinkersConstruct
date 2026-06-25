@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.common;
 
-import lombok.Getter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -62,8 +61,11 @@ public enum Sounds {
   CHARGED,
   DISCHARGE;
 
-  @Getter
   private final SoundEvent sound;
+
+  public SoundEvent getSound() {
+    return sound;
+  }
 
   public static final SoundType EARTH_CRYSTAL = makeCrystalSound(0.75f);
   public static final Map<BudSize,SoundType> EARTH_CRYSTAL_CLUSTER = makeClusterSounds(0.75f);
