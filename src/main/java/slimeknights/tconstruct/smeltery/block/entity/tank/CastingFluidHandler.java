@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.smeltery.block.entity.tank;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -11,18 +8,32 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nonnull;
 
-@RequiredArgsConstructor
 public class CastingFluidHandler implements IFluidHandler {
   private final CastingBlockEntity tile;
-  @Getter @Setter
   private FluidStack fluid = FluidStack.EMPTY;
-  @Setter
   private int capacity = 0;
   private Fluid filter = Fluids.EMPTY;
+
+  public CastingFluidHandler(CastingBlockEntity tile) {
+    this.tile = tile;
+  }
+
+  public FluidStack getFluid() {
+    return fluid;
+  }
+
+  public void setFluid(FluidStack fluid) {
+    this.fluid = fluid;
+  }
+
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
+  }
 
   /** Checks if the given fluid is valid */
   public boolean isFluidValid(FluidStack stack) {
@@ -174,7 +185,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public void readFromTag(CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
     if (nbt.contains(TAG_FLUID, Tag.TAG_COMPOUND)) {
-      setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(TAG_FLUID)));
+      setFluid(FluidStack.parseOptional(TConstruct.STATIC_PROVIDER, nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, Tag.TAG_STRING)) {
       Fluid fluid = BuiltInRegistries.FLUID.get(ResourceLocation.parse(nbt.getString(TAG_FILTER)));
@@ -189,7 +200,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public CompoundTag writeToTag(CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
-      nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
+      nbt.put(TAG_FLUID, fluid.save(TConstruct.STATIC_PROVIDER, new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
       nbt.putString(TAG_FILTER, BuiltInRegistries.FLUID.getKey(filter).toString());

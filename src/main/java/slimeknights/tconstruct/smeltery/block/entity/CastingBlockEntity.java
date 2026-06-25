@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -23,9 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
@@ -70,9 +67,17 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   public static final BlockEntityTicker<CastingBlockEntity> CLIENT_TICKER = (level, pos, state, self) -> self.clientTick(level, pos);
 
   /** Special casting fluid tank */
-  @Getter
   private final CastingFluidHandler tank = new CastingFluidHandler(this);
-  private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> tank);
+
+  public CastingFluidHandler getTank() {
+    return tank;
+  }
+
+  /** Capability provider, registered for this block entity type by {@link TinkerSmeltery} */
+  @Nullable
+  public static IFluidHandler createFluidHandler(CastingBlockEntity be, @Nullable Direction side) {
+    return be.tank;
+  }
 
   /* Casting recipes */
   /** Recipe type for casting recipes, may be basin or table */
@@ -80,10 +85,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   /** Inventory for use in casting recipes */
   private final CastingContainerWrapper castingInventory;
   /** Current recipe progress */
-  @Getter
   private int timer;
   /** Time needed for the recipe to finish */
-  @Getter
   private int coolingTime = -1;
   /** Current in progress recipe */
   private ICastingRecipe currentRecipe;
@@ -96,8 +99,19 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   /** If true, this block is allowed to cast without a cast */
   private final boolean requireCast;
   /** Items that count as empty in the casting table */
-  @Getter
   private final TagKey<Item> emptyCastTag;
+
+  public int getTimer() {
+    return timer;
+  }
+
+  public int getCoolingTime() {
+    return coolingTime;
+  }
+
+  public TagKey<Item> getEmptyCastTag() {
+    return emptyCastTag;
+  }
 
   /* Molding recipes */
   /** Recipe type for molding recipes, may be basin or table */
@@ -120,14 +134,6 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     this.moldingType = moldingType;
     this.castingInventory = new CastingContainerWrapper(this);
     this.moldingInventory = new MoldingContainerWrapper(itemHandler, INPUT);
-  }
-
-  @Override
-  @Nonnull
-  public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER)
-      return holder.cast();
-    return super.getCapability(capability, facing);
   }
 
   /**
@@ -573,14 +579,14 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   }
 
   @Override
-  public void saveAdditional(CompoundTag tags) {
-    super.saveAdditional(tags);
+  protected void saveAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveAdditional(tags, registries);
     tags.putBoolean(TAG_REDSTONE, lastRedstone);
   }
 
   @Override
-  public void saveSynced(CompoundTag tags) {
-    super.saveSynced(tags);
+  public void saveSynced(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveSynced(tags, registries);
     tags.put(TAG_TANK, tank.writeToTag(new CompoundTag()));
     if (currentRecipe != null || recipeName != null) {
       tags.putInt(TAG_TIMER, timer);
@@ -594,8 +600,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
 
   @SuppressWarnings("removal")
   @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
+  protected void loadAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.loadAdditional(tags, registries);
     tank.readFromTag(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
     if (tags.contains(TAG_RECIPE, CompoundTag.TAG_STRING)) {

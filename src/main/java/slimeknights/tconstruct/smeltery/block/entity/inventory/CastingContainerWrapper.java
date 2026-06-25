@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.block.entity.inventory;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -14,12 +12,18 @@ import javax.annotation.Nullable;
 /**
  * Provides read only access to the input of a casting table. Prevents extra data from leaking
  */
-@RequiredArgsConstructor
 public class CastingContainerWrapper implements ICastingContainer {
   private final CastingBlockEntity tile;
-  @Setter
   private FluidStack fluid;
   private boolean switchSlots = false;
+
+  public CastingContainerWrapper(CastingBlockEntity tile) {
+    this.tile = tile;
+  }
+
+  public void setFluid(FluidStack fluid) {
+    this.fluid = fluid;
+  }
 
   @Override
   public ItemStack getStack() {

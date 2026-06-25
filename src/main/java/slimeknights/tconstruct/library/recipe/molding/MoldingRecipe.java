@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
-import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -29,17 +28,11 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
     ItemOutput.Loadable.REQUIRED_ITEM.requiredField("result", r -> r.recipeOutput),
     MoldingRecipe::new);
 
-  @Getter
   private final RecipeType<?> type;
-  @Getter
   private final RecipeSerializer<?> serializer;
-  @Getter
   private final ResourceLocation id;
-  @Getter
   private final Ingredient material;
-  @Getter
   private final Ingredient pattern;
-  @Getter
   private final boolean patternConsumed;
   private final ItemOutput recipeOutput;
 
@@ -51,6 +44,30 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
     this.pattern = pattern;
     this.patternConsumed = pattern != Ingredient.EMPTY && patternConsumed;
     this.recipeOutput = recipeOutput;
+  }
+
+  public RecipeType<?> getType() {
+    return type;
+  }
+
+  public RecipeSerializer<?> getSerializer() {
+    return serializer;
+  }
+
+  public ResourceLocation getId() {
+    return id;
+  }
+
+  public Ingredient getMaterial() {
+    return material;
+  }
+
+  public Ingredient getPattern() {
+    return pattern;
+  }
+
+  public boolean isPatternConsumed() {
+    return patternConsumed;
   }
 
   @Override

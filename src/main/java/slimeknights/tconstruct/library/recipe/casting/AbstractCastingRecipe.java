@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,18 +17,13 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   protected static final LoadableField<Boolean,AbstractCastingRecipe> CAST_CONSUMED_FIELD = BooleanLoadable.INSTANCE.defaultField("cast_consumed", false, false, AbstractCastingRecipe::isConsumed);
   protected static final LoadableField<Boolean,AbstractCastingRecipe> SWITCH_SLOTS_FIELD = BooleanLoadable.INSTANCE.defaultField("switch_slots", false, false, AbstractCastingRecipe::switchSlots);
 
-  @Getter @Nonnull
+  @Nonnull
   private final RecipeType<?> type;
-  @Getter
   private final ResourceLocation id;
-  @Getter
   private final String group;
   /** 'cast' item for recipe (doesn't have to be an actual 'cast') */
-  @Getter
   private final Ingredient cast;
-  @Getter
   private final boolean consumed;
-  @Getter @Accessors(fluent = true)
   private final boolean switchSlots;
 
   protected AbstractCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, boolean consumed, boolean switchSlots) {
@@ -40,6 +33,31 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     this.cast = cast;
     this.consumed = consumed;
     this.switchSlots = switchSlots;
+  }
+
+  @Nonnull
+  public RecipeType<?> getType() {
+    return type;
+  }
+
+  public ResourceLocation getId() {
+    return id;
+  }
+
+  public String getGroup() {
+    return group;
+  }
+
+  public Ingredient getCast() {
+    return cast;
+  }
+
+  public boolean isConsumed() {
+    return consumed;
+  }
+
+  public boolean switchSlots() {
+    return switchSlots;
   }
 
   @Override
