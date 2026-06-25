@@ -1,28 +1,18 @@
 package slimeknights.tconstruct.fluids.util;
 
-import lombok.Getter;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /** Represents a capability handler for a container with a constant fluid */
-public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabilityProvider {
-  private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
-
+public class ConstantFluidContainerWrapper implements IFluidHandlerItem {
   /** Contained fluid */
   private final FluidStack fluid;
   /** If true, the container is now empty */
   private boolean empty = false;
   /** Item stack representing the current state */
-  @Getter
   @Nonnull
   protected ItemStack container;
   /** Empty version of the container */
@@ -36,6 +26,12 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
 
   public ConstantFluidContainerWrapper(FluidStack fluid, ItemStack container) {
     this(fluid, container, container.getCraftingRemainingItem());
+  }
+
+  @Nonnull
+  @Override
+  public ItemStack getContainer() {
+    return container;
   }
 
   @Override
@@ -90,11 +86,5 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
       empty = true;
     }
     return fluid.copy();
-  }
-
-  @Nonnull
-  @Override
-  public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(capability, holder);
   }
 }

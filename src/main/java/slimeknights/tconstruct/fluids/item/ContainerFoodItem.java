@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.fluids.item;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 
 import javax.annotation.Nullable;
@@ -89,10 +88,13 @@ public class ContainerFoodItem extends Item {
       this.fluid = fluid;
     }
 
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-      return new ConstantFluidContainerWrapper(fluid.get(), stack);
+    /** Capability factory, registered for instances of this class by {@link slimeknights.tconstruct.fluids.TinkerFluids#registerCapabilities} */
+    public static IFluidHandlerItem createFluidHandler(ItemStack stack, @Nullable Void context) {
+      Item item = stack.getItem();
+      if (item instanceof FluidContainerFoodItem food) {
+        return new ConstantFluidContainerWrapper(food.fluid.get(), stack);
+      }
+      return null;
     }
   }
 }

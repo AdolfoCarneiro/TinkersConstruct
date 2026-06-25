@@ -36,6 +36,8 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.ForgeFlowingFluid;
@@ -65,6 +67,7 @@ import slimeknights.tconstruct.fluids.item.ContainerFoodItem.FluidContainerFoodI
 import slimeknights.tconstruct.fluids.item.MagmaBottleItem;
 import slimeknights.tconstruct.fluids.item.PotionBucketItem;
 import slimeknights.tconstruct.fluids.util.BottleBrewingRecipe;
+import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 import slimeknights.tconstruct.fluids.util.EmptyBottleIntoEmpty;
 import slimeknights.tconstruct.fluids.util.EmptyBottleIntoWater;
 import slimeknights.tconstruct.fluids.util.FillBottle;
@@ -79,6 +82,8 @@ import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.network.FluidDataSerializer;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import java.util.List;
 
 import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.fluids.block.BurningLiquidBlock.createBurning;
@@ -267,6 +272,19 @@ public final class TinkerFluids extends TinkerModule {
     generator.addProvider(client, new FluidTextureCameraProvider(packOutput, event.getExistingFileHelper(), textureProvider));
     generator.addProvider(client, new FluidBucketModelProvider(packOutput, TConstruct.MOD_ID));
     generator.addProvider(client, new FluidBlockstateModelProvider(packOutput, TConstruct.MOD_ID));
+  }
+
+  @SubscribeEvent
+  void registerCapabilities(final RegisterCapabilitiesEvent event) {
+    event.registerItem(Capabilities.FluidHandler.ITEM, MagmaBottleItem::createFluidHandler, magmaBottle);
+    List<Item> fluidFoodItems = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof FluidContainerFoodItem).toList();
+    if (!fluidFoodItems.isEmpty()) {
+      event.registerItem(Capabilities.FluidHandler.ITEM, FluidContainerFoodItem::createFluidHandler, fluidFoodItems.toArray(new ItemLike[0]));
+    }
+    event.registerItem(Capabilities.FluidHandler.ITEM, PotionBucketItem::createFluidHandler, potion.getBucket());
+    event.registerItem(Capabilities.FluidHandler.ITEM,
+      (stack, context) -> new ConstantFluidContainerWrapper(new FluidStack(powderedSnow.get(), FluidType.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()),
+      Items.POWDER_SNOW_BUCKET);
   }
 
   @SubscribeEvent

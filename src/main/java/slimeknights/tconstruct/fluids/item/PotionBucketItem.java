@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.fluids.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
@@ -115,8 +113,8 @@ public class PotionBucketItem extends PotionItem {
     return 96; // 3x duration of potion bottles
   }
 
-  @Override
-  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+  /** Capability factory, registered for this item by {@link slimeknights.tconstruct.fluids.TinkerFluids#registerCapabilities} */
+  public static PotionBucketWrapper createFluidHandler(ItemStack stack, @Nullable Void context) {
     return new PotionBucketWrapper(stack);
   }
 
