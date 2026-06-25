@@ -1,5 +1,8 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -18,6 +21,8 @@ import org.apache.logging.log4j.Logger;
 public class TConstruct {
   public static final String MOD_ID = "tconstruct";
   public static final Logger LOG = LogManager.getLogger("TConstruct");
+  /** Registry provider covering vanilla built-in registries (fluids, items, etc), for FluidStack/ItemStack NBT save/parse calls in static contexts with no Level/RegistryAccess available */
+  public static final HolderLookup.Provider STATIC_PROVIDER = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
   /** Mod event bus, captured at construction time. Replaces the removed FMLJavaModLoadingContext.get().getModEventBus() static lookup. */
   private static IEventBus modEventBus;

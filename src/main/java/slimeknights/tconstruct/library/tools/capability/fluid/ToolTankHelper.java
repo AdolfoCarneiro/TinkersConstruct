@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.tools.capability.fluid;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -20,11 +18,9 @@ import java.util.function.BiFunction;
 
 /** Helper methods for handling fluids in tools */
 @SuppressWarnings("ClassCanBeRecord")  // want to leave extendable
-@Getter
-@RequiredArgsConstructor
 public class ToolTankHelper {
   /** Helper function to parse a fluid from NBT */
-  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
+  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.parseOptional(TConstruct.STATIC_PROVIDER, nbt.getCompound(key));
 
   /** Format key for the stat */
   public static final String MB_FORMAT = Mantle.makeDescriptionId("gui", "fluid.millibucket");
@@ -42,6 +38,19 @@ public class ToolTankHelper {
   private final INumericToolStat<?> capacityStat;
   /** Key in persistent data storing the fluid */
   private final ResourceLocation fluidKey;
+
+  public ToolTankHelper(INumericToolStat<?> capacityStat, ResourceLocation fluidKey) {
+    this.capacityStat = capacityStat;
+    this.fluidKey = fluidKey;
+  }
+
+  public INumericToolStat<?> getCapacityStat() {
+    return capacityStat;
+  }
+
+  public ResourceLocation getFluidKey() {
+    return fluidKey;
+  }
 
   /** Gets the capacity for the tool */
   public int getCapacity(IToolStackView tool) {
@@ -68,7 +77,7 @@ public class ToolTankHelper {
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
     }
-    tool.getPersistentData().put(fluidKey, fluid.writeToNBT(new CompoundTag()));
+    tool.getPersistentData().put(fluidKey, (CompoundTag) fluid.save(TConstruct.STATIC_PROVIDER, new CompoundTag()));
     return fluid;
   }
 }
