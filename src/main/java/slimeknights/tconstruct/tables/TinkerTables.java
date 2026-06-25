@@ -17,6 +17,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -48,6 +50,7 @@ import slimeknights.tconstruct.tables.block.ScorchedAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.TinkersAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkersChestBlock;
+import slimeknights.tconstruct.tables.block.entity.chest.AbstractChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.CastChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.PartChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
@@ -162,6 +165,17 @@ public final class TinkerTables extends TinkerModule {
   // repair - standard
   public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
   public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
+
+  @SubscribeEvent
+  void registerCapabilities(final RegisterCapabilitiesEvent event) {
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, craftingStationTile.get(), CraftingStationBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, tinkerStationTile.get(), TinkerStationBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, partBuilderTile.get(), PartBuilderBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, modifierWorktableTile.get(), ModifierWorktableBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, tinkersChestTile.get(), AbstractChestBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, partChestTile.get(), AbstractChestBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, castChestTile.get(), AbstractChestBlockEntity::createItemHandler);
+  }
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {

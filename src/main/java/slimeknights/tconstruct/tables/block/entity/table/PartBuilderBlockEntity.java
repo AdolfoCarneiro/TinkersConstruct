@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.block.entity.table;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -9,8 +10,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -61,9 +62,13 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
   public PartBuilderBlockEntity(BlockPos pos, BlockState state) {
     super(TinkerTables.partBuilderTile.get(), pos, state, NAME, 2);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-    this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new PartBuilderContainerWrapper(this);
     this.craftingResult = new LazyResultContainer(this);
+  }
+
+  /** Capability factory, registered for this block entity type by {@code TinkerTables.registerCapabilities} */
+  public static IItemHandler createItemHandler(PartBuilderBlockEntity be, @Nullable Direction side) {
+    return be.itemHandler;
   }
 
   /**

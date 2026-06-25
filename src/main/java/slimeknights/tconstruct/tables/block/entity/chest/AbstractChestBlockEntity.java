@@ -12,15 +12,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandler;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.inventory.IChestItemHandler;
 import slimeknights.tconstruct.tables.menu.TinkerChestContainerMenu;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Shared base logic for all Tinkers' chest tile entities */
@@ -29,27 +25,15 @@ public abstract class AbstractChestBlockEntity extends NameableBlockEntity {
 
   @Getter
   private final IChestItemHandler itemHandler;
-  private final LazyOptional<IItemHandler> capability;
   protected AbstractChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, IChestItemHandler itemHandler) {
     super(type, pos, state, name);
     itemHandler.setParent(this);
     this.itemHandler = itemHandler;
-    this.capability = LazyOptional.of(() -> itemHandler);
   }
 
-  @Nonnull
-  @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    if (cap == ForgeCapabilities.ITEM_HANDLER) {
-      return capability.cast();
-    }
-    return super.getCapability(cap, side);
-  }
-
-  @Override
-  public void invalidateCaps() {
-    super.invalidateCaps();
-    capability.invalidate();
+  /** Capability factory, registered for each chest block entity type by {@code TinkerTables.registerCapabilities} */
+  public static IItemHandler createItemHandler(AbstractChestBlockEntity be, @Nullable Direction side) {
+    return be.itemHandler;
   }
 
   @Nullable

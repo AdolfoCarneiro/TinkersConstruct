@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.block.entity.table;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -15,8 +16,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.apache.commons.lang3.StringUtils;
 import slimeknights.mantle.util.RetexturedHelper;
@@ -86,9 +87,13 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   public TinkerStationBlockEntity(BlockPos pos, BlockState state, int slots) {
     super(TinkerTables.tinkerStationTile.get(), pos, state, NAME, slots);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-    this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationContainerWrapper(this);
     this.craftingResult = new LazyResultContainer(this);
+  }
+
+  /** Capability factory, registered for this block entity type by {@code TinkerTables.registerCapabilities} */
+  public static IItemHandler createItemHandler(TinkerStationBlockEntity be, @Nullable Direction side) {
+    return be.itemHandler;
   }
 
   @Override

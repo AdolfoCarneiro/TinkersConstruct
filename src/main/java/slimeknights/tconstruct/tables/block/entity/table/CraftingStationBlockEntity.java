@@ -13,10 +13,11 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeHooks;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -47,9 +48,13 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
   public CraftingStationBlockEntity(BlockPos pos, BlockState state) {
     super(TinkerTables.craftingStationTile.get(), pos, state, NAME, 9);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-    this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.craftingInventory = new CraftingContainerWrapper(this, 3, 3);
     this.craftingResult = new LazyResultContainer(this);
+  }
+
+  /** Capability factory, registered for this block entity type by {@code TinkerTables.registerCapabilities} */
+  public static IItemHandler createItemHandler(CraftingStationBlockEntity be, @Nullable Direction side) {
+    return be.itemHandler;
   }
 
   @Nullable
