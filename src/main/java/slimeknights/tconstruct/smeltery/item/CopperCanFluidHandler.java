@@ -1,18 +1,11 @@
 package slimeknights.tconstruct.smeltery.item;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -21,19 +14,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Capability handler instance for the copper can item */
-@AllArgsConstructor
-public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
-  private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
-
-  @Getter
+public class CopperCanFluidHandler implements IFluidHandlerItem {
   private final ItemStack container;
 
-  @Nonnull
-  @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
+  public CopperCanFluidHandler(ItemStack container) {
+    this.container = container;
   }
 
+  @Override
+  public ItemStack getContainer() {
+    return container;
+  }
+
+  /** Capability provider, registered for the copper can item by {@link slimeknights.tconstruct.smeltery.TinkerSmeltery} */
+  @Nullable
+  public static IFluidHandlerItem createIfPresent(ItemStack stack, @Nullable Void context) {
+    return new CopperCanFluidHandler(stack);
+  }
 
   /* Tank properties */
 
