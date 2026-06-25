@@ -3,10 +3,8 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.common.collect.Streams;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
@@ -31,7 +29,6 @@ import java.util.stream.Stream;
  */
 public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRecipe<IDisplayModifierRecipe> {
   public static final RecordLoadable<MultilevelModifierRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     SizedIngredient.LOADABLE.list(0).defaultField("inputs", List.of(), r -> r.inputs),
     TOOLS_FIELD, MAX_TOOL_SIZE_FIELD, RESULT_FIELD, ALLOW_CRYSTAL_FIELD,
     LevelEntry.LOADABLE.list(1).requiredField("levels", r -> r.levels),
@@ -44,8 +41,8 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
   });
 
   private final List<LevelEntry> levels;
-  protected MultilevelModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierId result, boolean allowCrystal, List<LevelEntry> levels, boolean checkTraitLevel) {
-    super(id, inputs, toolRequirement, maxToolSize, result, levels.get(0).level, levels.get(0).slots, allowCrystal, checkTraitLevel);
+  protected MultilevelModifierRecipe(List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierId result, boolean allowCrystal, List<LevelEntry> levels, boolean checkTraitLevel) {
+    super(inputs, toolRequirement, maxToolSize, result, levels.get(0).level, levels.get(0).slots, allowCrystal, checkTraitLevel);
     this.levels = levels;
   }
 

@@ -9,6 +9,7 @@ import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 
 import javax.annotation.Nonnull;
+// ResourceLocation import removed: id no longer lives in the recipe (it's in RecipeHolder)
 
 /** Shared logic between item and material casting */
 public abstract class AbstractCastingRecipe implements ICastingRecipe {
@@ -19,16 +20,14 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
   @Nonnull
   private final RecipeType<?> type;
-  private final ResourceLocation id;
   private final String group;
   /** 'cast' item for recipe (doesn't have to be an actual 'cast') */
   private final Ingredient cast;
   private final boolean consumed;
   private final boolean switchSlots;
 
-  protected AbstractCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, boolean consumed, boolean switchSlots) {
+  protected AbstractCastingRecipe(RecipeType<?> type, String group, Ingredient cast, boolean consumed, boolean switchSlots) {
     this.type = type;
-    this.id = id;
     this.group = group;
     this.cast = cast;
     this.consumed = consumed;
@@ -38,10 +37,6 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   @Nonnull
   public RecipeType<?> getType() {
     return type;
-  }
-
-  public ResourceLocation getId() {
-    return id;
   }
 
   public String getGroup() {

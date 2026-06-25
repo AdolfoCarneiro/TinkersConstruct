@@ -1,10 +1,8 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
@@ -46,8 +44,6 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   protected static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
   protected static final RecipeResult<LazyToolStack> INVALID_MATERIAL = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.invalid_material"));
 
-  @Getter
-  protected final ResourceLocation id;
   /** Tools that may use this recipe */
   protected final Ingredient tools;
   /** Max stack size that can be swapped at once */

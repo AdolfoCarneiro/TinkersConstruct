@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
@@ -26,7 +24,6 @@ import java.util.function.Predicate;
 /** Recipe for applying overslime in the crafting table */
 public class OverslimeCraftingTableRecipe extends CustomRecipe {
   public static final RecordLoadable<OverslimeCraftingTableRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", Ingredient.of(TinkerTags.Items.DURABILITY), r -> r.tools),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
     IntLoadable.FROM_ONE.requiredField("restore_amount", r -> r.restoreAmount),
@@ -36,8 +33,8 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   private final Ingredient ingredient;
   private final int restoreAmount;
 
-  public OverslimeCraftingTableRecipe(ResourceLocation id, Ingredient tools, Ingredient ingredient, int restoreAmount) {
-    super(id, CraftingBookCategory.EQUIPMENT);
+  public OverslimeCraftingTableRecipe(Ingredient tools, Ingredient ingredient, int restoreAmount) {
+    super(CraftingBookCategory.EQUIPMENT);
     this.tools = tools;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;

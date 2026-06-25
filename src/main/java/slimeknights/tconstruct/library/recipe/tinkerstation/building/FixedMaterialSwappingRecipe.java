@@ -1,14 +1,12 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.array.ArrayLoadable;
 import slimeknights.mantle.data.loadable.array.IntArrayLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
@@ -30,7 +28,7 @@ import java.util.List;
 /** Recipe for swapping a single material on a tool given a specific input ingredient. */
 public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
   public static final RecordLoadable<FixedMaterialSwappingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
+    TOOLS_FIELD, STACK_SIZE_FIELD,
     SizedIngredient.LOADABLE.requiredField("ingredient", r -> r.ingredient),
     MaterialVariantId.LOADABLE.requiredField("material", r -> r.material),
     new IntArrayLoadable(IntLoadable.FROM_ZERO, ArrayLoadable.COMPACT, 10).requiredField("index", r -> r.indices),
@@ -47,8 +45,8 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
   /** Amount this swapping repairs the tool */
   private final int repairValue;
 
-  protected FixedMaterialSwappingRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, SizedIngredient ingredient, MaterialVariantId material, int[] indices, int repairValue, List<SizedIngredient> extraRequirements) {
-    super(id, tools, maxStackSize, extraRequirements);
+  protected FixedMaterialSwappingRecipe(Ingredient tools, int maxStackSize, SizedIngredient ingredient, MaterialVariantId material, int[] indices, int repairValue, List<SizedIngredient> extraRequirements) {
+    super(tools, maxStackSize, extraRequirements);
     this.ingredient = ingredient;
     this.material = material;
     this.indices = indices;

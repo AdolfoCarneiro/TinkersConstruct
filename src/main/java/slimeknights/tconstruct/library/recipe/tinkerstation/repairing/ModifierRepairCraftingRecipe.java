@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -28,7 +26,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.function.Predicate;
 
 public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModifierRepairRecipe {
-  public static final RecordLoadable<ModifierRepairCraftingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairCraftingRecipe::new);
+  public static final RecordLoadable<ModifierRepairCraftingRecipe> LOADER = RecordLoadable.create(MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairCraftingRecipe::new);
   private static final Predicate<ItemStack> TOOLS = stack -> stack.is(TinkerTags.Items.DURABILITY);
 
   @Getter
@@ -37,8 +35,8 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
   private final Ingredient ingredient;
   @Getter
   private final int repairAmount;
-  public ModifierRepairCraftingRecipe(ResourceLocation idIn, ModifierId modifier, Ingredient ingredient, int repairAmount) {
-    super(idIn, CraftingBookCategory.EQUIPMENT);
+  public ModifierRepairCraftingRecipe(ModifierId modifier, Ingredient ingredient, int repairAmount) {
+    super(CraftingBookCategory.EQUIPMENT);
     this.modifier = modifier;
     this.ingredient = ingredient;
     this.repairAmount = repairAmount;

@@ -2,13 +2,11 @@ package slimeknights.tconstruct.tools.recipe;
 
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.data.loadable.common.ItemStackLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -49,7 +47,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   protected static final LoadableField<IJsonPredicate<ModifierId>,ModifierRemovalRecipe> MODIFIER_PREDICATE_FIELD = ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate);
 
   /** Recipe loadable */
-  public static final RecordLoadable<ModifierRemovalRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), NAME_FIELD, TOOLS_FIELD, INPUTS_FIELD, LEFTOVERS_FIELD, MODIFIER_PREDICATE_FIELD, ModifierRemovalRecipe::new);
+  public static final RecordLoadable<ModifierRemovalRecipe> LOADER = RecordLoadable.create(NAME_FIELD, TOOLS_FIELD, INPUTS_FIELD, LEFTOVERS_FIELD, MODIFIER_PREDICATE_FIELD, ModifierRemovalRecipe::new);
 
   private final String name;
   @Getter
@@ -61,8 +59,8 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   protected final Predicate<ModifierEntry> entryPredicate;
   private List<ModifierEntry> displayModifiers;
 
-  public ModifierRemovalRecipe(ResourceLocation id, String name, SizedIngredient toolRequirement, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
-    super(id, toolRequirement.getIngredient(), inputs);
+  public ModifierRemovalRecipe(String name, SizedIngredient toolRequirement, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
+    super(toolRequirement.getIngredient(), inputs);
     this.name = name;
     this.title = Component.translatable(getBaseKey() + "." + name);
     this.sizedTool = toolRequirement;

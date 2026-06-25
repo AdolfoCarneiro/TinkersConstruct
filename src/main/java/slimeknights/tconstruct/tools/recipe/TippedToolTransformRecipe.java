@@ -3,13 +3,11 @@ package slimeknights.tconstruct.tools.recipe;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -31,7 +29,6 @@ import java.util.List;
 public class TippedToolTransformRecipe extends ToolBuildingRecipe {
   /** Loader instance */
   public static final RecordLoadable<TippedToolTransformRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD, LAYOUT_FIELD,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("input", r -> r.ingredients.get(0)),
     MaterialVariantId.LOADABLE.list(0).defaultField("materials", List.of(), false, r -> r.materials),
@@ -39,8 +36,8 @@ public class TippedToolTransformRecipe extends ToolBuildingRecipe {
     TippedToolTransformRecipe::new);
 
   protected final ModifierId modifier;
-  public TippedToolTransformRecipe(ResourceLocation id, String group, IModifiable output, @Nullable ResourceLocation layoutSlot, Ingredient ingredient, List<MaterialVariantId> materials, ModifierId modifier) {
-    super(id, group, output, 1, layoutSlot, List.of(ingredient), List.of(), materials);
+  public TippedToolTransformRecipe(String group, IModifiable output, @Nullable ResourceLocation layoutSlot, Ingredient ingredient, List<MaterialVariantId> materials, ModifierId modifier) {
+    super(group, output, 1, layoutSlot, List.of(ingredient), List.of(), materials);
     this.modifier = modifier;
   }
 

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -10,7 +9,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
@@ -32,9 +30,8 @@ import java.util.stream.Collectors;
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue {
   /** Empty material instance for the cache */
   @SuppressWarnings("removal")
-  public static final MaterialRecipe EMPTY = new MaterialRecipe(ResourceLocation.parse("missingno"), "", Ingredient.EMPTY, 0, 0, IMaterial.UNKNOWN_ID, ItemOutput.EMPTY);
+  public static final MaterialRecipe EMPTY = new MaterialRecipe("", Ingredient.EMPTY, 0, 0, IMaterial.UNKNOWN_ID, ItemOutput.EMPTY);
   public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MaterialRecipe::getIngredient),
     IMaterialValue.VALUE_FIELD,
@@ -46,8 +43,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
   public static final float INGOTS_PER_REPAIR = 3f;
 
-  @Getter
-  protected final ResourceLocation id;
   @Getter
   protected final String group;
   @Getter
@@ -68,8 +63,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
    * Creates a new material recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialVariantId materialId, ItemOutput leftover) {
-    this.id = id;
+  public MaterialRecipe(String group, Ingredient ingredient, int value, int needed, MaterialVariantId materialId, ItemOutput leftover) {
     this.group = group;
     this.ingredient = ingredient;
     this.value = value;

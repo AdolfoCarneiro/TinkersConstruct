@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tables.recipe;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -28,8 +27,8 @@ import javax.annotation.Nullable;
 
 /** Recipe using repair kits in the crafting table */
 public class CraftingTableRepairKitRecipe extends CustomRecipe {
-  public CraftingTableRepairKitRecipe(ResourceLocation id) {
-    super(id, CraftingBookCategory.EQUIPMENT);
+  public CraftingTableRepairKitRecipe() {
+    super(CraftingBookCategory.EQUIPMENT);
   }
 
   /**

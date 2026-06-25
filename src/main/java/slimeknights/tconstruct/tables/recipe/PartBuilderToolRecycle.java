@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.recipe;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
@@ -72,22 +70,19 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
   /** Loader instance */
   public static final RecordLoadable<PartBuilderToolRecycle> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
     TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
     PartBuilderToolRecycle::new);
 
-  @Getter
-  private final ResourceLocation id;
   private final SizedIngredient toolRequirement;
   private final Ingredient pattern;
   private final List<IMaterialItem> parts;
 
   /** @deprecated use {@link FinishedRecipe} */
   @Deprecated(forRemoval = true)
-  public PartBuilderToolRecycle(ResourceLocation id, SizedIngredient toolRequirement, Ingredient pattern) {
-    this(id, toolRequirement, pattern, List.of());
+  public PartBuilderToolRecycle(SizedIngredient toolRequirement, Ingredient pattern) {
+    this(toolRequirement, pattern, List.of());
   }
 
   @Override
@@ -238,7 +233,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     return displayParts.stream().map(pi -> {
       ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
       part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
-      return new DisplayPartRecipe(id, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
+      return new DisplayPartRecipe(null, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
     });
   }
 

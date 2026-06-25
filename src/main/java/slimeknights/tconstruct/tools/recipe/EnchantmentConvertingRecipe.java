@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.recipe;
 import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -12,7 +11,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -50,7 +48,6 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   private static final RecipeResult<LazyToolStack> TOO_FEW = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "enchantment_converting.too_few"));
   /** Loader instance */
   public static final RecordLoadable<EnchantmentConvertingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     StringLoadable.DEFAULT.requiredField("name", r -> r.name),
     INPUTS_FIELD,
     BooleanLoadable.INSTANCE.requiredField("match_book", r -> r.matchBook),
@@ -73,8 +70,8 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
 
   private List<ModifierEntry> displayModifiers;
 
-  public EnchantmentConvertingRecipe(ResourceLocation id, String name, List<SizedIngredient> inputs, boolean matchBook, boolean returnInput, IJsonPredicate<ModifierId> modifierPredicate) {
-    super(id, inputs);
+  public EnchantmentConvertingRecipe(String name, List<SizedIngredient> inputs, boolean matchBook, boolean returnInput, IJsonPredicate<ModifierId> modifierPredicate) {
+    super(inputs);
     this.name = name;
     this.title = Component.translatable(ExtractModifierRecipe.BASE_KEY + "." + name);
     this.matchBook = matchBook;

@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.recipe.worktable;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -31,8 +29,6 @@ public abstract class AbstractWorktableRecipe implements IModifierWorktableRecip
   protected static final LoadableField<Ingredient,AbstractWorktableRecipe> TOOL_FIELD = IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement);
   protected static final LoadableField<List<SizedIngredient>,AbstractWorktableRecipe> INPUTS_FIELD = SizedIngredient.LOADABLE.list(1).requiredField("inputs", r -> r.inputs);
 
-  @Getter
-  private final ResourceLocation id;
   protected final Ingredient toolRequirement;
   protected final List<SizedIngredient> inputs;
 
@@ -40,8 +36,8 @@ public abstract class AbstractWorktableRecipe implements IModifierWorktableRecip
   @Nullable
   protected List<ItemStack> tools;
 
-  public AbstractWorktableRecipe(ResourceLocation id, List<SizedIngredient> inputs) {
-    this(id, Ingredient.of(TinkerTags.Items.MODIFIABLE), inputs);
+  public AbstractWorktableRecipe(List<SizedIngredient> inputs) {
+    this(Ingredient.of(TinkerTags.Items.MODIFIABLE), inputs);
   }
 
   @Override

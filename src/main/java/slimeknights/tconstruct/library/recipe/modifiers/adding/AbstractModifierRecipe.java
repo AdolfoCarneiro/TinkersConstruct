@@ -315,6 +315,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   @Override
   public String toString() {
-    return getClass().getSimpleName() + '{' + id + '}';
+    return getClass().getSimpleName() + '{' + result.getId() + '}';
   }
 }

@@ -13,7 +13,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -67,7 +66,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected static final LoadableField<ResourceLocation,ToolBuildingRecipe> LAYOUT_FIELD = Loadables.RESOURCE_LOCATION.nullableField("slot_layout",  r -> r.layoutSlot);
   /** Loader instance */
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD,
+    LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD,
     IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
     LAYOUT_FIELD,
     IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
@@ -75,8 +74,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     MaterialVariantId.LOADABLE.list(0).defaultField("extra_materials", List.of(), false, r -> r.materials),
     ToolBuildingRecipe::new);
 
-  @Getter
-  protected final ResourceLocation id;
   @Getter
   protected final String group;
   /** Tool result */
@@ -101,8 +98,8 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected List<ItemStack> displayOutput;
 
   @Deprecated(forRemoval = true)
-  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
-    this(id, group, output, outputCount, layoutSlot, ingredients, null, List.of());
+  public ToolBuildingRecipe(String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
+    this(group, output, outputCount, layoutSlot, ingredients, null, List.of());
   }
 
   @Override
