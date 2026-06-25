@@ -6,18 +6,13 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
-import slimeknights.mantle.util.WeakConsumerWrapper;
-import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,74 +29,30 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
   /** Position of the last fluid handler */
   private BlockPos lastPos = NULL_POS;
 
-  /** Map of all tank handlers at each relevant position. Used for fast switching between handlers, notably in the UI */
-  private Map<BlockPos,LazyOptional<IFluidHandler>> tankHandlers;
-  /** Listener to attach to display capabilities */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> tankHandlerListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
-    if (self.tankHandlers != null) {
-      self.tankHandlers.values().remove(cap);
-    }
-  });
-
   public MultitankFuelModule(MantleBlockEntity parent, Supplier<List<BlockPos>> tankSupplier) {
     super(parent);
     this.tankSupplier = tankSupplier;
   }
 
-  /** Resets just the last fluid listener */
-  private void clearLastListener() {
-    super.resetHandler(null);
-  }
-
-  @Override
-  protected void resetHandler(@Nullable LazyOptional<?> source) {
-    if (source == null || source == fluidHandler) {
-      this.lastPos = NULL_POS;
-    }
-    super.resetHandler(source);
-  }
-
-  /** Called on structure rebuild to clear the gui handler list */
+  /** Called on structure rebuild to clear the gui handler list. Capabilities are queried live, nothing to clear anymore. */
   public void clearFluidListeners() {
-    if (tankHandlers != null) {
-      if (Util.isForge()) {
-        for (LazyOptional<IFluidHandler> handler : tankHandlers.values()) {
-          handler.removeListener(tankHandlerListener);
-        }
-      }
-      tankHandlers = null;
-    }
+    fluidHandler = null;
   }
 
-  /** Called on servant load to ensure the listener is present in the cache */
-  public void ensureTankPresent(BlockEntity be) {
-    BlockPos pos = be.getBlockPos();
-    if (tankHandlers != null && !tankHandlers.containsKey(pos)) {
-      LazyOptional<IFluidHandler> handler = be.getCapability(ForgeCapabilities.FLUID_HANDLER);
-      if (handler.isPresent()) {
-        handler.addListener(tankHandlerListener);
-        tankHandlers.put(pos, handler);
-      }
-    }
-  }
+  /** Called on servant load to ensure the listener is present in the cache. Capabilities are queried live, nothing to do anymore. */
+  public void ensureTankPresent(BlockEntity be) {}
 
-  /** Gets the map from position to fluid handler */
-  private Map<BlockPos,LazyOptional<IFluidHandler>> getTankHandlers() {
-    if (tankHandlers == null) {
-      tankHandlers = new LinkedHashMap<>();
-      Level world = getLevel();
-      for (BlockPos pos : tankSupplier.get()) {
-        BlockEntity te = world.getBlockEntity(pos);
-        if (te != null) {
-          LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
-          if (handler.isPresent()) {
-            handler.addListener(tankHandlerListener);
-            tankHandlers.put(pos, handler);
-          }
-        }
+  /** Gets the map from position to fluid handler, queried fresh each call */
+  private Map<BlockPos,IFluidHandler> getTankHandlers() {
+    Map<BlockPos,IFluidHandler> handlers = new LinkedHashMap<>();
+    Level world = getLevel();
+    for (BlockPos pos : tankSupplier.get()) {
+      IFluidHandler handler = world.getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
+      if (handler != null) {
+        handlers.put(pos, handler);
       }
     }
-    return tankHandlers;
+    return handlers;
   }
 
 
@@ -113,14 +64,12 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryFuelPosition(BlockPos pos, boolean consume) {
-    LazyOptional<IFluidHandler> tankCap = getTankHandlers().get(pos);
-    if (tankCap != null && tankCap.isPresent()) {
+    IFluidHandler tankCap = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
+    if (tankCap != null) {
       // if we find a valid cap, try to consume fuel from it
-      int temperature = tryLiquidFuel(tankCap.orElse(EmptyFluidHandler.INSTANCE), consume);
+      int temperature = tryLiquidFuel(tankCap, consume);
       if (temperature > 0) {
-        clearLastListener();
         fluidHandler = tankCap;
-        tankCap.addListener(fluidListener);
         lastPos = pos;
         return temperature;
       }
@@ -134,17 +83,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
    */
   @Override
   public int findFuel(boolean consume) {
-    // only fetch a handler if we haven't done so
-    if (fluidHandler != null) {
-      // if we have a handler, try to use that if possible
-      if (fluidHandler.isPresent()) {
-        int temperature = tryLiquidFuel(fluidHandler.orElse(EmptyFluidHandler.INSTANCE), consume);
-        if (temperature > 0) {
-          return temperature;
-        }
-      }
-    } else if (lastPos != NULL_POS) {
-      // if no handler, try to find one at the last position
+    // try the last known position first
+    if (lastPos != NULL_POS) {
       int posTemp = tryFuelPosition(lastPos, consume);
       if (posTemp > 0) {
         return posTemp;
@@ -177,8 +117,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
   @Override
   public void readFromTag(CompoundTag nbt) {
     super.readFromTag(nbt);
-    if (nbt.contains(TAG_LAST_FUEL, Tag.TAG_COMPOUND)) {
-      lastPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_LAST_FUEL)).offset(parent.getBlockPos());
+    if (nbt.contains(TAG_LAST_FUEL, Tag.TAG_INT_ARRAY)) {
+      NbtUtils.readBlockPos(nbt, TAG_LAST_FUEL).ifPresent(pos -> lastPos = pos.offset(parent.getBlockPos()));
     }
   }
 
@@ -220,7 +160,7 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
         case LAST_Y -> lastPos = new BlockPos(lastPos.getX(), value, lastPos.getZ());
         case LAST_Z -> lastPos = new BlockPos(lastPos.getX(), lastPos.getY(), value);
       }
-      clearLastListener();
+      fluidHandler = null;
     } else {
       super.set(index, value);
     }
@@ -241,20 +181,10 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
         return FuelInfo.EMPTY;
       }
       mainTank = positions.get(0);
-      assert mainTank != null;
     }
 
     // fetch primary fuel handler
-    if (fluidHandler == null) {
-      LazyOptional<IFluidHandler> fluidCap = getTankHandlers().getOrDefault(mainTank, LazyOptional.empty());
-      if (fluidCap.isPresent()) {
-        fluidHandler = fluidCap;
-        fluidHandler.addListener(fluidListener);
-      } else {
-        // ensure handlers is set
-        fluidHandler = LazyOptional.empty();
-      }
-    }
+    fluidHandler = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, mainTank, null);
 
     // determine what fluid we have and hpw many other fluids we have
     FuelInfo info = super.getFuelInfo();
@@ -262,17 +192,16 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     if (!info.isEmpty()) {
       // add display info from each handler
       FluidStack currentFuel = info.getFluid();
-      for (Entry<BlockPos,LazyOptional<IFluidHandler>> entry : getTankHandlers().entrySet()) {
+      for (Entry<BlockPos,IFluidHandler> entry : getTankHandlers().entrySet()) {
         if (!mainTank.equals(entry.getKey())) {
-          entry.getValue().ifPresent(handler -> {
-            // sum if empty (more capacity) or the same fluid (more amount and capacity)
-            FluidStack fluid = handler.getFluidInTank(0);
-            if (fluid.isEmpty()) {
-              info.add(0, handler.getTankCapacity(0));
-            } else if (currentFuel.isFluidEqual(fluid)) {
-              info.add(fluid.getAmount(), handler.getTankCapacity(0));
-            }
-          });
+          IFluidHandler handler = entry.getValue();
+          // sum if empty (more capacity) or the same fluid (more amount and capacity)
+          FluidStack fluid = handler.getFluidInTank(0);
+          if (fluid.isEmpty()) {
+            info.add(0, handler.getTankCapacity(0));
+          } else if (currentFuel.isFluidEqual(fluid)) {
+            info.add(fluid.getAmount(), handler.getTankCapacity(0));
+          }
         }
       }
     }
@@ -285,8 +214,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
 
   /** Gets the most recently used fluid */
   public FluidStack getLastFluid() {
-    if (fluidHandler != null && fluidHandler.isPresent()) {
-      return fluidHandler.orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0);
+    if (fluidHandler != null) {
+      return fluidHandler.getFluidInTank(0);
     }
     BlockPos pos;
     if (lastPos.getY() != NULL_POS.getY()) {
@@ -299,7 +228,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
         return FluidStack.EMPTY;
       }
     }
-    return getTankHandlers().getOrDefault(pos, LazyOptional.empty()).orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0);
+    IFluidHandler handler = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
+    return handler != null ? handler.getFluidInTank(0) : FluidStack.EMPTY;
   }
 
   @Override
@@ -312,7 +242,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     if (tank >= 0) {
       List<BlockPos> positions = tankSupplier.get();
       if (tank < positions.size()) {
-        return getTankHandlers().getOrDefault(positions.get(tank), LazyOptional.empty()).orElse(EmptyFluidHandler.INSTANCE);
+        IFluidHandler handler = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, positions.get(tank), null);
+        return handler != null ? handler : EmptyFluidHandler.INSTANCE;
       }
     }
     return EmptyFluidHandler.INSTANCE;
@@ -340,8 +271,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     resource = resource.copy();
     // try each handler, updating the amount we filled as we go
     // note the map internally is a linked hash map so order is consistent
-    for (LazyOptional<IFluidHandler> handler : getTankHandlers().values()) {
-      int filled = handler.orElse(EmptyFluidHandler.INSTANCE).fill(resource, action);
+    for (IFluidHandler handler : getTankHandlers().values()) {
+      int filled = handler.fill(resource, action);
       if (filled > 0) {
         // if we finished filling, we are done, return that value
         // this is a quick exit that might save us a copy
@@ -367,8 +298,8 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     FluidStack drainedSoFar = FluidStack.EMPTY;
     // try each handler, updating the amount we filled as we go
     // note the map internally is a linked hash map so order is consistent
-    for (LazyOptional<IFluidHandler> handler : getTankHandlers().values()) {
-      FluidStack drained = handler.orElse(EmptyFluidHandler.INSTANCE).drain(resource, action);
+    for (IFluidHandler handler : getTankHandlers().values()) {
+      FluidStack drained = handler.drain(resource, action);
       if (!drained.isEmpty()) {
         // if we managed to drain something, add it into our current drained stack, and decrease the amount we still want to drain
         if (drainedSoFar.isEmpty()) {
@@ -401,10 +332,10 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     FluidStack toDrain = FluidStack.EMPTY;
     // try each handler, updating the amount we filled as we go
     // note the map internally is a linked hash map so order is consistent
-    for (LazyOptional<IFluidHandler> handler : getTankHandlers().values()) {
+    for (IFluidHandler handler : getTankHandlers().values()) {
       // if we have not drained anything yet, can use typeless hook
       if (toDrain.isEmpty()) {
-        FluidStack drained = handler.orElse(EmptyFluidHandler.INSTANCE).drain(maxDrain, action);
+        FluidStack drained = handler.drain(maxDrain, action);
         if (!drained.isEmpty()) {
           drainedSoFar = drained;
           // if we finished draining, we are done, otherwise we need to create a filter for future drain attempts
@@ -416,7 +347,7 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
         }
       } else {
         // if we already drained some fluid, type sensitive and increase our results
-        FluidStack drained = handler.orElse(EmptyFluidHandler.INSTANCE).drain(toDrain, action);
+        FluidStack drained = handler.drain(toDrain, action);
         if (!drained.isEmpty()) {
           drainedSoFar.grow(drained.getAmount());
           toDrain.shrink(drained.getAmount());

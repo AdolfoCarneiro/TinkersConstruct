@@ -185,7 +185,6 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
   /** Extension of structure data to contain tanks list and the inside check */
   public static class StructureData extends MultiblockStructureData {
     /** Positions of all tanks in the structure area */
-    @Getter
     private final List<BlockPos> tanks;
     /** Next position to check for inside checks */
     private BlockPos insideCheck;
@@ -193,6 +192,10 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
     protected StructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositions, boolean hasFloor, boolean hasFrame, boolean hasCeiling, List<BlockPos> tanks) {
       super(minPos, maxPos, extraPositions, hasFloor, hasFrame, hasCeiling);
       this.tanks = tanks;
+    }
+
+    public List<BlockPos> getTanks() {
+      return tanks;
     }
 
     /**

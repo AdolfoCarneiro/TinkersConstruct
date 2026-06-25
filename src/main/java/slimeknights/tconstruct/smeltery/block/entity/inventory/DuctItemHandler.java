@@ -3,9 +3,9 @@ package slimeknights.tconstruct.smeltery.block.entity.inventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
@@ -73,9 +73,8 @@ public class DuctItemHandler extends SingleItemHandler<DuctBlockEntity> {
       }
     }
     // the item must contain fluid (no empty cans or buckets)
-    return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-                .filter(cap -> !cap.getFluidInTank(0).isEmpty())
-                .isPresent();
+    IFluidHandlerItem handler = stack.getCapability(Capabilities.FluidHandler.ITEM);
+    return handler != null && !handler.getFluidInTank(0).isEmpty();
   }
 
   /**
@@ -88,9 +87,8 @@ public class DuctItemHandler extends SingleItemHandler<DuctBlockEntity> {
       if (stack.isEmpty()) {
         fluid = FluidStack.EMPTY;
       } else {
-        fluid = FluidUtil.getFluidHandler(stack)
-          .map(handler -> handler.getFluidInTank(0))
-          .orElse(FluidStack.EMPTY);
+        IFluidHandlerItem handler = stack.getCapability(Capabilities.FluidHandler.ITEM);
+        fluid = handler != null ? handler.getFluidInTank(0) : FluidStack.EMPTY;
       }
     }
     return fluid;

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.fuel;
 
-import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,7 +21,6 @@ import java.util.List;
 /**
  * Recipe for a fuel for the melter or smeltery
  */
-@Getter
 public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
   public static final RecordLoadable<MeltingFuel> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -52,6 +50,26 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
     this.rate = rate;
     // register this recipe with the lookup
     MeltingFuelLookup.addFuel(this);
+  }
+
+  public ResourceLocation getId() {
+    return id;
+  }
+
+  public FluidIngredient getInput() {
+    return input;
+  }
+
+  public int getDuration() {
+    return duration;
+  }
+
+  public int getTemperature() {
+    return temperature;
+  }
+
+  public int getRate() {
+    return rate;
   }
 
   /* Recipe methods */

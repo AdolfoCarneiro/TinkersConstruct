@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.block.entity.multiblock;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -30,10 +29,8 @@ public class MultiblockStructureData {
   public static final String TAG_MAX = "max";
 
   /** Smallest block position in the structure */
-  @Getter
   private final BlockPos minPos;
   /** Largest block position in the structure */
-  @Getter
   private final BlockPos maxPos;
 
   /** Contains all positions not in the standard areas, typically inside */
@@ -45,21 +42,49 @@ public class MultiblockStructureData {
   /**
    * Smallest position inside the structure walls
    */
-  @Getter
   private final BlockPos minInside;
   /**
    * Largest position inside the structure walls
    */
-  @Getter
   private final BlockPos maxInside;
 
   /** Inside sizes */
-  @Getter
   private final int innerX, innerY, innerZ;
 
   /** Bounding box representing the area inside the structure */
-  @Getter
   private final AABB bounds;
+
+  public BlockPos getMinPos() {
+    return minPos;
+  }
+
+  public BlockPos getMaxPos() {
+    return maxPos;
+  }
+
+  public BlockPos getMinInside() {
+    return minInside;
+  }
+
+  public BlockPos getMaxInside() {
+    return maxInside;
+  }
+
+  public int getInnerX() {
+    return innerX;
+  }
+
+  public int getInnerY() {
+    return innerY;
+  }
+
+  public int getInnerZ() {
+    return innerZ;
+  }
+
+  public AABB getBounds() {
+    return bounds;
+  }
 
   public MultiblockStructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositons, boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
     this.minPos = minPos;
