@@ -30,7 +30,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
@@ -48,7 +48,6 @@ import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirect
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup;
@@ -437,7 +436,7 @@ public class GenerateMeltingRecipesCommand {
       }
       // fluid capability check
       try {
-        IFluidHandlerItem capability = LogicHelper.orElseNull(stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM));
+        IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
         if (capability != null) {
           FluidStack contained = capability.getFluidInTank(0);
           if (!contained.isEmpty()) {

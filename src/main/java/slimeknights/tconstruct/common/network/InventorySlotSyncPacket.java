@@ -6,7 +6,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -48,13 +49,12 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
       if (world != null) {
         BlockEntity te = world.getBlockEntity(packet.pos);
         if (te != null) {
-          te.getCapability(ForgeCapabilities.ITEM_HANDLER)
-            .filter(cap -> cap instanceof IItemHandlerModifiable)
-            .ifPresent(cap -> {
-              ((IItemHandlerModifiable)cap).setStackInSlot(packet.slot, packet.itemStack);
-              //noinspection ConstantConditions
-              Minecraft.getInstance().levelRenderer.blockChanged(null, packet.pos, null, null, 0);
-            });
+          IItemHandler cap = world.getCapability(Capabilities.ItemHandler.BLOCK, packet.pos, null);
+          if (cap instanceof IItemHandlerModifiable modifiable) {
+            modifiable.setStackInSlot(packet.slot, packet.itemStack);
+            //noinspection ConstantConditions
+            Minecraft.getInstance().levelRenderer.blockChanged(null, packet.pos, null, null, 0);
+          }
         }
       }
     }
