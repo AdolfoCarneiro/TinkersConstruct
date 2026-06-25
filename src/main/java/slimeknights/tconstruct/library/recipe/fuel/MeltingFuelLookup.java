@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.fuel;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.TConstruct;
@@ -22,7 +21,7 @@ import java.util.function.Function;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MeltingFuelLookup {
   /** Dummy fuel instance sine caches don't support caching null */
-  private static final MeltingFuel EMPTY = new MeltingFuel(ResourceLocation.parse("missingno"), FluidIngredient.EMPTY, 0, 0, 0);
+  private static final MeltingFuel EMPTY = new MeltingFuel(FluidIngredient.EMPTY, 0, 0, 0);
   /** Temperature for solid fuels in the heater */
   private static MeltingFuel SOLID = EMPTY;
   /** List of all recipes */
@@ -60,7 +59,7 @@ public class MeltingFuelLookup {
     } else if (SOLID == EMPTY) {
       SOLID = fuel;
     } else {
-      TConstruct.LOG.warn("Multiple fuel recipes for solid fuel. This usually indicates a datapack error and may cause desyncs. Original {}, latest {}", SOLID.getId(), fuel.getId());
+      TConstruct.LOG.warn("Multiple fuel recipes for solid fuel. This usually indicates a datapack error and may cause desyncs.");
     }
   }
 

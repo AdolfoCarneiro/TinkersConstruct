@@ -2,12 +2,10 @@ package slimeknights.tconstruct.library.recipe.alloying;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -27,14 +25,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static final RecordLoadable<AlloyRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     AlloyIngredient.LOADABLE.list(2).requiredField("inputs", r -> r.inputs),
     FluidOutput.Loadable.REQUIRED.requiredField("result", r -> r.output),
     IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
     AlloyRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   /**
    * List of input ingredients.
    * Order matters, as if a fluid matches multiple ingredients it may produce unexpected behavior.
