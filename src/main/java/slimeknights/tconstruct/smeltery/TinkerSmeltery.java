@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -135,6 +136,7 @@ import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -457,6 +459,10 @@ public final class TinkerSmeltery extends TinkerModule {
   @SubscribeEvent
   void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerItem(Capabilities.FluidHandler.ITEM, CopperCanFluidHandler::createIfPresent, copperCan);
+    List<Item> tankItems = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof TankItem).toList();
+    if (!tankItems.isEmpty()) {
+      event.registerItem(Capabilities.FluidHandler.ITEM, TankItem::createIfPresent, tankItems.toArray(new ItemLike[0]));
+    }
   }
 
   @SubscribeEvent

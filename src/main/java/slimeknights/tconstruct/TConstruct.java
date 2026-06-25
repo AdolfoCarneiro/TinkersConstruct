@@ -1,8 +1,11 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -35,6 +38,21 @@ public class TConstruct {
 
   public static ResourceLocation getResource(String name) {
     return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+  }
+
+  /** Makes a translation key for the given name, e.g. "block.tconstruct.name" */
+  public static String makeDescriptionId(String base, String name) {
+    return Util.makeDescriptionId(base, getResource(name));
+  }
+
+  /** Alias of {@link #makeDescriptionId(String, String)}, kept for call site compatibility */
+  public static String makeTranslationKey(String base, String name) {
+    return makeDescriptionId(base, name);
+  }
+
+  /** Makes a translation component for the given name */
+  public static MutableComponent makeTranslation(String base, String name) {
+    return Component.translatable(makeDescriptionId(base, name));
   }
 
   /** Gets the mod event bus, for registering DeferredRegister/RegisterCapabilitiesEvent/etc listeners */
