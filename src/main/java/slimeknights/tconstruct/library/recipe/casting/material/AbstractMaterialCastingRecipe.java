@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
 import lombok.Getter;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -30,8 +29,8 @@ public abstract class AbstractMaterialCastingRecipe extends AbstractCastingRecip
   protected final int itemCost;
   protected final IJsonPredicate<MaterialVariantId> materials;
 
-  public AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, boolean consumed, boolean switchSlots, IJsonPredicate<MaterialVariantId> materials) {
-    super(serializer.getType(), id, group, cast, consumed, switchSlots);
+  public AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, int itemCost, boolean consumed, boolean switchSlots, IJsonPredicate<MaterialVariantId> materials) {
+    super(serializer.getType(), group, cast, consumed, switchSlots);
     this.serializer = serializer;
     this.itemCost = itemCost;
     this.materials = materials;
@@ -39,8 +38,8 @@ public abstract class AbstractMaterialCastingRecipe extends AbstractCastingRecip
 
   /** @deprecated use {@link #AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, Ingredient, int, boolean, boolean, IJsonPredicate)} */
   @Deprecated(forRemoval = true)
-  public AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, boolean consumed, boolean switchSlots) {
-    this(serializer, id, group, cast, itemCost, consumed, switchSlots, MaterialPredicate.ANY);
+  public AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, int itemCost, boolean consumed, boolean switchSlots) {
+    this(serializer, group, cast, itemCost, consumed, switchSlots, MaterialPredicate.ANY);
   }
 
   /** Gets the material fluid recipe for the given recipe */

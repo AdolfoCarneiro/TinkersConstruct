@@ -3,10 +3,8 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +19,6 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
@@ -40,7 +37,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   public static final RecordLoadable<ContainerFillingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IntLoadable.FROM_ONE.requiredField("fluid_amount", r -> r.fluidAmount),
     Loadables.ITEM.requiredField("container", r -> r.container),
     ContainerFillingRecipe::new);
@@ -48,11 +45,14 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   @Getter
   private final TypeAwareRecipeSerializer<?> serializer;
   @Getter
-  private final ResourceLocation id;
-  @Getter
   private final String group;
   private final int fluidAmount;
   private final Item container;
+
+  @Override
+  public net.minecraft.world.item.crafting.RecipeSerializer<?> getSerializer() {
+    return serializer;
+  }
 
   @Override
   public RecipeType<?> getType() {
@@ -120,7 +120,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   private List<DisplayCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<DisplayCastingRecipe> getRecipes(net.minecraft.core.HolderLookup.Provider access) {
     if (displayRecipes == null) {
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = BuiltInRegistries.FLUID.stream()
@@ -133,7 +133,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
                                                  handler.fill(fluidStack, FluidAction.EXECUTE);
                                                  stack = handler.getContainer();
                                                }
-                                               return new DisplayCastingRecipe(getId(), getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
+                                               return new DisplayCastingRecipe(null, getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
                                              })
                                              .toList();
     }

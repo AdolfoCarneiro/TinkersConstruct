@@ -1,18 +1,13 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
-import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-
-import javax.annotation.Nullable;
-import java.util.function.Consumer;
 
 /**
  * Builder for a container filling recipe. Takes an arbitrary fluid for a specific amount to fill a Forge {@link net.neoforged.neoforge.fluids.capability.IFluidHandlerItem}
@@ -76,34 +71,14 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
-    this.save(consumer, this.result);
+  public void save(RecipeOutput output) {
+    this.save(output, this.result);
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
-    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return recipeSerializer;
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      json.addProperty("fluid_amount", fluidAmount);
-      // TODO: consider another way to spoof this for datagen?
-      json.addProperty("container", result.toString());
-    }
+  public void save(RecipeOutput output, ResourceLocation id) {
+    net.minecraft.advancements.AdvancementHolder advancementHolder = this.buildOptionalAdvancement(output, id, "casting");
+    net.minecraft.world.item.Item container = BuiltInRegistries.ITEM.get(this.result);
+    output.accept(id, new ContainerFillingRecipe(recipeSerializer, group, fluidAmount, container), advancementHolder);
   }
 }
