@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -67,8 +66,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   protected static final LoadableField<Boolean,AbstractModifierRecipe> CHECK_TRAIT_LEVEL_FIELD = BooleanLoadable.INSTANCE.defaultField("check_trait_level", false, false, r -> r.checkTraitLevel);
 
 
-  @Getter
-  private final ResourceLocation id;
   /** Ingredient representing the required tool, typically a tag */
   protected final Ingredient toolRequirement;
   /** Max size of the tool for this modifier. If the tool size is smaller, the stack will reduce by less */
@@ -87,9 +84,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** If true, validates the level against the trait level. False validates against recipe modifiers only. */
   protected final boolean checkTraitLevel;
 
-  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, int maxToolSize,
+  protected AbstractModifierRecipe(Ingredient toolRequirement, int maxToolSize,
                                    ModifierId result, IntRange level, @Nullable SlotCount slots, boolean allowCrystal, boolean checkTraitLevel) {
-    this.id = id;
     this.toolRequirement = toolRequirement;
     this.maxToolSize = maxToolSize;
     this.result = new LazyModifier(result);
@@ -115,11 +111,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Cache of modifier slots produced by this recipe for JEI display */
   @Nullable
   protected List<SlotCount> resultSlots = null;
-
-  @Override
-  public ResourceLocation getRecipeId() {
-    return getId();
-  }
 
   /** Gets or builds the list of tool inputs */
   protected List<ItemStack> getToolInputs() {
