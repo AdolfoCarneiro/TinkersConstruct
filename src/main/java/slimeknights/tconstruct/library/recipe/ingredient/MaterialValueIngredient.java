@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.library.recipe.ingredient;
 
 import com.mojang.serialization.MapCodec;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -27,15 +24,22 @@ import java.util.stream.Stream;
 /**
  * Ingredient matching material items with the given value. Typically, matches ingots or blocks
  */
-@Getter
-@RequiredArgsConstructor
 public class MaterialValueIngredient implements ICustomIngredient {
   private final IJsonPredicate<MaterialVariantId> material;
   private final float minValue;
   private final float maxValue;
-  @Getter(AccessLevel.NONE)
   @Nullable
   private ItemStack[] items;
+
+  public MaterialValueIngredient(IJsonPredicate<MaterialVariantId> material, float minValue, float maxValue) {
+    this.material = material;
+    this.minValue = minValue;
+    this.maxValue = maxValue;
+  }
+
+  public IJsonPredicate<MaterialVariantId> getMaterial() { return material; }
+  public float getMinValue() { return minValue; }
+  public float getMaxValue() { return maxValue; }
 
   private static final RecordLoadable<MaterialValueIngredient> LOADABLE = RecordLoadable.create(
     new MaterialPredicateField<MaterialValueIngredient>("material", MaterialValueIngredient::getMaterial),

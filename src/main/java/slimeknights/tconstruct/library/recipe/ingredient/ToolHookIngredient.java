@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.ingredient;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
@@ -28,10 +28,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /** Ingredient that only matches tools with a specific hook */
-@RequiredArgsConstructor
 public class ToolHookIngredient implements ICustomIngredient {
   private final TagKey<Item> tag;
   private final ModuleHook<?> hook;
+
+  public ToolHookIngredient(TagKey<Item> tag, ModuleHook<?> hook) {
+    this.tag = tag;
+    this.hook = hook;
+  }
 
   public static final MapCodec<ToolHookIngredient> CODEC = RecordCodecBuilder.mapCodec(instance ->
     instance.group(
@@ -72,7 +76,9 @@ public class ToolHookIngredient implements ICustomIngredient {
       }
     }
     if (list.isEmpty()) {
-      list.add(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tag.location())));
+      ItemStack barrier = new ItemStack(Blocks.BARRIER);
+      barrier.set(DataComponents.CUSTOM_NAME, Component.literal("Empty Tag: " + tag.location()));
+      list.add(barrier);
     }
     return list.stream();
   }
