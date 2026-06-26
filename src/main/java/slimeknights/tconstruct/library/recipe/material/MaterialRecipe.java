@@ -7,7 +7,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
@@ -45,8 +44,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
 
   @Getter
   protected final String group;
-  @Getter
   protected final Ingredient ingredient;
+
+  public Ingredient getIngredient() {
+    return ingredient;
+  }
   /** Amount of material this recipe returns */
   @Getter
   protected final int value;
@@ -54,8 +56,17 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   @Getter
   protected final int needed;
   /** Material ID for the recipe return */
-  @Getter
   protected final MaterialVariant material;
+
+  @Override
+  public int getValue() {
+    return value;
+  }
+
+  @Override
+  public MaterialVariant getMaterial() {
+    return material;
+  }
   /** Leftover stack of value 1, used if the value is more than 1 */
   protected final ItemOutput leftover;
 
@@ -123,7 +134,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
     if (displayItems == null) {
       if (needed > 1) {
         displayItems = Arrays.stream(ingredient.getItems())
-                             .map(stack -> ItemHandlerHelper.copyStackWithSize(stack, needed))
+                             .map(stack -> stack.copyWithCount(needed))
                              .collect(Collectors.toList());
       } else {
         displayItems = Arrays.asList(ingredient.getItems());
