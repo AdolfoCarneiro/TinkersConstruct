@@ -217,7 +217,7 @@ public final class TinkerFluids extends TinkerModule {
 
   // fluid data serializer
   public static final FluidDataSerializer FLUID_DATA_SERIALIZER = new FluidDataSerializer();
-  public static final RegistryObject<EntityDataSerializer<?>> FLUID_DATA_SERIALIZER_REGISTRY = DATA_SERIALIZERS.register("fluid", () -> FLUID_DATA_SERIALIZER);
+  public static final DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<?>> FLUID_DATA_SERIALIZER_REGISTRY = DATA_SERIALIZERS.register("fluid", () -> FLUID_DATA_SERIALIZER);
 
   /** Creates a builder for a cool fluid with sounds */
   private static FluidType.Properties cool() {
