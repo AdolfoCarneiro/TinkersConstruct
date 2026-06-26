@@ -1457,16 +1457,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                     ^
   symbol:   class FinishedRecipe
   location: interface IToolRecipeHelper
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\tinkering\AbstractEnchantmentToModifierProvider.java:70: error: cannot find symbol
-  protected void add(TagKey<Enchantment> tag, ModifierId modifierId) {
-                            ^
-  symbol:   class Enchantment
-  location: class AbstractEnchantmentToModifierProvider
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\tinkering\AbstractEnchantmentToModifierProvider.java:75: error: cannot find symbol
-  protected void add(TagKey<Enchantment> tag, ModifierId modifierId, boolean optionalModifier) {
-                            ^
-  symbol:   class Enchantment
-  location: class AbstractEnchantmentToModifierProvider
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\loot\equipment\MobEquipment.java:19: error: cannot find symbol
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
                                                                ^
@@ -8239,11 +8229,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\gadgets\item\PiggyBackPackItem.java:159: error: method does not override or implement a method from a supertype
   @Override
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\gadgets\item\PiggyBackPackItem.java:170: error: cannot find symbol
-      this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                                                                                                    ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\gadgets\item\PiggyBackPackItem.java:170: error: no suitable method found for addAttributeModifier(Holder<Attribute>,String,double,Operation)
+      this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+          ^
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method TinkerEffect.addAttributeModifier(Attribute,String,double,Operation) is not applicable
+      (argument mismatch; Holder<Attribute> cannot be converted to Attribute)
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\gadgets\item\PiggyBackPackItem.java:173: error: method does not override or implement a method from a supertype
     @Override
     ^
@@ -11879,21 +11873,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    ResourceLocation,SoundEvent
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:40: error: cannot find symbol
-      tryAddAttribute(Attributes.ARMOR, new AttributeModifier("tconstruct.small_armor_bonus", 3, Operation.MULTIPLY_TOTAL));
-                                                                                                          ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:41: error: cannot find symbol
-      tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("tconstruct.small_toughness_bonus", 3, Operation.MULTIPLY_TOTAL));
-                                                                                                                        ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:42: error: cannot find symbol
-      tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("tconstruct.small_resistence_bonus", 3, Operation.MULTIPLY_TOTAL));
-                                                                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:40: error: incompatible types: String cannot be converted to ResourceLocation
+      tryAddAttribute(Attributes.ARMOR, new AttributeModifier("tconstruct.small_armor_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
+                                                              ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:41: error: incompatible types: String cannot be converted to ResourceLocation
+      tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("tconstruct.small_toughness_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
+                                                                        ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:42: error: incompatible types: String cannot be converted to ResourceLocation
+      tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("tconstruct.small_resistence_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
+                                                                             ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\ArmoredSlimeEntity.java:53: error: method does not override or implement a method from a supertype
   @Override
   ^
@@ -13437,40 +13425,33 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
     return Math.min(living.getAttributeValue(TinkerAttributes.PROTECTION_CAP.get()) * 25f + data.get(TinkerDataKeys.PROTECTION_CAP, 0f), 25 * 0.95f);
                                                                                                                    ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:58: error: cannot find symbol
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADD_VALUE));
                                                                         ^
   symbol:   variable BASE_ATTACK_DAMAGE_UUID
   location: class Item
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:58: error: cannot find symbol
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
-                                                                                                                                                                                                     ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:60: error: cannot find symbol
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADD_VALUE));
                                                                        ^
   symbol:   variable BASE_ATTACK_SPEED_UUID
   location: class Item
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:60: error: cannot find symbol
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
-                                                                                                                                                                                                      ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:69: error: cannot find symbol
-            builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.held.armor", value, AttributeModifier.Operation.ADDITION));
-                                                                                                                                 ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:73: error: cannot find symbol
-            builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.held.toughness", value, AttributeModifier.Operation.ADDITION));
-                                                                                                                                               ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:77: error: cannot find symbol
-            builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.held.knockback_resistance", value, AttributeModifier.Operation.ADDITION));
-                                                                                                                                                               ^
-  symbol:   variable ADDITION
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:69: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+            builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.held.armor", value, AttributeModifier.Operation.ADD_VALUE));
+                                          ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:73: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+            builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.held.toughness", value, AttributeModifier.Operation.ADD_VALUE));
+                                                    ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\AttributesModifierHook.java:77: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+            builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.held.knockback_resistance", value, AttributeModifier.Operation.ADD_VALUE));
+                                                         ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\EnchantmentModifierHook.java:59: error: incompatible types: Enchantment cannot be converted to Holder<Enchantment>
     int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
                                                          ^
@@ -13644,7 +13625,7 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                              ^
   symbol:   method getEntity()
   location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\AdjustDamageModule.java:117: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\AdjustDamageModule.java:118: error: cannot find symbol
       return source(DamageSourcePredicate.and(sources));
              ^
   symbol:   method source(IJsonPredicate<DamageSource>)
@@ -13714,7 +13695,7 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; UUID cannot be converted to AttributeModifier)
     method AttributeInstance.removeModifier(ResourceLocation) is not applicable
       (argument mismatch; UUID cannot be converted to ResourceLocation)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:237: error: method unique in record AttributeModule cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:241: error: method unique in record AttributeModule cannot be applied to given types;
       return unique(id.getNamespace() + ".modifier." + id.getPath());
              ^
   required: no arguments
@@ -13750,7 +13731,13 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    Attribute,Operation
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MaxArmorAttributeModule.java:133: error: method unique in record MaxArmorAttributeModule cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MaxArmorAttributeModule.java:112: error: constructor Builder in class Builder cannot be applied to given types;
+    return new Builder(attribute.value(), operation);
+           ^
+  required: no arguments
+  found:    Attribute,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MaxArmorAttributeModule.java:136: error: method unique in record MaxArmorAttributeModule cannot be applied to given types;
       return unique(id.getNamespace() + ".modifier." + id.getPath());
              ^
   required: no arguments
@@ -14290,14 +14277,11 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   reason: actual and formal argument lists differ in length
   where CAP#1 is a fresh type-variable:
     CAP#1 extends Number from capture of ?
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\build\StatBoostModule.java:68: error: constructor Builder in class Builder cannot be applied to given types;
-    return new Builder(stat, StatOperation.MULTIPLY_BASE);
-           ^
-  required: no arguments
-  found:    INumericToolStat<CAP#1>,StatOperation
-  reason: actual and formal argument lists differ in length
-  where CAP#1 is a fresh type-variable:
-    CAP#1 extends Number from capture of ?
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\build\StatBoostModule.java:68: error: cannot find symbol
+    return new Builder(stat, StatOperation.ADD_MULTIPLIED_BASE);
+                                          ^
+  symbol:   variable ADD_MULTIPLIED_BASE
+  location: class StatOperation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\build\StatBoostModule.java:73: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(stat, StatOperation.MULTIPLY_CONDITIONAL);
            ^
@@ -14738,53 +14722,59 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   reason: actual and formal argument lists differ in length
   where CAP#1 is a fresh type-variable:
     CAP#1 extends MobEffect from capture of ? extends MobEffect
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:235: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:128: error: constructor Builder in class Builder cannot be applied to given types;
+    return new Builder(effect.value());
+           ^
+  required: no arguments
+  found:    MobEffect
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:240: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
         MobEffectInstance instance = new MobEffectInstance(effect, (int)duration, level);
                                                            ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:237: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:242: error: cannot find symbol
           instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
                   ^
   symbol:   method setCurativeItems(List<ItemStack>)
   location: variable instance of type MobEffectInstance
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:239: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:244: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
         target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
                                                ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:273: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:278: error: cannot find symbol
         LivingEntity attacker = context.getAttacker();
                                        ^
   symbol:   method getAttacker()
   location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:275: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:280: error: cannot find symbol
           effect().applyEffect(context.getLivingTarget(), modifier, attacker);
                                       ^
   symbol:   method getLivingTarget()
   location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:353: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:358: error: cannot find symbol
         LivingEntity defender = context.getEntity();
                                        ^
   symbol:   method getEntity()
   location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:431: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:436: error: cannot find symbol
         LivingEntity holder = context.getEntity();
                                      ^
   symbol:   method getEntity()
   location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:460: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:465: error: cannot find symbol
       if (isAoe.test(context.isAOE()) && isProjectile.test(context.isProjectile()) && condition.matches(tool, modifier) && checkChance(modifier)) {
                             ^
   symbol:   method isAOE()
   location: variable context of type ToolHarvestContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:461: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:466: error: cannot find symbol
         effect.applyEffect(context.getLiving(), modifier, null);
                                   ^
   symbol:   method getLiving()
   location: variable context of type ToolHarvestContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:467: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:472: error: cannot find symbol
       if (context.isFullyCharged() && isAoe.test(context.isExtraAttack()) && isProjectile.test(context.isProjectile()) && condition.matches(tool, modifier) && checkChance(modifier)) {
                                                         ^
   symbol:   method isExtraAttack()
   location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:468: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:473: error: cannot find symbol
         effect.applyEffect(context.getAttacker(), modifier, null);
                                   ^
   symbol:   method getAttacker()
@@ -18532,11 +18522,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: LivingEntity,float,DamageSource,float,float
   found:    float,float,float
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:54: error: cannot find symbol
-  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADDITION);
-                                                                                                                                             ^
-  symbol:   variable ADDITION
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:54: error: incompatible types: String cannot be converted to ResourceLocation
+  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADD_VALUE);
+                                                                                                           ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:71: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
     AttributeInstance instance = holder.getAttribute(attribute);
                                                      ^
@@ -18790,16 +18778,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipBuilder.java:170: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
       AttributeInstance instance = player.getAttribute(attribute);
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipUtil.java:72: error: cannot find symbol
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
-                                                                                                            ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipUtil.java:74: error: cannot find symbol
-  public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
-                                                                                                            ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipUtil.java:77: error: package TooltipPart does not exist
   private static final int DEFAULT_HIDE_FLAGS = TooltipPart.ENCHANTMENTS.getMask();
                                                            ^
@@ -18933,11 +18911,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                              ^
   symbol:   variable BASE_ATTACK_SPEED_UUID
   location: class Item
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipUtil.java:467: error: cannot find symbol
-    if (operation == Operation.ADDITION) {
-                              ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\TooltipUtil.java:480: error: cannot find symbol
                            .append(Component.translatable("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
                                                                                                   ^
@@ -19044,21 +19017,24 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                   ^
   symbol:   variable ARMOR_MODIFIER_UUID_PER_TYPE
   location: class ModifiableArmorItem
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:286: error: cannot find symbol
-        builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.armor.armor", armor, AttributeModifier.Operation.ADDITION));
-                                                                                                                              ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:290: error: cannot find symbol
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.armor.toughness", toughness, AttributeModifier.Operation.ADDITION));
-                                                                                                                                                ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:294: error: cannot find symbol
-        builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.armor.knockback_resistance", knockbackResistance, AttributeModifier.Operation.ADDITION));
-                                                                                                                                                                          ^
-  symbol:   variable ADDITION
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:286: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+        builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.armor.armor", armor, AttributeModifier.Operation.ADD_VALUE));
+                                      ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,float,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:290: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.armor.toughness", toughness, AttributeModifier.Operation.ADD_VALUE));
+                                                ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,float,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:294: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+        builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.armor.knockback_resistance", knockbackResistance, AttributeModifier.Operation.ADD_VALUE));
+                                                     ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\ModifiableArmorItem.java:306: error: method does not override or implement a method from a supertype
   @Override
   ^
@@ -21722,13 +21698,8 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                               ^
   symbol:   variable GLASS_COLORLESS
   location: class Items
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\AntigravityEffect.java:33: error: cannot find symbol
-    this.addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "5bd6b8c8-8de9-4357-a74e-afb2a8f00c20", -2, Operation.MULTIPLY_TOTAL);
-                                                                                                                  ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\AntigravityEffect.java:33: error: package ForgeMod does not exist
-    this.addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "5bd6b8c8-8de9-4357-a74e-afb2a8f00c20", -2, Operation.MULTIPLY_TOTAL);
+    this.addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "5bd6b8c8-8de9-4357-a74e-afb2a8f00c20", -2, Operation.ADD_MULTIPLIED_TOTAL);
                                       ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\AntigravityEffect.java:37: error: method does not override or implement a method from a supertype
   @Override
@@ -22036,11 +22007,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\effect\NoMilkEffect.java:19: error: method does not override or implement a method from a supertype
   @Override
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:57: error: cannot find symbol
-      addAttributeModifier(Attributes.MOVEMENT_SPEED, "68ee3026-1d50-4eb4-914e-a8b05fbfdb71", -0.9f, Operation.MULTIPLY_TOTAL);
-                                                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:57: error: no suitable method found for addAttributeModifier(Holder<Attribute>,String,float,Operation)
+      addAttributeModifier(Attributes.MOVEMENT_SPEED, "68ee3026-1d50-4eb4-914e-a8b05fbfdb71", -0.9f, Operation.ADD_MULTIPLIED_TOTAL);
+      ^
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method TinkerEffect.addAttributeModifier(Attribute,String,double,Operation) is not applicable
+      (argument mismatch; Holder<Attribute> cannot be converted to Attribute)
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:60: error: method does not override or implement a method from a supertype
     @Override
     ^
@@ -22051,31 +22026,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:65: error: method does not override or implement a method from a supertype
     @Override
     ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:43: error: cannot find symbol
-  public static final DeferredHolder<MobEffect, TinkerEffect> experienced = MOB_EFFECTS.register("experienced", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x82c873, true).addAttributeModifier(TinkerAttributes.EXPERIENCE_MULTIPLIER.get(), "ccffb654-9988-451e-9539-f74934274df1", 0.25f, Operation.MULTIPLY_BASE));
-                                                                                                                                                                                                                                                                                                                ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:44: error: cannot find symbol
-  public static final DeferredHolder<MobEffect, TinkerEffect> ricochet = MOB_EFFECTS.register("ricochet", () -> new TinkerEffect(MobEffectCategory.NEUTRAL, 0x01cbcd, true).addAttributeModifier(TinkerAttributes.KNOCKBACK_MULTIPLIER.get(), "58a4bc13-366f-4f76-82f5-705451498c24", 0.5f, Operation.MULTIPLY_BASE));
-                                                                                                                                                                                                                                                                                                     ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:50: error: cannot find symbol
-  public static final DeferredHolder<MobEffect, TinkerEffect> bouncy = MOB_EFFECTS.register("bouncy", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x71AC63, true).addAttributeModifier(TinkerAttributes.BOUNCY.get(), "5de036ed-bc47-4965-9348-64c3ab5c8ae8", 1, Operation.ADDITION));
-                                                                                                                                                                                                                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:51: error: cannot find symbol
-  public static final DeferredHolder<MobEffect, TinkerEffect> doubleJump = MOB_EFFECTS.register("double_jump", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0xA99B87, true).addAttributeModifier(TinkerAttributes.JUMP_COUNT.get(), "9863601a-9d4a-4708-b348-4bf9fe6c0bbd", 1, Operation.ADDITION));
-                                                                                                                                                                                                                                                                                                ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:60: error: cannot find symbol
-  public static final DeferredHolder<MobEffect, TinkerEffect> pierce = MOB_EFFECTS.register("pierce", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADDITION));
-                                                                                                                                                                                                                                                                    ^
-  symbol:   variable ADDITION
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:60: error: no suitable method found for addAttributeModifier(Holder<Attribute>,String,int,Operation)
+  public static final DeferredHolder<MobEffect, TinkerEffect> pierce = MOB_EFFECTS.register("pierce", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADD_VALUE));
+                                                                                                                                                                       ^
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method TinkerEffect.addAttributeModifier(Attribute,String,double,Operation) is not applicable
+      (argument mismatch; Holder<Attribute> cannot be converted to Attribute)
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\TinkerEffects.java:68: error: incompatible types: bad return type in lambda expression
   public static final EnumObject<PotionType,Potion> levitationPotion = POTIONS.registerTypes("levitation", () -> MobEffects.LEVITATION, 15 * 20, 0).withStrong().withLong(40 * 20, 0).build();
                                                                                                                            ^
@@ -25466,61 +25425,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    Material,Material
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:21: error: cannot find symbol
-    add(Enchantments.ALL_DAMAGE_PROTECTION, ModifierIds.protection);
-                    ^
-  symbol:   variable ALL_DAMAGE_PROTECTION
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:25: error: cannot find symbol
-    add(Enchantments.FALL_PROTECTION, ModifierIds.featherFalling);
-                    ^
-  symbol:   variable FALL_PROTECTION
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:41: error: cannot find symbol
-    add(Enchantments.MOB_LOOTING, ModifierIds.luck);
-                    ^
-  symbol:   variable MOB_LOOTING
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:46: error: cannot find symbol
-    add(Enchantments.BLOCK_EFFICIENCY, ModifierIds.haste);
-                    ^
-  symbol:   variable BLOCK_EFFICIENCY
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:48: error: cannot find symbol
-    add(Enchantments.BLOCK_FORTUNE, ModifierIds.luck);
-                    ^
-  symbol:   variable BLOCK_FORTUNE
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:51: error: cannot find symbol
-    add(Enchantments.POWER_ARROWS, ModifierIds.power);
-                    ^
-  symbol:   variable POWER_ARROWS
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:52: error: cannot find symbol
-    add(Enchantments.PUNCH_ARROWS, ModifierIds.punch);
-                    ^
-  symbol:   variable PUNCH_ARROWS
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:53: error: cannot find symbol
-    add(Enchantments.FLAMING_ARROWS, ModifierIds.fiery);
-                    ^
-  symbol:   variable FLAMING_ARROWS
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:54: error: cannot find symbol
-    add(Enchantments.INFINITY_ARROWS, ModifierIds.crystalshot);
-                    ^
-  symbol:   variable INFINITY_ARROWS
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:60: error: cannot find symbol
-    add(Enchantments.FISHING_LUCK, ModifierIds.luck);
-                    ^
-  symbol:   variable FISHING_LUCK
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\EnchantmentToModifierProvider.java:61: error: cannot find symbol
-    add(Enchantments.FISHING_SPEED, ModifierIds.lure);
-                    ^
-  symbol:   variable FISHING_SPEED
-  location: class Enchantments
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\FluidEffectProvider.java:110: error: incompatible types: Holder<MobEffect> cannot be converted to MobEffect
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20*5).buildEntity(TimeAction.ADD))
                                                                   ^
@@ -26160,145 +26064,19 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                     ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:292: error: cannot find symbol
-    buildModifier(ModifierIds.writable   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:293: error: cannot find symbol
-    buildModifier(ModifierIds.recapitated).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:294: error: cannot find symbol
-    buildModifier(ModifierIds.harmonious ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:295: error: cannot find symbol
-    buildModifier(ModifierIds.forecast   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:296: error: cannot find symbol
-    buildModifier(ModifierIds.gilded     ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(2));
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:297: error: cannot find symbol
-    buildModifier(ModifierIds.draconic   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1));
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:298: error: cannot find symbol
-    buildModifier(ModifierIds.embossed, new TagFilledCondition<>(TinkerTags.Items.BOSS_TROPHIES)).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-                                                                                                 ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:301: error: cannot find symbol
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:308: error: cannot find symbol
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:312: error: cannot find symbol
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
-      ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:319: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:333: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:347: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:362: error: cannot find symbol
-    buildModifier(ModifierIds.worldbound).addModule(new VolatileFlagModule(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY)).addModule(new RarityModule(Rarity.UNCOMMON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                                                                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:363: error: cannot find symbol
-    buildModifier(ModifierIds.shiny).addModule(new VolatileFlagModule(IModifiable.SHINY)).addModule(new RarityModule(Rarity.EPIC)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                                                  ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:367: error: cannot find symbol
-      .levelDisplay(new UniqueForLevels(2));
-      ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:368: error: cannot find symbol
-    buildModifier(ModifierIds.blunted).addModule(new VolatileFlagModule(EntityInteractionModifierHook.NO_MELEE)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                                ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:370: error: reference to builder is ambiguous
+      .addModule(MobEffectModule.builder(TinkerEffects.magnetic).time(RandomLevelingValue.flat(40)).buildToolUsage())
+                                ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:370: error: cannot find symbol
       .addModule(MobEffectModule.builder(TinkerEffects.magnetic).time(RandomLevelingValue.flat(40)).buildToolUsage())
                                                                 ^
   symbol:   method time(RandomLevelingValue)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:376: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.BLOCK_INTERACTION_RANGE.value(), Operation.ADDITION).eachLevel(1))
-                                                                                              ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:377: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ENTITY_INTERACTION_RANGE.value(), Operation.ADDITION).eachLevel(1));
-                                                                                               ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:380: error: cannot find symbol
-    buildModifier(ModifierIds.fireprimer).addModule(new VolatileIntModule(IModifiable.EXPANDED, LevelingInt.flat(1))).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                                     ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:382: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:389: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:392: error: cannot find symbol
-    buildModifier(ModifierIds.flamewake).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new FireWalkerModule(new LevelingValue(1.5f, 1)));
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:394: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:402: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.PLUSES)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:406: error: cannot find symbol
       .addModule(MeltingModule.builder().temperature(new LevelingInt(500, 500)).nuggetsPerMetal(new LevelingInt(9, 3)).shardsPerGem(new LevelingInt(6, 2)).build());
                                         ^
   symbol:   method temperature(LevelingInt)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:407: error: cannot find symbol
-    buildModifier(ModifierIds.autosmelt).levelDisplay(ModifierLevelDisplay.PLUSES).addModule(new AutosmeltModule(0.2f, RecipeType.SMELTING));
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:414: error: cannot find symbol
         .cause(allowReinforced)
@@ -26310,125 +26088,37 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
         ^
   symbol:   method cause(IJsonPredicate<ModifierId>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:426: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:429: error: cannot find symbol
       .addModule(ReduceToolDamageModule.builder().cause(allowReinforced).flat(1.0f));
                                                  ^
   symbol:   method cause(IJsonPredicate<ModifierId>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:432: error: cannot find symbol
-    buildModifier(ModifierIds.soulbound).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(ModifierEvents.SOULBOUND));
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:434: error: cannot find symbol
-    buildModifier(ModifierIds.scope).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ZoomModule.SCOPE);
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:435: error: cannot find symbol
-    buildModifier(ModifierIds.zoom).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ZoomModule.SPYGLASS);
-                                   ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:439: error: cannot find symbol
-    buildModifier(ModifierIds.theOneProbe, modLoaded("theoneprobe")).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(TheOneProbeModule.INSTANCE);
-                                                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:441: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:447: error: cannot find symbol
-      .levelDisplay(new UniqueForLevels(5))
-      ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:449: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).toolItem(ItemPredicate.tag(HARVEST).inverted()).eachLevel(0.1f));
-                                                                                            ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:468: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
           new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
                                                                                       ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:486: error: cannot find symbol
-      .addModule(new LightspeedAttributeModule("", Attributes.MOVEMENT_SPEED, Operation.ADDITION, LightLayer.BLOCK, 5, 0.0009f, 0.005f));
-                                                                                       ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:494: error: cannot find symbol
-    buildModifier(ModifierIds.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:486: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
+      .addModule(new LightspeedAttributeModule("", Attributes.MOVEMENT_SPEED, Operation.ADD_VALUE, LightLayer.BLOCK, 5, 0.0009f, 0.005f));
+                                                             ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:495: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(harvest).constant())
                                                        ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:496: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(armor).armorHarvest(ARMOR_SLOTS));
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:500: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.25f));
-                                                                                          ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:502: error: cannot find symbol
-    EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:502: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
+    EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.FORTUNE).toolItem(harvest).constant();
                                                                                ^
-  symbol:   variable BLOCK_FORTUNE
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:505: error: cannot find symbol
-    AttributeModule ARMOR_LUCK = AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(WORN_ARMOR).eachLevel(1);
-                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:506: error: cannot find symbol
-    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:506: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
+    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
                                                                             ^
-  symbol:   variable BLOCK_FORTUNE
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:511: error: cannot find symbol
-    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING, SEA_LUCK, ARMOR_LUCK);
-                                   ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:516: error: cannot find symbol
-    buildModifier(ModifierIds.looter).levelDisplay(twoLevels)
-                                     ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:517: error: cannot find symbol
       .addModule(LootingModule.builder().lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS))
                                         ^
   symbol:   method lootingLevel(LevelingInt)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:518: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).minLevel(2).flat(0.25f));
-                                                                                          ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:519: error: cannot find symbol
-    buildModifier(ModifierIds.fortunate).levelDisplay(twoLevels)
-                                        ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:520: error: cannot find symbol
-      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).lootingLevel(LevelingInt.ONE).toolItem(harvest).constant())
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:520: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
+      .addModule(EnchantmentModule.builder(Enchantments.FORTUNE).lootingLevel(LevelingInt.ONE).toolItem(harvest).constant())
                                                        ^
-  symbol:   variable BLOCK_FORTUNE
-  location: class Enchantments
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:521: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).flat(1))
-                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:522: error: cannot find symbol
       .addModule(LootingModule.builder().minLevel(2).lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS));
                                                     ^
@@ -26439,11 +26129,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                           ^
   symbol:   method projectile(ProjectilePredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:529: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_KNOCKBACK, Operation.ADDITION).slots(armorMainHand).eachLevel(1))
-                                                                               ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:538: error: no suitable constructor found for AttributeEntityVariable(Holder<Attribute>)
         .customVariable("knockback_resistance", new EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.KNOCKBACK_RESISTANCE), 0))
                                                                                   ^
@@ -26461,32 +26146,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                            ^
   symbol:   method sling(IJsonPredicate<ModifierId>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:554: error: cannot find symbol
-      .priority(75) // run after knockback
-      ^
-  symbol:   method priority(int)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:559: error: cannot find symbol
       .addModule(SlingForceModule.builder().sling(ModifierPredicate.tag(Modifiers.KNOCKBACK_SLINGS)).formula()
                                            ^
   symbol:   method sling(IJsonPredicate<ModifierId>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:565: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:565: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.perLevel(0, 0.5f)).time(RandomLevelingValue.random(20, 10)).build());
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:570: error: cannot find symbol
-    buildModifier(ModifierIds.sharpness).addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.75f)).levelDisplay(new UniqueForLevels(5, true));
-                                                                                                                 ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:571: error: cannot find symbol
-    buildModifier(ModifierIds.swiftstrike).addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.05f)).levelDisplay(new UniqueForLevels(5));
-                                                                                                                           ^
-  symbol:   method levelDisplay(UniqueForLevels)
+                                                                      ^
+  symbol:   method level(RandomLevelingValue)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:572: error: cannot find symbol
     buildModifier(ModifierIds.smite).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(2.0f));
@@ -26508,18 +26176,20 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                        ^
   symbol:   method target(IJsonPredicate<LivingEntity>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:578: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:578: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).buildWeapon(), ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT);
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
+                                                                      ^
+  symbol:   method level(RandomLevelingValue)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:579: error: cannot find symbol
     buildModifier(ModifierIds.killager).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.or(
                                                                                         ^
   symbol:   method target(IJsonPredicate<LivingEntity>)
   location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:582: error: reference to builder is ambiguous
+    MobEffectModule.Builder pierceBuilder = MobEffectModule.builder(TinkerEffects.pierce).applyBeforeMelee(true)
+                                                           ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:582: error: cannot find symbol
     MobEffectModule.Builder pierceBuilder = MobEffectModule.builder(TinkerEffects.pierce).applyBeforeMelee(true)
                                                                                          ^
@@ -26527,83 +26197,13 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:592: error: cannot find symbol
     buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(LivingEntityPredicate.SPRINTING).flat(7));
-                                           ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:592: error: cannot find symbol
-    buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(LivingEntityPredicate.SPRINTING).flat(7));
                                                                                                                                          ^
   symbol:   method attacker(LivingEntityPredicate)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:597: error: cannot find symbol
-    buildModifier(ModifierIds.weak).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(-1f));
-                                   ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:601: error: cannot find symbol
-    buildModifier(ModifierIds.spike).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:608: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:611: error: cannot find symbol
     buildModifier(ModifierIds.dragonshot).addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.AIRBORNE).eachLevel(1));
                                                                                                            ^
   symbol:   method holder(LivingEntityPredicate)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:619: error: cannot find symbol
-    buildModifier(ModifierIds.reclaim).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY));
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:620: error: cannot find symbol
-    buildModifier(ModifierIds.attractive).priority(125).addModule(new ProjectileAttractMobsModule(LevelingValue.eachLevel(3), LevelingValue.flat(0.5f)));
-                                         ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:621: error: cannot find symbol
-    buildModifier(ModifierIds.hover).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ProjectileGravityModule(LevelingInt.flat(20)));
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:622: error: cannot find symbol
-    buildModifier(ModifierIds.fuse).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ProjectileFuseModule(ParticleTypes.FLAME, LevelingInt.flat(10)));
-                                   ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:626: error: cannot find symbol
-    buildModifier(ModifierIds.trickQuiver).priority(70) // before bulk quiver
-                                          ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:630: error: cannot find symbol
-    buildModifier(ModifierIds.bulkQuiver).priority(60) // after trick quiver, before crystalshot
-                                         ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:634: error: cannot find symbol
-    buildModifier(ModifierIds.crystalshot).priority(50) // after bulk quiver
-                                          ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:639: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:642: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:657: error: cannot find symbol
-    buildModifier(ModifierIds.slimeball).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:659: error: cannot find symbol
         .damageType(TinkerDamageTypes.FLUID_IMPACT)
@@ -26630,67 +26230,27 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                  ^
   symbol:   method getSlimeballTag()
   location: variable ENDER of type SlimeType
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:668: error: cannot find symbol
-    buildModifier(ModifierIds.sliver).priority(70) // after slimeball
-                                     ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:694: error: cannot find symbol
-    buildModifier(ModifierIds.spillingRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
-                                          ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:700: error: cannot find symbol
-    buildModifier(ModifierIds.smashingAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
-                                           ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:704: error: cannot find symbol
-    buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                               ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:705: error: cannot find symbol
-    buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                  ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:707: error: cannot find symbol
-    buildModifier(ModifierIds.ricochet).addModule(AttributeModule.builder(TinkerAttributes.KNOCKBACK_MULTIPLIER, Operation.MULTIPLY_BASE).eachLevel(0.2f));
-                                                                                                                          ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:711: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MAX_HEALTH, Operation.ADDITION).tooltipStyle(TooltipStyle.BOOST).eachLevel(2))
-                                                                         ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:719: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-                                                                                           ^
-  symbol:   variable ADDITION
-  location: class Operation
+      .addModule(AttributeModule.builder(Attributes.MAX_HEALTH, Operation.ADD_VALUE).tooltipStyle(TooltipStyle.BOOST).eachLevel(2))
+                                                                                    ^
+  symbol:   method tooltipStyle(TooltipStyle)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:723: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).eachLevel(0.05f))
-                                                                                           ^
-  symbol:   variable ADDITION
-  location: class Operation
+      .addModule(MaxArmorAttributeModule.builder(Attributes.KNOCKBACK_RESISTANCE, Operation.ADD_VALUE).heldTag(TinkerTags.Items.HELD).eachLevel(0.05f))
+                                                                                                      ^
+  symbol:   method heldTag(TagKey<Item>)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:726: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
                                                        ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:729: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.BLAST_PROTECTION).protection())
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:732: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).heldTag(TinkerTags.Items.HELD).eachLevel(-0.05f))
-                                                                                                ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:735: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(NeoForgeMod.SWIM_SPEED.value(), Operation.MULTIPLY_TOTAL).heldTag(TinkerTags.Items.HELD).eachLevel(0.1f))
-                                                                                          ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+      .addModule(MaxArmorAttributeModule.builder(NeoForgeMod.SWIM_SPEED.value(), Operation.ADD_MULTIPLIED_TOTAL).heldTag(TinkerTags.Items.HELD).eachLevel(0.1f))
+                                                                                                                ^
+  symbol:   method heldTag(TagKey<Item>)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:738: error: cannot find symbol
                                  .entity(LivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
                                  ^
@@ -26701,128 +26261,28 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                  ^
   symbol:   method entity(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:742: error: cannot find symbol
-    buildModifier(ModifierIds.turtlesGrace).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                           ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:743: error: cannot find symbol
-      .addModule(AttributeModule.builder(NeoForgeMod.SWIM_SPEED.value(), Operation.MULTIPLY_TOTAL).eachLevel(0.1f))
-                                                                                  ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:744: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:746: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER, Operation.MULTIPLY_BASE).heldTag(TinkerTags.Items.HELD).eachLevel(-0.1f))
-                                                                                                     ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:747: error: cannot find symbol
       .addModule(ProtectionModule.builder().entity(LivingEntityPredicate.CROUCHING).eachLevel(2.5f));
                                            ^
   symbol:   method entity(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:749: error: cannot find symbol
-      .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-                                                                                            ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:750: error: cannot find symbol
       .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2.5f));
                                            ^
   symbol:   method entity(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:751: error: cannot find symbol
-    buildModifier(ModifierIds.dragonfall).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                         ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:752: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f))
-                                                                                    ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:753: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE, Operation.ADDITION).eachLevel(2));
-                                                                                       ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:755: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
                                                                                            ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:756: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
                                                                                             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:760: error: cannot find symbol
-    buildModifier(ModifierIds.strength).addModule(AttributeModule.builder(Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL).slots(armorSlots).eachLevel(0.1f));
-                                                                                                             ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:766: error: cannot find symbol
-    buildModifier(ModifierIds.pocket).tooltipDisplay(TooltipDisplay.NEVER)
-                                     ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:772: error: cannot find symbol
-    buildModifier(ModifierIds.shellStorage).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ModifierTraitModule(ModifierIds.pocket, 3, true));
-                                           ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:774: error: cannot find symbol
-    buildModifier(ModifierIds.shulkerBox).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                         ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:778: error: cannot find symbol
-    buildModifier(ModifierIds.toolBelt).priority(85)
-                                       ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:783: error: cannot find symbol
-    buildModifier(TinkerModifiers.shieldStrap).priority(120)
-                                              ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:788: error: cannot find symbol
-    buildModifier(ModifierIds.stepUp).addModule(AttributeModule.builder(Attributes.STEP_HEIGHT.value(), Operation.ADDITION).slots(armorSlots).eachLevel(0.5f));
-                                                                                                                 ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:789: error: cannot find symbol
-    buildModifier(ModifierIds.speedy).addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.1f));
-                                                                                                            ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:791: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.JUMP_BOOST, Operation.ADDITION).eachLevel(1))
-                                                                               ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:792: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE, Operation.ADDITION).eachLevel(1));
-                                                                                       ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:793: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.swiftSneak).addModule(EnchantmentModule.builder(Enchantments.SWIFT_SNEAK).constant());
                                                                                           ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:795: error: cannot find symbol
-    buildModifier(ModifierIds.soulBelt).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ArmorLevelModule(TinkerDataKeys.SOUL_BELT, true, null)).addModule(ModifierRequirementsModule.builder().modifierKey(ModifierIds.soulBelt).requireModifier(ModifierIds.soulbound, 1).build());
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:797: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:802: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:807: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.builder(Enchantments.DEPTH_STRIDER).constant());
                                                                                             ^
@@ -26830,61 +26290,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       .addModule(ProtectionModule.builder().source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.FALL_PROTECTION))
                                            ^
   symbol:   method source(IJsonPredicate<DamageSource>)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:813: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:817: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:820: error: cannot find symbol
-    buildModifier(ModifierIds.snowdrift).priority(90).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(CoverGroundWalkerModule.block(Blocks.SNOW).amount(0.5f, 1));
-                                        ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:821: error: cannot find symbol
-    buildModifier(ModifierIds.bouncy).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(AttributeModule.builder(TinkerAttributes.BOUNCY.get(), Operation.ADDITION).tooltipStyle(TooltipStyle.NONE).flat(1));
-                                     ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:821: error: cannot find symbol
-    buildModifier(ModifierIds.bouncy).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(AttributeModule.builder(TinkerAttributes.BOUNCY.get(), Operation.ADDITION).tooltipStyle(TooltipStyle.NONE).flat(1));
-                                                                                                                                                             ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:823: error: cannot find symbol
-    buildModifier(ModifierIds.doubleJump).levelDisplay(new UniqueForLevels(4, false)).addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).eachLevel(1));
-                                         ^
-  symbol:   method levelDisplay(UniqueForLevels)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:823: error: cannot find symbol
-    buildModifier(ModifierIds.doubleJump).levelDisplay(new UniqueForLevels(4, false)).addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).eachLevel(1));
-                                                                                                                                                                    ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:825: error: cannot find symbol
-    buildModifier(ModifierIds.blocking).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BlockingModule.INSTANCE);
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:836: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.PROTECTION_CAP, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).amount(0.05f, 0.05f));
-                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:841: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:847: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:849: error: cannot find symbol
       .addModule(ToolActionTransformModule.builder(ItemAbilities.AXE_SCRAPE, SoundEvents.AXE_SCRAPE).eventId(LevelEvent.PARTICLES_SCRAPE).build())
@@ -26896,195 +26301,33 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                       ^
   symbol:   method eventId(int)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:853: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:857: error: cannot find symbol
-    buildModifier(ModifierIds.brushing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BrushModule.INSTANCE);
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:858: error: cannot find symbol
-    buildModifier(ModifierIds.harvest).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:861: error: cannot find symbol
-    buildModifier(ModifierIds.throwing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ThrowingModule.INSTANCE);
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:863: error: cannot find symbol
-    buildModifier(ModifierIds.channeling).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ChannelingModule(0.15f, 0.65f, 1.0f, false));
-                                         ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:864: error: cannot find symbol
-    buildModifier(ModifierIds.ballista).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(ModifiableBowItem.KEY_BALLISTA));
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:866: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:868: error: cannot find symbol
       .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1))
                                                  ^
   symbol:   method target(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:872: error: cannot find symbol
-    buildModifier(ModifierIds.finsAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
-                                       ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:874: error: cannot find symbol
-    buildModifier(ModifierIds.shears).priority(70).levelDisplay(ModifierLevelDisplay.PLUSES)
-                                     ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:879: error: cannot find symbol
-    buildModifier(ModifierIds.silkyShears).priority(70).levelDisplay(ModifierLevelDisplay.PLUSES)
-                                          ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:882: error: cannot find symbol
-    buildModifier(TinkerModifiers.aoeSilkyShears.getId()).priority(70).addModule(new ShearsModule(1, 0, 1, silky));
-                                                         ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:884: error: cannot find symbol
-    buildModifier(ModifierIds.flinging).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:886: error: cannot find symbol
-    buildModifier(ModifierIds.springing).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:888: error: cannot find symbol
-    buildModifier(ModifierIds.bonking).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new SlingKnockbackModule(new LevelingValue(1, 2), 1.5f, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:889: error: cannot find symbol
-    buildModifier(ModifierIds.warping).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new SlingTeleportModule(new LevelingValue(2, 4), 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:891: error: cannot find symbol
-    buildModifier(ModifierIds.spitting).priority(120) // want to run before sling modifiers so we can sling spit, and before throwing so we use our tank first
-                                       ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:900: error: cannot find symbol
-    buildModifier(ModifierIds.slurping).priority(40)
-                                       ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:906: error: cannot find symbol
-    buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE).addModule(ShowInteractionSourceModule.INSTANCE);
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:909: error: cannot find symbol
-    buildModifier(ModifierIds.lureRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
-                                      ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:911: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:915: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:919: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:925: error: cannot find symbol
-      .priority(110) // want to be higher than bonking and alike
-      ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:931: error: cannot find symbol
-    buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
-                                              ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:932: error: cannot find symbol
-    buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-                                                                                                          ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:936: error: cannot find symbol
-    buildModifier(ModifierIds.economical).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new CraftCountModule(LevelingValue.flat(2)));
-                                         ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:937: error: cannot find symbol
-    buildModifier(ModifierIds.cheap).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new CraftCountModule(LevelingValue.flat(0.5f), ModifierCondition.ANY_TOOL));
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:939: error: cannot find symbol
-    buildModifier(ModifierIds.tanned).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-                                     ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:948: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(WORN_ARMOR)).eachLevel(0.05f));
-                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:956: error: cannot find symbol
     buildModifier(ModifierIds.depthProtection).addModule(DepthProtectionModule.builder().baselineHeight(64).neutralRange(32).eachLevel(1.25f));
                                                                                         ^
   symbol:   method baselineHeight(int)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:959: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1023: error: cannot find symbol
-    buildModifier(ModifierIds.solarPowered).priority(185) // after tanned, before stoneshield
-                                           ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1028: error: cannot find symbol
-    buildModifier(ModifierIds.tipped).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(TippedModule.INSTANCE);
-                                     ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1030: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1035: error: reference to builder is ambiguous
+      .addModule(MobEffectModule.builder(TinkerEffects.enderference).applyBeforeMelee(true).time(RandomLevelingValue.flat(100)).buildWeapon())
+                                ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1035: error: cannot find symbol
       .addModule(MobEffectModule.builder(TinkerEffects.enderference).applyBeforeMelee(true).time(RandomLevelingValue.flat(100)).buildWeapon())
                                                                     ^
   symbol:   method applyBeforeMelee(boolean)
   location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1036: error: reference to builder is ambiguous
+      .addModule(MobEffectModule.builder(TinkerEffects.enderference).time(RandomLevelingValue.flat(100)).toolTag(TinkerTags.Items.ARMOR).chance(LevelingValue.eachLevel(0.25f)).buildCounter());
+                                ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1036: error: cannot find symbol
       .addModule(MobEffectModule.builder(TinkerEffects.enderference).time(RandomLevelingValue.flat(100)).toolTag(TinkerTags.Items.ARMOR).chance(LevelingValue.eachLevel(0.25f)).buildCounter());
                                                                     ^
   symbol:   method time(RandomLevelingValue)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1040: error: cannot find symbol
-      .priority(175) // higher than overslime, to ensure this is removed first
-      ^
-  symbol:   method priority(int)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1043: error: method amount in class Builder cannot be applied to given types;
       .addModule(LootToCapacityModule.consume(Ingredient.of(TinkerTags.Items.STONESHIELDS)).amount(3).eachLevel(0.2f));
@@ -27092,16 +26335,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: float,float
   found:    int
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1045: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1049: error: cannot find symbol
-    buildModifier(ModifierIds.deciduous).priority(250).addModule(new ShareDurabilityModule(ModifierIds.barkskin, new LevelingInt(1, 1), LevelingInt.flat(1)));
-                                        ^
-  symbol:   method priority(int)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1051: error: cannot find symbol
     buildModifier(ModifierIds.searing).addModule(ConditionalMiningSpeedModule.builder().blocks(TinkerPredicate.CAN_MELT_BLOCK).eachLevel(6f));
                                                                                        ^
@@ -27122,45 +26355,20 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                ^
   symbol:   method holder(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1059: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1061: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(-0.05f, -0.1f))
-                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1062: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE.get(), Operation.ADDITION).eachLevel(1));
-                                                                                             ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1064: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
+      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(-0.05f, -0.1f))
+                                                                                                    ^
+  symbol:   method tooltipStyle(TooltipStyle)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1066: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
-                                                                             ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
+                                                                                                   ^
+  symbol:   method tooltipStyle(TooltipStyle)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1068: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.01f, 0.015f))
-                                                                           ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1070: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.05f));
-                                                                                            ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1072: error: cannot find symbol
-    buildModifier(ModifierIds.enderdodging).priority(50) // after recurrent
-                                           ^
-  symbol:   method priority(int)
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.01f, 0.015f))
+                                                                                                 ^
+  symbol:   method tooltipStyle(TooltipStyle)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1075: error: cannot find symbol
       .addModule(TeleportDodgeModule.builder().damageSource(isProjectile).chance(new LevelingValue(0.1f, 0.1f)).flat(10 * 20))
@@ -27172,40 +26380,14 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                               ^
   symbol:   method damageSource(IJsonPredicate<DamageSource>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1079: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1084: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1109: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1120: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1122: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
-                                                                             ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1126: error: reference to builder is ambiguous
+    MobEffectModule.Builder venomBuilder = MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20));
+                                                          ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1126: error: cannot find symbol
     MobEffectModule.Builder venomBuilder = MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20));
                                                                                        ^
   symbol:   method time(RandomLevelingValue)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1127: error: cannot find symbol
-    buildModifier(ModifierIds.venom).priority(150)
-                                    ^
-  symbol:   method priority(int)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1129: error: cannot find symbol
       .addModule(venomBuilder.chance(LevelingValue.flat(0.15f)).buildCounter());
@@ -27227,41 +26409,16 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1184: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1187: error: cannot find symbol
-    buildModifier(ModifierIds.restore).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1189: error: cannot find symbol
-    buildModifier(ModifierIds.rebuff).priority(25) // after warded, only restore your actual taken damage
-                                     ^
-  symbol:   method priority(int)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1191: error: cannot find symbol
       .addModule(RestoreLostHealthModule.builder().toolTag(TinkerTags.Items.ARMOR).chance(LevelingValue.ONE).effectLevel(LevelingInt.eachLevel(1)).flat(0.5f));
                                                                                   ^
   symbol:   method chance(LevelingValue)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1200: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.KNOCKBACK_RESISTANCE, Operation.MULTIPLY_BASE).toolItem(ItemPredicate.tag(ARMOR).inverted()).eachLevel(0.1f))
-                                                                                   ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1201: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE).eachLevel(-0.1f))
-                                                                             ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1202: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f));
-                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1207: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.1f));
-                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
+      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f));
+                                                                                                    ^
+  symbol:   method tooltipStyle(TooltipStyle)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1227: error: cannot find symbol
     buildModifier(ModifierIds.consecrated).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(1.25f));
                                                                                ^
@@ -27277,62 +26434,25 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                          ^
   symbol:   method blocks(IJsonPredicate<BlockState>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1236: error: cannot find symbol
-    buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
-                                       ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1237: error: cannot find symbol
-    buildModifier(ModifierIds.tasty).priority(40)
-                                    ^
-  symbol:   method priority(int)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1246: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-                                                                           ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1247: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-                                                                                        ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1249: error: no suitable method found for builder(Holder<MobEffect>)
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+                                                                                                 ^
+  symbol:   method tooltipStyle(TooltipStyle)
+  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1249: error: cannot find symbol
     MobEffectModule.Builder spectralBuilder = MobEffectModule.builder(MobEffects.GLOWING).chance(LevelingValue.flat(1)).counterDurabilityUsage(0).time(RandomLevelingValue.perLevel(0, 200));
-                                                             ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1250: error: cannot find symbol
-    buildModifier(ModifierIds.spectral).priority(10) // run late so we don't cancel another effect by deleting the projectile
-                                       ^
-  symbol:   method priority(int)
+                                                                                         ^
+  symbol:   method chance(LevelingValue)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1255: error: cannot find symbol
     buildModifier(ModifierIds.explosive).addModule(ProjectileExplosionModule.radius(1, 1).eflnBonus(0.5f).blockInteraction(BlockInteraction.DESTROY).build());
                                                                                          ^
   symbol:   method eflnBonus(float)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1262: error: cannot find symbol
-    buildModifier(ModifierIds.cobalamin).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1263: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-                                                                           ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1264: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.15f));
-                                                                                            ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1272: error: cannot find symbol
-    buildModifier(ModifierIds.overwield).priority(75) // run later than other conditionals
-                                        ^
-  symbol:   method priority(int)
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+                                                                                                 ^
+  symbol:   method tooltipStyle(TooltipStyle)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1284: error: method before in class Builder cannot be applied to given types;
         .before(true).owner(overslime).eachLevel(-1))
@@ -27346,37 +26466,22 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    boolean
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1297: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL)
-                                                                           ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1305: error: method before in class Builder cannot be applied to given types;
       .addModule(MeleeCapacityModule.builder().before(true).owner(overslime).eachLevel(-1))
                                               ^
   required: no arguments
   found:    boolean
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1349: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ARMOR_TOUGHNESS, Operation.ADDITION)
-                                                                              ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1391: error: cannot find symbol
         .cause(allowReinforced)
         ^
   symbol:   method cause(IJsonPredicate<ModifierId>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1448: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE).eachLevel(-0.1f))
-                                                                             ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1449: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f));
-                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f));
+                                                                                                    ^
+  symbol:   method tooltipStyle(TooltipStyle)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1467: error: cannot find symbol
       .addModule(ThornsModule.type(TinkerDamageTypes.SHOCK).chanceLeveling(0.2f).constantFlat(2).randomFlat(3).toolTag(ARMOR).attacker(LivingEntityPredicate.or(LivingEntityPredicate.EYES_IN_WATER, LivingEntityPredicate.FEET_IN_WATER)).build())
                                                                                                                              ^
@@ -27387,71 +26492,44 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                              ^
   symbol:   method attacker(LivingEntityPredicate)
   location: class Builder<ThornsModule>
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1471: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1471: error: cannot find symbol
     MobEffectModule.Builder decayBuilder = MobEffectModule.builder(MobEffects.WITHER).level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(120));
-                                                          ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
+                                                                                     ^
+  symbol:   method level(RandomLevelingValue)
+  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1475: error: cannot find symbol
       .addModule(decayBuilder.chance(LevelingValue.flat(0.25f)).buildToolUsage(), ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.SLING_LAUNCH)
                              ^
   symbol:   method chance(LevelingValue)
   location: variable decayBuilder of type Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1477: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1477: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.WITHER).level(RandomLevelingValue.flat(2)).time(RandomLevelingValue.flat(120)).chance(LevelingValue.eachLevel(0.5f)).buildCounter())
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1478: error: no suitable method found for builder(Holder<MobEffect>)
-      .addModule(MobEffectModule.builder(MobEffects.WITHER).level(RandomLevelingValue.flat(1)).time(RandomLevelingValue.flat(120)).chance(LevelingValue.eachLevel(0.1f)).targetSelf(true).counterDurabilityUsage(0).buildCounter());
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1486: error: cannot find symbol
-    buildModifier(ModifierIds.fortified).priority(60).addModule(ModifierSlotModule.slot(SlotType.DEFENSE).eachLevel(1));
-                                        ^
-  symbol:   method priority(int)
+                                                           ^
+  symbol:   method level(RandomLevelingValue)
   location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1478: error: cannot find symbol
+      .addModule(MobEffectModule.builder(MobEffects.WITHER).level(RandomLevelingValue.flat(1)).time(RandomLevelingValue.flat(120)).chance(LevelingValue.eachLevel(0.1f)).targetSelf(true).counterDurabilityUsage(0).buildCounter());
+                                                           ^
+  symbol:   method level(RandomLevelingValue)
+  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1489: error: reference to builder is ambiguous
+    MobEffectModule.Builder conductiveBuilder = MobEffectModule.builder(TinkerEffects.conductive).time(RandomLevelingValue.random(5 * 20, 5 * 20));
+                                                               ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1489: error: cannot find symbol
     MobEffectModule.Builder conductiveBuilder = MobEffectModule.builder(TinkerEffects.conductive).time(RandomLevelingValue.random(5 * 20, 5 * 20));
                                                                                                  ^
   symbol:   method time(RandomLevelingValue)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1490: error: cannot find symbol
-    buildModifier(ModifierIds.conductive).priority(150)
-                                         ^
-  symbol:   method priority(int)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1493: error: cannot find symbol
       .addModule(conductiveBuilder.chance(LevelingValue.flat(0.15f)).buildCounter());
                                   ^
   symbol:   method chance(LevelingValue)
   location: variable conductiveBuilder of type Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1501: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).slots(EquipmentSlot.OFFHAND).toolItem(ItemPredicate.tag(TinkerTags.Items.HELD_ARMOR)).eachLevel(-0.1f))
-                                                                           ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1502: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(ARMOR_SLOTS).eachLevel(-0.1f))
-                                                                             ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1503: error: cannot find symbol
-      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f));
-                                                                              ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1529: error: cannot find symbol
-    buildModifier(ModifierIds.loyal).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                    ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
+      .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f));
+                                                                                                    ^
+  symbol:   method tooltipStyle(TooltipStyle)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1542: error: cannot find symbol
     buildModifier(ModifierIds.temperedProtection).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.ON_FIRE).eachLevel(1.25f));
@@ -27468,15 +26546,10 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                  ^
   symbol:   method target(LivingEntityPredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1557: error: cannot find symbol
-    buildModifier(ModifierIds.warded).priority(50) // after dragonheart, before restore
-                                     ^
-  symbol:   method priority(int)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1559: error: cannot find symbol
-        .tooltipValue(100) // valid up to 200 levels!
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1560: error: cannot find symbol
+        .holder(TinkerPredicate.FULL_HEALTH)
         ^
-  symbol:   method tooltipValue(int)
+  symbol:   method holder(LivingEntityPredicate)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1572: error: no suitable constructor found for EffectImmunityModule(Holder<MobEffect>)
     buildModifier(ModifierIds.mithridatism).addModule(new EffectImmunityModule(MobEffects.POISON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -27485,45 +26558,13 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
     constructor EffectImmunityModule.EffectImmunityModule(Supplier<? extends MobEffect>) is not applicable
       (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1573: error: cannot find symbol
-    buildModifier(ModifierIds.boonOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                          ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1574: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f))
-                                                                                         ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1577: error: cannot find symbol
-    buildModifier(ModifierIds.balmOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                          ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1578: error: cannot find symbol
-      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.2f));
-                                                                                        ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1581: error: incompatible types: Holder<MobEffect> cannot be converted to MobEffect
       .addModule(new ClearEffectOnUnequipModule(MobEffects.DAMAGE_BOOST, ModifierCondition.ANY_TOOL));
                                                           ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1579: error: cannot find symbol
-    buildModifier(ModifierIds.revenge).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1580: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1580: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.DAMAGE_BOOST).time(RandomLevelingValue.perLevel(0, 200)).chance(LevelingValue.ONE).counterDurabilityUsage(0).targetSelf(true).directDamage(BooleanPredicate.ALWAYS).damageSource(SourceAttackerPredicate.causing(LivingEntityPredicate.ANY)).buildCounter())
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1582: error: cannot find symbol
-    buildModifier(ModifierIds.dragonheart).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                          ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
+                                                                 ^
+  symbol:   method time(RandomLevelingValue)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1588: error: no suitable constructor found for AttributeEntityVariable(Holder<Attribute>)
         .customVariable("max_health", new EntityProtectionVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), EntityProtectionVariable.WhichEntity.TARGET, 20))
@@ -27548,33 +26589,24 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
     constructor EffectImmunityModule.EffectImmunityModule(Supplier<? extends MobEffect>,LevelingInt) is not applicable
       (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1593: error: cannot find symbol
-    buildModifier(ModifierIds.slowBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                        ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1595: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1595: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).damageSource(DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE)).time(RandomLevelingValue.flat(300)).level(RandomLevelingValue.perLevel(0, 2)).buildArmorAttack());
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1596: error: cannot find symbol
-    buildModifier(ModifierIds.magicBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                         ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
+                                                                      ^
+  symbol:   method damageSource(IJsonPredicate<DamageSource>)
   location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1598: error: reference to builder is ambiguous
+      .addModule(MobEffectModule.builder(TinkerEffects.venom).damageSource(DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
+                                ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1598: error: cannot find symbol
       .addModule(MobEffectModule.builder(TinkerEffects.venom).damageSource(DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
                                                              ^
   symbol:   method damageSource(IJsonPredicate<DamageSource>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1599: error: cannot find symbol
-    buildModifier(ModifierIds.flamingBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                           ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1601: error: reference to builder is ambiguous
+      .addModule(MobEffectModule.builder(TinkerEffects.conductive).damageSource(DamageSourcePredicate.tag(TinkerTags.DamageTypes.MELEE_PROTECTION)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
+                                ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1601: error: cannot find symbol
       .addModule(MobEffectModule.builder(TinkerEffects.conductive).damageSource(DamageSourcePredicate.tag(TinkerTags.DamageTypes.MELEE_PROTECTION)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
                                                                   ^
@@ -27589,124 +26621,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
     constructor EffectImmunityModule.EffectImmunityModule(Supplier<? extends MobEffect>,LevelingInt) is not applicable
       (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1602: error: cannot find symbol
-    buildModifier(ModifierIds.decayedBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                           ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1604: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1604: error: cannot find symbol
       .addModule(MobEffectModule.builder(MobEffects.WITHER).damageSource(DamageSourcePredicate.tag(TinkerTags.DamageTypes.MELEE_PROTECTION)).time(RandomLevelingValue.flat(120)).buildArmorAttack());
-                                ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1605: error: cannot find symbol
-    buildModifier(ModifierIds.fireborn).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-                                       ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
+                                                           ^
+  symbol:   method damageSource(IJsonPredicate<DamageSource>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1612: error: no suitable method found for builder(Holder<MobEffect>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1612: error: cannot find symbol
     buildModifier(ModifierIds.floaty).addModule(MobEffectModule.builder(MobEffects.LEVITATION).time(RandomLevelingValue.random(20*2, 20*5)).buildWeapon());
-                                                               ^
-    method MobEffectModule.builder(MobEffect) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to MobEffect)
-    method MobEffectModule.builder(Supplier<? extends MobEffect>) is not applicable
-      (argument mismatch; Holder<MobEffect> cannot be converted to Supplier<? extends MobEffect>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1617: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1627: error: cannot find symbol
-    buildModifier(ModifierIds.creeperDisguise        ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.CREEPER));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1628: error: cannot find symbol
-    buildModifier(ModifierIds.skeletonDisguise       ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.SKELETON));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1629: error: cannot find symbol
-    buildModifier(ModifierIds.strayDisguise          ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.STRAY));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1630: error: cannot find symbol
-    buildModifier(ModifierIds.witherSkeletonDisguise ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.WITHER_SKELETON));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1631: error: cannot find symbol
-    buildModifier(ModifierIds.spiderDisguise         ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.SPIDER));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1632: error: cannot find symbol
-    buildModifier(ModifierIds.caveSpiderDisguise     ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.CAVE_SPIDER));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1633: error: cannot find symbol
-    buildModifier(ModifierIds.zombieDisguise         ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.ZOMBIE));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1634: error: cannot find symbol
-    buildModifier(ModifierIds.huskDisguise           ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.HUSK));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1635: error: cannot find symbol
-    buildModifier(ModifierIds.drownedDisguise        ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.DROWNED));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1636: error: cannot find symbol
-    buildModifier(ModifierIds.blazeDisguise          ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.BLAZE));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1637: error: cannot find symbol
-    buildModifier(ModifierIds.piglinDisguise         ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.PIGLIN));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1638: error: cannot find symbol
-    buildModifier(ModifierIds.piglinBruteDisguise    ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.PIGLIN_BRUTE));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1639: error: cannot find symbol
-    buildModifier(ModifierIds.zombifiedPiglinDisguise).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.ZOMBIFIED_PIGLIN));
-                                                      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1641: error: cannot find symbol
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      ^
-  symbol:   method levelDisplay(ModifierLevelDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1646: error: cannot find symbol
-    buildModifier(TinkerModifiers.dyed.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
-                                               ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1647: error: cannot find symbol
-    buildModifier(TinkerModifiers.embellishment.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
-                                                        ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1648: error: cannot find symbol
-    buildModifier(TinkerModifiers.banner.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
-                                                 ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1651: error: cannot find symbol
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      ^
-  symbol:   method tooltipDisplay(TooltipDisplay)
+                                                                                              ^
+  symbol:   method time(RandomLevelingValue)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierRecipeProvider.java:95: error: getName() in ModifierRecipeProvider cannot override getName() in RecipeProvider
   public String getName() {
@@ -29379,16 +28302,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\tool\OffhandAttackModifier.java:62: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
       attackSpeed = ToolAttackUtil.getToolAttribute(tool, player, Attributes.ATTACK_SPEED, tool.getStats().get(ToolStats.ATTACK_SPEED) - 4);
                                                                             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\armor\BouncyModifier.java:16: error: cannot find symbol
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.BOUNCY, Operation.ADDITION).uniqueFrom(getId()).tooltipStyle(TooltipStyle.NONE).flat(1));
-                                                                                    ^
-  symbol:   variable ADDITION
-  location: class Operation
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\armor\DoubleJumpModifier.java:24: error: cannot find symbol
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).flat(1));
-                                                                                              ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\fluid\UseFluidOnHitModifier.java:51: error: cannot find symbol
     LivingEntity self = context.getEntity();
                                ^
@@ -29622,11 +28535,12 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ModifierLootModifier.java:85: error: method does not override or implement a method from a supertype
   @Override
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\DamageSpeedTradeModifier.java:81: error: cannot find symbol
-        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.MULTIPLY_TOTAL));
-                                                                                                                             ^
-  symbol:   variable MULTIPLY_TOTAL
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\DamageSpeedTradeModifier.java:81: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.ADD_MULTIPLIED_TOTAL));
+                                                  ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:90: error: cannot find symbol
     if (!context.isExtraAttack()) {
                 ^
@@ -29780,11 +28694,19 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                           ^
   symbol:   method getEntity()
   location: variable context of type EquipmentContext
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\EnderferenceModifier.java:27: error: reference to builder is ambiguous
+    hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.enderference).applyBeforeMelee(true).time(RandomLevelingValue.flat(100)).buildWeapon());
+                                         ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\EnderferenceModifier.java:27: error: cannot find symbol
     hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.enderference).applyBeforeMelee(true).time(RandomLevelingValue.flat(100)).buildWeapon());
                                                                              ^
   symbol:   method applyBeforeMelee(boolean)
   location: class Builder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\EnderferenceModifier.java:28: error: reference to builder is ambiguous
+    hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.enderference).time(RandomLevelingValue.flat(100)).toolTag(TinkerTags.Items.ARMOR).chance(LevelingValue.eachLevel(0.25f)).buildCounter());
+                                         ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\EnderferenceModifier.java:28: error: cannot find symbol
     hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.enderference).time(RandomLevelingValue.flat(100)).toolTag(TinkerTags.Items.ARMOR).chance(LevelingValue.eachLevel(0.25f)).buildCounter());
                                                                              ^
@@ -29859,11 +28781,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                  ^
   symbol:   method getEntity()
   location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\BoonOfSssssModifier.java:18: error: cannot find symbol
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f));
-                                                                                                  ^
-  symbol:   variable MULTIPLY_BASE
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\BreathtakingModifier.java:26: error: cannot find symbol
       LivingEntity attacker = context.getEntity();
                                      ^
@@ -30013,15 +28930,10 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
     method AttributeInstance.removeModifier(ResourceLocation) is not applicable
       (argument mismatch; UUID cannot be converted to ResourceLocation)
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:105: error: cannot find symbol
-        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADDITION));
+        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADD_VALUE));
                                                                                                       ^
   symbol:   method getTotalGold()
   location: class GoldGuardGold
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:105: error: cannot find symbol
-        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADDITION));
-                                                                                                                                   ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:119: error: cannot find symbol
       updateAttribute(context.getEntity());
                              ^
@@ -30113,6 +29025,10 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                           ^
   symbol:   method durabilityUsage(int)
   location: class Builder<KnockbackCounterModule>
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\general\MagneticModifier.java:22: error: reference to builder is ambiguous
+    hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.magnetic).time(RandomLevelingValue.flat(40)).buildToolUsage());
+                                         ^
+  both method builder(Supplier<? extends MobEffect>) in MobEffectModule and method builder(Holder<MobEffect>) in MobEffectModule match
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\general\MagneticModifier.java:22: error: cannot find symbol
     hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.magnetic).time(RandomLevelingValue.flat(40)).buildToolUsage());
                                                                          ^
@@ -30315,11 +29231,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; UUID cannot be converted to AttributeModifier)
     method AttributeInstance.removeModifier(ResourceLocation) is not applicable
       (argument mismatch; UUID cannot be converted to ResourceLocation)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:133: error: cannot find symbol
-      if (operation == Operation.ADDITION) {
-                                ^
-  symbol:   variable ADDITION
-  location: class Operation
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\MinimapModule.java:46: error: cannot find symbol
   public static final TinkerDataKey<ItemStack> MAP = TConstruct.createKey("current_map");
                                                                ^
@@ -31489,11 +30400,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    ToolTankHelper
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\TinkerModifiers.java:717: error: cannot find symbol
-      effect.addAttributeModifier(Attributes.ATTACK_DAMAGE, "cc6904f7-674a-4e6a-b992-4f3cb8edfef4", 1, AttributeModifier.Operation.ADDITION);
-                                                                                                                                  ^
-  symbol:   variable ADDITION
-  location: class Operation
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\TinkerModifiers.java:717: error: no suitable method found for addAttributeModifier(Holder<Attribute>,String,int,Operation)
+      effect.addAttributeModifier(Attributes.ATTACK_DAMAGE, "cc6904f7-674a-4e6a-b992-4f3cb8edfef4", 1, AttributeModifier.Operation.ADD_VALUE);
+            ^
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction) is not applicable
+      (argument mismatch; String cannot be converted to ResourceLocation)
+    method TinkerEffect.addAttributeModifier(Attribute,String,double,Operation) is not applicable
+      (argument mismatch; Holder<Attribute> cannot be converted to Attribute)
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\TinkerModifiers.java:733: error: incompatible types: invalid constructor reference
   public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ArmorDyeingRecipe>> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", () -> new SimpleRecipeSerializer<>(ArmorDyeingRecipe::new));
                                                                                                                                                                                                                ^
@@ -32297,7 +31212,7 @@ Note: Some input files additionally use or override a deprecated API that is mar
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-5.939 errors
+5.727 errors
 100 warnings
 
 > Task :compileJava FAILED
@@ -32312,5 +31227,5 @@ Execution failed for task ':compileJava'.
 > Run with --info option to get more log output.
 > Run with --scan to get full insights.
 
-BUILD FAILED in 29s
+BUILD FAILED in 27s
 3 actionable tasks: 2 executed, 1 up-to-date

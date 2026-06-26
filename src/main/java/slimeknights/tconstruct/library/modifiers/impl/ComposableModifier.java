@@ -94,6 +94,10 @@ public class ComposableModifier extends BasicModifier {
     private int priority = Integer.MIN_VALUE;
     private final ImmutableList.Builder<WithHooks<ModifierModule>> modules = ImmutableList.builder();
 
+    public Builder levelDisplay(ModifierLevelDisplay levelDisplay) { this.levelDisplay = levelDisplay; return this; }
+    public Builder tooltipDisplay(TooltipDisplay tooltipDisplay) { this.tooltipDisplay = tooltipDisplay; return this; }
+    public Builder priority(int priority) { this.priority = priority; return this; }
+
     /** Adds a module to the builder */
     public final Builder addModule(ModifierModule module) {
       modules.add(new WithHooks<>(module, Collections.emptyList()));

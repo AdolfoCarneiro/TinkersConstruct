@@ -123,6 +123,11 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
     return new Builder(effect.get());
   }
 
+  /** Creates a builder instance for a Holder<MobEffect> (vanilla MobEffects.X in 1.21.1) */
+  static MobEffectModule.Builder builder(net.minecraft.core.Holder<MobEffect> effect) {
+    return new Builder(effect.value());
+  }
+
   /** Builder for this modifier in datagen */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)

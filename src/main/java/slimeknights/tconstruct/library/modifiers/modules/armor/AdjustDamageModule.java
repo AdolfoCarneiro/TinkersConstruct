@@ -106,6 +106,7 @@ public record AdjustDamageModule(ProtectionFormula formula, IJsonPredicate<Livin
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
     private IJsonPredicate<DamageSource> source = DamageSourcePredicate.CAN_PROTECT;
     private float tooltipValue = 1;
+    public Builder tooltipValue(float tooltipValue) { this.tooltipValue = tooltipValue; return this; }
 
     private Builder() {
       super(ProtectionFormula.VARIABLES);

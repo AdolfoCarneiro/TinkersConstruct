@@ -207,6 +207,10 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     return new Builder(attribute.get(), operation);
   }
 
+  public static Builder builder(net.minecraft.core.Holder<Attribute> attribute, Operation operation) {
+    return new Builder(attribute.value(), operation);
+  }
+
   @Accessors(fluent = true)
   public static class Builder extends VariableFormula.Builder<Builder,AttributeModule,ToolVariable> {
     protected final Attribute attribute;
