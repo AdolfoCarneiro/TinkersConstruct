@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -37,10 +39,9 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 /** Module implementing the movement speed side of lightspeed */
-public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attribute, Operation operation, @Nullable LightLayer lightLayer, int minLight, float amount, float damageChance) implements ModifierModule, ArmorWalkModifierHook, EquipmentChangeModifierHook, TooltipModifierHook {
+public record LightspeedAttributeModule(String unique, Attribute attribute, Operation operation, @Nullable LightLayer lightLayer, int minLight, float amount, float damageChance) implements ModifierModule, ArmorWalkModifierHook, EquipmentChangeModifierHook, TooltipModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<LightspeedAttributeModule>defaultHooks(ModifierHooks.BOOT_WALK, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<LightspeedAttributeModule> LOADER = RecordLoadable.create(
     new AttributeUniqueField<>(LightspeedAttributeModule::unique),
@@ -52,8 +53,8 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
     FloatLoadable.FROM_ZERO.requiredField("damage_chance", LightspeedAttributeModule::damageChance),
     LightspeedAttributeModule::new);
 
-  public LightspeedAttributeModule(String unique, Attribute attribute, Operation operation, LightLayer lightLayer, int minLight, float amount, float damageChance) {
-    this(unique, UUID.nameUUIDFromBytes(unique.getBytes()), attribute, operation, lightLayer, minLight, amount, damageChance);
+  private ResourceLocation modifierId() {
+    return ResourceLocation.parse(unique.replace('.', ':').replace("modifier.", ""));
   }
 
   @Override
@@ -79,13 +80,14 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
       return;
     }
     // must have speed
-    AttributeInstance attribute = living.getAttribute(this.attribute);
+    AttributeInstance attribute = living.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(this.attribute));
     if (attribute == null) {
       return;
     }
+    ResourceLocation id = modifierId();
     // start by removing the attribute, we are likely going to give it a new number
-    if (attribute.getModifier(uuid) != null) {
-      attribute.removeModifier(uuid);
+    if (attribute.getModifier(id) != null) {
+      attribute.removeModifier(id);
     }
 
     // not above air
@@ -94,7 +96,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
     int light = getLight(level, pos);
     if (light > minLight) {
       int scaledLight = light - minLight;
-      attribute.addTransientModifier(new AttributeModifier(uuid, unique, scaledLight * amount * modifier.getEffectiveLevel(), operation));
+      attribute.addTransientModifier(new AttributeModifier(id, scaledLight * amount * modifier.getEffectiveLevel(), operation));
 
       // damage boots
       if (level.random.nextFloat() < (damageChance * scaledLight)) {
@@ -111,9 +113,10 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
       IToolStackView newTool = context.getReplacementTool();
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifier(modifier.getId()).getEffectiveLevel() != modifier.getEffectiveLevel()) {
-        AttributeInstance attribute = livingEntity.getAttribute(this.attribute);
-        if (attribute != null && attribute.getModifier(uuid) != null) {
-          attribute.removeModifier(uuid);
+        AttributeInstance attribute = livingEntity.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(this.attribute));
+        ResourceLocation id = modifierId();
+        if (attribute != null && attribute.getModifier(id) != null) {
+          attribute.removeModifier(id);
         }
       }
     }

@@ -40,6 +40,11 @@ public class OvergrowthModule implements ModifierModule, InventoryTickModifierHo
   private final LevelingValue chance;
   private final ModifierCondition<IToolStackView> condition;
 
+  @Override
+  public ModifierCondition<IToolStackView> condition() {
+    return condition;
+  }
+
   public OvergrowthModule(LevelingValue chance) {
     this(chance, ModifierCondition.ANY_TOOL);
   }

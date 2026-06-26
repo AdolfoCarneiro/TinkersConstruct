@@ -42,11 +42,22 @@ public class TinkerDataCapability {
 
   /** Class for generic keys */
   @SuppressWarnings("unused")
-  @RequiredArgsConstructor(staticName = "of")
   public static class TinkerDataKey<T> implements IdAwareObject {
     /** Name for debug */
-    @Getter
     private final ResourceLocation id;
+
+    private TinkerDataKey(ResourceLocation id) {
+      this.id = id;
+    }
+
+    public static <T> TinkerDataKey<T> of(ResourceLocation id) {
+      return new TinkerDataKey<>(id);
+    }
+
+    @Override
+    public ResourceLocation getId() {
+      return id;
+    }
 
     @Override
     public String toString() {
