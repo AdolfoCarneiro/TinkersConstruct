@@ -72,6 +72,11 @@ public interface LootingModule extends ModifierModule, LevelingIntModule, Condit
 
     private Builder() {}
 
+    public Builder lootingLevel(LevelingInt lootingLevel) { this.lootingLevel = lootingLevel; return this; }
+    public Builder holder(IJsonPredicate<LivingEntity> holder) { this.holder = holder; return this; }
+    public Builder target(IJsonPredicate<LivingEntity> target) { this.target = target; return this; }
+    public Builder damageSource(IJsonPredicate<DamageSource> damageSource) { this.damageSource = damageSource; return this; }
+
     /** @deprecated use {@link #lootingLevel(LevelingInt)} */
     @Deprecated(forRemoval = true)
     public Builder level(int level) {

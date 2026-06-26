@@ -29,10 +29,12 @@ public abstract class TinkerToolEvent extends Event {
     this.tool = ToolStack.from(stack);
   }
 
+  /** Tri-state result for harvest/shear events (replaces removed Event.Result from NeoForge bus 8.x) */
+  public enum Result { DEFAULT, ALLOW, DENY }
+
   /**
    * Event fired when a kama tries to harvest a crop. Set result to {@link Result#ALLOW} if you handled the harvest yourself. Set the result to {@link Result#DENY} if the block cannot be harvested.
    */
-  @HasResult
   @Getter
   public static class ToolHarvestEvent extends TinkerToolEvent {
     /** Item context, note this is the original context, so some information (such as position) may not be accurate */
@@ -41,6 +43,7 @@ public abstract class TinkerToolEvent extends Event {
     private final BlockState state;
     private final BlockPos pos;
     private final InteractionSource source;
+    private Result result = Result.DEFAULT;
 
     public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, InteractionSource source) {
       super(getItem(context, source), tool);
@@ -74,23 +77,27 @@ public abstract class TinkerToolEvent extends Event {
       return context.getPlayer();
     }
 
+    public Result getResult() { return result; }
+    public void setResult(Result result) { this.result = result; }
+
     /** Fires this event and posts the result */
     public Result fire() {
       NeoForge.EVENT_BUS.post(this);
-      return this.getResult();
+      return this.result;
     }
   }
 
   /**
    * Event fired when a kama or scythe tries to shear an entity
    */
-  @HasResult
   @Getter
   public static class ToolShearEvent extends TinkerToolEvent {
     private final Level world;
     private final Player player;
     private final Entity target;
     private final int fortune;
+    private Result result = Result.DEFAULT;
+
     public ToolShearEvent(ItemStack stack, IToolStackView tool, Level world, Player player, Entity target, int fortune) {
       super(stack, tool);
       this.world = world;
@@ -99,10 +106,13 @@ public abstract class TinkerToolEvent extends Event {
       this.fortune = fortune;
     }
 
+    public Result getResult() { return result; }
+    public void setResult(Result result) { this.result = result; }
+
     /** Fires this event and posts the result */
     public Result fire() {
       NeoForge.EVENT_BUS.post(this);
-      return this.getResult();
+      return this.result;
     }
   }
 }

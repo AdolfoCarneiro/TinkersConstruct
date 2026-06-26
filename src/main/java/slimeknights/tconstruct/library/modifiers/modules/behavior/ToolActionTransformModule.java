@@ -108,10 +108,11 @@ public record ToolActionTransformModule(ItemAbility action, SoundEvent sound, bo
     return new Builder(action, sound);
   }
 
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder extends ModuleBuilder.Stack<Builder> {
     private final ItemAbility action;
     private final SoundEvent sound;
+
+    private Builder(ItemAbility action, SoundEvent sound) { this.action = action; this.sound = sound; }
     private boolean requireGround;
     /**
      * Event ID to play upon success

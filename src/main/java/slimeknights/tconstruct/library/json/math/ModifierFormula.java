@@ -89,10 +89,11 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
 
 
   /** Builder for a module containing a modifier formula */
-  @RequiredArgsConstructor
   abstract class Builder<T extends Builder<T,M>,M> extends ModuleBuilder.Stack<T> implements LevelingValue.Builder<M> {
     /** Variables to use for post fix formulas */
     protected final String[] variableNames;
+
+    protected Builder(String[] variableNames) { this.variableNames = variableNames; }
 
     /** Builds the module given the formula */
     protected abstract M build(ModifierFormula formula);

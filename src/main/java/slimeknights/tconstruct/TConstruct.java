@@ -12,6 +12,11 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+
+import java.util.Random;
+import java.util.function.Supplier;
 
 /**
  * TConstruct
@@ -24,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 public class TConstruct {
   public static final String MOD_ID = "tconstruct";
   public static final Logger LOG = LogManager.getLogger("TConstruct");
+  public static final Random RANDOM = new Random();
   /** Registry provider covering vanilla built-in registries (fluids, items, etc), for FluidStack/ItemStack NBT save/parse calls in static contexts with no Level/RegistryAccess available */
   public static final HolderLookup.Provider STATIC_PROVIDER = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
@@ -38,6 +44,14 @@ public class TConstruct {
 
   public static ResourceLocation getResource(String name) {
     return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+  }
+
+  public static <T> TinkerDataKey<T> createKey(String name) {
+    return TinkerDataKey.of(getResource(name));
+  }
+
+  public static <T> ComputableDataKey<T> createKey(String name, Supplier<T> constructor) {
+    return ComputableDataKey.of(getResource(name), constructor);
   }
 
   /** Makes a translation key for the given name, e.g. "block.tconstruct.name" */

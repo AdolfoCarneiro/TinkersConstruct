@@ -35,7 +35,6 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 /** Object for common context for weapon attack hooks */
-@Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ToolAttackContext {
   /* Attacker */
@@ -92,6 +91,20 @@ public class ToolAttackContext {
   public ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
     this(attacker, playerAttacker, hand, Util.getSlotType(hand), target, livingTarget, isCritical, cooldown, isExtraAttack);
   }
+
+  public LivingEntity getAttacker() { return attacker; }
+  @Nullable public Player getPlayerAttacker() { return playerAttacker; }
+  public InteractionHand getHand() { return hand; }
+  public EquipmentSlot getSlotType() { return slotType; }
+  @Nullable public Projectile getProjectile() { return projectile; }
+  public Entity getTarget() { return target; }
+  @Nullable public LivingEntity getLivingTarget() { return livingTarget; }
+  public float getBaseDamage() { return baseDamage; }
+  public float getBaseKnockback() { return baseKnockback; }
+  public float getCooldown() { return cooldown; }
+  public float getCriticalModifier() { return criticalModifier; }
+  public boolean isExtraAttack() { return isExtraAttack; }
+  public SoundEvent getSound() { return sound; }
 
   /** Returns true if this attack is fully charged */
   public boolean isFullyCharged() {

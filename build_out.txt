@@ -1551,26 +1551,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 @Cancelable
  ^
   symbol: class Cancelable
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:35: error: cannot find symbol
-  @HasResult
-   ^
-  symbol:   class HasResult
-  location: class TinkerToolEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:78: error: cannot find symbol
-    public Result fire() {
-           ^
-  symbol:   class Result
-  location: class ToolHarvestEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:87: error: cannot find symbol
-  @HasResult
-   ^
-  symbol:   class HasResult
-  location: class TinkerToolEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:103: error: cannot find symbol
-    public Result fire() {
-           ^
-  symbol:   class Result
-  location: class ToolShearEvent
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\condition\TagDifferencePresentCondition.java:11: error: cannot find symbol
 import net.neoforged.neoforge.common.conditions.IConditionSerializer;
                                                ^
@@ -1781,16 +1761,6 @@ import net.neoforged.neoforge.event.ForgeEventFactory;
                                    ^
   symbol:   class ForgeEventFactory
   location: package net.neoforged.neoforge.event
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ReduceToolDamageModule.java:38: error: cannot find symbol
-import static slimeknights.tconstruct.TConstruct.RANDOM;
-^
-  symbol:   static RANDOM
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:75: error: cannot find symbol
-import static slimeknights.tconstruct.TConstruct.RANDOM;
-^
-  symbol:   static RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\UpdateModifiersPacket.java:12: error: package net.minecraftforge.network.NetworkEvent does not exist
 import net.minecraftforge.network.NetworkEvent.Context;
                                               ^
@@ -4017,25 +3987,20 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                     ^
   symbol:   class Serializer
   location: class LootItemConditionalFunction
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:4: error: cannot find symbol
+import net.minecraft.core.BuiltInRegistries;
+                         ^
+  symbol:   class BuiltInRegistries
+  location: package net.minecraft.core
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\BrushModule.java:23: error: package net.minecraftforge.common does not exist
 import net.minecraftforge.common.ForgeMod;
                                 ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\BucketModule.java:27: error: package net.minecraftforge.common does not exist
 import net.minecraftforge.common.SoundActions;
                                 ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:18: error: cannot find symbol
-import net.neoforged.bus.api.Event.Result;
-                                  ^
-  symbol:   class Result
-  location: class Event
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\MeltingFluidEffectiveModule.java:4: error: package net.minecraftforge.common does not exist
 import net.minecraftforge.common.TierSortingRegistry;
                                 ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:18: error: cannot find symbol
-import net.minecraft.world.item.alchemy.PotionUtils;
-                                       ^
-  symbol:   class PotionUtils
-  location: package net.minecraft.world.item.alchemy
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\network\EntityMovementChangePacket.java:6: error: package net.minecraftforge.network.NetworkEvent does not exist
 import net.minecraftforge.network.NetworkEvent.Context;
                                               ^
@@ -11887,26 +11852,18 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
            ^
   symbol:   method getModifier()
   location: class SlingModifierTeleportEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:46: error: constructor TinkerToolEvent in class TinkerToolEvent cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:49: error: constructor TinkerToolEvent in class TinkerToolEvent cannot be applied to given types;
       super(getItem(context, source), tool);
       ^
   required: ItemStack
   found:    ItemStack,IToolStackView
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:80: error: cannot find symbol
-      return this.getResult();
-                 ^
-  symbol: method getResult()
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:95: error: constructor TinkerToolEvent in class TinkerToolEvent cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:102: error: constructor TinkerToolEvent in class TinkerToolEvent cannot be applied to given types;
       super(stack, tool);
       ^
   required: ItemStack
   found:    ItemStack,IToolStackView
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\TinkerToolEvent.java:105: error: cannot find symbol
-      return this.getResult();
-                 ^
-  symbol: method getResult()
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\interaction\InteractionSource.java:64: error: incompatible types: InteractionSource cannot be converted to Type
       case ARMOR -> ARMOR;
            ^
@@ -11920,34 +11877,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                   ^
   symbol:   method getKey()
   location: variable RIGHT_CLICK of type InteractionSource
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\events\ToolEquipmentChangeEvent.java:12: error: cannot find symbol
-    super(context.getEntity());
-                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentContext.java:38: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-    EquipmentContext context = new EquipmentContext(living);
-                               ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:27: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-    super(entity);
-    ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataCapability.java:46: error: TinkerDataKey is not abstract and does not override abstract method getId() in IdAwareObject
-  public static class TinkerDataKey<T> implements IdAwareObject {
-                ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataCapability.java:61: error: constructor TinkerDataKey in class TinkerDataKey<T> cannot be applied to given types;
-      super(name);
-      ^
-  required: no arguments
-  found:    ResourceLocation
-  reason: actual and formal argument lists differ in length
-  where T is a type-variable:
-    T extends Object declared in class TinkerDataKey
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\fluid\SimpleFluidTank.java:85: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
     if (!fluid.isFluidEqual(resource)) {
               ^
@@ -12063,11 +11992,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\field\OptionallyNestedLoadable.java:36: error: incompatible types: FriendlyByteBuf cannot be converted to RegistryFriendlyByteBuf
     loadable.encode(buffer, value);
                     ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\LevelingValue.java:67: error: cannot find symbol
-      rand *= TConstruct.RANDOM.nextFloat();
-                        ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\LevelingValue.java:94: error: incompatible types: FriendlyByteBuf cannot be converted to RegistryFriendlyByteBuf
     LOADABLE.encode(buffer, this);
                     ^
@@ -12169,7 +12093,7 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
     (actual and formal argument lists differ in length)
   where T is a type-variable:
     T extends Builder<T> declared in class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\math\ModifierFormula.java:116: error: constructor Builder in class Builder<T> cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\math\ModifierFormula.java:117: error: constructor Builder in class Builder<T> cannot be applied to given types;
         super(parent.variableNames);
         ^
   required: no arguments
@@ -12186,15 +12110,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\math\FormulaLoadable.java:32: error: method does not override or implement a method from a supertype
   @Override
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\math\FormulaLoadable.java:46: error: constructor Builder in class Builder<T,M> cannot be applied to given types;
-      super(variableNames);
-      ^
-  required: no arguments
-  found:    String[]
-  reason: actual and formal argument lists differ in length
-  where T,M are type-variables:
-    T extends Builder<T,M> declared in class Builder
-    M extends Object declared in class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\math\SimpleLevelingFormula.java:30: error: incompatible types: FriendlyByteBuf cannot be converted to RegistryFriendlyByteBuf
     LevelingValue.LOADABLE.encode(buffer, leveling);
                                   ^
@@ -12362,33 +12277,33 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\predicate\tool\StatInSetPredicate.java:83: error: incompatible types: FriendlyByteBuf cannot be converted to RegistryFriendlyByteBuf
       ToolStats.LOADER.encode(buffer, object.stat);
                               ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:83: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,<null>,Entity,LivingEntity,float,float,float,float,boolean,cooldown >[...]_WEAK)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:82: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,<null>,Entity,LivingEntity,float,float,float,float,boolean,cooldown >[...]_WEAK)
     this(attacker, playerAttacker, hand, slotType, null, target, livingTarget,
     ^
     constructor ToolAttackContext.ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Entity,LivingEntity,boolean,float,boolean) is not applicable
       (actual and formal argument lists differ in length)
     constructor ToolAttackContext.ToolAttackContext(LivingEntity,Player,InteractionHand,Entity,LivingEntity,boolean,float,boolean) is not applicable
       (actual and formal argument lists differ in length)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:134: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Projectile,Entity,LivingEntity,float,float,float,float,boolean,SoundEvent)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:147: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Projectile,Entity,LivingEntity,float,float,float,float,boolean,SoundEvent)
     return new ToolAttackContext(attacker, playerAttacker, hand, slotType, projectile, target, livingTarget, baseDamage, baseKnockback, cooldown, 1.0f, true, sound);
            ^
     constructor ToolAttackContext.ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Entity,LivingEntity,boolean,float,boolean) is not applicable
       (actual and formal argument lists differ in length)
     constructor ToolAttackContext.ToolAttackContext(LivingEntity,Player,InteractionHand,Entity,LivingEntity,boolean,float,boolean) is not applicable
       (actual and formal argument lists differ in length)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:152: error: constructor Builder in class Builder cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:165: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(attacker, playerAttacker);
            ^
   required: no arguments
   found:    LivingEntity,Player
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:260: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:273: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
       baseDamage = ToolAttackUtil.getToolAttribute(tool, attacker, Attributes.ATTACK_DAMAGE, tool.getStats().get(ToolStats.ATTACK_DAMAGE));
                                                                              ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:261: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:274: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
       baseKnockback = ToolAttackUtil.getToolAttribute(tool, attacker, Attributes.ATTACK_KNOCKBACK, baseKnockback) / 2;
                                                                                 ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:339: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Projectile,Entity,LivingEntity,float,float,float,float,boolean,SoundEvent)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolAttackContext.java:352: error: no suitable constructor found for ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Projectile,Entity,LivingEntity,float,float,float,float,boolean,SoundEvent)
       return new ToolAttackContext(attacker, playerAttacker, hand, slot, projectile, target, targetLiving, baseDamage, baseKnockback, cooldown, criticalModifier, extraAttack, sound);
              ^
     constructor ToolAttackContext.ToolAttackContext(LivingEntity,Player,InteractionHand,EquipmentSlot,Entity,LivingEntity,boolean,float,boolean) is not applicable
@@ -12403,11 +12318,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\mining\BreakSpeedContext.java:117: error: Direct is not abstract and does not override abstract method miningSpeedMultiplier() in BreakSpeedContext
   final class Direct implements BreakSpeedContext {
         ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\RandomLevelingValue.java:28: error: cannot find symbol
-      value += TConstruct.RANDOM.nextFloat() * level * randomBonus;
-                         ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\RandomLevelingValue.java:56: error: incompatible types: FriendlyByteBuf cannot be converted to RegistryFriendlyByteBuf
     LOADABLE.encode(buffer, this);
                     ^
@@ -12435,20 +12345,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\entity\EntityEffectLevelVariable.java:15: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
     MobEffectInstance instance = entity.getEffect(effect);
                                                   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\melee\EntityMeleeVariable.java:32: error: cannot find symbol
-      entity = context.getLivingTarget();
-                      ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\VariableFormula.java:61: error: constructor Builder in class Builder<T,M> cannot be applied to given types;
-      super(variables);
-      ^
-  required: no arguments
-  found:    String[]
-  reason: actual and formal argument lists differ in length
-  where T,M are type-variables:
-    T extends Builder<T,M> declared in class Builder
-    M extends Object declared in class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\mining\BlockTemperatureVariable.java:32: error: getTemperature(BlockPos) has private access in Biome
       return player.level().getBiome(pos).value().getTemperature(pos);
                                                  ^
@@ -13025,11 +12921,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                            ^
   symbol:   method getPlayer()
   location: variable context of type Block
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\block\PlaceBlockFluidEffect.java:149: error: cannot find symbol
-            SoundSource.BLOCKS, clicked.getX(), clicked.getY(), clicked.getZ(), (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F, TConstruct.RANDOM.nextLong()));
-                                                                                                                                                              ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\block\PlaceBlockFluidEffect.java:176: error: cannot find symbol
     Level world = context.getLevel();
                          ^
@@ -13402,21 +13293,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (actual and formal argument lists differ in length)
     constructor ToolHarvestContext.ToolHarvestContext(ServerLevel,LivingEntity,BlockState,BlockPos,Direction,boolean,boolean) is not applicable
       (actual and formal argument lists differ in length)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\combat\ArmorLootingModifierHook.java:38: error: cannot find symbol
-    EquipmentSlot lootingSlot = context.getLootingSlot();
-                                       ^
-  symbol:   method getLootingSlot()
-  location: variable context of type LootingContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\combat\ArmorLootingModifierHook.java:40: error: cannot find symbol
-      equipment = EquipmentContext.withTool(context.getHolder(), tool, lootingSlot);
-                                                   ^
-  symbol:   method getHolder()
-  location: variable context of type LootingContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\combat\ArmorLootingModifierHook.java:42: error: cannot find symbol
-      equipment = new EquipmentContext(context.getHolder());
-                                              ^
-  symbol:   method getHolder()
-  location: variable context of type LootingContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\combat\ArmorLootingModifierHook.java:47: error: cannot find symbol
       ModifierEntry modifier = entry.modifier();
                                     ^
@@ -13539,16 +13415,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                                                                                                                                                                  ^
   symbol:   method getTag()
   location: variable backingStack of type ItemStack
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\AdjustDamageModule.java:72: error: cannot find symbol
-    if (condition.matches(tool, modifier) && this.holder.matches(context.getEntity()) && this.damageSource.matches(source)) {
-                                                                        ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\AdjustDamageModule.java:73: error: cannot find symbol
-      amount = formula.apply(tool, modifier, context, context.getEntity(), slotType, source, amount);
-                                                             ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\AdjustDamageModule.java:118: error: cannot find symbol
       return source(DamageSourcePredicate.and(sources));
              ^
@@ -13566,11 +13432,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    BlockState
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\EffectImmunityModule.java:33: error: cannot find symbol
-  public static final ComputableDataKey<Multiset<MobEffect>> EFFECT_IMMUNITY = TConstruct.createKey("effect_immunity", HashMultiset::create);
-                                                                                         ^
-  symbol:   method createKey(String,HashMultis[...]reate)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\EffectImmunityModule.java:75: error: cannot find symbol
     if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
                                                                     ^
@@ -13580,11 +13441,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
     if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
                                                                     ^
   symbol:   method getChangedSlot()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:143: error: cannot find symbol
-      AttributeInstance instance = context.getEntity().getAttribute(net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
-                                          ^
-  symbol:   method getEntity()
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:145: error: cannot find symbol
         AttributeModifier attributeModifier = createModifier(tool, modifier, context.getChangedSlot());
@@ -13596,22 +13452,12 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                              ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:160: error: cannot find symbol
-        AttributeInstance instance = context.getEntity().getAttribute(net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
-                                            ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:251: error: method unique in record AttributeModule cannot be applied to given types;
       return unique(id.getNamespace() + ".modifier." + id.getPath());
              ^
   required: no arguments
   found:    String
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MaxArmorAttributeModule.java:79: error: cannot find symbol
-    AttributeInstance instance = context.getEntity().getAttribute(net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
-                                        ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MaxArmorAttributeModule.java:103: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(attribute, operation);
            ^
@@ -13656,11 +13502,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                ^
   symbol:   method getMax()
   location: variable maxLevel of type ModifierMaxLevel
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MobDisguiseModule.java:31: error: cannot find symbol
-  public static final ComputableDataKey<Multiset<EntityType<?>>> DISGUISES = TConstruct.createKey("mob_disguise", HashMultiset::create);
-                                                                                       ^
-  symbol:   method createKey(String,HashMultis[...]reate)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\MobDisguiseModule.java:35: error: cannot find symbol
     if (context.getChangedSlot().isArmor()) {
                ^
@@ -13671,22 +13512,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\ProtectionModule.java:69: error: cannot find symbol
-    if (condition.matches(tool, modifier) && this.source.matches(source) && this.entity.matches(context.getEntity()) && TinkerPredicate.matches(attacker, source.getEntity())) {
-                                                                                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\ProtectionModule.java:70: error: cannot find symbol
-      modifierValue = formula.apply(tool, modifier, context, context.getEntity(), slotType, source, modifierValue);
-                                                                    ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\ProtectionModule.java:125: error: method source in record ProtectionModule cannot be applied to given types;
-      return source(DamageSourcePredicate.and(sources));
-             ^
-  required: no arguments
-  found:    IJsonPredicate<DamageSource>
-  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\armor\ReplaceBlockWalkerModule.java:74: error: cannot find symbol
               && !ForgeEventFactory.onBlockPlace(living, BlockSnapshot.create(world.dimension(), world, mutable), Direction.UP)) {
                   ^
@@ -13730,11 +13555,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\EdibleModule.java:122: error: spawnItemParticles(ItemStack,int) has private access in LivingEntity
     entity.spawnItemParticles(representativeItem, amount);
           ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\EdibleModule.java:166: error: cannot find symbol
-      LivingEntity entity = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\InfinityModule.java:69: error: cannot find symbol
     CompoundTag tag = ammo.getOrCreateTag();
                           ^
@@ -14029,11 +13849,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    MaterialId,int,ModifierCondition<IToolStackView>
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ReduceToolDamageModule.java:91: error: cannot find symbol
-      if (RANDOM.nextFloat() >= percentage) {
-          ^
-  symbol:   variable RANDOM
-  location: class ReduceToolDamageModule
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ShowOffhandModule.java:37: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.CHEST && (!tool.isBroken() || this == ALLOW_BROKEN)) {
                ^
@@ -14044,12 +13859,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ToolActionTransformModule.java:108: error: constructor Builder in class Builder cannot be applied to given types;
-    return new Builder(action, sound);
-           ^
-  required: no arguments
-  found:    ItemAbility,SoundEvent
-  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\build\EnchantmentModule.java:71: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(enchantment);
            ^
@@ -14215,32 +14024,12 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    IJsonPredicate<DamageSource>
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\DurabilityShieldModule.java:78: error: cannot find symbol
-        if (chance > 0 && chance > TConstruct.RANDOM.nextInt(cost)) {
-                                             ^
-  symbol:   variable RANDOM
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\LootToCapacityModule.java:76: error: cannot find symbol
-            if (TConstruct.RANDOM.nextFloat() < chance) {
-                          ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\LootToCapacityModule.java:103: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(consume);
            ^
   required: no arguments
   found:    Ingredient
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\MeleeCapacityModule.java:57: error: cannot find symbol
-    if (condition.matches(tool, modifier) && this.attacker.matches(context.getAttacker()) && TinkerPredicate.matches(this.target, context.getLivingTarget())) {
-                                                                          ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\MeleeCapacityModule.java:57: error: cannot find symbol
-    if (condition.matches(tool, modifier) && this.attacker.matches(context.getAttacker()) && TinkerPredicate.matches(this.target, context.getLivingTarget())) {
-                                                                                                                                         ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\MeleeCapacityModule.java:96: error: method before in class Builder cannot be applied to given types;
       return before(true);
              ^
@@ -14259,9 +14048,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    ModifierId
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\OvergrowthModule.java:35: error: OvergrowthModule is not abstract and does not override abstract method condition() in ConditionalModule
-public class OvergrowthModule implements ModifierModule, InventoryTickModifierHook, ConditionalModule<IToolStackView> {
-       ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\OvergrowthModule.java:37: error: invalid method reference
   protected static final LoadableField<LevelingValue,OvergrowthModule> CHANCE_FIELD = LevelingValue.LOADABLE.requiredField("chance", OvergrowthModule::chance);
                                                                                                                                      ^
@@ -14476,7 +14262,7 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
     O#2 extends Object declared in method <A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>create(RecordField<A#16,? super R#16>,RecordField<B#15,? super R#16>,RecordField<C#14,? super R#16>,RecordField<D#13,? super R#16>,RecordField<E#12,? super R#16>,RecordField<F#11,? super R#16>,RecordField<G#10,? super R#16>,RecordField<H#9,? super R#16>,RecordField<I#8,? super R#16>,RecordField<J#7,? super R#16>,RecordField<K#6,? super R#16>,RecordField<L#5,? super R#16>,RecordField<M#4,? super R#16>,RecordField<N#3,? super R#16>,RecordField<O#2,? super R#16>,RecordField<P,? super R#16>,Function16<A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>)
     P extends Object declared in method <A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>create(RecordField<A#16,? super R#16>,RecordField<B#15,? super R#16>,RecordField<C#14,? super R#16>,RecordField<D#13,? super R#16>,RecordField<E#12,? super R#16>,RecordField<F#11,? super R#16>,RecordField<G#10,? super R#16>,RecordField<H#9,? super R#16>,RecordField<I#8,? super R#16>,RecordField<J#7,? super R#16>,RecordField<K#6,? super R#16>,RecordField<L#5,? super R#16>,RecordField<M#4,? super R#16>,RecordField<N#3,? super R#16>,RecordField<O#2,? super R#16>,RecordField<P,? super R#16>,Function16<A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>)
     R#16 extends Object declared in method <A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>create(RecordField<A#16,? super R#16>,RecordField<B#15,? super R#16>,RecordField<C#14,? super R#16>,RecordField<D#13,? super R#16>,RecordField<E#12,? super R#16>,RecordField<F#11,? super R#16>,RecordField<G#10,? super R#16>,RecordField<H#9,? super R#16>,RecordField<I#8,? super R#16>,RecordField<J#7,? super R#16>,RecordField<K#6,? super R#16>,RecordField<L#5,? super R#16>,RecordField<M#4,? super R#16>,RecordField<N#3,? super R#16>,RecordField<O#2,? super R#16>,RecordField<P,? super R#16>,Function16<A#16,B#15,C#14,D#13,E#12,F#11,G#10,H#9,I#8,J#7,K#6,L#5,M#4,N#3,O#2,P,R#16>)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\OvergrowthModule.java:44: error: constructor OvergrowthModule in class OvergrowthModule cannot be applied to given types;
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\OvergrowthModule.java:49: error: constructor OvergrowthModule in class OvergrowthModule cannot be applied to given types;
     this(chance, ModifierCondition.ANY_TOOL);
     ^
   required: LevelingValue
@@ -14488,75 +14274,11 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: LevelingValue
   found:    LevelingValue,ModifierCondition<IToolStackView>
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ConditionalMeleeDamageModule.java:66: error: cannot find symbol
-    if (condition.matches(tool, modifier) && attacker.matches(context.getAttacker())) {
-                                                                     ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ConditionalMeleeDamageModule.java:67: error: cannot find symbol
-      LivingEntity target = context.getLivingTarget();
-                                   ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ConditionalMeleeDamageModule.java:69: error: cannot find symbol
-        damage = formula.apply(tool, modifier, context, context.getAttacker(), baseDamage, damage);
-                                                               ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\KnockbackModule.java:58: error: cannot find symbol
-    if (this.condition.matches(tool, modifier) && projectile.test(context.isProjectile()) && TinkerPredicate.matches(entity, context.getLivingTarget())) {
-                                                                                                                                    ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\KnockbackModule.java:86: error: constructor Builder in class Builder<T,M> cannot be applied to given types;
-      super(FORMULA.variables());
-      ^
-  required: no arguments
-  found:    String[]
-  reason: actual and formal argument lists differ in length
-  where T,M are type-variables:
-    T extends Builder<T,M> declared in class Builder
-    M extends Object declared in class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\LootingModule.java:55: error: cannot find symbol
-    return condition().matches(tool, modifier) && holder().matches(context.getHolder()) && TinkerPredicate.matches(target(), context.getLivingTarget()) && TinkerPredicate.matches(damageSource(), context.getDamageSource());
-                                                                          ^
-  symbol:   method getHolder()
-  location: variable context of type LootingContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\LootingModule.java:55: error: cannot find symbol
-    return condition().matches(tool, modifier) && holder().matches(context.getHolder()) && TinkerPredicate.matches(target(), context.getLivingTarget()) && TinkerPredicate.matches(damageSource(), context.getDamageSource());
-                                                                                                                                    ^
-  symbol:   method getLivingTarget()
-  location: variable context of type LootingContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\LootingModule.java:55: error: cannot find symbol
-    return condition().matches(tool, modifier) && holder().matches(context.getHolder()) && TinkerPredicate.matches(target(), context.getLivingTarget()) && TinkerPredicate.matches(damageSource(), context.getDamageSource());
-                                                                                                                                                                                                          ^
-  symbol:   method getDamageSource()
-  location: variable context of type LootingContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\LootingModule.java:78: error: cannot find symbol
-      return lootingLevel(LevelingInt.eachLevel(level));
-             ^
-  symbol:   method lootingLevel(LevelingInt)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MeleeAttributeModule.java:62: error: cannot find symbol
     this(unique, attribute, AttributeModule.getId(unique), operation, amount, target, condition);
                             ^
   symbol:   variable AttributeModule
   location: class MeleeAttributeModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MeleeAttributeModule.java:73: error: cannot find symbol
-      LivingEntity target = context.getLivingTarget();
-                                   ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MeleeAttributeModule.java:97: error: cannot find symbol
-    removeAttribute(context.getLivingTarget());
-                           ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MeleeAttributeModule.java:102: error: cannot find symbol
-    removeAttribute(context.getLivingTarget());
-                           ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MeleeAttributeModule.java:113: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(attribute, operation);
            ^
@@ -14575,11 +14297,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    String
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:104: error: cannot find symbol
-    return chance > 0 && (chance >= 1 || RANDOM.nextFloat() < chance);
-                                         ^
-  symbol:   variable RANDOM
-  location: interface MobEffectModule
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:118: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(effect);
            ^
@@ -14611,26 +14328,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:244: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
         target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
                                                ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:278: error: cannot find symbol
-        LivingEntity attacker = context.getAttacker();
-                                       ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:280: error: cannot find symbol
-          effect().applyEffect(context.getLivingTarget(), modifier, attacker);
-                                      ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:358: error: cannot find symbol
-        LivingEntity defender = context.getEntity();
-                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:436: error: cannot find symbol
-        LivingEntity holder = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:465: error: cannot find symbol
       if (isAoe.test(context.isAOE()) && isProjectile.test(context.isProjectile()) && condition.matches(tool, modifier) && checkChance(modifier)) {
                             ^
@@ -14641,16 +14338,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                   ^
   symbol:   method getLiving()
   location: variable context of type ToolHarvestContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:472: error: cannot find symbol
-      if (context.isFullyCharged() && isAoe.test(context.isExtraAttack()) && isProjectile.test(context.isProjectile()) && condition.matches(tool, modifier) && checkChance(modifier)) {
-                                                        ^
-  symbol:   method isExtraAttack()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\MobEffectModule.java:473: error: cannot find symbol
-        effect.applyEffect(context.getAttacker(), modifier, null);
-                                  ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ProjectileExplosionModule.java:76: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(new LevelingValue(flat, perLevel));
            ^
@@ -14685,11 +14372,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\ArmorStatModule.java:94: error: cannot find symbol
-      addStatTooltip(modifier, key.getId(), amount.computeForLevel(modifier.getEffectiveLevel()), tooltipStyle, tooltip);
-                                  ^
-  symbol:   method getId()
-  location: record component key of type TinkerDataKey<Float>
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\ArmorStatModule.java:139: error: cannot find symbol
     if (ArmorLevelModule.validSlot(tool, context.getChangedSlot(), heldTag) && (!tool.isBroken() || allowBroken)) {
                                                 ^
@@ -14732,30 +14414,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\CureOnRemovalModule.java:39: error: cannot find symbol
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
-               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\MaxArmorStatModule.java:55: error: cannot find symbol
-    this(statKey, amount, MaxArmorLevelModule.createKey(statKey.getId()), allowBroken, heldTag, tooltipStyle, condition);
-                                                               ^
-  symbol:   method getId()
-  location: variable statKey of type TinkerDataKey<Float>
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\MaxArmorStatModule.java:76: error: cannot find symbol
-      ArmorStatModule.addStatTooltip(modifier, statKey.getId(), amount.computeForLevel(modifier.getEffectiveLevel()), tooltipStyle, tooltip);
-                                                      ^
-  symbol:   method getId()
-  location: record component statKey of type TinkerDataKey<Float>
+                           ^
+  symbol:   method curePotionEffects(ItemStack)
+  location: class LivingEntity
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\MaxArmorStatModule.java:83: error: constructor Builder in class Builder cannot be applied to given types;
     return new MaxArmorStatModule.Builder(statKey);
            ^
   required: no arguments
   found:    TinkerDataKey<Float>
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\SlotInChargeModule.java:36: error: cannot find symbol
-    return !tool.isBroken() && !context.getEntity().level().isClientSide && ArmorLevelModule.validSlot(tool, slot, heldTag);
-                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\technical\SlotInChargeModule.java:42: error: cannot find symbol
     EquipmentSlot slot = context.getChangedSlot();
                                 ^
@@ -16891,16 +16558,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: SizedIngredient,Ingredient
   found:    SizedIngredient,Ingredient,List<Object>
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\recipe\PartBuilderToolRecycle.java:168: error: cannot find symbol
-      if (TConstruct.RANDOM.nextInt(max) < damage) {
-                    ^
-  symbol:   variable RANDOM
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\recipe\PartBuilderToolRecycle.java:197: error: cannot find symbol
-    int index = TConstruct.RANDOM.nextInt(parts.size());
-                          ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\recipe\PartBuilderToolRecycle.java:235: error: cannot find symbol
       part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
           ^
@@ -16929,11 +16586,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\recipe\PartBuilderToolRecycle.java:282: error: method does not override or implement a method from a supertype
     @Override
     ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\recycle\PartBuilderRecycle.java:121: error: cannot find symbol
-        ItemOutput chosen = alternatives.get(TConstruct.RANDOM.nextInt(alternatives.size()));
-                                                       ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\recycle\PartBuilderRecycle.java:183: error: constructor DisplayPartRecipe in class DisplayPartRecipe cannot be applied to given types;
         .map(entry -> new DisplayPartRecipe(null, MaterialVariant.UNKNOWN, entry.getKey(), patternItems, 0, toolItems, List.of(entry.getValue().get()))).toList();
                       ^
@@ -17971,31 +17623,6 @@ public enum InventorySlotMenuModule implements ModifierModule, SlotStackModifier
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\inventory\InventorySlotMenuModule.java:62: error: menuType has private access in AbstractContainerMenu
     if (menu.menuType == null) {
             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataKeys.java:20: error: cannot find symbol
-  TinkerDataKey<Integer> SHOW_EMPTY_OFFHAND = TConstruct.createKey("show_empty_offhand"); // unregistered as ShowOffhandModule exists
-                                                        ^
-  symbol:   method createKey(String)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataKeys.java:23: error: cannot find symbol
-  ComputableDataKey<FloatMultiplier> FOV_MODIFIER = TConstruct.createKey("zoom_multiplier", FloatMultiplier::new);
-                                                              ^
-  symbol:   method createKey(String,FloatMulti[...]::new)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataKeys.java:26: error: cannot find symbol
-  ComputableDataKey<FloatMultiplier> SCALED_FOV_MODIFIER = TConstruct.createKey("scaled_fov_multiplier", FloatMultiplier::new);
-                                                                     ^
-  symbol:   method createKey(String,FloatMulti[...]::new)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataKeys.java:71: error: cannot find symbol
-    return INTEGER_REGISTRY.register(TConstruct.createKey(name));
-                                               ^
-  symbol:   method createKey(String)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\TinkerDataKeys.java:77: error: cannot find symbol
-    return FLOAT_REGISTRY.register(TConstruct.createKey(name));
-                                             ^
-  symbol:   method createKey(String)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\aoe\BoxAOEIterator.java:41: error: constructor Builder in class Builder cannot be applied to given types;
     return new Builder(new BoxSize(width, height, depth));
            ^
@@ -18318,46 +17945,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
              ^
   symbol:   method hasTag()
   location: variable tool of type ItemStack
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\MeleeHitToolHook.java:21: error: cannot find symbol
-    boolean hit = context.getTarget().hurt(context.makeDamageSource(), damage);
-                         ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\CircleWeaponAttack.java:44: error: cannot find symbol
-    if (context.isExtraAttack()) return;
-               ^
-  symbol:   method isExtraAttack()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\CircleWeaponAttack.java:52: error: cannot find symbol
-      LivingEntity attacker = context.getAttacker();
-                                     ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\CircleWeaponAttack.java:53: error: cannot find symbol
-      Entity target = context.getTarget();
-                             ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\CircleWeaponAttack.java:69: error: cannot find symbol
-      Player player = context.getPlayerAttacker();
-                             ^
-  symbol:   method getPlayerAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\ParticleWeaponAttack.java:42: error: cannot find symbol
-      ToolAttackUtil.spawnAttackParticle(particle, context.getAttacker(), 0.8d);
-                                                          ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\SweepWeaponAttack.java:63: error: cannot find symbol
-    LivingEntity attacker = context.getAttacker();
-                                   ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\module\weapon\SweepWeaponAttack.java:71: error: cannot find symbol
-      Entity target = context.getTarget();
-                             ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinitionLoader.java:88: error: cannot find symbol
         log.error("Missing tool definition for tool {}", key);
         ^
@@ -18394,66 +17981,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: LivingEntity,float,DamageSource,float,float
   found:    float,float,float
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:181: error: cannot find symbol
-    float baseDamage = context.getBaseDamage();
-                              ^
-  symbol:   method getBaseDamage()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:197: error: cannot find symbol
-    float criticalModifier = context.getCriticalModifier();
-                                    ^
-  symbol:   method getCriticalModifier()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:206: error: cannot find symbol
-    float cooldown = context.getCooldown();
-                            ^
-  symbol:   method getCooldown()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:214: error: cannot find symbol
-    LivingEntity targetLiving = context.getLivingTarget();
-                                       ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:223: error: cannot find symbol
-    float baseKnockback = context.getBaseKnockback();
-                                 ^
-  symbol:   method getBaseKnockback()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:230: error: cannot find symbol
-    LivingEntity attackerLiving = context.getAttacker();
-                                         ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:231: error: cannot find symbol
-    EquipmentSlot sourceSlot = context.getSlotType();
-                                      ^
-  symbol:   method getSlotType()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:248: error: cannot find symbol
-    Entity targetEntity = context.getTarget();
-                                 ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:259: error: cannot find symbol
-    boolean isExtraAttack = context.isExtraAttack();
-                                   ^
-  symbol:   method isExtraAttack()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:260: error: cannot find symbol
-    Projectile projectile = context.getProjectile();
-                                   ^
-  symbol:   method getProjectile()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:303: error: cannot find symbol
-    Player attackerPlayer = context.getPlayerAttacker();
-                                   ^
-  symbol:   method getPlayerAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:313: error: cannot find symbol
-      level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), context.getSound(), attackerLiving.getSoundSource(), 1.0F, 1.0F);
-                                                                                                        ^
-  symbol:   method getSound()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:323: error: cannot find symbol
       EnchantmentHelper.doPostHurtEffects(targetLiving, attackerLiving);
                        ^
@@ -21794,11 +21321,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:44: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
     player.removeEffect(TinkerEffects.selfDestructing.get());
                                                          ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:49: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\SelfDestructiveModifier.java:49: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
     context.getEntity().removeEffect(TinkerEffects.selfDestructing.get());
-           ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
+                                                                      ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\effect\NoMilkEffect.java:19: error: method does not override or implement a method from a supertype
   @Override
   ^
@@ -25895,19 +25420,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:506: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
                                                                             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:517: error: cannot find symbol
-      .addModule(LootingModule.builder().lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS))
-                                        ^
-  symbol:   method lootingLevel(LevelingInt)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:520: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.FORTUNE).lootingLevel(LevelingInt.ONE).toolItem(harvest).constant())
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:522: error: cannot find symbol
-      .addModule(LootingModule.builder().minLevel(2).lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS));
-                                                    ^
-  symbol:   method lootingLevel(LevelingInt)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:528: error: cannot find symbol
       .addModule(KnockbackModule.builder().projectile(ProjectilePredicate.PROJECTILE).eachLevel(0.5f))
                                           ^
@@ -26035,29 +25550,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                 ^
   symbol:   method heldTag(TagKey<Item>)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:738: error: cannot find symbol
-                                 .entity(LivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
-                                 ^
-  symbol:   method entity(LivingEntityPredicate)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:741: error: cannot find symbol
-                                 .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
-                                 ^
-  symbol:   method entity(LivingEntityPredicate)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:744: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       .addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
                                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:747: error: cannot find symbol
-      .addModule(ProtectionModule.builder().entity(LivingEntityPredicate.CROUCHING).eachLevel(2.5f));
-                                           ^
-  symbol:   method entity(LivingEntityPredicate)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:750: error: cannot find symbol
-      .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2.5f));
-                                           ^
-  symbol:   method entity(LivingEntityPredicate)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:755: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
                                                                                            ^
@@ -26070,11 +25565,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:807: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
     buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.builder(Enchantments.DEPTH_STRIDER).constant());
                                                                                             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:810: error: cannot find symbol
-      .addModule(ProtectionModule.builder().source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.FALL_PROTECTION))
-                                           ^
-  symbol:   method source(IJsonPredicate<DamageSource>)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:849: error: cannot find symbol
       .addModule(ToolActionTransformModule.builder(ItemAbilities.AXE_SCRAPE, SoundEvents.AXE_SCRAPE).eventId(LevelEvent.PARTICLES_SCRAPE).build())
                                                                                                     ^
@@ -26203,11 +25693,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                     ^
   symbol:   method tooltipStyle(TooltipStyle)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1227: error: cannot find symbol
-    buildModifier(ModifierIds.consecrated).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(1.25f));
-                                                                               ^
-  symbol:   method attacker(IJsonPredicate<LivingEntity>)
-  location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1229: error: cannot find symbol
     buildModifier(ModifierIds.holy).addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(0.75f));
                                                                               ^
@@ -26314,11 +25799,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       .addModule(AttributeModule.builder(Attributes.GRAVITY.value(), Operation.ADD_MULTIPLIED_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f));
                                                                                                     ^
   symbol:   method tooltipStyle(TooltipStyle)
-  location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1542: error: cannot find symbol
-    buildModifier(ModifierIds.temperedProtection).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.ON_FIRE).eachLevel(1.25f));
-                                                                                      ^
-  symbol:   method attacker(LivingEntityPredicate)
   location: class Builder
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:1544: error: cannot find symbol
       .addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.FULL_HEALTH).eachLevel(0.5f))
@@ -27538,11 +27018,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                      ^
   symbol:   method baseDamage(float)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\entity\ThrownTool.java:252: error: cannot find symbol
-          if (!TinkerEffects.canHitWithProjectile(context.getLivingTarget())) {
-                                                         ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\entity\ThrownTool.java:267: error: cannot find symbol
         this.entityData.set(STACK, tridentItem, true);
                                    ^
@@ -27713,11 +27188,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                   ^
   symbol:   variable Result
   location: class InteractionHandler
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\InteractionHandler.java:279: error: cannot find symbol
-  private static final ComputableDataKey<Map<EquipmentSlot,ArmorInteractData>> INTERACT_KEY = TConstruct.createKey("armor_interact_data", () -> new EnumMap<>(EquipmentSlot.class));
-                                                                                                        ^
-  symbol:   method createKey(String,()->new En[...]lass))
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\InteractionHandler.java:370: error: cannot find symbol
       event.setCancellationResult(result);
            ^
@@ -27728,11 +27198,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
              ^
   symbol:   method setCanceled(boolean)
   location: variable event of type PlayerInteractEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\InteractionHandler.java:396: error: cannot find symbol
-  private static final ComputableDataKey<LastTick> LAST_TICK = TConstruct.createKey("last_tick", LastTick::new);
-                                                                         ^
-  symbol:   method createKey(String,LastTick::new)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\InteractionHandler.java:504: error: cannot find symbol
               ForgeEventFactory.onPlayerDestroyItem(player, activeStack, usingHand);
               ^
@@ -27741,11 +27206,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ModifiableArrowDispenserBehavior.java:17: error: method does not override or implement a method from a supertype
   @Override
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ModifierEvents.java:99: error: cannot find symbol
-  private static final TinkerDataKey<Float> PROJECTILE_EXPERIENCE = TConstruct.createKey("projectile_experience");
-                                                                              ^
-  symbol:   method createKey(String)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ModifierEvents.java:155: error: cannot find symbol
           event.setResult(Result.DENY);
                           ^
@@ -27918,11 +27378,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                            ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:140: error: cannot find symbol
     if (event.getResult() != Result.DEFAULT) {
-             ^
-  symbol:   method getResult()
-  location: variable event of type ToolHarvestEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:140: error: cannot find symbol
-    if (event.getResult() != Result.DEFAULT) {
                              ^
   symbol:   variable Result
   location: class ToolEvents
@@ -27972,24 +27427,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                         ^
   symbol:   variable Result
   location: class ToolEvents
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:213: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-    EquipmentContext context = new EquipmentContext(entity);
-                               ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:236: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-      context = new EquipmentContext(livingAttacker);
-                ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:274: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-    EquipmentContext context = new EquipmentContext(entity);
-                               ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:336: error: method getDamageProtection in class EnchantmentHelper cannot be applied to given types;
         modifierValue = vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
                                                            ^
@@ -28046,12 +27483,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                         ^
   symbol:   method getAmount()
   location: variable event of type LivingDamageEvent
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:406: error: constructor EquipmentContext in class EquipmentContext cannot be applied to given types;
-    EquipmentContext context = new EquipmentContext(entity);
-                               ^
-  required: no arguments
-  found:    LivingEntity
-  reason: actual and formal argument lists differ in length
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ToolEvents.java:409: error: cannot find symbol
       event.setAmount(amount);
            ^
@@ -28086,26 +27517,11 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\tool\OffhandAttackModifier.java:62: error: incompatible types: Holder<Attribute> cannot be converted to Attribute
       attackSpeed = ToolAttackUtil.getToolAttribute(tool, player, Attributes.ATTACK_SPEED, tool.getStats().get(ToolStats.ATTACK_SPEED) - 4);
                                                                             ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\fluid\UseFluidOnHitModifier.java:51: error: cannot find symbol
-    LivingEntity self = context.getEntity();
-                               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\fluid\UseFluidOnHitModifier.java:64: error: cannot find symbol
             spawnParticles(fluidContext.getTarget(), fluid);
                                        ^
   symbol:   method getTarget()
   location: variable fluidContext of type Entity
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\fluid\BurstingModifier.java:37: error: cannot find symbol
-      if (origin != null && origin != context.getEntity()) {
-                                             ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\ability\fluid\WettingModifier.java:35: error: cannot find symbol
-    if (!source.is(DamageTypeTags.BYPASSES_EFFECTS) && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != context.getEntity()) {
-                                                                                                                                           ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\ShearsModule.java:94: error: cannot find symbol
     Result result = new ToolShearEvent(itemStack, tool, world, player, entity, fortune).fire();
     ^
@@ -28325,26 +27741,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: ResourceLocation,double,Operation
   found:    UUID,String,double,Operation
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:90: error: cannot find symbol
-    if (!context.isExtraAttack()) {
-                ^
-  symbol:   method isExtraAttack()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:91: error: cannot find symbol
-      LivingEntity target = context.getLivingTarget();
-                                   ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:94: error: cannot find symbol
-        LivingEntity attacker = context.getAttacker();
-                                       ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:98: error: cannot find symbol
-          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType(), modifier.getId());
-                                                                  ^
-  symbol:   method getSlotType()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\EnderportingModifier.java:106: error: cannot find symbol
     if (harvested > 0 && context.canHarvest() && tool.hasTag(TinkerTags.Items.HARVEST)) {
                                 ^
@@ -28448,36 +27844,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\harvest\TemperateModifier.java:72: error: getTemperature(BlockPos) has private access in Biome
     return (living.level().getBiome(pos).value().getTemperature(pos) - BASELINE_TEMPERATURE);
                                                 ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\harvest\TemperateModifier.java:115: error: cannot find symbol
-      LivingEntity target = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\ConductingModifier.java:63: error: cannot find symbol
-    float bonus = bonusScale(context.getAttacker()) * modifier.getEffectiveLevel() * PERCENT_PER_LEVEL;
-                                    ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\DecayModifier.java:52: error: cannot find symbol
-      LivingEntity attacker = context.getAttacker();
-                                     ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\DecayModifier.java:58: error: cannot find symbol
-      LivingEntity target = context.getLivingTarget();
-                                   ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\DecayModifier.java:87: error: cannot find symbol
-      LivingEntity defender = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\DecayModifier.java:90: error: cannot find symbol
-      if (CounterModule.isBlocking(tool, slotType, context.getEntity())) {
-                                                          ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\EnderferenceModifier.java:27: error: reference to builder is ambiguous
     hookBuilder.addModule(MobEffectModule.builder(TinkerEffects.enderference).applyBeforeMelee(true).time(RandomLevelingValue.flat(100)).buildWeapon());
                                          ^
@@ -28496,21 +27862,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                              ^
   symbol:   method time(RandomLevelingValue)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InsatiableModifier.java:64: error: cannot find symbol
-    return damage + (getEffect(context.getAttacker(), ToolType.MELEE) * modifier.getEffectiveLevel() / 2f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
-                                      ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InsatiableModifier.java:70: error: cannot find symbol
-    if (!context.isExtraAttack() && context.isFullyCharged()) {
-                ^
-  symbol:   method isExtraAttack()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InsatiableModifier.java:71: error: cannot find symbol
-      applyEffect(context.getAttacker(), ToolType.MELEE, 5*20, 1, 4);
-                         ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InsatiableModifier.java:102: error: cannot find symbol
       if (tool.hasTag(type.getTag())) {
                           ^
@@ -28519,62 +27870,12 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InvariantModifier.java:44: error: getTemperature(BlockPos) has private access in Biome
     return (MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level().getBiome(pos).value().getTemperature(pos)));
                                                                                                   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InvariantModifier.java:55: error: cannot find symbol
-    return damage + getBonus(context.getAttacker()) * modifier.getEffectiveLevel() * DAMAGE * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
-                                    ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InvariantModifier.java:69: error: cannot find symbol
-      modifierValue += getBonus(context.getEntity()) * modifier.getEffectiveLevel();
-                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:58: error: incompatible types: BleedingEffect cannot be converted to Holder<MobEffect>
     MobEffectInstance existing = target.getEffect(TinkerEffects.bleeding.get());
                                                                             ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:66: error: incompatible types: BleedingEffect cannot be converted to Holder<MobEffect>
     target.addEffect(new MobEffectInstance(TinkerEffects.bleeding.get(), duration, looting), cause);
                                                                      ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:78: error: cannot find symbol
-    LivingEntity target = context.getLivingTarget();
-                                 ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:81: error: cannot find symbol
-      target.setLastHurtMob(context.getAttacker());
-                                   ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:82: error: cannot find symbol
-      applyEffect(tool, context.getAttacker(), target, modifier.getLevel(), context.getSlotType());
-                               ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:82: error: cannot find symbol
-      applyEffect(tool, context.getAttacker(), target, modifier.getLevel(), context.getSlotType());
-                                                                                   ^
-  symbol:   method getSlotType()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:109: error: cannot find symbol
-      if (CounterModule.isBlocking(tool, slotType, context.getEntity())) {
-                                                          ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\LaceratingModifier.java:113: error: cannot find symbol
-        applyEffect(tool, context.getEntity(), attacker, modifier.getLevel(), slotType);
-                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\BreathtakingModifier.java:26: error: cannot find symbol
-      LivingEntity attacker = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:31: error: cannot find symbol
-  public static final ComputableDataKey<TotalGold> TOTAL_GOLD = TConstruct.createKey("chrysophilite", TotalGold::new);
-                                                                          ^
-  symbol:   method createKey(String,TotalGold::new)
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:45: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
                ^
@@ -28595,11 +27896,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                    ^
   symbol:   variable ARMOR
   location: class Type
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:83: error: cannot find symbol
-      LivingEntity living = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:94: error: cannot find symbol
     return gold != null ? gold.getTotalGold() : 0;
                               ^
@@ -28620,58 +27916,26 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                        ^
   symbol:   method damageSource(DamageSourcePredicate)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\EnderdodgingModifier.java:32: error: cannot find symbol
-    LivingEntity self = context.getEntity();
-                               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\EnderdodgingModifier.java:33: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
     if (!self.hasEffect(TinkerEffects.enderference.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
                                                       ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\EnderdodgingModifier.java:34: error: cannot find symbol
-      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
-                                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\FirebreathModifier.java:21: error: cannot find symbol
     hookBuilder.addModule(FireballModule.builder().damageMultiplier(2.5f).fireball(Ingredient.of(TinkerTags.Items.FIREBALLS)).end().modifier(ModifierIds.fiery).build());
                                                   ^
   symbol:   method damageMultiplier(float)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\FrosttouchModifier.java:32: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\FrosttouchModifier.java:32: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\FrosttouchModifier.java:34: error: cannot find symbol
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0), context.getEntity());
-                                                                                                               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:33: error: cannot find symbol
-  private static final ComputableDataKey<GoldGuardGold> TOTAL_GOLD = TConstruct.createKey("gold_guard", GoldGuardGold::new);
-                                                                               ^
-  symbol:   method createKey(String,GoldGuardGold::new)
-  location: class TConstruct
+                                                                                             ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:44: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
                ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:49: error: cannot find symbol
-        gold.setGold(EquipmentSlot.HEAD, tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL), context.getEntity());
-                                                                                                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:56: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
                ^
   symbol:   method getChangedSlot()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:61: error: cannot find symbol
-        AttributeInstance instance = context.getEntity().getAttribute(Attributes.MAX_HEALTH);
-                                            ^
-  symbol:   method getEntity()
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:63: error: no suitable method found for removeModifier(UUID)
           instance.removeModifier(GOLD_GUARD_UUID);
@@ -28690,11 +27954,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                    ^
   symbol:   variable ARMOR
   location: class Type
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:74: error: cannot find symbol
-      LivingEntity living = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:85: error: incompatible types: UUID cannot be converted to ResourceLocation
         AttributeModifier modifier = instance.getModifier(GOLD_GUARD_UUID);
                                                           ^
@@ -28718,21 +27977,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                       ^
   symbol:   method getTotalGold()
   location: class GoldGuardGold
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:119: error: cannot find symbol
-      updateAttribute(context.getEntity());
-                             ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\PlagueModifier.java:27: error: cannot find symbol
-      LivingEntity attacker = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\PlagueModifier.java:28: error: cannot find symbol
-      for (MobEffectInstance effect : context.getEntity().getActiveEffects()) {
-                                             ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\PlagueModifier.java:29: error: cannot find symbol
         if (!effect.getEffect().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
                                ^
@@ -28743,11 +27987,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                          ^
   symbol:   method getCurativeItems()
   location: variable effect of type MobEffectInstance
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\RevengeModifier.java:32: error: cannot find symbol
-    LivingEntity living = context.getEntity();
-                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\RevengeModifier.java:35: error: cannot find symbol
       effect.getCurativeItems().clear();
             ^
@@ -28765,14 +28004,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\RevengeModifier.java:47: error: cannot find symbol
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
-               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\StrongBonesModifier.java:27: error: cannot find symbol
-  public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
-                                                                     ^
-  symbol:   method createKey(String)
-  location: class TConstruct
+                           ^
+  symbol:   method curePotionEffects(ItemStack)
+  location: class LivingEntity
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\StrongBonesModifier.java:49: error: cannot find symbol
       effect.getCurativeItems().clear();
             ^
@@ -28791,16 +28025,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                  ^
   symbol:   method getLivingTarget()
   location: variable context of type Entity
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\WildfireModifier.java:26: error: cannot find symbol
-      int fire = context.getEntity().getRemainingFireTicks();
-                        ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\WitheredModifier.java:31: error: cannot find symbol
-      LivingEntity attacker = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\WitheredModifier.java:32: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
       boolean isCalcified = attacker.hasEffect(TinkerModifiers.calcifiedEffect.get());
                                                                                   ^
@@ -28823,46 +28047,11 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                       ^
   symbol:   method constant(LevelingValue)
   location: class Builder<FieryCounterModule>
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\melee\PiercingModifier.java:47: error: cannot find symbol
-      Objects.requireNonNullElse(context.getPlayerAttacker(), context.getAttacker()));
-                                        ^
-  symbol:   method getPlayerAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\melee\PiercingModifier.java:47: error: cannot find symbol
-      Objects.requireNonNullElse(context.getPlayerAttacker(), context.getAttacker()));
-                                                                     ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\melee\PiercingModifier.java:49: error: cannot find symbol
-    float secondaryDamage = (modifier.getEffectiveLevel() * tool.getMultiplier(ToolStats.ATTACK_DAMAGE)) * context.getCooldown();
-                                                                                                                  ^
-  symbol:   method getCooldown()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\melee\PiercingModifier.java:53: error: cannot find symbol
-    ToolAttackUtil.attackEntitySecondary(source, secondaryDamage, context.getTarget(), context.getLivingTarget(), true);
-                                                                         ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\melee\PiercingModifier.java:53: error: cannot find symbol
-    ToolAttackUtil.attackEntitySecondary(source, secondaryDamage, context.getTarget(), context.getLivingTarget(), true);
-                                                                                              ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\upgrades\ranged\FreezingModifier.java:16: error: cannot find symbol
     hookBuilder.addModule(FreezingCounterModule.builder().constant(new LevelingValue(4, 4)).toolTag(TinkerTags.Items.ARMOR).build());
                                                          ^
   symbol:   method constant(LevelingValue)
   location: class Builder<FreezingCounterModule>
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\CounterModule.java:79: error: cannot find symbol
-    return TConstruct.RANDOM.nextFloat() < chance;
-                     ^
-  symbol:   variable RANDOM
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\CounterModule.java:102: error: cannot find symbol
-    LivingEntity defender = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\CounterModule.java:131: error: method getUseDuration in class ItemStack cannot be applied to given types;
       && holder.getItemBySlot(slotType).getUseDuration() - holder.getUseItemRemainingTicks() >= 5;
                                        ^
@@ -28890,26 +28079,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    LevelingValue
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\DepthProtectionModule.java:80: error: cannot find symbol
-    LivingEntity target = context.getEntity();
-                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\DepthProtectionModule.java:82: error: cannot find symbol
-      modifierValue += getBonusMultiplier(context.getEntity(), baselineHeight, neutralRange) * amount.compute(modifier.getEffectiveLevel());
-                                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\EnderclearanceModule.java:70: error: cannot find symbol
-    teleport(modifier, context.getLivingTarget());
-                              ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\EnderclearanceModule.java:77: error: cannot find symbol
-      float level = CounterModule.getLevel(tool, modifier, slotType, context.getEntity());
-                                                                            ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\FieryCounterModule.java:30: error: incompatible types: invalid constructor reference
     return new CounterModule.Builder<>(FieryCounterModule::new);
                                        ^
@@ -28922,11 +28091,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
             ^
   symbol:   method setSecondsOnFire(int)
   location: variable attacker of type Entity
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\FlameBarrierModule.java:48: error: cannot find symbol
-        modifierValue += ConductingModifier.bonusScale(context.getEntity()) * amount;
-                                                              ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\FreezingCounterModule.java:25: error: incompatible types: invalid constructor reference
     return new CounterModule.Builder<>(FreezingCounterModule::new);
                                        ^
@@ -28934,92 +28098,20 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       required: LevelingValue,LevelingValue,LevelingValue,int,IJsonPredicate<LivingEntity>,IJsonPredicate<LivingEntity>,ModifierCondition<IToolStackView>
       found:    LevelingValue,LevelingValue,LevelingValue,Integer,ModifierCondition<IToolStackView>
       reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KineticModule.java:38: error: cannot find symbol
-  private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("insatiable");
-                                                                              ^
-  symbol:   method createKey(String)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KineticModule.java:62: error: cannot find symbol
-        InsatiableModifier.applyEffect(context.getEntity(), ToolType.ARMOR, 10 * 20, 1, level - 1);
-                                              ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:38: error: cannot find symbol
-    ContextKey.ID.mappedField((id, error) -> TinkerDataKey.of(id)),
-                                                          ^
-  symbol:   method of(ResourceLocation)
-  location: class TinkerDataKey
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:52: error: incompatible types: incompatible parameter types in lambda expression
     return new CounterModule.Builder<>((chance, flat, random, durabilityUsage, defender, attacker,condition)
                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:53: error: cannot find symbol
-      -> new KnockbackCounterModule(TConstruct.createKey("dummy"), chance, flat, random, durabilityUsage, defender, attacker, condition));
-                                              ^
-  symbol:   method createKey(String)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:86: error: cannot find symbol
-    LivingEntity defender = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:94: error: method getUseDuration in class ItemStack cannot be applied to given types;
-        if (blockingTool != null && ModifierUtil.canPerformAction(blockingTool, ItemAbilities.SHIELD_BLOCK) && defender.getItemBySlot(checkSlot).getUseDuration() - defender.getUseItemRemainingTicks() >= 5) {
-                                                                                                                                                ^
-  required: LivingEntity
-  found:    no arguments
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\KnockbackCounterModule.java:108: error: cannot find symbol
-          if (TConstruct.RANDOM.nextFloat() < chance.compute(level)) {
-                        ^
-  symbol:   variable RANDOM
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:82: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
-    AttributeInstance attribute = living.getAttribute(this.attribute);
-                                                          ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:87: error: incompatible types: UUID cannot be converted to ResourceLocation
-    if (attribute.getModifier(uuid) != null) {
-                              ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:88: error: no suitable method found for removeModifier(UUID)
-      attribute.removeModifier(uuid);
-               ^
-    method AttributeInstance.removeModifier(AttributeModifier) is not applicable
-      (argument mismatch; UUID cannot be converted to AttributeModifier)
-    method AttributeInstance.removeModifier(ResourceLocation) is not applicable
-      (argument mismatch; UUID cannot be converted to ResourceLocation)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:97: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
-      attribute.addTransientModifier(new AttributeModifier(uuid, unique, scaledLight * amount * modifier.getEffectiveLevel(), operation));
-                                     ^
-  required: ResourceLocation,double,Operation
-  found:    UUID,String,float,Operation
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:109: error: cannot find symbol
-    LivingEntity livingEntity = context.getEntity();
-                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:110: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:83: error: package BuiltInRegistries does not exist
+    AttributeInstance attribute = living.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(this.attribute));
+                                                                       ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:112: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.FEET) {
                ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:114: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
-        AttributeInstance attribute = livingEntity.getAttribute(this.attribute);
-                                                                    ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:115: error: incompatible types: UUID cannot be converted to ResourceLocation
-        if (attribute != null && attribute.getModifier(uuid) != null) {
-                                                       ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:116: error: no suitable method found for removeModifier(UUID)
-          attribute.removeModifier(uuid);
-                   ^
-    method AttributeInstance.removeModifier(AttributeModifier) is not applicable
-      (argument mismatch; UUID cannot be converted to AttributeModifier)
-    method AttributeInstance.removeModifier(ResourceLocation) is not applicable
-      (argument mismatch; UUID cannot be converted to ResourceLocation)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\MinimapModule.java:46: error: cannot find symbol
-  public static final TinkerDataKey<ItemStack> MAP = TConstruct.createKey("current_map");
-                                                               ^
-  symbol:   method createKey(String)
-  location: class TConstruct
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\LightspeedAttributeModule.java:116: error: package BuiltInRegistries does not exist
+        AttributeInstance attribute = livingEntity.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(this.attribute));
+                                                                                 ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\MinimapModule.java:71: error: cannot find symbol
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
                ^
@@ -29043,43 +28135,18 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                               ^
   symbol:   method getMapId(ItemStack)
   location: class MapItem
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\RecurrentProtectionModule.java:40: error: cannot find symbol
-  private static final TinkerDataKey<SlotInCharge> SLOT_KEY = TConstruct.createKey("momentum");
-                                                                        ^
-  symbol:   method createKey(String)
-  location: class TConstruct
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\RecurrentProtectionModule.java:69: error: cannot find symbol
-        LivingEntity entity = context.getEntity();
-                                     ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\RecurrentProtectionModule.java:75: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
           entity.addEffect(new MobEffectInstance(effect, duration.compute(level), reduction - 1, false, false, true));
                                                  ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\RestoreLostHealthModule.java:81: error: cannot find symbol
-    LivingEntity defender = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\SoulSpeedModule.java:51: error: incomparable types: Enchantment and ResourceKey<Enchantment>
     if (enchantment == Enchantments.SOUL_SPEED && condition.matches(tool, modifier)) {
                     ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\SoulSpeedModule.java:60: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
       EnchantmentModifierHook.addEnchantment(map, Enchantments.SOUL_SPEED, this.level.compute(modifier));
                                                               ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\TeleportDodgeModule.java:60: error: cannot find symbol
-    LivingEntity entity = context.getEntity();
-                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\TeleportDodgeModule.java:62: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
     if (!entity.hasEffect(TinkerEffects.enderference.get()) && this.defender.matches(entity) && damageSource.matches(source)) {
                                                         ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\TeleportDodgeModule.java:65: error: cannot find symbol
-      if (entity.getRandom().nextFloat() < chance.compute(level) && TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
-                                                                                                               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\TeleportDodgeModule.java:69: error: no suitable constructor found for MobEffectInstance(TinkerEffect,int)
           entity.addEffect(new MobEffectInstance(TinkerEffects.enderference.get(), cooldown));
                            ^
@@ -29090,30 +28157,15 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\ThornsModule.java:42: error: incompatible types: incompatible parameter types in lambda expression
     return new CounterModule.Builder<>((chance, constant, random, durability, defender, attacker, condition) -> new ThornsModule(type, chance, constant, random, durability, defender, attacker, condition));
                                        ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\ThornsModule.java:53: error: cannot find symbol
-    attacker.hurt(CombatHelper.damageSource(damageType, context.getEntity()), value);
-                                                               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\UpdateHealthModule.java:73: error: cannot find symbol
     if (condition.matches(tool, modifier) && slots.contains(context.getChangedSlot())) {
                                                                    ^
   symbol:   method getChangedSlot()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\UpdateHealthModule.java:76: error: cannot find symbol
-        updateHealth(context.getEntity(), bonus.compute(modifier));
-                            ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\UpdateHealthModule.java:83: error: cannot find symbol
     if (condition.matches(tool, modifier) && slots.contains(context.getChangedSlot())) {
                                                                    ^
   symbol:   method getChangedSlot()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\UpdateHealthModule.java:86: error: cannot find symbol
-        updateHealth(context.getEntity(), -bonus.compute(modifier));
-                            ^
-  symbol:   method getEntity()
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\AutosmeltModule.java:38: error: incompatible types: cannot infer type-variable(s) A,B,R,P,P
   public static final RecordLoadable<AutosmeltModule> LOADER = RecordLoadable.create(
@@ -29161,11 +28213,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\AutosmeltModule.java:133: error: incompatible types: SingleItemContainer cannot be converted to SingleRecipeInput
       ItemStack output = recipe.assemble(INVENTORY, world.registryAccess());
                                          ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ClearEffectOnUnequipModule.java:40: error: cannot find symbol
-    LivingEntity entity = context.getEntity();
-                                 ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ClearEffectOnUnequipModule.java:42: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
       entity.removeEffect(effect);
                           ^
@@ -29180,16 +28227,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
       (argument mismatch; BlockPos cannot be converted to double)
     method Level.playSound(Player,Entity,SoundEvent,SoundSource,float,float) is not applicable
       (argument mismatch; BlockPos cannot be converted to Entity)
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\ChannelingModule.java:83: error: cannot find symbol
-      tryStrike(context.getLevel(), context.getPlayerAttacker(), context.getTarget().blockPosition());
-                                           ^
-  symbol:   method getPlayerAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\ChannelingModule.java:83: error: cannot find symbol
-      tryStrike(context.getLevel(), context.getPlayerAttacker(), context.getTarget().blockPosition());
-                                                                        ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FieryArmorAttackModule.java:42: error: cannot find symbol
       target.setSecondsOnFire(time.compute(modifier));
             ^
@@ -29200,51 +28237,11 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
           ^
   symbol:   method setSecondsOnFire(int)
   location: variable target of type Entity
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FieryAttackModule.java:53: error: cannot find symbol
-    LivingEntity target = context.getLivingTarget();
-                                 ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FieryAttackModule.java:63: error: cannot find symbol
-    LivingEntity target = context.getLivingTarget();
-                                 ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FieryAttackModule.java:71: error: cannot find symbol
-    setFire(modifier, context.getTarget());
-                             ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FieryAttackModule.java:77: error: cannot find symbol
     projectile.setSecondsOnFire(100);
               ^
   symbol:   method setSecondsOnFire(int)
   location: variable projectile of type Projectile
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\FreezingAttackModule.java:52: error: cannot find symbol
-    freeze(modifier, context.getTarget());
-                            ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\LifestealModule.java:82: error: cannot find symbol
-    LivingEntity attacker = context.getAttacker();
-                                   ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\LifestealModule.java:83: error: cannot find symbol
-    Entity target = context.getTarget();
-                           ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\LifestealModule.java:84: error: cannot find symbol
-    if (damage > 0 && this.modifierLevel.test(modifier.getLevel()) && !context.getTarget().getType().is(TinkerTags.EntityTypes.NECROTIC_BLACKLIST) && this.attacker.matches(attacker) && TinkerPredicate.matches(this.target, target)) {
-                                                                              ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\LifestealModule.java:94: error: cannot find symbol
-          ToolDamageUtil.damageAnimated(tool, durability, attacker, context.getSlotType(), modifier.getId());
-                                                                           ^
-  symbol:   method getSlotType()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SeveringModule.java:53: error: cannot find symbol
       if (generatedLoot.stream().noneMatch(stack -> stack.is(Tags.Items.HEADS))) {
                                                                        ^
@@ -29260,31 +28257,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                                                                                   ^
   symbol:   method projectile(Projectile)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SpillingModule.java:70: error: cannot find symbol
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
-                                         ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SpillingModule.java:70: error: cannot find symbol
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
-                                                                ^
-  symbol:   method getPlayerAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SpillingModule.java:70: error: cannot find symbol
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
-                                                                                             ^
-  symbol:   method getTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SpillingModule.java:70: error: cannot find symbol
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
-                                                                                                                  ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SpillingModule.java:70: error: cannot find symbol
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
-                                                                                                                                             ^
-  symbol:   method getProjectile()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\cosmetic\BannerModule.java:80: error: cannot find symbol
           Holder<BannerPattern> holder = BannerPattern.byHash(tag.getString(KEY_PATTERN));
                                                       ^
@@ -29300,16 +28272,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                              ^
   symbol:   method getHashname()
   location: variable base of type BannerPattern
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\DamageOnUnequipModule.java:51: error: cannot find symbol
-        context.getEntity().hurt(TinkerDamageTypes.source(level.registryAccess(), damageType), damage * modifier.getEffectiveLevel());
-               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\durability\ShareDurabilityModule.java:109: error: cannot find symbol
-          ItemStack choiceStack = options.get(TConstruct.RANDOM.nextInt(options.size()));
-                                                        ^
-  symbol:   variable RANDOM
-  location: class TConstruct
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\BrushModule.java:69: error: package ForgeMod does not exist
     return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(ForgeMod.BLOCK_REACH.get()));
                                                                                                                                                     ^
@@ -29379,20 +28341,10 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
   required: no arguments
   found:    Ingredient
   reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\FishingModule.java:138: error: cannot find symbol
-    if (context.getEntity() instanceof Player player && player.fishing != null) {
-               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\FishingModule.java:151: error: cannot find symbol
     if (slotType == EquipmentSlot.OFFHAND && context.getChangedSlot() == EquipmentSlot.MAINHAND && context.getEntity() instanceof Player player && player.fishing != null && !context.getOriginal().canPerformAction(ItemAbilities.FISHING_ROD_CAST) && context.getReplacement().canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
                                                     ^
   symbol:   method getChangedSlot()
-  location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\FishingModule.java:151: error: cannot find symbol
-    if (slotType == EquipmentSlot.OFFHAND && context.getChangedSlot() == EquipmentSlot.MAINHAND && context.getEntity() instanceof Player player && player.fishing != null && !context.getOriginal().canPerformAction(ItemAbilities.FISHING_ROD_CAST) && context.getReplacement().canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
-                                                                                                          ^
-  symbol:   method getEntity()
   location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\FishingModule.java:151: error: cannot find symbol
     if (slotType == EquipmentSlot.OFFHAND && context.getChangedSlot() == EquipmentSlot.MAINHAND && context.getEntity() instanceof Player player && player.fishing != null && !context.getOriginal().canPerformAction(ItemAbilities.FISHING_ROD_CAST) && context.getReplacement().canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
@@ -29404,33 +28356,7 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                                                                                                                                                                                                ^
   symbol:   method getReplacement()
   location: variable context of type EquipmentChangeContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:73: error: cannot find symbol
-    InteractionResult result = state.use(world, player, context.getHand(), trace);
-                                    ^
-  symbol:   method use(ServerLevel,Player,InteractionHand,BlockHitResult)
-  location: variable state of type BlockState
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:129: error: max has private access in IntegerProperty
-      if (age == null || state.getValue(age) < age.max) {
-                                                  ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:132: error: min has private access in IntegerProperty
-      replant = state.setValue(age, age.min);
-                                       ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:190: error: cannot find symbol
-    Result result = new ToolHarvestEvent(tool, context, world, state, pos, source).fire();
-    ^
-  symbol:   class Result
-  location: class HarvestModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:191: error: cannot find symbol
-    if (result != Result.DEFAULT) {
-                  ^
-  symbol:   variable Result
-  location: class HarvestModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:192: error: cannot find symbol
-      didHarvest = result == Result.ALLOW;
-                             ^
-  symbol:   variable Result
-  location: class HarvestModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:265: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:270: error: cannot find symbol
             player.broadcastBreakEvent(context.getHand());
                   ^
   symbol:   method broadcastBreakEvent(InteractionHand)
@@ -29502,11 +28428,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                   ^
   symbol:   method getDamage()
   location: variable recipe of type EntityMeltingRecipe
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\MeltingModule.java:243: error: cannot find symbol
-      meltTarget(tool, modifier, context.getLivingTarget(), damageDealt);
-                                        ^
-  symbol:   method getLivingTarget()
-  location: variable context of type ToolAttackContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\OverburnModule.java:35: error: OverburnModule is not abstract and does not override abstract method getLoader() in ModifierModule
 public enum OverburnModule implements ModifierModule, InventoryTickModifierHook, ModifierRemovalHook {
        ^
@@ -29535,40 +28456,9 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                                                                                       ^
   symbol:   method projectile(Projectile)
   location: class Builder
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:102: error: incompatible types: Holder<MobEffect> cannot be converted to MobEffect
-          MobEffect effect = instance.getEffect();
-                                               ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:126: error: cannot find symbol
-        if (potion != Potions.EMPTY) {
-                             ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:127: error: cannot find symbol
-          PotionUtils.getColor(potion);
-          ^
-  symbol:   variable PotionUtils
-  location: class TippedModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:128: error: cannot find symbol
-          PotionUtils.addPotionTooltip(potion.getEffects(), tooltip, 1f / getDivisor(modifier));
-          ^
-  symbol:   variable PotionUtils
-  location: class TippedModule
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:142: error: cannot find symbol
-        if (potion != Potions.EMPTY) {
-                             ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:146: error: method getName in class Potion cannot be applied to given types;
-            Component.translatable(potion.getName("item.minecraft.potion.effect."))
-                                         ^
-  required: Optional<Holder<Potion>>,String
-  found:    String
-  reason: actual and formal argument lists differ in length
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:147: error: cannot find symbol
-          ).withStyle(style -> style.withColor(PotionUtils.getColor(potion)));
-                                               ^
-  symbol:   variable PotionUtils
-  location: class TippedModule
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:145: error: incompatible types: Optional<Reference<Potion>> cannot be converted to Optional<Holder<Potion>>
+            Component.translatable(Potion.getName(potionOpt, "item.minecraft.potion.effect."))
+                                                  ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\common\ArrowPierceModule.java:43: error: setPierceLevel(byte) has private access in AbstractArrow
         arrow.setPierceLevel((byte) amount);
              ^
@@ -29577,11 +28467,6 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
                ^
   symbol:   method setKnockback(int)
   location: variable arrow of type AbstractArrow
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ReduceEffectOnUnequipModule.java:45: error: cannot find symbol
-      LivingEntity entity = context.getEntity();
-                                   ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ReduceEffectOnUnequipModule.java:50: error: cannot find symbol
           if (!instance.isInfiniteDuration() && instance.getEffect().getCategory() == this.category && !instance.getCurativeItems().isEmpty()) {
                                                                     ^
@@ -29598,89 +28483,17 @@ C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstru
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ReduceEffectOnUnequipModule.java:51: error: duration has private access in MobEffectInstance
             instance.duration = Math.max(1, (int) (instance.duration * (1 - percent)));
                                                            ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:130: error: incompatible types: SingleItemContainer cannot be converted to SingleRecipeInput
-      if (lastRecipe != null && lastRecipe.matches(CONTAINER, level)) {
-                                                   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:134: error: no suitable method found for getRecipeFor(RecipeType<CAP#1>,SingleItemContainer,Level)
-      AbstractCookingRecipe recipe = level.getRecipeManager().getRecipeFor(recipeType, CONTAINER, level).orElse(null);
-                                                             ^
-    method RecipeManager.<I#1,T#1>getRecipeFor(RecipeType<T#1>,I#1,Level) is not applicable
-      (inference variable I#1 has incompatible bounds
-        equality constraints: SingleRecipeInput
-        lower bounds: SingleItemContainer)
-    method RecipeManager.<I#2,T#2>getRecipeFor(RecipeType<T#2>,I#2,Level,ResourceLocation) is not applicable
-      (cannot infer type-variable(s) I#2,T#2
-        (actual and formal argument lists differ in length))
-    method RecipeManager.<I#3,T#3>getRecipeFor(RecipeType<T#3>,I#3,Level,RecipeHolder<T#3>) is not applicable
-      (cannot infer type-variable(s) I#3,T#3
-        (actual and formal argument lists differ in length))
-  where I#1,T#1,I#2,T#2,I#3,T#3 are type-variables:
-    I#1 extends RecipeInput declared in method <I#1,T#1>getRecipeFor(RecipeType<T#1>,I#1,Level)
-    T#1 extends Recipe<I#1> declared in method <I#1,T#1>getRecipeFor(RecipeType<T#1>,I#1,Level)
-    I#2 extends RecipeInput declared in method <I#2,T#2>getRecipeFor(RecipeType<T#2>,I#2,Level,ResourceLocation)
-    T#2 extends Recipe<I#2> declared in method <I#2,T#2>getRecipeFor(RecipeType<T#2>,I#2,Level,ResourceLocation)
-    I#3 extends RecipeInput declared in method <I#3,T#3>getRecipeFor(RecipeType<T#3>,I#3,Level,RecipeHolder<T#3>)
-    T#3 extends Recipe<I#3> declared in method <I#3,T#3>getRecipeFor(RecipeType<T#3>,I#3,Level,RecipeHolder<T#3>)
-  where CAP#1 is a fresh type-variable:
-    CAP#1 extends AbstractCookingRecipe from capture of ? extends AbstractCookingRecipe
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:176: error: cannot find symbol
-          stack = ItemStack.of(entry);
-                           ^
-  symbol:   method of(CompoundTag)
-  location: class ItemStack
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:205: error: cannot find symbol
-              stack = ItemStack.of(entry);
-                               ^
-  symbol:   method of(CompoundTag)
-  location: class ItemStack
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:215: error: incompatible types: SingleItemContainer cannot be converted to SingleRecipeInput
-                ItemStack result = recipe.assemble(CONTAINER, level.registryAccess());
-                                                   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:224: error: cannot find symbol
-                  if (result.getCount() + currentResult.getCount() > maxStackSize || !currentResult.isEmpty() && !ItemStack.isSameItemSameTags(currentResult, result)) {
-                                                                                                                           ^
-  symbol:   method isSameItemSameTags(ItemStack,ItemStack)
-  location: class ItemStack
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:268: error: cannot find symbol
-                TConstruct.LOG.error("Error getting result of recipe {} on modifier {}, this usually indicates a broken recipe", recipe.getId(), modifier, e);
-                                                                                                                                       ^
-  symbol:   method getId()
-  location: variable recipe of type AbstractCookingRecipe
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:284: error: cannot find symbol
-    cookItems(tool, modifier, context.getAttacker(), damageDealt);
-                                     ^
-  symbol:   method getAttacker()
-  location: variable context of type ToolAttackContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:295: error: cannot find symbol
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:288: error: cannot find symbol
       cookItems(tool, modifier, context.getLiving(), harvested);
                                        ^
   symbol:   method getLiving()
   location: variable context of type ToolHarvestContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:317: error: cannot find symbol
-      cookItems(tool, modifier, context.getEntity(), amount);
-                                       ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentContext
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:338: error: OutputKeyField is not abstract and does not override abstract method encode(RegistryFriendlyByteBuf,SmeltingModule) in RecordField
-  private enum OutputKeyField implements LoadableField<ResourceLocation,SmeltingModule> {
-          ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:367: error: method does not override or implement a method from a supertype
-    @Override
-    ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\SmeltingModule.java:372: error: method does not override or implement a method from a supertype
-    @Override
-    ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ZoomModule.java:37: error: <anonymous slimeknights.tconstruct.tools.modules.ZoomModule$1> is not abstract and does not override abstract method getDefaultHooks() in HookProvider
   SPYGLASS(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.ARMOR_INTERACT) {
   ^
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ZoomModule.java:49: error: <anonymous slimeknights.tconstruct.tools.modules.ZoomModule$2> is not abstract and does not override abstract method getDefaultHooks() in HookProvider
   SCOPE(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.EQUIPMENT_CHANGE) {
   ^
-C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ZoomModule.java:161: error: cannot find symbol
-    if (context.getEntity().level().isClientSide) {
-               ^
-  symbol:   method getEntity()
-  location: variable context of type EquipmentChangeContext
 C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\network\EntityMovementChangePacket.java:35: error: method does not override or implement a method from a supertype
   @Override
   ^
@@ -30994,7 +29807,7 @@ Note: Some input files additionally use or override a deprecated API that is mar
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-5.683 errors
+5.451 errors
 100 warnings
 
 > Task :compileJava FAILED
@@ -31009,5 +29822,5 @@ Execution failed for task ':compileJava'.
 > Run with --info option to get more log output.
 > Run with --scan to get full insights.
 
-BUILD FAILED in 27s
+BUILD FAILED in 20s
 3 actionable tasks: 2 executed, 1 up-to-date

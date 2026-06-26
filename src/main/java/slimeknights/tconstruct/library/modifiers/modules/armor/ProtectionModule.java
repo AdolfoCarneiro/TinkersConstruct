@@ -119,6 +119,10 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
       super(ProtectionFormula.VARIABLES);
     }
 
+    public Builder source(IJsonPredicate<DamageSource> source) { this.source = source; return this; }
+    public Builder entity(IJsonPredicate<LivingEntity> entity) { this.entity = entity; return this; }
+    public Builder attacker(IJsonPredicate<LivingEntity> attacker) { this.attacker = attacker; return this; }
+
     /** Sets the source to the given sources anded together */
     @SafeVarargs
     public final Builder sources(IJsonPredicate<DamageSource>... sources) {
