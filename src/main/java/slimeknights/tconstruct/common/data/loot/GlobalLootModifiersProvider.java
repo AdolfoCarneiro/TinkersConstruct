@@ -3,7 +3,9 @@ package slimeknights.tconstruct.common.data.loot;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.EntityTypePredicate;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
-import net.minecraftforge.common.loot.LootTableIdCondition;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 import slimeknights.mantle.loot.AddEntryLootModifier;
 import slimeknights.mantle.loot.ReplaceItemLootModifier;
 import slimeknights.mantle.loot.condition.BlockTagLootCondition;
@@ -45,8 +47,8 @@ import slimeknights.tconstruct.tools.modifiers.loot.ModifierBonusLootFunction;
 import static slimeknights.mantle.Mantle.commonResource;
 
 public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
-  public GlobalLootModifiersProvider(PackOutput output) {
-    super(output, TConstruct.MOD_ID);
+  public GlobalLootModifiersProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+    super(output, registries, TConstruct.MOD_ID);
   }
 
   @SuppressWarnings("removal")

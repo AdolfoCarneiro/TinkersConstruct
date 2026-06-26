@@ -25,7 +25,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 import slimeknights.mantle.item.BlockTooltipItem;

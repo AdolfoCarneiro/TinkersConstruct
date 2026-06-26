@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -29,12 +29,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.SoundActions;
-import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.SoundActions;
+import net.neoforged.neoforge.common.brewing.BrewingRecipe;
+import net.neoforged.neoforge.common.brewing.BrewingRecipeRegistry;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -43,7 +43,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.ForgeFlowingFluid;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.InvertedFluid;
 import slimeknights.mantle.fluid.UnplaceableFluid;
@@ -95,11 +95,11 @@ import static slimeknights.tconstruct.fluids.block.MobEffectLiquidBlock.createEf
 @SuppressWarnings("unused")
 public final class TinkerFluids extends TinkerModule {
   public TinkerFluids() {
-    ForgeMod.enableMilkFluid();
+    NeoForgeMod.enableMilkFluid();
   }
 
   /** Creative tab for general items, or those that lack another tab */
-  public static final RegistryObject<CreativeModeTab> tabFluids = CREATIVE_TABS.register(
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabFluids = CREATIVE_TABS.register(
     "fluids", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "fluids"))
                                    .icon(() -> new ItemStack(TinkerFluids.moltenIron))
                                    .displayItems(TinkerFluids::addTabItems)
@@ -258,7 +258,7 @@ public final class TinkerFluids extends TinkerModule {
       // from forge lava type
       .motionScale(0.0023333333333333335D)
       .canSwim(false).canDrown(false)
-      .pathType(BlockPathTypes.LAVA).adjacentPathType(null);
+      .pathType(PathType.LAVA).adjacentPathType(null);
   }
 
   @SubscribeEvent

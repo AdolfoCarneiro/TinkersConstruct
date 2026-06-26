@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -45,16 +45,16 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.data.event.GatherDataEvent;
+
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent.Operation;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import slimeknights.mantle.registration.object.EntityObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -118,10 +118,10 @@ public final class TinkerWorld extends TinkerModule {
     MobEquipmentManager.init();
   }
 
-  public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
+  
 
   /** Creative tab for anything that is naturally found in the world */
-  public static final RegistryObject<CreativeModeTab> tabWorld = CREATIVE_TABS.register(
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabWorld = CREATIVE_TABS.register(
     "world", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "world"))
                                   .icon(() -> new ItemStack(TinkerWorld.cobaltOre))
                                   .displayItems(TinkerWorld::addTabItems)
@@ -309,9 +309,9 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Particles
    */
-  public static final RegistryObject<SimpleParticleType> skySlimeParticle = PARTICLE_TYPES.register("sky_slime", () -> new SimpleParticleType(false));
-  public static final RegistryObject<SimpleParticleType> enderSlimeParticle = PARTICLE_TYPES.register("ender_slime", () -> new SimpleParticleType(false));
-  public static final RegistryObject<SimpleParticleType> terracubeParticle = PARTICLE_TYPES.register("terracube", () -> new SimpleParticleType(false));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> skySlimeParticle = PARTICLE_TYPES.register("sky_slime", () -> new SimpleParticleType(false));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> enderSlimeParticle = PARTICLE_TYPES.register("ender_slime", () -> new SimpleParticleType(false));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> terracubeParticle = PARTICLE_TYPES.register("terracube", () -> new SimpleParticleType(false));
 
   /*
    * Features
@@ -352,7 +352,7 @@ public final class TinkerWorld extends TinkerModule {
   }
 
   @SubscribeEvent
-  void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
+  void registerSpawnPlacement(RegisterSpawnPlacementsEvent event) {
     event.register(EntityType.SLIME, null, null, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
     event.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
     event.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
