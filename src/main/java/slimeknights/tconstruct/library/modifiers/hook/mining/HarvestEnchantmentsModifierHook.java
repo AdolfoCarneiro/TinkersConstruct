@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.hook.mining;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -103,13 +105,14 @@ public interface HarvestEnchantmentsModifierHook {
    * @param originalTag  Original list of enchantments. If empty, will remove the tag
    */
   static void restoreEnchantments(ItemStack stack, ListTag originalTag) {
-    CompoundTag nbt = stack.getTag();
-    if (nbt != null) {
+    CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    if (!nbt.isEmpty()) {
       if (originalTag.isEmpty()) {
         nbt.remove(TAG_ENCHANTMENTS);
       } else {
         nbt.put(TAG_ENCHANTMENTS, originalTag);
       }
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
     }
   }
 

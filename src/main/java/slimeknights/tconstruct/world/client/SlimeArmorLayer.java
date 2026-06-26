@@ -18,9 +18,11 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -94,8 +96,8 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         if (item instanceof BlockItem block && block.getBlock() instanceof AbstractSkullBlock skullBlock) {
           matrices.scale(1.1875F, -1.1875F, -1.1875F);
           GameProfile gameprofile = null;
-          CompoundTag tag = helmet.getTag();
-          if (tag != null && tag.contains("SkullOwner", Tag.TAG_COMPOUND)) {
+          CompoundTag tag = helmet.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+          if (tag.contains("SkullOwner", Tag.TAG_COMPOUND)) {
             gameprofile = NbtUtils.readGameProfile(tag.getCompound("SkullOwner"));
           }
           matrices.translate(-0.5, 0.0, -0.5);

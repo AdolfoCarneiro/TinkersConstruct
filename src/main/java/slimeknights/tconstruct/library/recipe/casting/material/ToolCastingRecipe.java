@@ -3,7 +3,10 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 import com.google.common.collect.Streams;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -231,7 +234,9 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
         }
         // build part swap tool, mark as display so tooltip does not show useless stats
         ItemStack partSwapDisplay = ToolBuildHandler.buildItemFromMaterials(result, partSwapMaterials.build());
-        partSwapDisplay.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+        CompoundTag _nbt = partSwapDisplay.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        _nbt.putBoolean(TooltipUtil.KEY_DISPLAY, true);
+        partSwapDisplay.set(DataComponents.CUSTOM_DATA, CustomData.of(_nbt));
 
         List<ItemStack> casts = List.of(getCast().getItems());
         // if the cast is consumed, add the tool to the list of cast items to show that part swapping is an option

@@ -12,6 +12,7 @@ import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
@@ -107,9 +108,8 @@ public abstract class LayoutIcon {
     public JsonObject toJson() {
       JsonObject json = new JsonObject();
       json.addProperty("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
-      CompoundTag tag = stack.getTag();
-      if (tag != null) {
-        json.addProperty("nbt", tag.toString());
+      if (stack.has(DataComponents.CUSTOM_DATA)) {
+        json.addProperty("nbt", stack.get(DataComponents.CUSTOM_DATA).copyTag().toString());
       }
       return json;
     }

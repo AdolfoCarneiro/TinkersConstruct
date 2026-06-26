@@ -27,6 +27,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -825,9 +826,8 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       if (ammoKey != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
         ammo = ItemStack.of(persistentData.getCompound(ammoKey));
         builder.add(ammo.getItem());
-        CompoundTag tag = ammo.getTag();
-        if (tag != null) {
-          builder.add(tag);
+        if (ammo.has(DataComponents.CUSTOM_DATA)) {
+          builder.add(ammo.get(DataComponents.CUSTOM_DATA).copyTag());
         }
       } else {
         ammo = ItemStack.EMPTY;

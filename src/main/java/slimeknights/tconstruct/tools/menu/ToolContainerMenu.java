@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.menu;
 
 import lombok.Getter;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -117,7 +118,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     }
     // if the stack looks like it could be our tool, fetch the handler from it
     IItemHandler handler;
-    if (stack.hasTag() && stack.is(TinkerTags.Items.MODIFIABLE)) {
+    if (stack.has(DataComponents.CUSTOM_DATA) && stack.is(TinkerTags.Items.MODIFIABLE)) {
       IItemHandler capability = stack.getCapability(Capabilities.ItemHandler.ITEM);
       handler = capability instanceof IItemHandlerModifiable ? capability : EmptyItemHandler.INSTANCE;
       // wrong number of slots means something went wrong, use a dummy

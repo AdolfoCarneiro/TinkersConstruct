@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.block;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +42,7 @@ public class TinkerStationBlock extends RetexturedTableBlock {
   @Override
   public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     super.setPlacedBy(level, pos, state, placer, stack);
-    if (stack.hasTag() && level.getBlockEntity(pos) instanceof TinkerStationBlockEntity be) {
+    if (stack.has(DataComponents.CUSTOM_DATA) && level.getBlockEntity(pos) instanceof TinkerStationBlockEntity be) {
       // try block first
       String block = RetexturedHelper.getTextureName(stack);
       if (!block.isEmpty()) {

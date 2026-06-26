@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modules;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -105,7 +106,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
   @Nullable
   private AbstractCookingRecipe findCachedRecipe(ItemStack stack, Level world) {
     // don't use the cache if there is a tag, prevent breaking NBT sensitive recipes
-    if (stack.hasTag()) {
+    if (stack.has(DataComponents.CUSTOM_DATA)) {
       return findRecipe(stack, world).orElse(null);
     }
     try {

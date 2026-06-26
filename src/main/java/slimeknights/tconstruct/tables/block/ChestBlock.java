@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.tables.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -58,8 +60,8 @@ public class ChestBlock extends TabbedTableBlock {
     super.setPlacedBy(worldIn, pos, state, placer, stack);
     // check if we also have an inventory
 
-    CompoundTag tag = stack.getTag();
-    if (tag != null && tag.contains("TinkerData", Tag.TAG_COMPOUND)) {
+    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    if (tag.contains("TinkerData", Tag.TAG_COMPOUND)) {
       CompoundTag tinkerData = tag.getCompound("TinkerData");
       BlockEntity te = worldIn.getBlockEntity(pos);
       if (te instanceof AbstractChestBlockEntity chest) {

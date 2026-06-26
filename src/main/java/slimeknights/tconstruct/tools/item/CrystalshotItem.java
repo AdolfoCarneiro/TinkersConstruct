@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.tools.item;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -44,8 +46,8 @@ public class CrystalshotItem extends ArrowItem {
   public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter) {
     CrystalshotEntity arrow = new CrystalshotEntity(pLevel, pShooter);
     String variant = "random";
-    CompoundTag tag = pStack.getTag();
-    if (tag != null && tag.contains(TAG_VARIANT, Tag.TAG_STRING)) {
+    CompoundTag tag = pStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    if (tag.contains(TAG_VARIANT, Tag.TAG_STRING)) {
       variant = tag.getString(TAG_VARIANT);
     }
     if ("random".equals(variant)) {
@@ -63,7 +65,9 @@ public class CrystalshotItem extends ArrowItem {
   /** Creates a crystal shot with the given variant */
   public static ItemStack withVariant(String variant, int size) {
     ItemStack stack = new ItemStack(TinkerTools.crystalshotItem, size);
-    stack.getOrCreateTag().putString(TAG_VARIANT, variant);
+    CompoundTag _nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    _nbt.putString(TAG_VARIANT, variant);
+    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(_nbt));
     return stack;
   }
 
