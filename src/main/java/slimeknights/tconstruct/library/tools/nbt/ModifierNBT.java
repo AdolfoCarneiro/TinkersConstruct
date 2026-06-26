@@ -40,6 +40,9 @@ public class ModifierNBT implements Iterable<ModifierEntry> {
   @Getter
   private final List<ModifierEntry> modifiers;
 
+  public ModifierNBT(List<ModifierEntry> modifiers) { this.modifiers = modifiers; }
+  public List<ModifierEntry> getModifiers() { return modifiers; }
+
   /**
    * Checks if the NBT has no modifiers
    * @return  True if there are no modifiers

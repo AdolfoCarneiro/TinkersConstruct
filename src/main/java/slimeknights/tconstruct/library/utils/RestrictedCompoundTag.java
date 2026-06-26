@@ -19,6 +19,11 @@ public class RestrictedCompoundTag {
   /** List of tags with restricted access */
   private final Set<String> restrictedKeys;
 
+  public RestrictedCompoundTag(CompoundTag tag, Set<String> restrictedKeys) {
+    this.tag = tag;
+    this.restrictedKeys = restrictedKeys;
+  }
+
   /**
    * Checks if the data contains the given tag
    * @param name  Namespaced key

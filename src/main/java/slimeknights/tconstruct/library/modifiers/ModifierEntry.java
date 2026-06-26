@@ -63,6 +63,15 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   @Getter @With
   protected final int level;
 
+  protected ModifierEntry(LazyModifier modifier, int level) {
+    this.modifier = modifier;
+    this.level = level;
+  }
+  public int getLevel() { return level; }
+  public ModifierEntry withLevel(int level) {
+    return this.level == level ? this : new ModifierEntry(modifier, level);
+  }
+
   public ModifierEntry(ModifierId id, int level) {
     this(new LazyModifier(id), level);
   }

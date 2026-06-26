@@ -21,6 +21,12 @@ public class LazyToolStack {
   @Getter
   private final int size;
 
+  private LazyToolStack(@Nullable ItemStack stack, @Nullable ToolStack tool, int size) {
+    this.stack = stack;
+    this.tool = tool;
+    this.size = size;
+  }
+
   /* Constructors */
 
   /** Creates from a stack, lazily loading the tool stack */

@@ -113,6 +113,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** If true, dynamic modifiers have been loaded from datapacks, so its safe to fetch dynamic modifiers */
   @Getter
   boolean dynamicModifiersLoaded = false;
+  public boolean isDynamicModifiersLoaded() { return dynamicModifiersLoaded; }
   private IContext conditionContext = IContext.EMPTY;
 
   private ModifierManager() {

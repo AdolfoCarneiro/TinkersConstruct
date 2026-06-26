@@ -39,6 +39,11 @@ public interface ModifierTraitHook {
     /** Builder instance */
     private final ModifierNBT.Builder builder;
 
+    public TraitBuilder(IToolContext context, ModifierNBT.Builder builder) {
+      this.context = context;
+      this.builder = builder;
+    }
+
     /** Adds the given modifier to the builder and adds all its traits */
     @Override
     public TraitBuilder add(ModifierEntry entry) {

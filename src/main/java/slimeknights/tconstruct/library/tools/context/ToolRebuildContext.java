@@ -38,4 +38,15 @@ public class ToolRebuildContext implements IToolContext {
     this.modifiers = modifiers;
     this.persistentData = persistentData;
   }
+
+  public Item getItem() { return item; }
+  public ToolDefinition getDefinition() { return definition; }
+  public MaterialNBT getMaterials() { return materials; }
+  public ModifierNBT getUpgrades() { return upgrades; }
+  public ModifierNBT getModifiers() { return modifiers; }
+  public IModDataView getPersistentData() { return persistentData; }
+
+  public ToolRebuildContext withModifiers(ModifierNBT modifiers) {
+    return this.modifiers == modifiers ? this : new ToolRebuildContext(item, definition, materials, upgrades, modifiers, persistentData);
+  }
 }

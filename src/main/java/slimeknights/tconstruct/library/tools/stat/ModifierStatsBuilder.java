@@ -14,6 +14,9 @@ import java.util.function.Consumer;
  */
 @NoArgsConstructor(staticName = "builder")
 public class ModifierStatsBuilder {
+  private ModifierStatsBuilder() {}
+  public static ModifierStatsBuilder builder() { return new ModifierStatsBuilder(); }
+
   /** Map of all stats in the builder */
   private final Map<IToolStat<?>,Object> map = new HashMap<>();
   /** Map of multipliers set */

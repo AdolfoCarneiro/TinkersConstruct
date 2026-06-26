@@ -23,11 +23,17 @@ public class ModDataNBT implements IModDataView {
   @Getter(AccessLevel.PROTECTED)
   private final CompoundTag data;
 
+  protected CompoundTag getData() { return data; }
+
   /**
    * Creates a new mod data containing empty data
    */
   public ModDataNBT() {
     this(new CompoundTag());
+  }
+
+  protected ModDataNBT(CompoundTag data) {
+    this.data = data;
   }
 
   @Override

@@ -35,6 +35,7 @@ public class TinkerTags {
   /** Checks if tags have been loaded on this instance. Used to prevent certain NBT operations that depend on tags from happening client side when tags are missing. */
   @Getter
   static boolean tagsLoaded = false;
+  public static boolean isTagsLoaded() { return tagsLoaded; }
 
   /** Called on mod construct to set up tags */
   public static void init() {
