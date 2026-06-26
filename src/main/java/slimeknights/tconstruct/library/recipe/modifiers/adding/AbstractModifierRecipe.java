@@ -133,7 +133,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public ModifierEntry getDisplayResult() {
     if (displayResult == null) {
       // display result is just the min level result, means when a recipe is for Luck II, it displays as Luck II
-      displayResult = new ModifierEntry(result, this.level.min());
+      displayResult = new ModifierEntry(result.getId(), this.level.min());
     }
     return displayResult;
   }
@@ -142,7 +142,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public List<ItemStack> getToolWithoutModifier() {
     if (displayInputs == null) {
       int min = level.min() - 1;
-      ModifierEntry existing = min > 0 ? new ModifierEntry(result, min) : null;
+      ModifierEntry existing = min > 0 ? new ModifierEntry(result.getId(), min) : null;
       ModifierEntry displayResult = getDisplayResult();
       displayInputs = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(displayResult, existing))).collect(Collectors.toList());
     }

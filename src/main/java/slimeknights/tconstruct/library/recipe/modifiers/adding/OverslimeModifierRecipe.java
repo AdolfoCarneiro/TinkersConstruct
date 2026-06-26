@@ -108,7 +108,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   /* JEI display */
   /** Cache of modifier result, same for all overslime */
-  private static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime, 1);
+  private static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime.getId(), 1);
   /** Cache of input and output tools for display */
   private List<ItemStack> toolWithoutModifier, toolWithModifier = null;
 

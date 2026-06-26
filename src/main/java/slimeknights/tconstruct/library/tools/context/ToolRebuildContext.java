@@ -29,4 +29,13 @@ public class ToolRebuildContext implements IToolContext {
   private final ModifierNBT modifiers;
   /** Persistent modifier data, intentionally read only */
   private final IModDataView persistentData;
+
+  public ToolRebuildContext(Item item, ToolDefinition definition, MaterialNBT materials, ModifierNBT upgrades, ModifierNBT modifiers, IModDataView persistentData) {
+    this.item = item;
+    this.definition = definition;
+    this.materials = materials;
+    this.upgrades = upgrades;
+    this.modifiers = modifiers;
+    this.persistentData = persistentData;
+  }
 }

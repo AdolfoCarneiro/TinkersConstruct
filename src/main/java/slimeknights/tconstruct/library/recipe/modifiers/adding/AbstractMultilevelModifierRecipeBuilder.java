@@ -25,6 +25,10 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractMultilevelModifierRecipeBuilder<T extends AbstractMultilevelModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected final ModifierId result;
+
+  protected AbstractMultilevelModifierRecipeBuilder(ModifierId result) {
+    this.result = result;
+  }
   protected final List<LevelEntry> levels = new ArrayList<>();
   protected boolean allowCrystal = true;
   protected Ingredient tools = Ingredient.EMPTY;

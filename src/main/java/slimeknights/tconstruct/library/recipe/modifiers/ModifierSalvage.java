@@ -40,8 +40,9 @@ public class ModifierSalvage implements ICustomOutputRecipe<IEmptyContainer> {
   @Getter
   protected final int maxToolSize;
   /** Modifier represented by this recipe */
-  @Getter
   protected final ModifierId modifier;
+
+  public ModifierId getModifier() { return modifier; }
   /** Level for this to be applicable */
   protected final IntRange level;
   /** Slots restored by this recipe, if null no slots are restored */

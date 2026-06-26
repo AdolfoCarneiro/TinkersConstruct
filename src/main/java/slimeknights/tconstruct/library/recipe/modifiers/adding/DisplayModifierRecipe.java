@@ -28,7 +28,6 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   private final List<ItemStack> toolWithoutModifier;
   @Getter
   private final List<ItemStack> toolWithModifier;
-  @Getter
   private final ModifierEntry displayResult;
   @Getter
   private final IntRange level;
@@ -39,6 +38,24 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   private final List<SlotCount> resultSlots;
   @Getter
   private final boolean incremental;
+
+  @Override public ModifierEntry getDisplayResult() { return displayResult; }
+  @Override public List<ItemStack> getToolWithoutModifier() { return toolWithoutModifier; }
+  @Override public List<ItemStack> getToolWithModifier() { return toolWithModifier; }
+
+  private DisplayModifierRecipe(@Nullable ResourceLocation recipeId, List<List<ItemStack>> inputs,
+      List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, ModifierEntry displayResult,
+      IntRange level, @Nullable SlotCount slots, List<SlotCount> resultSlots, boolean incremental) {
+    this.recipeId = recipeId;
+    this.inputs = inputs;
+    this.toolWithoutModifier = toolWithoutModifier;
+    this.toolWithModifier = toolWithModifier;
+    this.displayResult = displayResult;
+    this.level = level;
+    this.slots = slots;
+    this.resultSlots = resultSlots;
+    this.incremental = incremental;
+  }
 
   /** @deprecated use {@link #builder()} */
   @Deprecated(forRemoval = true)
@@ -98,6 +115,17 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
     private SlotCount slots = null;
     private List<SlotCount> resultSlots = List.of();
     private boolean incremental = false;
+
+    public Builder() {}
+    public Builder result(ModifierEntry result) { this.result = result; return this; }
+    public Builder id(@Nullable ResourceLocation id) { this.id = id; return this; }
+    public Builder inputs(List<List<ItemStack>> inputs) { this.inputs = inputs; return this; }
+    public Builder toolWithoutModifier(List<ItemStack> v) { this.toolWithoutModifier = v; return this; }
+    public Builder toolWithModifier(List<ItemStack> v) { this.toolWithModifier = v; return this; }
+    public Builder level(IntRange level) { this.level = level; return this; }
+    public Builder slots(@Nullable SlotCount slots) { this.slots = slots; return this; }
+    public Builder resultSlots(List<SlotCount> v) { this.resultSlots = v; return this; }
+    public Builder incremental(boolean v) { this.incremental = v; return this; }
 
     /** Creates a copy of this builder with the same properties */
     public Builder copy() {

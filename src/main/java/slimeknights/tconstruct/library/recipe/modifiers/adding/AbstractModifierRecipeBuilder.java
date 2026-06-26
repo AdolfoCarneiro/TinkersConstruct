@@ -28,6 +28,10 @@ import static slimeknights.tconstruct.library.modifiers.ModifierEntry.VALID_LEVE
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   // shared
   protected final ModifierId result;
+
+  protected AbstractModifierRecipeBuilder(ModifierId result) {
+    this.result = result;
+  }
   protected Ingredient tools = Ingredient.of(TinkerTags.Items.MODIFIABLE);
   protected int maxToolSize = ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   @Nullable
