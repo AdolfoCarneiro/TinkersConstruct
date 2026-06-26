@@ -98,16 +98,16 @@ public class TinkerEffects extends TinkerModule {
 
   /** Checks if the given entity can be hit considering enderman enderference */
   public static boolean canHitWithProjectile(@Nullable LivingEntity living) {
-    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference.get());
+    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference);
   }
 
   /** Checks if the given entity needs special casing for enderference */
   public static boolean needsEnderferenceOverride(@Nullable Entity entity) {
-    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference.get());
+    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference);
   }
 
   /** Checks if the given entity needs special casing for enderference */
   public static boolean needsEnderferenceOverride(@Nullable LivingEntity living) {
-    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference.get());
+    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference);
   }
 }

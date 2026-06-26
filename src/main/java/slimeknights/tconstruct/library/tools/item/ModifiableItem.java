@@ -547,8 +547,9 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     }
 
     // if the attributes changed, reequip
-    Multimap<Attribute,AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
-    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    ModifiableItem item = (ModifiableItem) newStack.getItem();
+    Multimap<Attribute,AttributeModifier> attributesNew = item.getAttributeModifiers(newTool, EquipmentSlot.MAINHAND);
+    Multimap<Attribute, AttributeModifier> attributesOld = item.getAttributeModifiers(oldTool, EquipmentSlot.MAINHAND);
     if (attributesNew.size() != attributesOld.size()) {
       return true;
     }

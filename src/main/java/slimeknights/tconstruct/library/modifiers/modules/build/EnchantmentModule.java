@@ -139,15 +139,22 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   }
 
   /** Implementation of a simple constant enchantment for the current tool */
-  @Accessors(fluent = true)
-  @Getter
-  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   class Constant implements EnchantmentModule, EnchantmentModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Constant>defaultHooks(ModifierHooks.ENCHANTMENTS);
     public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Constant::new);
     private final Enchantment enchantment;
     private final LevelingInt level;
     private final ModifierCondition<IToolStackView> condition;
+
+    protected Constant(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
+      this.enchantment = enchantment;
+      this.level = level;
+      this.condition = condition;
+    }
+
+    @Override public Enchantment enchantment() { return enchantment; }
+    @Override public LevelingInt level() { return level; }
+    @Override public ModifierCondition<IToolStackView> condition() { return condition; }
 
     /** @deprecated use {@link Builder#constant()} */
     @Deprecated(forRemoval = true)
