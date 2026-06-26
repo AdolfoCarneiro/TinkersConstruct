@@ -25,8 +25,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.entity.PartEntity;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.OffhandCooldownTracker;
@@ -51,7 +54,7 @@ import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
-  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADD_VALUE);
+  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.getResource("anti_knockback"), 1f, Operation.ADD_VALUE);
   /** @deprecated new default for {@link ToolAttackContext.Builder} */
   @Deprecated(forRemoval = true)
   public static final DoubleSupplier NO_COOLDOWN = () -> 1.0;
@@ -68,9 +71,10 @@ public class ToolAttackUtil {
    */
   public static float getToolAttribute(IToolStackView tool, LivingEntity holder, Attribute attribute, float toolValue) {
     // fetch attribute instance
-    AttributeInstance instance = holder.getAttribute(attribute);
+    var attrHolder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
+    AttributeInstance instance = holder.getAttribute(attrHolder);
     if (instance == null) {
-      return (float) holder.getAttributeBaseValue(attribute);
+      return (float) holder.getAttributeBaseValue(attrHolder);
     }
 
     // Mantle optimizes this method by skipping if the mainhand and offhand have no attributes
@@ -83,16 +87,21 @@ public class ToolAttackUtil {
     // remove mainhand attributes
     ItemStack mainStack = CombatHelper.getMainhandAttributeStack(holder);
     if (!mainStack.isEmpty()) {
-      for (AttributeModifier modifier : mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute)) {
-        modifiers.get(modifier.getOperation()).remove(modifier);
+      ItemAttributeModifiers attrMods = mainStack.get(DataComponents.ATTRIBUTE_MODIFIERS);
+      if (attrMods != null) {
+        attrMods.forEach(EquipmentSlot.MAINHAND, (attr, modifier) -> {
+          if (attr.is(attrHolder)) {
+            modifiers.get(modifier.operation()).remove(modifier);
+          }
+        });
       }
     }
 
     // start adding in "mainhand" attributes for the given slot and attribute
     BiConsumer<Attribute, AttributeModifier> attributeConsumer = (check, modifier) -> {
       if (check == attribute) {
-        // this will remove duplicates due to AttributeModifier equals only checking UUID
-        modifiers.get(modifier.getOperation()).add(modifier);
+        // this will remove duplicates due to AttributeModifier equals only checking id
+        modifiers.get(modifier.operation()).add(modifier);
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
@@ -100,7 +109,7 @@ public class ToolAttackUtil {
     }
 
     // add in the tool value and build the stat
-    return (float) CombatHelper.computeAttribute(attribute, instance.getBaseValue() + toolValue, modifiers);
+    return (float) CombatHelper.computeAttribute(attrHolder, instance.getBaseValue() + toolValue, modifiers);
   }
 
   /** Gets the critical modifier to apply, returning 1.0 if not critical. */
@@ -111,9 +120,9 @@ public class ToolAttackUtil {
 
     float criticalModifier = isCritical ? 1.5f : 1.0f;
     if (attackerPlayer != null) {
-      CriticalHitEvent hitResult = ForgeHooks.getCriticalHit(attackerPlayer, target, isCritical, criticalModifier);
+      CriticalHitEvent hitResult = CommonHooks.fireCriticalHit(attackerPlayer, target, isCritical, criticalModifier);
       if (hitResult != null) {
-        criticalModifier = hitResult.getDamageModifier();
+        criticalModifier = hitResult.getDamageMultiplier();
       } else {
         criticalModifier = 1;
       }
