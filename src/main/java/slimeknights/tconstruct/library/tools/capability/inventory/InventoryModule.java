@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.tools.capability.inventory;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.nbt.CompoundTag;
@@ -51,9 +48,6 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-@Getter
-@Accessors(fluent = true)
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class InventoryModule implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext>, SlotStackModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK);
   /** Mod Data NBT mapper to get a compound list */
@@ -70,7 +64,8 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
   protected static final LoadableField<Pattern, InventoryModule> PATTERN_FIELD = Pattern.PARSER.nullableField("pattern", InventoryModule::pattern);
   protected static final LoadableField<IntRange,InventoryModule> VALIDATION_FIELD = ModifierEntry.VALID_LEVEL.defaultField("validation_level", InventoryModule::validationLevel);
   /** Loader instance */
-  public static final RecordLoadable<InventoryModule> LOADER = RecordLoadable.create(KEY_FIELD, SLOTS_FIELD, LIMIT_FIELD, FILTER_FIELD, PATTERN_FIELD, ModifierCondition.CONTEXT_FIELD, VALIDATION_FIELD, InventoryModule::new);
+  @SuppressWarnings("unchecked")
+  public static final RecordLoadable<InventoryModule> LOADER = RecordLoadable.create(KEY_FIELD, SLOTS_FIELD, LIMIT_FIELD, FILTER_FIELD, PATTERN_FIELD, (slimeknights.mantle.data.loadable.field.RecordField<ModifierCondition<IToolContext>,InventoryModule>)(Object)ModifierCondition.CONTEXT_FIELD, VALIDATION_FIELD, InventoryModule::new);
 
   /** Module adding an inventory to a tool */
   private final @Nullable ResourceLocation key;
@@ -86,6 +81,19 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
   private final ModifierCondition<IToolContext> condition;
   /** Additional conditions */
   private final IntRange validationLevel;
+
+  protected InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) {
+    this.key = key; this.slots = slots; this.slotLimit = slotLimit; this.filter = filter;
+    this.pattern = pattern; this.condition = condition; this.validationLevel = validationLevel;
+  }
+
+  @Override public @Nullable ResourceLocation key() { return key; }
+  public LevelingInt slots() { return slots; }
+  public LevelingInt slotLimit() { return slotLimit; }
+  public IJsonPredicate<Item> filter() { return filter; }
+  public @Nullable Pattern pattern() { return pattern; }
+  public ModifierCondition<IToolContext> condition() { return condition; }
+  public IntRange validationLevel() { return validationLevel; }
 
   @Override
   public RecordLoadable<? extends InventoryModule> getLoader() {
@@ -359,14 +367,20 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
 
     protected Builder() {}
 
+    public Builder key(@Nullable ResourceLocation key) { this.key = key; return this; }
+    public Builder slotLimit(LevelingInt slotLimit) { this.slotLimit = slotLimit; return this; }
+    public Builder filter(IJsonPredicate<Item> filter) { this.filter = filter; return this; }
+    public Builder pattern(@Nullable Pattern pattern) { this.pattern = pattern; return this; }
+    public Builder validationLevel(IntRange validationLevel) { this.validationLevel = validationLevel; return this; }
+
     /** Copies properties from the given module, excluding slots which is terminal. */
     public Builder from(InventoryModule inventory) {
-      this.key = inventory.key;
-      this.slotLimit = inventory.slotLimit;
-      this.filter = inventory.filter;
-      this.pattern = inventory.pattern;
-      this.validationLevel = inventory.validationLevel;
-      this.condition = inventory.condition;
+      this.key = inventory.key();
+      this.slotLimit = inventory.slotLimit();
+      this.filter = inventory.filter();
+      this.pattern = inventory.pattern();
+      this.validationLevel = inventory.validationLevel();
+      this.condition = inventory.condition();
       return this;
     }
 

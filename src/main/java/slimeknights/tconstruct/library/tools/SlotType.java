@@ -3,10 +3,8 @@ package slimeknights.tconstruct.library.tools;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +31,6 @@ import java.util.regex.Pattern;
 /**
  * Class handling slot types for modifiers
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SlotType {
   /** Loadable for a slot type */
   public static final StringLoadable<SlotType> LOADABLE = StringLoadable.DEFAULT.comapFlatMap((name, error) -> {
@@ -119,8 +116,10 @@ public final class SlotType {
   }
 
   /** Name of this slot type, used for serialization */
-  @Getter
   private final String name;
+
+  private SlotType(String name) { this.name = name; }
+  public String getName() { return name; }
   /** Cached color of this slot type */
   private TextColor color = null;
 
@@ -190,12 +189,12 @@ public final class SlotType {
       }
 
       @Override
-      public SlotCount decode(FriendlyByteBuf buffer, TypedMap context) {
+      public SlotCount decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
         return new SlotCount(SlotType.read(buffer), buffer.readVarInt());
       }
 
       @Override
-      public void encode(FriendlyByteBuf buffer, SlotCount slots) {
+      public void encode(RegistryFriendlyByteBuf buffer, SlotCount slots) {
         slots.type().write(buffer);
         buffer.writeVarInt(slots.count());
       }
@@ -224,7 +223,7 @@ public final class SlotType {
 
       @Nullable
       @Override
-      public SlotCount decode(FriendlyByteBuf buffer, TypedMap context) {
+      public SlotCount decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
         int count = buffer.readVarInt();
         if (count == 0) {
           return null;
@@ -233,7 +232,7 @@ public final class SlotType {
       }
 
       @Override
-      public void encode(FriendlyByteBuf buffer, P parent) {
+      public void encode(RegistryFriendlyByteBuf buffer, P parent) {
         SlotCount slotCount = getter.apply(parent);
         if (slotCount == null) {
           buffer.writeVarInt(0);

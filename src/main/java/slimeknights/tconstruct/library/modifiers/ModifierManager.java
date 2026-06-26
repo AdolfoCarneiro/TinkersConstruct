@@ -93,6 +93,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** If true, static modifiers have been registered, so static modifiers can safely be fetched */
   @Getter
   private boolean modifiersRegistered = false;
+  public boolean isModifiersRegistered() { return modifiersRegistered; }
   /** All modifiers registered directly with the manager */
   @VisibleForTesting
   final Map<ModifierId,Modifier> staticModifiers = new HashMap<>();
