@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 /**
  * Recipe to convert an entity into a head or other item for the severing modifier
  */
-@RequiredArgsConstructor
 public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   protected static LoadableField<EntityIngredient,SeveringRecipe> ENTITY_FIELD = EntityIngredient.LOADABLE.requiredField("entity", r -> r.ingredient);
   protected static LoadableField<Float,SeveringRecipe> BASE_CHANCE_FIELD = FloatLoadable.PERCENT.defaultField("per_level_chance", 0.05f, true, r -> r.baseChance);
@@ -32,11 +30,19 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
     BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD,
     SeveringRecipe::new);
 
-  @Getter
   protected final EntityIngredient ingredient;
   protected final ItemOutput output;
   protected final float baseChance;
   protected final float lootingBonus;
+
+  public SeveringRecipe(EntityIngredient ingredient, ItemOutput output, float baseChance, float lootingBonus) {
+    this.ingredient = ingredient;
+    this.output = output;
+    this.baseChance = baseChance;
+    this.lootingBonus = lootingBonus;
+  }
+
+  public EntityIngredient getIngredient() { return ingredient; }
 
   /** @deprecated use {@link #SeveringRecipe(EntityIngredient, ItemOutput, float, float)} */
   @Deprecated(forRemoval = true)
