@@ -11,20 +11,26 @@ import java.util.function.BiFunction;
  * @see IdParser
  */
 public abstract class ResourceId extends ResourceLocation {
-  protected ResourceId(String namespace, String path, @Nullable Dummy pDummy) {
-    super(namespace, path, pDummy);
-  }
-
-  public ResourceId(ResourceLocation location) {
-    this(location.getNamespace(), location.getPath(), null);
-  }
-
   public ResourceId(String namespace, String path) {
     super(namespace, path);
   }
 
+  public ResourceId(ResourceLocation location) {
+    this(location.getNamespace(), location.getPath());
+  }
+
   public ResourceId(String location) {
-    super(location);
+    this(parseNamespace(location), parsePath(location));
+  }
+
+  private static String parseNamespace(String s) {
+    int i = s.indexOf(':');
+    return i > 0 ? s.substring(0, i) : DEFAULT_NAMESPACE;
+  }
+
+  private static String parsePath(String s) {
+    int i = s.indexOf(':');
+    return i >= 0 ? s.substring(i + 1) : s;
   }
 
 
@@ -37,8 +43,10 @@ public abstract class ResourceId extends ResourceLocation {
    */
   @Nullable
   protected static <T extends ResourceLocation> T tryParse(String string, BiFunction<String,String,T> constructor) {
-    String[] parts = decompose(string, ':');
-    return tryBuild(parts[0], parts[1], constructor);
+    int i = string.indexOf(':');
+    String namespace = i > 0 ? string.substring(0, i) : DEFAULT_NAMESPACE;
+    String path = i >= 0 ? string.substring(i + 1) : string;
+    return tryBuild(namespace, path, constructor);
   }
 
   /**
@@ -49,7 +57,7 @@ public abstract class ResourceId extends ResourceLocation {
    */
   @Nullable
   protected static <T extends ResourceLocation> T tryBuild(String namespace, String path, BiFunction<String,String,T> constructor) {
-    if (isValidNamespace(namespace) && isValidPath(path)) {
+    if (ResourceLocation.tryBuild(namespace, path) != null) {
       return constructor.apply(namespace, path);
     }
     return null;
