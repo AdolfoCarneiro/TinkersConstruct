@@ -24,6 +24,15 @@ public class ModuleHook<T> implements IdAwareObject {
   @Getter
   private final T defaultInstance;
 
+  public ModuleHook(ResourceLocation id, Class<T> filter, @Nullable Function<Collection<T>,T> merger, T defaultInstance) {
+    this.id = id;
+    this.filter = filter;
+    this.merger = merger;
+    this.defaultInstance = defaultInstance;
+  }
+  @Override public ResourceLocation getId() { return id; }
+  public T getDefaultInstance() { return defaultInstance; }
+
   public ModuleHook(ResourceLocation name, Class<T> filter, T defaultInstance) {
     this(name, filter, null, defaultInstance);
   }

@@ -88,6 +88,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Default modifier to use when a modifier is not found */
   @Getter
   private final Modifier defaultValue;
+  public Modifier getDefaultValue() { return defaultValue; }
 
   /** If true, static modifiers have been registered, so static modifiers can safely be fetched */
   @Getter

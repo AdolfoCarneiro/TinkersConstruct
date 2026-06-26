@@ -24,6 +24,8 @@ public class ModuleHookMap {
   /** Internal map of modifier hook to object. It's the caller's responsibility to make sure the object is valid for the hook */
   private final Map<ModuleHook<?>,Object> modules;
 
+  public ModuleHookMap(Map<ModuleHook<?>,Object> modules) { this.modules = modules; }
+
   /**
    * Creates a modifier hook map from the given module list
    * @param modules  List of modules

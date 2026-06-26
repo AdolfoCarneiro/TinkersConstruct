@@ -63,6 +63,7 @@ public class Modifier implements IdAwareObject {
   /** Map of all modifier hooks registered to this modifier */
   @Getter
   private final ModuleHookMap hooks;
+  public ModuleHookMap getHooks() { return hooks; }
 
   /** Creates a new modifier using the given hook map */
   protected Modifier(ModuleHookMap hooks) {
