@@ -126,10 +126,15 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
         }
       }
       // must have an age property, and be at max age
-      if (age == null || state.getValue(age) < age.max) {
+      if (age == null) {
         return false;
       }
-      replant = state.setValue(age, age.min);
+      int ageMax = age.getPossibleValues().stream().mapToInt(Integer::intValue).max().orElse(0);
+      int ageMin = age.getPossibleValues().stream().mapToInt(Integer::intValue).min().orElse(0);
+      if (state.getValue(age) < ageMax) {
+        return false;
+      }
+      replant = state.setValue(age, ageMin);
     }
 
     // crop is fully grown, get block drops
