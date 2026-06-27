@@ -30,11 +30,15 @@ public class CustomFireball extends Fireball implements ProjectileWithPower {
   /** Damage type to deal when enderference is targeting a teleporting mob */
   private ResourceKey<DamageType> enderferenceType = DamageTypes.ON_FIRE;
   /** Amount of damage to deal */
-  @Getter @Setter
   private float power = 2.5f;
   /** Damage multiplier on power. Separate from power for the sake of conditional power modules. */
-  @Setter
   private float damageMultiplier = 2f;
+
+  @Override
+  public float getPower() { return power; }
+  @Override
+  public void setPower(float power) { this.power = power; }
+  public void setDamageMultiplier(float damageMultiplier) { this.damageMultiplier = damageMultiplier; }
 
   public CustomFireball(EntityType<? extends CustomFireball> type, Level level) {
     super(type, level);

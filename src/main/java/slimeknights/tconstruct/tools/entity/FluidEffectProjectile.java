@@ -314,9 +314,9 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
   private static final String KEY_WATER_INERTIA = "water_inertia";
 
   @Override
-  protected void defineSynchedData() {
-    this.entityData.define(FLUID, FluidStack.EMPTY);
-    this.entityData.define(WATER_INERTIA, 0.6f);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    builder.define(FLUID, FluidStack.EMPTY);
+    builder.define(WATER_INERTIA, 0.6f);
   }
 
   @Override

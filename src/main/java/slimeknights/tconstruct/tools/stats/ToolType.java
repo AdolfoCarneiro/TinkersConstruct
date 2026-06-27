@@ -33,6 +33,9 @@ public enum ToolType implements StringRepresentable {
   private final TagKey<Item> tag;
   private final String serializedName = name().toLowerCase(Locale.ROOT);
 
+  @Override
+  public String getSerializedName() { return serializedName; }
+
   @Nullable
   public static ToolType from(Item item, ToolType... types) {
     for (ToolType type : types) {

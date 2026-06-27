@@ -85,8 +85,10 @@ public enum IslandPlacement implements StringRepresentable {
     return world.isEmptyBlock(pos) || world.getBlockState(pos).getBlock() instanceof LiquidBlock;
   }
 
-  @Getter
   private final String serializedName = this.name().toLowerCase(Locale.ROOT);
+
+  @Override
+  public String getSerializedName() { return serializedName; }
 
   /** Checks if the given position is valid for this island */
   public boolean isPositionValid(WorldGenLevel world, BlockPos pos, ChunkGenerator generator) {
