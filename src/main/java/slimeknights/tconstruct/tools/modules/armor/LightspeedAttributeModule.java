@@ -109,7 +109,7 @@ public record LightspeedAttributeModule(String unique, Attribute attribute, Oper
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // remove boost when boots are removed
     LivingEntity livingEntity = context.getEntity();
-    if (context.getChangedSlot() == EquipmentSlot.FEET) {
+    if (context.getSlot() == EquipmentSlot.FEET) {
       IToolStackView newTool = context.getReplacementTool();
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifier(modifier.getId()).getEffectiveLevel() != modifier.getEffectiveLevel()) {

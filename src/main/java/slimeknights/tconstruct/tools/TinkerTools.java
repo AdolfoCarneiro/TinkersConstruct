@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;

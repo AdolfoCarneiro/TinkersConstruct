@@ -72,7 +72,7 @@ public record EffectImmunityModule(MobEffect effect, LevelingInt maxLevel, Modif
 
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
+    if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
       TinkerDataCapability.Holder data = context.getDataHolder();
       if (data != null) {
         data.computeIfAbsent(EFFECT_IMMUNITY).add(effect, maxLevel.compute(modifier));
@@ -82,7 +82,7 @@ public record EffectImmunityModule(MobEffect effect, LevelingInt maxLevel, Modif
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
+    if (!tool.isBroken() && ArmorLevelModule.validSlot(tool, context.getSlot(), TinkerTags.Items.HELD_ARMOR) && condition.matches(tool, modifier)) {
       TinkerDataCapability.Holder data = context.getDataHolder();
       if (data != null) {
         Multiset<MobEffect> effects = data.get(EFFECT_IMMUNITY);

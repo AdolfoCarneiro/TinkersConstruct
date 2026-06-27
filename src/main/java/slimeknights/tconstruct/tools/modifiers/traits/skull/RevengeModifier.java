@@ -40,7 +40,7 @@ public class RevengeModifier extends NoLevelsModifier implements EquipmentChange
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+    if (context.getSlot() == EquipmentSlot.HEAD) {
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet

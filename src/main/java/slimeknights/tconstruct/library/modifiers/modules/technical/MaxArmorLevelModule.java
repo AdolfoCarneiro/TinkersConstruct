@@ -50,11 +50,11 @@ public interface MaxArmorLevelModule extends HookProvider, EquipmentChangeModifi
 
   /** Updates the level of this module, properly evaluating the condition and setting the max level */
   default void updateLevel(IToolStackView tool, ModifierEntry modifier, float effectiveLevel, EquipmentChangeContext context) {
-    if (condition().matches(tool, modifier) && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), heldTag()) && (!tool.isBroken() || allowBroken())) {
+    if (condition().matches(tool, modifier) && ArmorLevelModule.validSlot(tool, context.getSlot(), heldTag()) && (!tool.isBroken() || allowBroken())) {
       TinkerDataCapability.Holder data = context.getTinkerData();
       ModifierMaxLevel maxLevel = data.computeIfAbsent(maxLevel());
       float oldLevel = maxLevel.getMax();
-      maxLevel.set(context.getChangedSlot(), effectiveLevel);
+      maxLevel.set(context.getSlot(), effectiveLevel);
       float newLevel = maxLevel.getMax();
       if (oldLevel != newLevel) {
         updateValue(tool, modifier, context, data, newLevel, oldLevel);

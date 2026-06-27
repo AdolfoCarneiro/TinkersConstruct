@@ -142,7 +142,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     if (condition.matches(tool, modifier)) {
       AttributeInstance instance = context.getEntity().getAttribute(net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
       if (instance != null) {
-        AttributeModifier attributeModifier = createModifier(tool, modifier, context.getChangedSlot());
+        AttributeModifier attributeModifier = createModifier(tool, modifier, context.getSlot());
         if (attributeModifier != null) {
           // for safety, remove it already there
           instance.removeModifier(attributeModifier.id());
@@ -155,7 +155,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (condition.matches(tool, modifier)) {
-      ResourceLocation id = getSlotId(context.getChangedSlot());
+      ResourceLocation id = getSlotId(context.getSlot());
       if (id != null) {
         AttributeInstance instance = context.getEntity().getAttribute(net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
         if (instance != null) {

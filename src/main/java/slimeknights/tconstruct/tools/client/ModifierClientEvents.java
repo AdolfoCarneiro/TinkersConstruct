@@ -26,7 +26,7 @@ import net.neoforged.neoforge.client.event.ComputeFovModifierEvent;
 import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -182,7 +182,7 @@ public class ModifierClientEvents {
     }
     EquipmentChangeContext context = event.getContext();
     if (Config.CLIENT.renderShieldSlotItem.get()) {
-      if (context.getChangedSlot() == EquipmentSlot.LEGS) {
+      if (context.getSlot() == EquipmentSlot.LEGS) {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ModifierEntry entry = tool.getModifiers().getEntry(TinkerModifiers.shieldStrap.getId());
@@ -195,7 +195,7 @@ public class ModifierClientEvents {
       }
     }
     if (Config.CLIENT.renderSleevesItem.get()) {
-      if (context.getChangedSlot() == EquipmentSlot.CHEST) {
+      if (context.getSlot() == EquipmentSlot.CHEST) {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.CHEST);
         if (tool != null) {
           ModifierEntry entry = tool.getModifiers().getEntry(TinkerModifiers.sleeves.getId());
@@ -209,7 +209,7 @@ public class ModifierClientEvents {
     }
 
     if (Config.CLIENT.renderItemFrame.get()) {
-      if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+      if (context.getSlot() == EquipmentSlot.HEAD) {
         itemFrames.clear();
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {

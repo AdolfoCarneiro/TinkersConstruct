@@ -42,7 +42,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+    if (context.getSlot() == EquipmentSlot.HEAD) {
       TinkerDataCapability.Holder data = context.getTinkerData();
       TotalGold gold = data.get(TOTAL_GOLD);
       if (gold == null) {
@@ -55,7 +55,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+    if (context.getSlot() == EquipmentSlot.HEAD) {
       IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
@@ -67,7 +67,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
   @Override
   public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
-    EquipmentSlot changed = context.getChangedSlot();
+    EquipmentSlot changed = context.getSlot();
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold);

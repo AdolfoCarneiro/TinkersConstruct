@@ -27,6 +27,7 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -67,7 +68,6 @@ import slimeknights.tconstruct.tools.TinkerToolActions;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -129,24 +129,18 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   }
 
   @Override
-  public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-    return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
+  public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+    return false;
   }
 
   @Override
-  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
-    return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
-  }
-
-  @Override
-  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
-    return EnchantmentModifierHook.getAllEnchantments(stack);
+  public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+    return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment.value());
   }
 
 
   /* Loading */
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
   }
@@ -166,7 +160,6 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return RarityModule.getRarity(stack);
   }
@@ -225,8 +218,10 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   }
 
   @Override
-  public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
-    ToolDamageUtil.handleDamageItem(stack, amount, damager, onBroken);
+  public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<Item> onBroken) {
+    if (canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
+      onBroken.accept(stack.getItem());
+    }
     return 0;
   }
 
@@ -261,7 +256,6 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     if (!stack.has(DataComponents.CUSTOM_DATA) || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
@@ -292,7 +286,6 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return stack.getCount() == 1 ? MiningSpeedToolHook.getDestroySpeed(stack, state) : 0;
   }
 
-  @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
     return stack.getCount() > 1 || ToolHarvestLogic.handleBlockBreak(stack, pos, player);
   }
@@ -457,7 +450,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   }
 
   @Override
-  public int getUseDuration(ItemStack stack) {
+  public int getUseDuration(ItemStack stack, LivingEntity entity) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != ModifierEntry.EMPTY) {
@@ -490,11 +483,10 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-    TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    TooltipUtil.addInformation(this, stack, context.level(), tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
-  @Override
   public int getDefaultTooltipHideFlags(ItemStack stack) {
     return TooltipUtil.getModifierHideFlags(getToolDefinition());
   }

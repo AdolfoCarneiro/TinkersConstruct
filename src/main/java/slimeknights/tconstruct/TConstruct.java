@@ -71,6 +71,11 @@ public class TConstruct {
     return Component.translatable(makeDescriptionId(base, name));
   }
 
+  /** Makes a translation component for the given name with format arguments */
+  public static MutableComponent makeTranslation(String base, String name, Object... args) {
+    return Component.translatable(makeDescriptionId(base, name), args);
+  }
+
   /** Gets the mod event bus, for registering DeferredRegister/RegisterCapabilitiesEvent/etc listeners */
   public static IEventBus getModEventBus() {
     return modEventBus;

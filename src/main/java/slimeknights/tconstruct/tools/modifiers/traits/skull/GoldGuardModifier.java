@@ -41,7 +41,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+    if (context.getSlot() == EquipmentSlot.HEAD) {
       GoldGuardGold gold = context.getTinkerData().get(TOTAL_GOLD);
       if (gold == null) {
         context.getTinkerData().computeIfAbsent(TOTAL_GOLD).initialize(context);
@@ -53,7 +53,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
+    if (context.getSlot() == EquipmentSlot.HEAD) {
       IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
       if (newTool == null || newTool.getModifierLevel(this) == 0) {
@@ -69,7 +69,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
   @Override
   public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
-    EquipmentSlot changed = context.getChangedSlot();
+    EquipmentSlot changed = context.getSlot();
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);

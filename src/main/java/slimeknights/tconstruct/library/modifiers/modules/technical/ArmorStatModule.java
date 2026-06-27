@@ -136,7 +136,7 @@ public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, bo
    * @param heldTag  Tag to check to validate held items, null means held disallowed
    */
   public static void addStatIfArmor(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount, boolean allowBroken, @Nullable TagKey<Item> heldTag) {
-    if (ArmorLevelModule.validSlot(tool, context.getChangedSlot(), heldTag) && (!tool.isBroken() || allowBroken)) {
+    if (ArmorLevelModule.validSlot(tool, context.getSlot(), heldTag) && (!tool.isBroken() || allowBroken)) {
       addStat(context, key, amount);
     }
   }

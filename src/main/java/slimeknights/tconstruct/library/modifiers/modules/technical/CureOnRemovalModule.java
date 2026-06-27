@@ -32,7 +32,7 @@ public enum CureOnRemovalModule implements HookProvider, EquipmentChangeModifier
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == slot) {
+    if (context.getSlot() == slot) {
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(modifier.getModifier()) == 0 || replacement.getItem() != tool.getItem()) {
         // cure effects using the helmet

@@ -36,7 +36,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
@@ -317,7 +317,7 @@ public class ModifierEvents {
     Vec3 motion = living.getDeltaMovement();
     if (living instanceof ServerPlayer) {
       // velocity is lost on server players, but we dont have to defer the bounce
-      double gravity = living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get());
+      double gravity = living.getAttributeValue(NeoForgeMod.ENTITY_GRAVITY.get());
       double time = Math.sqrt(living.fallDistance / gravity);
       double velocity = gravity * time;
       living.setDeltaMovement(motion.x / 0.975f, velocity, motion.z / 0.975f);

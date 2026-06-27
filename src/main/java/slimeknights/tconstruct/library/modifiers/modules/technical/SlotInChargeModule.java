@@ -39,7 +39,7 @@ public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key, @Nullable TagK
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // remove slot in charge if that is us
-    EquipmentSlot slot = context.getChangedSlot();
+    EquipmentSlot slot = context.getSlot();
     if (toolValid(tool, slot, context)) {
       SlotInCharge slotInCharge = context.getTinkerData().get(key);
       if (slotInCharge != null) {
@@ -50,7 +50,7 @@ public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key, @Nullable TagK
 
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    EquipmentSlot slot = context.getChangedSlot();
+    EquipmentSlot slot = context.getSlot();
     if (toolValid(tool, slot, context)) {
       context.getTinkerData().computeIfAbsent(key, CONSTRUCTOR).addSlot(slot, modifier.getLevel());
     }

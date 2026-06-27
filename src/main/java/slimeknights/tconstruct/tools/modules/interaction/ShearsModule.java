@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.IForgeShearable;
+import net.neoforged.neoforge.common.IShearable;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.bus.api.Event.Result;
@@ -96,7 +96,7 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
       return result == Result.ALLOW;
     }
     // fallback to forge shearable
-    if (entity instanceof IForgeShearable target && target.isShearable(itemStack, world, entity.blockPosition())) {
+    if (entity instanceof IShearable target && target.isShearable(itemStack, world, entity.blockPosition())) {
       if (!world.isClientSide) {
         target.onSheared(player, itemStack, world, entity.blockPosition(), fortune)
           .forEach(stack -> ModifierUtil.dropItem(entity, stack));

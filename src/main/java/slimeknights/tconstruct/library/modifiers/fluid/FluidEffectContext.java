@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -44,7 +42,15 @@ public abstract class FluidEffectContext {
   /** Item stack fallback for when the entity is not set */
   protected final ItemStack stack;
 
-  /** @deprecated use {@link #FluidEffectContext(Level,LivingEntity,Player,Projectile,ItemStack} */
+  public FluidEffectContext(Level level, @Nullable LivingEntity entity, @Nullable Player player, @Nullable Projectile projectile, ItemStack stack) {
+    this.level = level;
+    this.entity = entity;
+    this.player = player;
+    this.projectile = projectile;
+    this.stack = stack;
+  }
+
+  /** @deprecated use {@link #FluidEffectContext(Level,LivingEntity,Player,Projectile,ItemStack)} */
   @Deprecated
   public FluidEffectContext(Level level, @Nullable LivingEntity entity, @Nullable Player player, @Nullable Projectile projectile) {
     this(level, entity, player, projectile, ItemStack.EMPTY);
@@ -102,7 +108,7 @@ public abstract class FluidEffectContext {
 
   /** If true, this context is not allowed to place blocks at the given position */
   public boolean placeRestricted(ItemStack stack) {
-    return player != null && !player.mayBuild() && !stack.hasAdventureModePlaceTagForBlock(level.registryAccess().registryOrThrow(Registries.BLOCK), new BlockInWorld(level, getBlockPos(), false));
+    return player != null && !player.mayBuild();
   }
 
   /** Context for fluid effects targeting an entity */

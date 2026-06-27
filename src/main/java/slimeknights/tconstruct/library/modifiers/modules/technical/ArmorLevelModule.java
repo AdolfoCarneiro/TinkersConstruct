@@ -89,7 +89,7 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
    * @param heldTag  Tag to check to validate held items, if null held items are considered to never be valid
    */
   public static void addLevelsIfArmor(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken, @Nullable TagKey<Item> heldTag) {
-    if (validSlot(tool, context.getChangedSlot(), heldTag) && (allowBroken || !tool.isBroken())) {
+    if (validSlot(tool, context.getSlot(), heldTag) && (allowBroken || !tool.isBroken())) {
       addLevels(context, key, amount);
     }
   }
