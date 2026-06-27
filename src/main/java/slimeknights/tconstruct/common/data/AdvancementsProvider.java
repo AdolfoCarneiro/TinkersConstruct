@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.RequirementsStrategy;
@@ -121,7 +122,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement tinkerTool = builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tinker_tool"), tinkerStation, AdvancementType.TASK, builder ->
       builder.addCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
     Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, AdvancementType.GOAL, builder ->
-      builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
+      builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))).criterion());
     builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, AdvancementType.GOAL, builder ->
       builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.and(
         ToolStackPredicate.tag(TinkerTags.Items.BOWS),
@@ -129,9 +130,9 @@ public class AdvancementsProvider extends GenericDataProvider {
       )))));
     // note that attack damage gets +1 from player attributes, so 20 is actually 21 damage with the tool
     builder(Items.ZOMBIE_HEAD, resource("tools/one_shot"), tinkerTool, AdvancementType.GOAL, builder ->
-      builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(StatInRangePredicate.min(ToolStats.ATTACK_DAMAGE, 20)))));
+      builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(StatInRangePredicate.min(ToolStats.ATTACK_DAMAGE, 20)))).criterion());
     builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), harvestLevel, AdvancementType.CHALLENGE, builder -> {
-      Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(new HasMaterialPredicate(id))));
+      Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(new HasMaterialPredicate(id))).criterion());
       // tier 1
       with.accept(MaterialIds.wood);
       with.accept(MaterialIds.flint);
@@ -188,7 +189,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.sword.get());
     });
     Advancement modified = builder(Items.REDSTONE, resource("tools/modified"), tinkerTool, AdvancementType.TASK, builder ->
-      builder.addCriterion("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(ToolContextPredicate.HAS_UPGRADES))));
+      builder.addCriterion("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(ToolContextPredicate.HAS_UPGRADES))).criterion());
     //    builder(TinkerTools.cleaver.get().buildToolForRendering(), location("tools/glass_cannon"), modified, AdvancementType.CHALLENGE, builder ->
     //      builder.addCriterion()("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder()
     //                                                                                                  .withStat(StatPredicate.max(ToolStats.DURABILITY, 100))
@@ -271,7 +272,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.javelin);
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, AdvancementType.CHALLENGE, builder -> {
-      Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))));
+      Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))).criterion());
       Consumer<LazyModifier> withL = modifier -> with.accept(modifier.getId());
 
       // sorted like the modifier tag provider tags
@@ -378,7 +379,7 @@ public class AdvancementsProvider extends GenericDataProvider {
         CompoundTag nbt = new CompoundTag();
         nbt.put(NBTTags.TANK, getTankWith(TinkerFluids.blazingBlood.get(), block.getCapacity()).writeToNBT(new CompoundTag()));
         builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
-                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasNbt(nbt).build()));
+                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasNbt(nbt).build()).criterion());
         builder.requirements(RequirementsStrategy.OR);
       };
       TinkerSmeltery.searedTank.forEach(with);
@@ -478,15 +479,15 @@ public class AdvancementsProvider extends GenericDataProvider {
   /**
    * Creates an item predicate for a tag
    */
-  private CriterionTriggerInstance hasTag(TagKey<Item> tag) {
-    return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag).build());
+  private Criterion<?> hasTag(TagKey<Item> tag) {
+    return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag).build()).criterion();
   }
 
   /**
    * Creates an item predicate for an item
    */
-  private CriterionTriggerInstance hasItem(ItemLike item) {
-    return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(item).build());
+  private Criterion<?> hasItem(ItemLike item) {
+    return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(item).build()).criterion();
   }
 
   @Override
