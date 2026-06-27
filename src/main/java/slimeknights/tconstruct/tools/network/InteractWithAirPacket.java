@@ -26,7 +26,7 @@ public enum InteractWithAirPacket implements CustomPacketPayload {
 
   public static final Type<InteractWithAirPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "interact_with_air"));
   public static final StreamCodec<RegistryFriendlyByteBuf, InteractWithAirPacket> STREAM_CODEC =
-    ByteBufCodecs.<RegistryFriendlyByteBuf, InteractWithAirPacket>idMapper(i -> InteractWithAirPacket.values()[i], Enum::ordinal);
+    StreamCodec.of((buf, v) -> buf.writeVarInt(v.ordinal()), buf -> InteractWithAirPacket.values()[buf.readVarInt()]);
 
   private final InteractionHand hand;
 

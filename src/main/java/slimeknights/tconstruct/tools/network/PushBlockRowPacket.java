@@ -18,7 +18,7 @@ public record PushBlockRowPacket(BlockPos pos, Direction direction, boolean push
   public static final Type<PushBlockRowPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "push_block_row"));
   public static final StreamCodec<RegistryFriendlyByteBuf, PushBlockRowPacket> STREAM_CODEC = StreamCodec.composite(
     BlockPos.STREAM_CODEC, PushBlockRowPacket::pos,
-    ByteBufCodecs.<RegistryFriendlyByteBuf, Direction>idMapper(i -> Direction.values()[i], Direction::ordinal),
+    ByteBufCodecs.idMapper(i -> Direction.values()[i], Direction::ordinal),
     PushBlockRowPacket::direction,
     ByteBufCodecs.BOOL, PushBlockRowPacket::push,
     ByteBufCodecs.VAR_INT, PushBlockRowPacket::moving,

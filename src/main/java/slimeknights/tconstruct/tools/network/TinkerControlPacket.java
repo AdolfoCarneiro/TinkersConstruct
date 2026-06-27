@@ -35,7 +35,7 @@ public enum TinkerControlPacket implements CustomPacketPayload {
 
   public static final Type<TinkerControlPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "tinker_control"));
   public static final StreamCodec<RegistryFriendlyByteBuf, TinkerControlPacket> STREAM_CODEC =
-    ByteBufCodecs.<RegistryFriendlyByteBuf, TinkerControlPacket>idMapper(i -> TinkerControlPacket.values()[i], Enum::ordinal);
+    StreamCodec.of((buf, v) -> buf.writeVarInt(v.ordinal()), buf -> TinkerControlPacket.values()[buf.readVarInt()]);
 
   private final TooltipKey modifier;
 

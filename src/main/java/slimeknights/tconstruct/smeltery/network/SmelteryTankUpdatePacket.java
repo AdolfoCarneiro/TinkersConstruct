@@ -35,7 +35,7 @@ public class SmelteryTankUpdatePacket implements CustomPacketPayload {
     int size = buffer.readVarInt();
     fluids = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
-      fluids.add(buffer.readFluidStack());
+      fluids.add(FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer));
     }
   }
 
@@ -43,7 +43,7 @@ public class SmelteryTankUpdatePacket implements CustomPacketPayload {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
     for (FluidStack fluid : fluids) {
-      buffer.writeFluidStack(fluid);
+      FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, fluid);
     }
   }
 

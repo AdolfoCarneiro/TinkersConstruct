@@ -32,7 +32,7 @@ public record SyncPersistentDataPacket(CompoundTag data) implements CustomPacket
     private static void handle(SyncPersistentDataPacket packet) {
       Player player = Minecraft.getInstance().player;
       if (player != null) {
-        player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.copyFrom(packet.data()));
+        player.getData(PersistentDataCapability.ATTACHMENT).copyFrom(packet.data());
       }
     }
   }

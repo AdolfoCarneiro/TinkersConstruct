@@ -18,7 +18,7 @@ public record ChannelFlowPacket(BlockPos pos, Direction side, boolean flow) impl
   public static final Type<ChannelFlowPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "channel_flow"));
   public static final StreamCodec<RegistryFriendlyByteBuf, ChannelFlowPacket> STREAM_CODEC = StreamCodec.composite(
     BlockPos.STREAM_CODEC, ChannelFlowPacket::pos,
-    ByteBufCodecs.<RegistryFriendlyByteBuf, Direction>idMapper(i -> Direction.values()[i], Direction::ordinal),
+    ByteBufCodecs.idMapper(i -> Direction.values()[i], Direction::ordinal),
     ChannelFlowPacket::side,
     ByteBufCodecs.BOOL, ChannelFlowPacket::flow,
     ChannelFlowPacket::new

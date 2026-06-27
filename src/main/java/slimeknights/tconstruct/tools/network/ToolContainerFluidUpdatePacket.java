@@ -17,11 +17,11 @@ public record ToolContainerFluidUpdatePacket(FluidStack fluid) implements Custom
   public static final StreamCodec<RegistryFriendlyByteBuf, ToolContainerFluidUpdatePacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), ToolContainerFluidUpdatePacket::new);
 
   public ToolContainerFluidUpdatePacket(RegistryFriendlyByteBuf buffer) {
-    this(buffer.readFluidStack());
+    this(FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer));
   }
 
   public void encode(RegistryFriendlyByteBuf buffer) {
-    buffer.writeFluidStack(fluid);
+    FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, fluid);
   }
 
   @Override

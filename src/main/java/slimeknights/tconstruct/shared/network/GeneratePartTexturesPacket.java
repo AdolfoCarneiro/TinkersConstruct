@@ -13,7 +13,7 @@ import slimeknights.tconstruct.shared.client.ClientGeneratePartTexturesCommand;
 public record GeneratePartTexturesPacket(Operation operation, String modId, String materialPath) implements CustomPacketPayload {
   public static final Type<GeneratePartTexturesPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "generate_part_textures"));
   public static final StreamCodec<RegistryFriendlyByteBuf, GeneratePartTexturesPacket> STREAM_CODEC = StreamCodec.composite(
-    ByteBufCodecs.<RegistryFriendlyByteBuf, Operation>idMapper(i -> Operation.values()[i], Enum::ordinal),
+    ByteBufCodecs.idMapper(i -> Operation.values()[i], Operation::ordinal),
     GeneratePartTexturesPacket::operation,
     ByteBufCodecs.stringUtf8(Short.MAX_VALUE), GeneratePartTexturesPacket::modId,
     ByteBufCodecs.stringUtf8(Short.MAX_VALUE), GeneratePartTexturesPacket::materialPath,

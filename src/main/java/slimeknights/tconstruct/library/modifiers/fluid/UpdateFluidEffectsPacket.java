@@ -35,7 +35,6 @@ public record UpdateFluidEffectsPacket(List<FluidEffects.Entry> fluids) implemen
     return new UpdateFluidEffectsPacket(List.copyOf(entries));
   }
 
-  @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeVarInt(fluids.size());
     for (FluidEffects.Entry entry : fluids) {
