@@ -33,11 +33,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
-import net.neoforged.neoforge.event.entity.living.LivingAttackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.Result;
 import net.neoforged.bus.api.EventPriority;
@@ -194,7 +193,7 @@ public class ToolEvents {
   }
 
   @SubscribeEvent(priority = EventPriority.LOW)
-  static void livingAttack(LivingAttackEvent event) {
+  static void livingAttack(LivingIncomingDamageEvent event) {
     LivingEntity entity = event.getEntity();
     // client side always returns false, so this should be fine?
     if (entity.level().isClientSide() || entity.isDeadOrDying()) {
@@ -266,7 +265,7 @@ public class ToolEvents {
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
   @SuppressWarnings("removal")
   @SubscribeEvent(priority = EventPriority.LOW)
-  static void livingHurt(LivingHurtEvent event) {
+  static void livingHurt(LivingDamageEvent.Pre event) {
     LivingEntity entity = event.getEntity();
 
     // determine if there is any modifiable armor, if not nothing to do
@@ -274,7 +273,7 @@ public class ToolEvents {
     EquipmentContext context = new EquipmentContext(entity);
     int vanillaModifier = 0;
     float modifierValue = 0;
-    float originalDamage = event.getAmount();
+    float originalDamage = event.getNewDamage();
 
     Entity attacker = source.getEntity();
     if (attacker instanceof LivingEntity living) {
@@ -318,15 +317,15 @@ public class ToolEvents {
     }
     
     // ensure any changes made so far apply, though we may change it again
-    event.setAmount(originalDamage);
+    event.setNewDamage(originalDamage);
 
     // for our own armor, we have boosts from modifiers to consider
     if (context.hasModifiableArmor()) {
       // first, allow modifiers to change the damage being dealt and respond to it happening
       originalDamage = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_HURT, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
-      event.setAmount(originalDamage);
+      event.setNewDamage(originalDamage);
       if (originalDamage <= 0) {
-        event.setCanceled(true);
+        event.setNewDamage(0);
         return;
       }
 
@@ -370,7 +369,7 @@ public class ToolEvents {
 
       // set the final dealt damage
       float finalDamage = ArmorUtil.getDamageForEvent(originalDamage, armor, toughness, vanillaModifier, modifierValue, cap);
-      event.setAmount(finalDamage);
+      event.setNewDamage(finalDamage);
 
       // armor is damaged less as a result of our math, so damage the armor based on the difference if there is one
       if (!source.is(DamageTypeTags.BYPASSES_ARMOR)) {
@@ -397,18 +396,18 @@ public class ToolEvents {
   }
 
   @SubscribeEvent
-  static void livingDamage(LivingDamageEvent event) {
+  static void livingDamage(LivingDamageEvent.Pre event) {
     LivingEntity entity = event.getEntity();
     DamageSource source = event.getSource();
 
     // give modifiers a chance to respond to damage happening
-    float amount = event.getAmount();
+    float amount = event.getNewDamage();
     EquipmentContext context = new EquipmentContext(entity);
     if (context.hasModifiableArmor()) {
       amount = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_DAMAGE, context, source, amount, OnAttackedModifierHook.isDirectDamage(source));
-      event.setAmount(amount);
+      event.setNewDamage(amount);
       if (amount <= 0) {
-        event.setCanceled(true);
+        event.setNewDamage(0);
       }
     }
 
@@ -432,7 +431,7 @@ public class ToolEvents {
     }
 
     // when damaging ender dragons, may drop scales - must be player caused explosion, end crystals and TNT are examples
-    if (amount > 0 && Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
+    if (amount > 0 && Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getNewDamage() > 0
         && source.is(DamageTypeTags.IS_EXPLOSION) && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
       // drops 1 - 8 scales
       ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level().random.nextInt(8)));
@@ -441,8 +440,8 @@ public class ToolEvents {
 
   /** Called the modifier hook when an entity's position changes */
   @SubscribeEvent
-  static void livingWalk(LivingTickEvent event) {
-    LivingEntity living = event.getEntity();
+  static void livingWalk(EntityTickEvent.Post event) {
+    if (!(event.getEntity() instanceof LivingEntity living)) return;
     // this event runs before vanilla updates prevBlockPos
     BlockPos pos = living.blockPosition();
     if (!living.isSpectator() && !living.level().isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
