@@ -188,7 +188,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
       }
       else {
         // directly update the slot
-        this.setItem(i, ItemHandlerHelper.copyStackWithSize(original, original.getCount() - 1));
+        this.setItem(i, original.copyWithCount(original.getCount() - 1));
         // otherwise, drop the item as the player
         if (!newStack.isEmpty() && !player.getInventory().add(newStack)) {
           player.drop(newStack, false);

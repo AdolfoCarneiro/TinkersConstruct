@@ -12,7 +12,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.component.CustomData;
@@ -47,7 +47,7 @@ public class FluidParticleData implements ParticleOptions {
     }
 
     @Override
-    public FluidParticleData fromNetwork(ParticleType<FluidParticleData> type, FriendlyByteBuf buffer) {
+    public FluidParticleData fromNetwork(ParticleType<FluidParticleData> type, RegistryFriendlyByteBuf buffer) {
       return new FluidParticleData(type, FluidStack.readFromPacket(buffer));
     }
   };
@@ -58,7 +58,7 @@ public class FluidParticleData implements ParticleOptions {
   private final FluidStack fluid;
 
   @Override
-  public void writeToNetwork(FriendlyByteBuf buffer) {
+  public void writeToNetwork(RegistryFriendlyByteBuf buffer) {
     fluid.writeToPacket(buffer);
   }
 

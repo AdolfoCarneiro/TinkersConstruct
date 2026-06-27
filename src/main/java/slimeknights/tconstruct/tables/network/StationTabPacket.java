@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.network;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -19,12 +19,12 @@ import slimeknights.tconstruct.tables.block.ITabbedBlock;
 public class StationTabPacket implements IThreadsafePacket {
   private final BlockPos pos;
 
-  public StationTabPacket(FriendlyByteBuf buffer) {
+  public StationTabPacket(RegistryFriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
   }
 

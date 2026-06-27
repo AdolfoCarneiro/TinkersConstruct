@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tables.menu;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -21,7 +21,7 @@ public class TinkerChestContainerMenu extends TabbedContainerMenu<AbstractChestB
     this.addInventorySlots();
   }
 
-  public TinkerChestContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+  public TinkerChestContainerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, AbstractChestBlockEntity.class));
   }
 

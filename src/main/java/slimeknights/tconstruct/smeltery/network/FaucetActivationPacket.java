@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -17,13 +17,13 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
     this.isPouring = isPouring;
   }
 
-  public FaucetActivationPacket(FriendlyByteBuf buffer) {
+  public FaucetActivationPacket(RegistryFriendlyByteBuf buffer) {
     super(buffer);
     this.isPouring = buffer.readBoolean();
   }
 
   @Override
-  public void encode(FriendlyByteBuf packetBuffer) {
+  public void encode(RegistryFriendlyByteBuf packetBuffer) {
     super.encode(packetBuffer);
     packetBuffer.writeBoolean(isPouring);
   }

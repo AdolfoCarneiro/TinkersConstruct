@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -43,7 +43,7 @@ public class GenericTagUtil {
   }
 
   /** Decodes a map of tags from the packet */
-  public static <T> Map<TagKey<T>,List<T>> decodeTags(FriendlyByteBuf buf, ResourceKey<? extends Registry<T>> registry, Function<ResourceLocation,T> valueGetter) {
+  public static <T> Map<TagKey<T>,List<T>> decodeTags(RegistryFriendlyByteBuf buf, ResourceKey<? extends Registry<T>> registry, Function<ResourceLocation,T> valueGetter) {
     ImmutableMap.Builder<TagKey<T>,List<T>> builder = ImmutableMap.builder();
     int mapSize = buf.readVarInt();
     for (int i = 0; i < mapSize; i++) {
@@ -59,7 +59,7 @@ public class GenericTagUtil {
   }
 
   /** Writes a map of tags to a packet */
-  public static <T> void encodeTags(FriendlyByteBuf buf, Function<T,ResourceLocation> keyGetter, Map<TagKey<T>,? extends Collection<T>> tags) {
+  public static <T> void encodeTags(RegistryFriendlyByteBuf buf, Function<T,ResourceLocation> keyGetter, Map<TagKey<T>,? extends Collection<T>> tags) {
     buf.writeVarInt(tags.size());
     for (Entry<TagKey<T>,? extends Collection<T>> entry : tags.entrySet()) {
       buf.writeResourceLocation(entry.getKey().location());

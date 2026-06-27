@@ -3,7 +3,7 @@ package slimeknights.tconstruct.common.network;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,13 +19,13 @@ public class UpdateNeighborsPacket implements IThreadsafePacket {
   private final BlockState state;
   private final BlockPos pos;
 
-  public UpdateNeighborsPacket(FriendlyByteBuf buffer) {
+  public UpdateNeighborsPacket(RegistryFriendlyByteBuf buffer) {
     this.state = GameData.getBlockStateIDMap().byId(buffer.readVarInt());
     this.pos = buffer.readBlockPos();
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeVarInt(Block.getId(state));
     buffer.writeBlockPos(pos);
   }

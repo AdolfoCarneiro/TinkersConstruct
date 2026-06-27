@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.menu;
 
 import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -77,7 +77,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
    * @param inv  Player inventory
    * @param buf  Buffer for fetching tile
    */
-  public TinkerStationContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+  public TinkerStationContainerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, TinkerStationBlockEntity.class));
   }
 

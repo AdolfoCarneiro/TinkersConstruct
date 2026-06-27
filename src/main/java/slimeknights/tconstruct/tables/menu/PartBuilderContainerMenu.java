@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.menu;
 
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -54,7 +54,7 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
     }
   }
 
-  public PartBuilderContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+  public PartBuilderContainerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, PartBuilderBlockEntity.class));
   }
 

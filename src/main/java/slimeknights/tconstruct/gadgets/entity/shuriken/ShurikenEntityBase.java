@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity.shuriken;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
@@ -86,12 +86,12 @@ public abstract class ShurikenEntityBase extends ThrowableItemProjectile impleme
   }
 
   @Override
-  public void writeSpawnData(FriendlyByteBuf buffer) {
+  public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
     buffer.writeItem(this.getItemRaw());
   }
 
   @Override
-  public void readSpawnData(FriendlyByteBuf additionalData) {
+  public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
     this.setItem(additionalData.readItem());
   }
 

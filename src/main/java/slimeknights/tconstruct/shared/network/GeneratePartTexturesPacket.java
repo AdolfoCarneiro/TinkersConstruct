@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.shared.network;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.shared.client.ClientGeneratePartTexturesCommand;
@@ -13,14 +13,14 @@ public class GeneratePartTexturesPacket implements IThreadsafePacket {
   private final String modId;
   private final String materialPath;
 
-  public GeneratePartTexturesPacket(FriendlyByteBuf buffer) {
+  public GeneratePartTexturesPacket(RegistryFriendlyByteBuf buffer) {
     operation = buffer.readEnum(Operation.class);
     modId = buffer.readUtf(Short.MAX_VALUE);
     materialPath = buffer.readUtf(Short.MAX_VALUE);
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeEnum(operation);
     buffer.writeUtf(modId);
     buffer.writeUtf(materialPath);

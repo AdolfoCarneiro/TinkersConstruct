@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.network;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -22,12 +22,12 @@ public record SyncProjectileModifiersPacket(int entityId, ModifierNBT modifiers,
     this(entity.getId(), EntityModifierCapability.getOrEmpty(entity), PersistentDataCapability.getOrWarn(entity).getCopy());
   }
 
-  public SyncProjectileModifiersPacket(FriendlyByteBuf buffer) {
+  public SyncProjectileModifiersPacket(RegistryFriendlyByteBuf buffer) {
     this(buffer.readVarInt(), MODIFIER_LIST.decode(buffer), Objects.requireNonNullElse(buffer.readNbt(), new CompoundTag()));
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeVarInt(entityId);
     MODIFIER_LIST.encode(buffer, modifiers);
     buffer.writeNbt(persistentData);

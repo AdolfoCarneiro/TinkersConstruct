@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -103,7 +103,7 @@ public final class SlotType {
   }
 
   /** Reads the slot type from the packet buffer */
-  public static SlotType read(FriendlyByteBuf buffer) {
+  public static SlotType read(RegistryFriendlyByteBuf buffer) {
     return getOrCreate(buffer.readUtf());
   }
 
@@ -153,7 +153,7 @@ public final class SlotType {
   }
 
   /** Writes this slot type to the packet buffer */
-  public void write(FriendlyByteBuf buffer) {
+  public void write(RegistryFriendlyByteBuf buffer) {
     buffer.writeUtf(name);
   }
 

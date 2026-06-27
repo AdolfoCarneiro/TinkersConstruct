@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.network;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -13,12 +13,12 @@ import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 public class TinkerStationRenamePacket implements IThreadsafePacket {
   private final String name;
 
-  public TinkerStationRenamePacket(FriendlyByteBuf buf) {
+  public TinkerStationRenamePacket(RegistryFriendlyByteBuf buf) {
     this.name = buf.readUtf(Short.MAX_VALUE);
   }
 
   @Override
-  public void encode(FriendlyByteBuf buf) {
+  public void encode(RegistryFriendlyByteBuf buf) {
     buf.writeUtf(name);
   }
 

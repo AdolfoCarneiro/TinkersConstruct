@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.network;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,12 +30,12 @@ public enum InteractWithAirPacket implements IThreadsafePacket {
   }
 
   /** Gets the packet from the packet buffer */
-  public static InteractWithAirPacket read(FriendlyByteBuf buffer) {
+  public static InteractWithAirPacket read(RegistryFriendlyByteBuf buffer) {
     return buffer.readEnum(InteractWithAirPacket.class);
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeEnum(this);
   }
 

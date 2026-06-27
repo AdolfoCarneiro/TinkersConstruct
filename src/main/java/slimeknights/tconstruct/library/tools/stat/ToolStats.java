@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
@@ -123,15 +123,15 @@ public class ToolStats {
     throw new JsonSyntaxException("Invalid tool stat " + key + ", must be a numeric stat");
   }
 
-  /** @deprecated use {@link #LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  /** @deprecated use {@link #LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(RegistryFriendlyByteBuf)} */
   @Deprecated(forRemoval = true)
-  public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
+  public static IToolStat<?> fromNetwork(RegistryFriendlyByteBuf buffer) {
     return LOADER.decode(buffer);
   }
 
-  /** @deprecated use {@link #NUMERIC_LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  /** @deprecated use {@link #NUMERIC_LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(RegistryFriendlyByteBuf)} */
   @Deprecated(forRemoval = true)
-  public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
+  public static INumericToolStat<?> numericFromNetwork(RegistryFriendlyByteBuf buffer) {
     return NUMERIC_LOADER.decode(buffer);
   }
 
