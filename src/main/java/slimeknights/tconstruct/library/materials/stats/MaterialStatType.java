@@ -50,6 +50,10 @@ public class MaterialStatType<T extends IMaterialStats> implements IdAwareObject
     return new MaterialStatType<>(id, instance, new SingletonLoader<>(instance));
   }
 
+  public MaterialStatsId getId() { return id; }
+  public RecordLoadable<T> getLoadable() { return loadable; }
+  public T getDefaultStats() { return defaultStats; }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

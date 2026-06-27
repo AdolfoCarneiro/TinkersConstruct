@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.network;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -17,7 +16,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 
 /** Packet sent client to server when an empty hand interaction */
-@RequiredArgsConstructor
 public enum InteractWithAirPacket implements CustomPacketPayload {
   /** Right click with an empty main hand and a chestplate */
   MAINHAND(InteractionHand.MAIN_HAND),
@@ -31,6 +29,10 @@ public enum InteractWithAirPacket implements CustomPacketPayload {
     ByteBufCodecs.<RegistryFriendlyByteBuf, InteractWithAirPacket>idMapper(i -> InteractWithAirPacket.values()[i], Enum::ordinal);
 
   private final InteractionHand hand;
+
+  InteractWithAirPacket(InteractionHand hand) {
+    this.hand = hand;
+  }
 
   @Override
   public Type<? extends CustomPacketPayload> type() { return TYPE; }

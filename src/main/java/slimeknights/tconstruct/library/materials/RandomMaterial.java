@@ -117,7 +117,7 @@ public abstract class RandomMaterial implements IHaveLoader {
   /** Constant material */
   @RequiredArgsConstructor
   private static class Fixed extends RandomMaterial {
-    private static final RecordLoadable<Fixed> LOADER = RecordLoadable.create(MaterialVariantId.LOADABLE.requiredField("material", r -> r.material), Fixed::new);
+    private static final RecordLoadable<Fixed> LOADER = RecordLoadable.create(MaterialVariantId.LOADABLE.requiredField("material", (Fixed r) -> r.material), Fixed::new);
 
     private final MaterialVariantId material;
 
@@ -155,9 +155,9 @@ public abstract class RandomMaterial implements IHaveLoader {
   private static class Randomized extends RandomMaterial implements Function<MaterialStatsId,List<MaterialId>> {
     public static final IntRange TIER_RANGE = new IntRange(0, Integer.MAX_VALUE);
     public static final RecordLoadable<Randomized> LOADER = new LegacyLoadable<>(RecordLoadable.create(
-      TIER_RANGE.defaultField("tier", r -> r.tier),
-      BooleanLoadable.INSTANCE.defaultField("allow_hidden", false, false, r -> r.allowHidden),
-      MaterialPredicate.LOADER.defaultField("material", r -> r.material),
+      TIER_RANGE.defaultField("tier", (Randomized r) -> r.tier),
+      BooleanLoadable.INSTANCE.defaultField("allow_hidden", false, false, (Randomized r) -> r.allowHidden),
+      MaterialPredicate.LOADER.defaultField("material", (Randomized r) -> r.material),
       Randomized::new)) {
 
       @Override
@@ -241,7 +241,7 @@ public abstract class RandomMaterial implements IHaveLoader {
   /** Produces a random material from a material tier */
   @RequiredArgsConstructor
   private static class RandomVariant extends RandomMaterial implements Function<MaterialStatsId,List<List<MaterialVariantId>>> {
-    public static final RecordLoadable<RandomVariant> LOADER = RecordLoadable.create(MaterialPredicate.LOADER.defaultField("material", r -> r.material), RandomVariant::new);
+    public static final RecordLoadable<RandomVariant> LOADER = RecordLoadable.create(MaterialPredicate.LOADER.defaultField("material", (RandomVariant r) -> r.material), RandomVariant::new);
 
     /** Material condition */
     private final IJsonPredicate<MaterialVariantId> material;

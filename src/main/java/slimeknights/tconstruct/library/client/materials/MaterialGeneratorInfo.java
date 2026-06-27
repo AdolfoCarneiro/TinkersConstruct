@@ -30,10 +30,10 @@ public class MaterialGeneratorInfo {
     .registerTypeHierarchyAdapter(IColorMapping.class, IColorMapping.SERIALIZER)
     .create();
   public static final RecordLoadable<MaterialGeneratorInfo> LOADABLE = RecordLoadable.create(
-    new GsonLoadable<>(GSON, ISpriteTransformer.class).requiredField("transformer", g -> g.transformer),
-    new LegacyField<>(MaterialStatsId.PARSER.set(0).requiredField("supported_stats", g -> g.supportedStats), "supportedStats"),
-    new LegacyField<>(BooleanLoadable.INSTANCE.defaultField("ignore_material_stats", false, false, g -> g.ignoreMaterialStats), "ignoreMaterialStats"),
-    BooleanLoadable.INSTANCE.defaultField("variant", false, false, g -> g.variant),
+    new GsonLoadable<>(GSON, ISpriteTransformer.class).requiredField("transformer", (MaterialGeneratorInfo g) -> g.transformer),
+    new LegacyField<>(MaterialStatsId.PARSER.set(0).requiredField("supported_stats", (MaterialGeneratorInfo g) -> g.supportedStats), "supportedStats"),
+    new LegacyField<>(BooleanLoadable.INSTANCE.defaultField("ignore_material_stats", false, false, (MaterialGeneratorInfo g) -> g.ignoreMaterialStats), "ignoreMaterialStats"),
+    BooleanLoadable.INSTANCE.defaultField("variant", false, false, (MaterialGeneratorInfo g) -> g.variant),
     MaterialGeneratorInfo::new);
 
   /** Transformer to update images */

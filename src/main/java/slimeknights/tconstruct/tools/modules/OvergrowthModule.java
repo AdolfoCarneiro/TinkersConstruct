@@ -34,8 +34,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OvergrowthModule implements ModifierModule, InventoryTickModifierHook, ConditionalModule<IToolStackView> {
   public static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<OvergrowthModule>defaultHooks(ModifierHooks.INVENTORY_TICK);
-  protected static final LoadableField<LevelingValue,OvergrowthModule> CHANCE_FIELD = LevelingValue.LOADABLE.requiredField("chance", OvergrowthModule::chance);
-  public static final RecordLoadable<OvergrowthModule> LOADER = RecordLoadable.create(CHANCE_FIELD, ModifierCondition.TOOL_FIELD, OvergrowthModule::new);
+  protected static final LoadableField<LevelingValue,OvergrowthModule> CHANCE_FIELD = LevelingValue.LOADABLE.requiredField("chance", (OvergrowthModule m) -> m.chance());
+  public static final RecordLoadable<OvergrowthModule> LOADER = RecordLoadable.create(CHANCE_FIELD, ModifierCondition.TOOL_LOADABLE.directField((OvergrowthModule m) -> m.condition()), OvergrowthModule::new);
 
   private final LevelingValue chance;
   private final ModifierCondition<IToolStackView> condition;

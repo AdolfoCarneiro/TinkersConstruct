@@ -73,9 +73,9 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
   /** Loader instance */
   public static final RecordLoadable<PartBuilderToolRecycle> LOADER = RecordLoadable.create(
-    SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement),
-    IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
-    TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
+    SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, (PartBuilderToolRecycle r) -> r.toolRequirement),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", (PartBuilderToolRecycle r) -> r.pattern),
+    TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), (PartBuilderToolRecycle r) -> r.parts),
     PartBuilderToolRecycle::new);
 
   private final SizedIngredient toolRequirement;

@@ -22,6 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.crafting.CraftingHelper;
@@ -31,11 +32,9 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModLoader;
-import net.minecraftforge.fml.event.IModBusEvent;
+import net.neoforged.fml.ModLoader;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.FMLLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -66,6 +65,7 @@ import java.util.stream.Stream;
 /** Modifier registry and JSON loader */
 @Log4j2
 public class ModifierManager extends SimpleJsonResourceReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ModifierManager.class);
   /** Location of dynamic modifiers */
   public static final String FOLDER = "tinkering/modifiers";
   /** Location of modifier tags */
@@ -109,8 +109,8 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
 
   /** List of tag to modifier mappings to try */
   private Map<TagKey<Enchantment>, Modifier> enchantmentTagMap = Collections.emptyMap();
-  /** Mapping from enchantment to modifiers, for conversions */
-  private Map<Enchantment,Modifier> enchantmentMap = Collections.emptyMap();
+  /** Mapping from enchantment key to modifiers, for conversions */
+  private Map<ResourceKey<Enchantment>,Modifier> enchantmentMap = Collections.emptyMap();
 
   /** If true, dynamic modifiers have been loaded from datapacks, so its safe to fetch dynamic modifiers */
   @Getter
@@ -247,14 +247,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
               if (optional) {
                 key = key.substring(0, key.length() - 1);
               }
-              Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(ResourceLocation.parse(key));
-              if (enchantment == null) {
-                if (optional) {
-                  TConstruct.LOG.debug("Skipping modifier " + modifierId + " due to unknown optional enchantment " + key);
-                  continue;
-                }
-                throw new JsonSyntaxException("Invalid enchantment ID " + key + " for modifier " + modifierId);
-              }
+              ResourceKey<Enchantment> enchantment = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(key));
               enchantmentMap.put(enchantment, modifier);
             }
           } catch (RuntimeException e) {
@@ -314,7 +307,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Updates the modifiers from the server */
-  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<TagKey<Modifier>,List<Modifier>> tags, Map<Enchantment,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
+  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<TagKey<Modifier>,List<Modifier>> tags, Map<ResourceKey<Enchantment>,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
     this.dynamicModifiers = modifiers;
     this.dynamicModifiersLoaded = true;
     this.tags = tags;
@@ -358,20 +351,23 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * @param enchantment  Enchantment
    * @return Closest modifier to the enchantment, or null if no match
    */
-  @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
   @Nullable
-  public Modifier get(Enchantment enchantment) {
-    // if we saw it before, return the last value
-    if (enchantmentMap.containsKey(enchantment)) {
-      return enchantmentMap.get(enchantment);
+  public Modifier get(Holder<Enchantment> enchantment) {
+    ResourceKey<Enchantment> key = enchantment.unwrapKey().orElse(null);
+    if (key != null && enchantmentMap.containsKey(key)) {
+      return enchantmentMap.get(key);
     }
-    // did not find, check the tags
     for (Entry<TagKey<Enchantment>,Modifier> mapping : enchantmentTagMap.entrySet()) {
-      if (RegistryHelper.contains(BuiltInRegistries.ENCHANTMENT, mapping.getKey(), enchantment)) {
+      if (enchantment.is(mapping.getKey())) {
         return mapping.getValue();
       }
     }
     return null;
+  }
+
+  @Nullable
+  public Modifier get(ResourceKey<Enchantment> key) {
+    return enchantmentMap.get(key);
   }
 
   /** Checks if the given modifier has an enchantment equivelent */
@@ -380,13 +376,10 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Gets a stream of all enchantments that match the given modifiers */
-  @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
-  public Stream<Enchantment> getEquivalentEnchantments(Predicate<ModifierId> modifiers) {
+  public Stream<ResourceKey<Enchantment>> getEquivalentEnchantments(Predicate<ModifierId> modifiers) {
     Predicate<Entry<?,Modifier>> predicate = entry -> modifiers.test(entry.getValue().getId());
-    return Stream.concat(
-      enchantmentMap.entrySet().stream().filter(predicate).map(Entry::getKey),
-      enchantmentTagMap.entrySet().stream().filter(predicate).flatMap(entry -> RegistryHelper.getTagValueStream(BuiltInRegistries.ENCHANTMENT, entry.getKey()))
-    ).distinct().sorted(Comparator.comparing(enchantment -> Objects.requireNonNull(BuiltInRegistries.ENCHANTMENT.getKey(enchantment))));
+    return enchantmentMap.entrySet().stream().filter(predicate).map(Entry::getKey)
+      .distinct().sorted(Comparator.comparing(ResourceKey::location));
   }
 
   /** Gets a list of all modifier IDs */

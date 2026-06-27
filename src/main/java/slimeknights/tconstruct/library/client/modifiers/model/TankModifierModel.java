@@ -24,11 +24,11 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class TankModifierModel implements ModifierModel {
   public static final RecordLoadable<TankModifierModel> LOADER = RecordLoadable.create(
-    ModifierModel.MATERIAL_LOADABLE.nullableField("partial", m -> m.smallPartial),
-    ModifierModel.MATERIAL_LOADABLE.nullableField("full", m -> m.smallFull),
-    ModifierModel.MATERIAL_LOADABLE.nullableField("partial_large", m -> m.largePartial),
-    ModifierModel.MATERIAL_LOADABLE.nullableField("full_large", m -> m.largeFull),
-    IntLoadable.FROM_ZERO.defaultField("tolerance", 0, false, m -> m.tolerance),
+    ModifierModel.MATERIAL_LOADABLE.nullableField("partial", (TankModifierModel m) -> m.smallPartial),
+    ModifierModel.MATERIAL_LOADABLE.nullableField("full", (TankModifierModel m) -> m.smallFull),
+    ModifierModel.MATERIAL_LOADABLE.nullableField("partial_large", (TankModifierModel m) -> m.largePartial),
+    ModifierModel.MATERIAL_LOADABLE.nullableField("full_large", (TankModifierModel m) -> m.largeFull),
+    IntLoadable.FROM_ZERO.defaultField("tolerance", 0, false, (TankModifierModel m) -> m.tolerance),
     TankModifierModel::new);
 
   @Nullable

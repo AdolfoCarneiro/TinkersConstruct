@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.network;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -18,7 +17,6 @@ import slimeknights.tconstruct.tools.logic.InteractionHandler;
 /**
  * Generic packet for various controls the client may send to the server
  */
-@RequiredArgsConstructor
 public enum TinkerControlPacket implements CustomPacketPayload {
   DOUBLE_JUMP,
   ANTIGRAVITY_JUMP,
@@ -40,6 +38,10 @@ public enum TinkerControlPacket implements CustomPacketPayload {
     ByteBufCodecs.<RegistryFriendlyByteBuf, TinkerControlPacket>idMapper(i -> TinkerControlPacket.values()[i], Enum::ordinal);
 
   private final TooltipKey modifier;
+
+  TinkerControlPacket(TooltipKey modifier) {
+    this.modifier = modifier;
+  }
 
   TinkerControlPacket() {
     this(TooltipKey.UNKNOWN);

@@ -143,10 +143,10 @@ public abstract class AbstractPartSpriteProvider {
   public static class PartSpriteInfo {
     /** Loadable instance */
     public static final RecordLoadable<PartSpriteInfo> LOADABLE = RecordLoadable.create(
-      Loadables.RESOURCE_LOCATION.requiredField("path", i -> i.path),
-      MaterialStatsId.PARSER.set(CollectionLoadable.COMPACT).requiredField("stat_type", i -> i.statTypes),
-      BooleanLoadable.INSTANCE.defaultField("allow_animated", true, false, i -> i.allowAnimated),
-      BooleanLoadable.INSTANCE.defaultField("skip_variants", false, false, i -> i.skipVariants),
+      Loadables.RESOURCE_LOCATION.requiredField("path", (PartSpriteInfo i) -> i.path),
+      MaterialStatsId.PARSER.set(CollectionLoadable.COMPACT).requiredField("stat_type", (PartSpriteInfo i) -> i.statTypes),
+      BooleanLoadable.INSTANCE.defaultField("allow_animated", true, false, (PartSpriteInfo i) -> i.allowAnimated),
+      BooleanLoadable.INSTANCE.defaultField("skip_variants", false, false, (PartSpriteInfo i) -> i.skipVariants),
       PartSpriteInfo::new);
     /** Loadable for a list, since its the main usage of this */
     public static final Loadable<List<PartSpriteInfo>> LIST_LOADABLE = LOADABLE.list(1);

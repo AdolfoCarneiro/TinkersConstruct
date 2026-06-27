@@ -24,8 +24,8 @@ import slimeknights.tconstruct.tables.TinkerTables;
 @RequiredArgsConstructor
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<TinkerStationDamagingRecipe> LOADER = RecordLoadable.create(
-    IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
-    IntLoadable.FROM_ONE.requiredField("damage_amount", r -> r.damageAmount),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", (TinkerStationDamagingRecipe r) -> r.ingredient),
+    IntLoadable.FROM_ONE.requiredField("damage_amount", (TinkerStationDamagingRecipe r) -> r.damageAmount),
     TinkerStationDamagingRecipe::new);
   private static final RecipeResult<LazyToolStack> BROKEN = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
 
