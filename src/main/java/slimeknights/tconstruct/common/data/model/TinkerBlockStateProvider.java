@@ -19,13 +19,13 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelProvider;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.client.model.builder.ColoredModelBuilder;
 import slimeknights.mantle.client.model.builder.ConnectedModelBuilder;
@@ -43,10 +43,11 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 import java.util.function.Function;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
-import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
+import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 import static slimeknights.tconstruct.TConstruct.getResource;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "removal"})
@@ -260,9 +261,9 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
    */
   public void axisBlock(Block block, String location, ResourceLocation texture, boolean horizontal) {
     ResourceLocation endTexture = horizontal ? texture.withSuffix("_top") : texture;
-    ModelFile model = models().cubeColumn(TConstruct.resourceString(location), texture, endTexture);
+    ModelFile model = models().cubeColumn(TConstruct.MOD_ID + ":" + (location), texture, endTexture);
     axisBlock((RotatedPillarBlock)block, model,
-              horizontal ? models().cubeColumnHorizontal(TConstruct.resourceString(location + "_horizontal"), texture, endTexture) : model);
+              horizontal ? models().cubeColumnHorizontal(TConstruct.MOD_ID + ":" + (location + "_horizontal"), texture, endTexture) : model);
     simpleBlockItem(block, model);
   }
 
@@ -421,7 +422,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   public void geode(GeodeItemObject geode, String type) {
     basicItem(geode, "materials/");
     for (BudSize size : BudSize.values()) {
-      String name = size.getName();
+      String name = size.name().toLowerCase(Locale.ROOT);
       if (size != BudSize.CLUSTER) {
         name += "_bud";
       }

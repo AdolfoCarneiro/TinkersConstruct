@@ -43,12 +43,12 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.RenderTypeGroup;
+import net.neoforged.neoforge.client.RenderTypeGroup;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.client.model.CompositeModel;
-import net.minecraftforge.client.model.DynamicFluidContainerModel;
-import net.minecraftforge.client.model.QuadTransformers;
-import net.minecraftforge.client.model.SimpleModelState;
+import net.neoforged.neoforge.client.model.CompositeModel;
+import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
+import net.neoforged.neoforge.client.model.QuadTransformers;
+import net.neoforged.neoforge.client.model.SimpleModelState;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
@@ -71,13 +71,13 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Extension of {@link net.minecraftforge.client.model.DynamicFluidContainerModel} with two additional features: baked tints and fluid stack sensitive models.
+ * Extension of {@link net.neoforged.neoforge.client.model.DynamicFluidContainerModel} with two additional features: baked tints and fluid stack sensitive models.
  * Does not handle covers as I have never seen a need for them, and it means less code duplication (plus the forge model does the whole cover is mask thing wrong compared to 1.18).
  */
 public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements IUnbakedGeometry<FluidContainerModel> {
   public static final IGeometryLoader<FluidContainerModel> LOADER = FluidContainerModel::deserialize;
 
-  /** Clone of same named field from {@link net.minecraftforge.client.model.DynamicFluidContainerModel} */
+  /** Clone of same named field from {@link net.neoforged.neoforge.client.model.DynamicFluidContainerModel} */
   public static final Transformation FLUID_TRANSFORM = new Transformation(new Vector3f(), new Quaternionf(), new Vector3f(1, 1, 1.002f), new Quaternionf());
 
   /** Deserializes this model from JSON */
@@ -92,7 +92,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
         JsonObject fluidObject = fluidElement.getAsJsonObject();
         fluid = Loadables.FLUID.getIfPresent(fluidObject, "name");
         if (fluidObject.has("nbt")) {
-          tag = CraftingHelper.getNBT(fluidObject.get("nbt"));
+          tag = net.minecraft.nbt.TagParser.parseTag(fluidObject.get("nbt").getAsString());
         }
       } else {
         fluid = Loadables.FLUID.convert(fluidElement, "fluid");
@@ -142,7 +142,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
     // add in the base
     if (baseSprite != null) {
       modelBuilder.addQuads(renderTypes, UnbakedGeometryHelper.bakeElements(
-        UnbakedGeometryHelper.createUnbakedItemElements(0, baseSprite.contents()),
+        UnbakedGeometryHelper.createUnbakedItemElements(0, baseSprite),
         $ -> baseSprite, modelState, modelLocation
       ));
     }
@@ -150,7 +150,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
     // add in fluid
     if (fluidSprite != null) {
       List<BakedQuad> quads = UnbakedGeometryHelper.bakeElements(
-        UnbakedGeometryHelper.createUnbakedItemMaskElements(1, spriteGetter.apply(context.getMaterial("fluid")).contents()),
+        UnbakedGeometryHelper.createUnbakedItemMaskElements(1, spriteGetter.apply(context.getMaterial("fluid"))),
         $ -> fluidSprite,
         new SimpleModelState(modelState.getRotation().compose(FLUID_TRANSFORM), modelState.isUvLocked()),
         modelLocation
@@ -174,8 +174,9 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext context, ModelBaker bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext context, ModelBaker bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides) {
     // We need to disable GUI 3D and block lighting for this to render properly
+    ResourceLocation modelLocation = ResourceLocation.parse(context.getModelName());
     context = StandaloneGeometryBakingContext.builder(context).withGui3d(false).withUseBlockLight(false).build(modelLocation);
     // only do contained fluid if we did not set the fluid in the model properties
     if (fluid.isEmpty()) {

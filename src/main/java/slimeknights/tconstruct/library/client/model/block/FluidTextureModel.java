@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.client.model.IQuadTransformer;
+import net.neoforged.neoforge.client.model.IQuadTransformer;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
@@ -82,9 +82,9 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
     // start by baking the model, handing UV lock
-    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, modelLocation);
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides);
 
     // determine which block parts are fluids
     Set<String> fluidTextures = this.fluids.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, model, this.fluids);
@@ -95,13 +95,13 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
       for (int i = 0; i < size; i++) {
         BlockElement part = elements.get(i);
         long fluidFaces = part.faces.values().stream()
-                                    .filter(face -> fluidTextures.contains(trimTextureName(face.texture)))
+                                    .filter(face -> fluidTextures.contains(trimTextureName(face.texture())))
                                     .count();
         // for simplicity, each part is either a fluid or not. If for some reason it contains both we mark it as a fluid, meaning it may get colored
         // if this is undesired, just use separate elements
         if (fluidFaces > 0) {
           if (fluidFaces < part.faces.size()) {
-            TConstruct.LOG.warn("Mixed fluid and non-fluid elements in model {}, may cause unexpected results", modelLocation);
+            TConstruct.LOG.warn("Mixed fluid and non-fluid elements in model {}, may cause unexpected results", owner.getModelName());
           }
           fluidParts.set(i);
         }
@@ -173,11 +173,11 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
         BlockElement element = elements.get(i);
         ColorData colors = LogicHelper.getOrDefault(colorData, i, ColorData.DEFAULT);
         if (fluidParts.get(i)) {
-          ColoredBlockModel.bakePart(builder, textured, element, luminosity, spriteGetter, transform.getRotation(), fluidTransformer, colors.isUvLock(defaultUvLock), TankModel.BAKE_LOCATION);
+          ColoredBlockModel.bakePart(builder, textured, element, luminosity, spriteGetter, transform.getRotation(), fluidTransformer, colors.isUvLock(defaultUvLock));
         } else {
           int partColor = colors.color();
           IQuadTransformer partTransformer = partColor == -1 ? quadTransformer : ColoredBlockModel.applyColorQuadTransformer(partColor).andThen(quadTransformer);
-          ColoredBlockModel.bakePart(builder, textured, element, colors.luminosity(), spriteGetter, transform.getRotation(), partTransformer, colors.isUvLock(defaultUvLock), TankModel.BAKE_LOCATION);
+          ColoredBlockModel.bakePart(builder, textured, element, colors.luminosity(), spriteGetter, transform.getRotation(), partTransformer, colors.isUvLock(defaultUvLock));
         }
       }
       return builder.build(SimpleBlockModel.getRenderTypeGroup(owner));

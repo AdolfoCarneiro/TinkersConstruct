@@ -19,8 +19,9 @@ import static slimeknights.mantle.util.RegistryHelper.getHolder;
  * Deferred wrapper holding gold, sand, and red sand casts
  */
 public class CastItemObject extends ItemObject<Item> {
-  @Getter
   private final ResourceLocation name;
+
+  public ResourceLocation getName() { return name; }
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
   @Getter
