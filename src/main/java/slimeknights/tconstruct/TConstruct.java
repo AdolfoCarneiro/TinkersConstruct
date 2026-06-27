@@ -48,6 +48,11 @@ public class TConstruct {
     return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
   }
 
+  /** Alias for {@link #getResource(String)}, for static import as {@code prefix("name")} */
+  public static ResourceLocation prefix(String name) {
+    return getResource(name);
+  }
+
   public static <T> TinkerDataKey<T> createKey(String name) {
     return TinkerDataKey.of(getResource(name));
   }

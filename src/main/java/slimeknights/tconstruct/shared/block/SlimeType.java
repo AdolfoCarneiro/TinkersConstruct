@@ -61,6 +61,15 @@ public enum SlimeType implements StringRepresentable {
   private FoliageType foliageType;
   private DirtType dirtType;
 
+  @Override
+  public String getSerializedName() {
+    return serializedName;
+  }
+
+  public TagKey<Item> getSlimeballTag() {
+    return slimeballTag;
+  }
+
   /** Gets the foliage type for this slime type */
   public FoliageType asFoliage() {
     if (foliageType == null) {

@@ -2,10 +2,13 @@ package slimeknights.tconstruct.plugin.jei.util;
 
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -21,10 +24,14 @@ public interface PotionSubtypeInterpreter<T> extends IIngredientSubtypeInterpret
     if (tag == null) {
       return IIngredientSubtypeInterpreter.NONE;
     }
-    Potion potionType = PotionUtils.getPotion(tag);
+    Holder<Potion> potionHolder = Potions.EMPTY;
+    if (tag.contains("Potion")) {
+      potionHolder = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
+    }
+    Potion potionType = potionHolder.value();
     String potionTypeString = potionType.getName("");
     StringBuilder stringBuilder = new StringBuilder(potionTypeString);
-    List<MobEffectInstance> effects = PotionUtils.getAllEffects(tag);
+    List<MobEffectInstance> effects = potionType.getEffects();
     for (MobEffectInstance effect : effects) {
       stringBuilder.append(";").append(effect);
     }

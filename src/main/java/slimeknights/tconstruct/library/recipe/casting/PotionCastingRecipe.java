@@ -9,7 +9,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -114,10 +115,11 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
     if (displayRecipes == null) {
       // create a subrecipe for every potion variant
       List<ItemStack> bottles = List.of(bottle.getItems());
-      displayRecipes = BuiltInRegistries.POTION.stream()
+      displayRecipes = BuiltInRegistries.POTION.holders()
         .filter(potion -> potion != Potions.EMPTY)
         .map(potion -> {
-          ItemStack result = PotionUtils.setPotion(new ItemStack(this.result), potion);
+          ItemStack result = new ItemStack(this.result);
+          result.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
           return new DisplayCastingRecipe(getId(), getType(), bottles, fluid.getFluids().stream()
                                                               .map(fluid -> new FluidStack(fluid.getFluid(), fluid.getAmount(), result.getTag()))
                                                               .toList(),

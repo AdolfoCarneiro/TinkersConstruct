@@ -19,7 +19,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -115,6 +116,12 @@ import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.
 public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelteryRecipeHelper, ICommonRecipeHelper {
   public SmelteryRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
     super(packOutput, registries);
+  }
+
+  /** Helper replacing PotionUtils.setPotion removed in 1.20.5+ */
+  private static ItemStack withPotion(ItemStack stack, net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> potion) {
+    stack.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
+    return stack;
   }
 
   @Override
@@ -251,7 +258,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // seared glass
     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.searedGlass)
                        .define('b', TinkerSmeltery.searedBrick)
-                       .define('G', Tags.Items.GLASS_COLORLESS)
+                       .define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
                        .pattern(" b ")
                        .pattern("bGb")
                        .pattern(" b ")
@@ -478,7 +485,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     this.ingotCasting(output, TinkerFluids.searedStone, FluidValues.BRICK, TinkerSmeltery.searedBrick, castingFolder + "brick");
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedGlass)
                             .setFluidAndTime(TinkerFluids.searedStone, FluidValues.BRICK_BLOCK)
-                            .setCast(Tags.Items.GLASS_COLORLESS, true)
+                            .setCast(Tags.Items.GLASS_BLOCKS_COLORLESS, true)
                             .save(output, location(castingFolder + "glass"));
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedLamp)
       .setFluidAndTime(TinkerFluids.searedStone, FluidValues.BRICK_BLOCK)
@@ -1155,7 +1162,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // amethyst
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.clearTintedGlass)
-                            .setCast(Tags.Items.GLASS_COLORLESS, true)
+                            .setCast(Tags.Items.GLASS_BLOCKS_COLORLESS, true)
                             .setFluidAndTime(TinkerFluids.moltenAmethyst, FluidValues.GEM * 2)
                             .save(output, location(folder + "amethyst/glass"));
 
@@ -1194,17 +1201,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(new FluidStack(Fluids.WATER, FluidValues.BOTTLE))
                             .setCast(new BlockTagIngredient(BlockTags.CONVERTABLE_TO_MUD), true)
                             .save(output, location(waterFolder + "mud"));
-    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(withPotion(new ItemStack(Items.POTION), Potions.WATER)))
                             .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)
                             .setCoolingTime(1)
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(output, location(waterFolder + "bottle"));
-    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.WATER)))
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(withPotion(new ItemStack(Items.SPLASH_POTION), Potions.WATER)))
                             .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)
                             .setCoolingTime(1)
                             .setCast(MantleTags.Items.SPLASH_BOTTLE, true)
                             .save(output, location(waterFolder + "splash"));
-    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.WATER)))
+    ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(withPotion(new ItemStack(Items.LINGERING_POTION), Potions.WATER)))
                             .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)
                             .setCoolingTime(1)
                             .setCast(MantleTags.Items.LINGERING_BOTTLE, true)

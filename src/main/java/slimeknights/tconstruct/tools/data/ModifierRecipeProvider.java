@@ -896,7 +896,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.respiration)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(ItemTags.FISHES)
-                         .addInput(Tags.Items.GLASS_COLORLESS)
+                         .addInput(Tags.Items.GLASS_BLOCKS_COLORLESS)
                          .addInput(ItemTags.FISHES)
                          .addInput(Items.KELP)
                          .addInput(Items.KELP)

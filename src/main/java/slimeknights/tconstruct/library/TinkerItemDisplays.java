@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.neoforged.neoforge.registries.IForgeRegistry;
+import net.neoforged.neoforge.registries.NeoNeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import slimeknights.tconstruct.TConstruct;
 
@@ -41,8 +41,8 @@ public class TinkerItemDisplays {
 
   /** Registers all item display types */
   private static void registerDisplay(RegisterEvent event) {
-    if (event.getRegistryKey() == ForgeRegistries.Keys.DISPLAY_CONTEXTS) {
-      IForgeRegistry<ItemDisplayContext> registry = ForgeRegistries.DISPLAY_CONTEXTS.get();
+    if (event.getRegistryKey() == NeoForgeRegistries.Keys.DISPLAY_CONTEXTS) {
+      IForgeRegistry<ItemDisplayContext> registry = NeoForgeRegistries.DISPLAY_CONTEXTS.get();
       register(registry, MELTER);
       register(registry, TABLE);
       register(registry, CASTING_TABLE);

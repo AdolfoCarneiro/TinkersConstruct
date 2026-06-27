@@ -34,6 +34,11 @@ public class EquipmentChangeContext extends EquipmentContext {
     fetchedTool[replacementIndex] = true;
   }
 
+  /** Alias for {@link #getChangedSlot()} */
+  public EquipmentSlot getSlot() {
+    return changedSlot;
+  }
+
   /**
    * Gets the tool stack for the stack replacing the original
    * @return  Tool stack replacing, or null if the slot is not modifable

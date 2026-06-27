@@ -68,6 +68,9 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   /** Volatile integer key for the magnet level */
   public static final ResourceLocation MAGNET = TConstruct.getResource("magnet");
 
+  /** The tool item stack (shadows ThrownTrident#tridentItem which became private in 1.21) */
+  private ItemStack tridentItem = ItemStack.EMPTY;
+
   @Nullable
   private IToolStackView tool = null;
   private float charge = 1;

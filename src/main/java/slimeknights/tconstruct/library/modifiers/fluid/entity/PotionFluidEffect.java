@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -33,7 +37,11 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
     LivingEntity target = context.getLivingTarget();
     // must match the tag predicate
     if (target != null && predicate.test(fluid.getTag())) {
-      List<MobEffectInstance> effects = PotionUtils.getPotion(fluid.getTag()).getEffects();
+      CompoundTag fluidTag = fluid.getTag();
+      Potion potion = fluidTag != null && fluidTag.contains("Potion")
+        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.EMPTY::value)
+        : Potions.EMPTY.value();
+      List<MobEffectInstance> effects = potion.getEffects();
       if (!effects.isEmpty()) {
         LivingEntity attacker = context.getEntity();
         Entity directSource = context.getDirectSource();

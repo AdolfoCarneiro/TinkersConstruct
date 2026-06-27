@@ -3,8 +3,10 @@ package slimeknights.tconstruct.library.modifiers.fluid.block;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -32,7 +34,10 @@ public record PotionCloudFluidEffect(float scale, TagPredicate predicate) implem
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Block context, FluidAction action) {
     CompoundTag tag = fluid.getTag();
     if (predicate.test(tag) && context.isOffsetReplaceable()) {
-      Potion potion = PotionUtils.getPotion(fluid.getTag());
+      CompoundTag fluidTag = fluid.getTag();
+      Potion potion = fluidTag != null && fluidTag.contains("Potion")
+        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.EMPTY::value)
+        : Potions.EMPTY.value();
       List<MobEffectInstance> effects = potion.getEffects();
       if (!effects.isEmpty()) {
         float scale = level.value();

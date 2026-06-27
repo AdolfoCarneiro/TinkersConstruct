@@ -11,10 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -42,9 +45,19 @@ public class PotionBucketItem extends PotionItem {
     return supplier.get();
   }
 
+  /** Gets the potion holder from legacy custom NBT tag on this bucket */
+  private static Holder<Potion> getPotionFromTag(ItemStack stack) {
+    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    if (tag.contains("Potion")) {
+      java.util.Optional<Holder.Reference<Potion>> holder = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion")));
+      if (holder.isPresent()) return holder.get();
+    }
+    return Potions.EMPTY;
+  }
+
   @Override
   public String getDescriptionId(ItemStack stack) {
-    String bucketKey = PotionUtils.getPotion(stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()).getName(getDescriptionId() + ".effect.");
+    String bucketKey = getPotionFromTag(stack).value().getName(getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return bucketKey;
     }
@@ -53,7 +66,8 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public Component getName(ItemStack stack) {
-    Potion potion = PotionUtils.getPotion(stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag());
+    Holder<Potion> potionHolder = getPotionFromTag(stack);
+    Potion potion = potionHolder.value();
     String bucketKey = potion.getName(getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return Component.translatable(bucketKey);
@@ -64,7 +78,9 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public ItemStack getDefaultInstance() {
-    return PotionUtils.setPotion(new ItemStack(this), Potions.AWKWARD);
+    ItemStack stack = new ItemStack(this);
+    stack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.AWKWARD));
+    return stack;
   }
 
   @Override
@@ -76,7 +92,8 @@ public class PotionBucketItem extends PotionItem {
 
     // effects are 2x duration
     if (!level.isClientSide) {
-      for (MobEffectInstance effect : PotionUtils.getMobEffects(stack)) {
+      Potion potion = getPotionFromTag(stack).value();
+      for (MobEffectInstance effect : potion.getEffects()) {
         if (effect.getEffect().isInstantenous()) {
           effect.getEffect().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
         } else {
@@ -108,7 +125,8 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-    PotionUtils.addPotionTooltip(pStack, pTooltip, 2.5f);
+    PotionContents contents = new PotionContents(getPotionFromTag(pStack));
+    contents.addPotionTooltip(pTooltip::add, 2.5f, 20f);
   }
 
   @Override

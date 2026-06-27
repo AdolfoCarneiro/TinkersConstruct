@@ -7,8 +7,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -28,7 +29,12 @@ public class PotionFluidType extends FluidType {
 
   @Override
   public String getDescriptionId(FluidStack stack) {
-    return PotionUtils.getPotion(stack.getTag()).getName("item.minecraft.potion.effect.");
+    CompoundTag tag = stack.getTag();
+    Holder<Potion> potion = Potions.EMPTY;
+    if (tag != null && tag.contains("Potion")) {
+      potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
+    }
+    return potion.value().getName("item.minecraft.potion.effect.");
   }
 
   @Override
@@ -42,7 +48,7 @@ public class PotionFluidType extends FluidType {
   public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
     consumer.accept(new ClientTextureFluidType(this) {
       /**
-       * Gets the color, based on {@link PotionUtils#getColor(ItemStack)}
+       * Gets the color, based on {@link PotionContents#getColor()}
        * @param stack  Fluid stack instance
        * @return  Color for the fluid
        */
@@ -52,10 +58,14 @@ public class PotionFluidType extends FluidType {
         if (tag != null && tag.contains("CustomPotionColor", Tag.TAG_ANY_NUMERIC)) {
           return tag.getInt("CustomPotionColor") | 0xFF000000;
         }
-        if (PotionUtils.getPotion(tag) == Potions.EMPTY) {
+        if (tag == null || !tag.contains("Potion")) {
           return getTintColor();
         }
-        return PotionUtils.getColor(PotionUtils.getAllEffects(tag)) | 0xFF000000;
+        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
+        if (potion == Potions.EMPTY) {
+          return getTintColor();
+        }
+        return PotionContents.getColor(potion) | 0xFF000000;
       }
     });
   }
