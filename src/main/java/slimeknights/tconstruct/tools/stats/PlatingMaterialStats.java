@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.stats;
 
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -85,8 +83,6 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
   }
 
   /** Builder to create plating material stats for all four pieces */
-  @Setter
-  @Accessors(fluent = true)
   public static class Builder implements ArmorShieldModuleBuilder<PlatingMaterialStats> {
     private final int[] durability = new int[4];
     private int shieldDurability = 0;
@@ -95,6 +91,10 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
     private float knockbackResistance = 0;
 
     private Builder() {}
+
+    public Builder toughness(float v) { this.toughness = v; return this; }
+    public Builder knockbackResistance(float v) { this.knockbackResistance = v; return this; }
+    public Builder shieldDurability(int v) { this.shieldDurability = v; return this; }
 
     /** Sets the durability for the piece based on the given factor */
     public Builder durabilityFactor(float maxDamageFactor) {

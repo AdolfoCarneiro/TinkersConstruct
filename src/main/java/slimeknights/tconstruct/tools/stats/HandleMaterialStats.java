@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.stats;
 
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -109,8 +107,6 @@ public record HandleMaterialStats(float durability, float miningSpeed, float mel
     return new Builder(true);
   }
 
-  @Accessors(fluent = true)
-  @Setter
   public static class Builder {
     private final boolean multiplier;
     private float durability;
@@ -126,6 +122,11 @@ public record HandleMaterialStats(float durability, float miningSpeed, float mel
       this.attackSpeed = defaultValue;
       this.attackDamage = defaultValue;
     }
+
+    public Builder durability(float v) { this.durability = v; return this; }
+    public Builder miningSpeed(float v) { this.miningSpeed = v; return this; }
+    public Builder attackSpeed(float v) { this.attackSpeed = v; return this; }
+    public Builder attackDamage(float v) { this.attackDamage = v; return this; }
 
     /** Converts a multiplier to a percent in a way that minimizes round off error */
     private static float percent(float multiplier) {

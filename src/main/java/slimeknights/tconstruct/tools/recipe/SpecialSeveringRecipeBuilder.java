@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
  */
 @Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "partRecipe")
-public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> {
+public class SpecialSeveringRecipeBuilder extends AbstractRecipeBuilder<SpecialSeveringRecipeBuilder> {
   private final IMaterialItem output;
   private final int outputAmount;
   @Setter
@@ -36,7 +36,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
    * @param output  Output item
    * @return  Builder instance
    */
-  public static PartRecipeBuilder partRecipe(IMaterialItem output) {
+  public static SpecialSeveringRecipeBuilder partRecipe(IMaterialItem output) {
     return partRecipe(output, 1);
   }
 
