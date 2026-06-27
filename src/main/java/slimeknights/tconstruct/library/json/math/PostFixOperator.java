@@ -3,13 +3,11 @@ package slimeknights.tconstruct.library.json.math;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import it.unimi.dsi.fastutil.floats.FloatStack;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.Mth;
 
 /** Represents 2 argument stack operations */
 @SuppressWarnings("SuspiciousNameCombination")
-@RequiredArgsConstructor
 public enum PostFixOperator implements StackOperation {
   // basic math
   ADD("+", Float::sum),
@@ -134,6 +132,11 @@ public enum PostFixOperator implements StackOperation {
   private final String serialized;
   /** Binary function to run, used for most operators */
   private final BinaryOperator binary;
+
+  PostFixOperator(String serialized, BinaryOperator binary) {
+    this.serialized = serialized;
+    this.binary = binary;
+  }
 
   PostFixOperator(String serialized) {
     this(serialized, BinaryOperator.ZERO);

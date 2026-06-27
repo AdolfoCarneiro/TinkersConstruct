@@ -89,7 +89,7 @@ public class FoodCakeBlock extends CakeBlock {
         if (combination == EffectCombination.ADD) {
           MobEffectInstance current = player.getEffect(effect.getEffect());
           if (current != null && current.getAmplifier() == effect.getAmplifier()) {
-            effect.duration += current.getDuration();
+            effect = new MobEffectInstance(effect.getEffect(), effect.getDuration() + current.getDuration(), effect.getAmplifier());
           }
         }
         player.addEffect(effect);

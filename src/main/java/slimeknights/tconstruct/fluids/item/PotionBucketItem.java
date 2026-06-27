@@ -97,9 +97,7 @@ public class PotionBucketItem extends PotionItem {
         if (effect.getEffect().isInstantenous()) {
           effect.getEffect().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
         } else {
-          MobEffectInstance newEffect = new MobEffectInstance(effect);
-          newEffect.duration = newEffect.duration * 5 / 2;
-          living.addEffect(newEffect);
+          living.addEffect(new MobEffectInstance(effect.getEffect(), effect.getDuration() * 5 / 2, effect.getAmplifier()));
         }
       }
     }

@@ -118,11 +118,6 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
     return new Builder(effect);
   }
 
-  /** Creates a builder instance */
-  static MobEffectModule.Builder builder(Supplier<? extends MobEffect> effect) {
-    return new Builder(effect.get());
-  }
-
   /** Creates a builder instance for a Holder<MobEffect> (vanilla MobEffects.X in 1.21.1) */
   static MobEffectModule.Builder builder(net.minecraft.core.Holder<MobEffect> effect) {
     return new Builder(effect.value());
@@ -237,11 +232,12 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       }
       float duration = this.time.computeValue(scaledLevel);
       if (duration > 0) {
-        MobEffectInstance instance = new MobEffectInstance(effect, (int)duration, level);
+        net.minecraft.core.Holder<MobEffect> holder = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect);
+        MobEffectInstance instance = new MobEffectInstance(holder, (int)duration, level);
         if (curativeItems != null) {
           instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
         }
-        target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
+        target.addEffect(new MobEffectInstance(holder, (int)duration, level), cause);
       }
     }
 

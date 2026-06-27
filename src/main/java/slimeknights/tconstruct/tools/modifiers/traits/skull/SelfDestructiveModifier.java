@@ -32,7 +32,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (player.isShiftKeyDown()) {
-      TinkerEffects.selfDestructing.get().apply(player, 30, 2, true);
+      TinkerEffects.selfDestructing.apply(player, 30, 2, true);
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
       return true;
     }
@@ -41,12 +41,12 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
 
   @Override
   public void stopInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
-    player.removeEffect(TinkerEffects.selfDestructing.get());
+    player.removeEffect(TinkerEffects.selfDestructing);
   }
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    context.getEntity().removeEffect(TinkerEffects.selfDestructing.get());
+    context.getEntity().removeEffect(TinkerEffects.selfDestructing);
   }
 
   /** Internal potion effect handling the explosion */
