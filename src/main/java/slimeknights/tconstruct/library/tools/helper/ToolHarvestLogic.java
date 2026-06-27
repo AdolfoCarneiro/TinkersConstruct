@@ -20,8 +20,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -129,10 +130,11 @@ public class ToolHarvestLogic {
     ServerLevel world = context.getWorld();
     BlockPos pos = context.getPos();
     GameType type = player.gameMode.getGameModeForPlayer();
-    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : ForgeHooks.onBlockBreakEvent(world, type, player, pos);
-    if (exp == -1) {
+    BlockEvent.BreakEvent breakEvent = useLastXP ? null : CommonHooks.fireBlockBreak(world, type, player, pos, context.getState());
+    if (breakEvent != null && breakEvent.isCanceled()) {
       return false;
     }
+    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : 0;
     // checked after the Forge hook, so we have to recheck
     // TODO: is this needed? Seems its called inside ForgeHooks.onBlockBreakEvent
     if (player.blockActionRestricted(world, pos, type)) {

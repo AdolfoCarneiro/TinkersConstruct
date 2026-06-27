@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.living.ShieldBlockEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -501,7 +501,7 @@ public class InteractionHandler {
           if (damage >= 3) {
             InteractionHand usingHand = entity.getUsedItemHand();
             if (ToolDamageUtil.damageAnimated(tool, 1 + Mth.floor(damage), entity, usingHand)) {
-              ForgeEventFactory.onPlayerDestroyItem(player, activeStack, usingHand);
+              EventHooks.onPlayerDestroyItem(player, activeStack, usingHand);
               entity.stopUsingItem();
               entity.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + entity.level().random.nextFloat() * 0.4F);
             }

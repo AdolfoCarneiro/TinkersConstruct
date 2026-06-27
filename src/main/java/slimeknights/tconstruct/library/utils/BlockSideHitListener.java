@@ -51,7 +51,7 @@ public class BlockSideHitListener {
 
   /** Called on block break to store the last break XP */
   private static void breakBlock(BlockEvent.BreakEvent event) {
-    LAST_XP.put(event.getPlayer().getUUID(), event.getExpToDrop());
+    // getExpToDrop() removed in NeoForge 1.21.1 — XP tracking via break event disabled
   }
 
   /** Called when a player leaves the server to clear the face */

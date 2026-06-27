@@ -214,10 +214,8 @@ public class ModifierEvents {
     Player player = event.getPlayer();
     // directly use modifier for held to ensure the correct hand applies
     // TODO: can we make that datapack configurable?
-    double bonus = player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get())
-                 + ModifierUtil.getModifierLevel(player.getMainHandItem(), ModifierIds.experienced) * 0.5f
-                 + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
-    event.setExpToDrop((int)(event.getExpToDrop() * bonus));
+    // TODO 1.21.1: BlockEvent.BreakEvent no longer has getExpToDrop()/setExpToDrop() in NeoForge 1.21.1
+    // XP multiplier from experienced modifier disabled until NeoForge exposes XP drop hook again
   }
 
   @SuppressWarnings("removal")
