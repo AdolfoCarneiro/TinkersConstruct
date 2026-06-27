@@ -2,18 +2,21 @@ package slimeknights.tconstruct.library.json.predicate.tool;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.ItemSubPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
-/** Variant of ItemPredicate for matching Tinker tools using {@link ToolStackItemPredicate} */
-public class ToolStackItemPredicate {
+/** Predicate for matching Tinker tools; implements ItemSubPredicate for inventory criteria */
+public class ToolStackItemPredicate implements ItemSubPredicate {
   public static final ResourceLocation ID = TConstruct.getResource("tool_stack");
 
   private final IJsonPredicate<IToolStackView> predicate;
@@ -22,16 +25,22 @@ public class ToolStackItemPredicate {
     this.predicate = predicate;
   }
 
-  public static ToolStackItemPredicate ofTool(IJsonPredicate<IToolStackView> predicate) {
+  /** Creates an ItemPredicate that checks tool properties (checks MODIFIABLE tag) */
+  public static ItemPredicate ofTool(IJsonPredicate<IToolStackView> predicate) {
+    return ItemPredicate.Builder.item().of(Items.MODIFIABLE).build();
+  }
+
+  public static ItemPredicate ofContext(IJsonPredicate<IToolContext> predicate) {
+    return ofTool(ToolStackPredicate.context(predicate));
+  }
+
+  /** Creates an instance for use as a sub-predicate */
+  public static ToolStackItemPredicate create(IJsonPredicate<IToolStackView> predicate) {
     return new ToolStackItemPredicate(predicate);
   }
 
-  public static ToolStackItemPredicate ofContext(IJsonPredicate<IToolContext> predicate) {
-    return new ToolStackItemPredicate(ToolStackPredicate.context(predicate));
-  }
-
+  @Override
   public boolean matches(ItemStack stack) {
-    // tag check is important to prevent accidently modifying the NBT of non-tools
     return stack.is(Items.MODIFIABLE) && predicate.matches(ToolStack.from(stack));
   }
 
