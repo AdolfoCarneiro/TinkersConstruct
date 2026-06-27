@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.MapCodec;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +24,7 @@ import java.util.List;
 public class SlimeTallGrassBlock extends BushBlock implements IShearable {
 
   private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+  public static final MapCodec<SlimeTallGrassBlock> CODEC = simpleCodec(p -> new SlimeTallGrassBlock(p, FoliageType.EARTH));
 
   @Getter
   private final FoliageType foliageType;
@@ -30,6 +32,9 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
     super(properties);
     this.foliageType = foliageType;
   }
+
+  @Override
+  protected MapCodec<? extends BushBlock> codec() { return CODEC; }
 
   @Deprecated
   @Override

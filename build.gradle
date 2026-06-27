@@ -22,7 +22,7 @@ repositories {
     mavenCentral()
     maven { name = "BlameJared"; url = "https://maven.blamejared.com/" }
     flatDir {
-        dir '../Mantle/build/libs'
+        dir '../Mantle-neo/build/libs'
     }
 }
 

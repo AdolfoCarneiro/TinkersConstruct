@@ -110,7 +110,7 @@ public class FlexItemTypes {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "texture_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
       ArmorItem.Type slot = TinkerLoadables.ARMOR_SLOT.getIfPresent(data, "slot");
-      return (IToolItemFactory<ModifiableArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new ModifiableArmorItem(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
+      return (IToolItemFactory<ModifiableArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new ModifiableArmorItem(new DummyArmorMaterial(name, sound).getMaterial(), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
 
     /* Layered armor type, used for golden, dyeable, etc */
@@ -119,7 +119,7 @@ public class FlexItemTypes {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "model_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
       ArmorItem.Type slot = TinkerLoadables.ARMOR_SLOT.getIfPresent(data, "slot");
-      return (IToolItemFactory<MultilayerArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new MultilayerArmorItem(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
+      return (IToolItemFactory<MultilayerArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new MultilayerArmorItem(new DummyArmorMaterial(name, sound).getMaterial(), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
   }
 
