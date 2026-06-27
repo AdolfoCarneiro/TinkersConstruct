@@ -303,5 +303,9 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
 
     /** Index for part swapping */
     private final int swapIndex;
+
+    CastPurpose(int swapIndex) {
+      this.swapIndex = swapIndex;
+    }
   }
 }

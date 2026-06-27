@@ -175,6 +175,10 @@ public class ModifierUsageCommand {
     ALL("All modifiers:");
 
     private final String logPrefix;
+
+    ModifierUsages(String logPrefix) {
+      this.logPrefix = logPrefix;
+    }
   }
 
   /**

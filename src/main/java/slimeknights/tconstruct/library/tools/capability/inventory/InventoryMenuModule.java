@@ -39,6 +39,10 @@ public enum InventoryMenuModule implements ModifierModule, KeybindInteractModifi
 
   private final TooltipKey requiredKey;
 
+  InventoryMenuModule(TooltipKey requiredKey) {
+    this.requiredKey = requiredKey;
+  }
+
   @Override
   public RecordLoadable<InventoryMenuModule> getLoader() {
     return LOADER;

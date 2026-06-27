@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
@@ -15,6 +14,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
 import slimeknights.tconstruct.library.utils.Util;
@@ -41,7 +41,6 @@ import java.util.stream.Collectors;
  * The location inside datapacks is "materials/stats".
  * So if the material's mod name is "foobar", the location for your material's stats is "data/foobar/materials/stats".
  */
-@Log4j2
 public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLocation,JsonObject>> {
   public static final String FOLDER = "tinkering/materials/stats";
 
@@ -189,7 +188,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
-    log.debug("Loaded stats for materials:{}",
+    TConstruct.LOG.debug("Loaded stats for materials:{}",
               Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
                 .sorted(Entry.comparingByKey())
                 .map(entry -> String.format("%s - [%s]", entry.getKey(), entry.getValue().keySet().stream().sorted().map(Object::toString).collect(Collectors.joining(", "))))
@@ -201,7 +200,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   public void onResourceManagerReload(ResourceManager manager) {
     long time = System.nanoTime();
     super.onResourceManagerReload(manager);
-    log.info("{} stats loaded for {} materials in {} ms",
+    TConstruct.LOG.info("{} stats loaded for {} materials in {} ms",
              materialToStatsPerType.values().stream().mapToInt(Map::size).sum(),
              materialToStatsPerType.size(), (System.nanoTime() - time) / 1000000f);
   }
@@ -235,11 +234,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
       if (type == null) {
         try {
           boolean optional = GsonHelper.getAsBoolean(json, "optional", false);
-          log.log(optional ? Level.DEBUG : Level.ERROR, "Skipping unregistered material stat type '{}' for material '{}'. {}", statType, id, optional
+          TConstruct.LOG.log(optional ? Level.DEBUG : Level.ERROR, "Skipping unregistered material stat type '{}' for material '{}'. {}", statType, id, optional
             ? "It was marked as optional, so it is likely disabled compatability."
             : "This likely indicates a broken mod or datapack.");
         } catch (JsonSyntaxException e) {
-          log.error("Failed to parse optional status for missing stat type '{}' on material '{}'", statType, id, e);
+          TConstruct.LOG.error("Failed to parse optional status for missing stat type '{}' on material '{}'", statType, id, e);
         }
         continue;
       }

@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
-import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
@@ -40,7 +40,6 @@ import java.util.stream.Collectors;
  * The location inside datapacks is "materials/traits".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/traits".
  */
-@Log4j2
 public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.Builder> {
   public static final String FOLDER = "tinkering/materials/traits";
   public static final Gson GSON = (new GsonBuilder())
@@ -145,7 +144,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     map.entrySet().stream().sorted(Entry.comparingByKey()).forEach(entry -> {
       MaterialTraits traits = entry.getValue().build(statTypeFallbacks);
       builder.put(new MaterialId(entry.getKey()), traits);
-      log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
+      TConstruct.LOG.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
                 entry.getKey(),
                 Arrays.toString(traits.getDefaultTraits().toArray()),
                 Util.toIndentedStringList(traits.getTraitsPerStats().entrySet().stream()
@@ -161,7 +160,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   public void onResourceManagerReload(ResourceManager manager) {
     long time = System.nanoTime();
     super.onResourceManagerReload(manager);
-    log.info("{} traits loaded for {} materials in {} ms",
+    TConstruct.LOG.info("{} traits loaded for {} materials in {} ms",
              materialTraits.values().stream().mapToInt(traits -> traits.getTraitsPerStats().size() + (traits.getDefaultTraits().isEmpty() ? 0 : 1)).sum(),
              materialTraits.size(), (System.nanoTime() - time) / 1000000f);
   }
