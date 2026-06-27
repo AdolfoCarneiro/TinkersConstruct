@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.world.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -20,20 +22,15 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import java.util.function.Consumer;
+
 
 public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRecipeHelper {
-  public WorldRecipeProvider(PackOutput packOutput) {
-    super(packOutput);
+  public WorldRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
+    super(packOutput, registries);
   }
 
   @Override
-  public String getName() {
-    return "Tinkers' Construct World Recipes";
-  }
-
-  @Override
-  protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+  protected void buildRecipes(RecipeOutput output) {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
     // only earth slime recipe we need here slime
     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TinkerWorld.congealedSlime.get(SlimeType.EARTH))
@@ -42,7 +39,7 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                        .pattern("##")
                        .unlockedBy("has_item", has(SlimeType.EARTH.getSlimeballTag()))
                        .group("tconstruct:congealed_slime")
-                       .save(consumer, location("common/slime/earth/congealed"));
+                       .save(output, location("common/slime/earth/congealed"));
 
     // does not need green as its the fallback
     for (SlimeType slimeType : SlimeType.TINKER) {
@@ -53,7 +50,7 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                          .pattern("##")
                          .unlockedBy("has_item", has(slimeType.getSlimeballTag()))
                          .group("tconstruct:congealed_slime")
-                         .save(consumer, name);
+                         .save(output, name);
       ResourceLocation blockName = location("common/slime/" + slimeType.getSerializedName() + "/slimeblock");
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerWorld.slime.get(slimeType))
                          .define('#', slimeType.getSlimeballTag())
@@ -62,13 +59,13 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                          .pattern("###")
                          .unlockedBy("has_item", has(slimeType.getSlimeballTag()))
                          .group("slime_blocks")
-                         .save(consumer, blockName);
+                         .save(output, blockName);
       // green already can craft into slime balls
       ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TinkerCommons.slimeball.get(slimeType), 9)
                             .requires(TinkerWorld.slime.get(slimeType))
                             .unlockedBy("has_item", has(TinkerWorld.slime.get(slimeType)))
                             .group("tconstruct:slime_balls")
-                            .save(consumer, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_block");
+                            .save(output, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_block");
     }
     // all types of congealed need a recipe to a block
     for (SlimeType slimeType : SlimeType.values()) {
@@ -76,11 +73,11 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                             .requires(TinkerWorld.congealedSlime.get(slimeType))
                             .unlockedBy("has_item", has(TinkerWorld.congealedSlime.get(slimeType)))
                             .group("tconstruct:slime_balls")
-                            .save(consumer, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_congealed");
+                            .save(output, "tconstruct:common/slime/" + slimeType.getSerializedName() + "/slimeball_from_congealed");
     }
 
     // craft other slime based items, forge does not automatically add recipes using the tag anymore
-    Consumer<FinishedRecipe> slimeConsumer = withCondition(consumer, ConfigEnabledCondition.SLIME_RECIPE_FIX);
+    RecipeOutput slimeConsumer = withCondition(output, ConfigEnabledCondition.SLIME_RECIPE_FIX);
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.STICKY_PISTON)
                        .pattern("#")
                        .pattern("P")
@@ -99,34 +96,34 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
 
     // wood
     String woodFolder = "world/wood/";
-    woodCrafting(consumer, TinkerWorld.greenheart, woodFolder + "greenheart/");
-    woodCrafting(consumer, TinkerWorld.skyroot, woodFolder + "skyroot/");
-    woodCrafting(consumer, TinkerWorld.bloodshroom, woodFolder + "bloodshroom/");
-    woodCrafting(consumer, TinkerWorld.enderbark, woodFolder + "enderbark/");
+    woodCrafting(output, TinkerWorld.greenheart, woodFolder + "greenheart/");
+    woodCrafting(output, TinkerWorld.skyroot, woodFolder + "skyroot/");
+    woodCrafting(output, TinkerWorld.bloodshroom, woodFolder + "bloodshroom/");
+    woodCrafting(output, TinkerWorld.enderbark, woodFolder + "enderbark/");
 
     // geodes
-    geodeRecipes(consumer, TinkerWorld.earthGeode, SlimeType.EARTH, "common/slime/earth/");
-    geodeRecipes(consumer, TinkerWorld.skyGeode,   SlimeType.SKY,   "common/slime/sky/");
-    geodeRecipes(consumer, TinkerWorld.ichorGeode, SlimeType.ICHOR, "common/slime/ichor/");
-    geodeRecipes(consumer, TinkerWorld.enderGeode, SlimeType.ENDER, "common/slime/ender/");
+    geodeRecipes(output, TinkerWorld.earthGeode, SlimeType.EARTH, "common/slime/earth/");
+    geodeRecipes(output, TinkerWorld.skyGeode,   SlimeType.SKY,   "common/slime/sky/");
+    geodeRecipes(output, TinkerWorld.ichorGeode, SlimeType.ICHOR, "common/slime/ichor/");
+    geodeRecipes(output, TinkerWorld.enderGeode, SlimeType.ENDER, "common/slime/ender/");
   }
 
-  private void geodeRecipes(Consumer<FinishedRecipe> consumer, GeodeItemObject geode, SlimeType slime, String folder) {
+  private void geodeRecipes(RecipeOutput output, GeodeItemObject geode, SlimeType slime, String folder) {
     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, geode.getBlock())
                        .define('#', geode.asItem())
                        .pattern("##")
                        .pattern("##")
                        .unlockedBy("has_item", has(geode.asItem()))
                        .group("tconstruct:slime_crystal_block")
-                       .save(consumer, location(folder + "crystal_block"));
+                       .save(output, location(folder + "crystal_block"));
     SimpleCookingRecipeBuilder.blasting(Ingredient.of(geode), RecipeCategory.MISC, TinkerCommons.slimeball.get(slime), 0.2f, 200)
                               .unlockedBy("has_crystal", has(geode))
                               .group("tconstruct:slime_crystal")
-                              .save(consumer, location(folder + "crystal_smelting"));
+                              .save(output, location(folder + "crystal_smelting"));
     ItemLike dirt = TinkerWorld.slimeDirt.get(slime.asDirt());
     SimpleCookingRecipeBuilder.blasting(Ingredient.of(dirt), RecipeCategory.MISC, geode, 0.2f, 400)
                               .unlockedBy("has_dirt", has(dirt))
                               .group("tconstruct:slime_dirt")
-                              .save(consumer, location(folder + "crystal_growing"));
+                              .save(output, location(folder + "crystal_growing"));
   }
 }

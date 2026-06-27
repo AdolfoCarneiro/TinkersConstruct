@@ -2,14 +2,16 @@ package slimeknights.tconstruct.library.recipe.entitymelting;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 
-import java.util.function.Consumer;
+
 
 /** Builder for entity melting recipes */
 @RequiredArgsConstructor(staticName = "melting")
@@ -34,13 +36,13 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, BuiltInRegistries.FLUID.getKey(output.get().getFluid()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "entity_melting");
-    consumer.accept(new LoadableFinishedRecipe<>(new EntityMeltingRecipe(id, ingredient, output, damage), EntityMeltingRecipe.LOADER, advancementId));
+  public void save(RecipeOutput consumer, ResourceLocation id) {
+    AdvancementHolder advancementId = buildOptionalAdvancement(consumer, id, "entity_melting");
+    consumer.accept(id, new EntityMeltingRecipe(ingredient, output, damage), advancementId);
   }
 }

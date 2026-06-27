@@ -2,7 +2,8 @@ package slimeknights.tconstruct.library.recipe.alloying;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
@@ -15,7 +16,6 @@ import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe.AlloyIngredie
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getTemperature;
 
@@ -112,19 +112,16 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
   /* Building */
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, BuiltInRegistries.FLUID.getKey(output.get().getFluid()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(RecipeOutput consumer, ResourceLocation id) {
     if (inputs.size() < 2) {
       throw new IllegalStateException("Invalid alloying recipe " + id + ", must have at least two inputs");
     }
-    consumer.accept(new LoadableFinishedRecipe<>(
-      new AlloyRecipe(id, inputs, output, temperature),
-      AlloyRecipe.LOADER,
-      this.buildOptionalAdvancement(id, "alloys")
-    ));
+    AdvancementHolder advancement = this.buildOptionalAdvancement(consumer, id, "alloys");
+    consumer.accept(id, new AlloyRecipe(inputs, output, temperature), advancement);
   }
 }

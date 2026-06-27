@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
@@ -13,7 +14,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.function.Consumer;
+
 import java.util.function.Supplier;
 
 /** Builder for severing recipes that have only the base chance and looting bonus as fields */
@@ -39,12 +40,12 @@ public class SpecialSeveringRecipeBuilder extends AbstractRecipeBuilder<SpecialS
 
   @SuppressWarnings("deprecation")
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, Objects.requireNonNull(BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer)));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(RecipeOutput consumer, ResourceLocation id) {
     consumer.accept(new Finished(id, null));
   }
 

@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +21,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+
 
 /** Builder for {@link ModifierRemovalRecipe} and {@link ExtractModifierRecipe} */
 @RequiredArgsConstructor(staticName = "removal")
@@ -78,16 +80,16 @@ public class ModifierRemovalRecipeBuilder extends AbstractSizedIngredientRecipeB
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, BuiltInRegistries.ITEM.getKey(leftovers.get(0).getItem()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(RecipeOutput consumer, ResourceLocation id) {
     if (inputs.isEmpty()) {
       throw new IllegalStateException("Must have at least one input");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new LoadableFinishedRecipe<>(constructor.apply(id, name, tools, inputs, leftovers, modifierPredicate), ModifierRemovalRecipe.LOADER, advancementId));
+    AdvancementHolder advancementId = buildOptionalAdvancement(consumer, id, "modifiers");
+    consumer.accept(id, constructor.apply(id, name, tools, inputs, leftovers, modifierPredicate), advancementId);
   }
 }
