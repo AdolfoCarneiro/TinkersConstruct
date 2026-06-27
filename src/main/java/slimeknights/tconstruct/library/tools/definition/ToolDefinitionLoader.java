@@ -111,7 +111,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
   /** Called on datapack sync to send the tool data to all players */
   private void onDatapackSync(OnDatapackSyncEvent event) {
     UpdateToolDefinitionDataPacket packet = new UpdateToolDefinitionDataPacket(dataMap);
-    TinkerNetwork.getInstance().sendToPlayerList(event.getPlayer(), event.getPlayerList(), packet);
+    TinkerNetwork.sendToPlayerList(event.getPlayer(), event.getPlayerList(), packet);
   }
 
   /** Adds the managers as datapack listeners */

@@ -213,7 +213,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @param flowing  Flowing state to sync
 	 */
 	private void syncFlowToClient(Direction side, boolean flowing) {
-		TinkerNetwork.getInstance().sendToClientsAround(new ChannelFlowPacket(worldPosition, side, flowing), level, worldPosition);
+		TinkerNetwork.sendToClientsAround(new ChannelFlowPacket(worldPosition, side, flowing), level, worldPosition);
 	}
 
 
@@ -319,7 +319,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 */
 	public void sendFluidUpdate() {
 		if (level != null && !level.isClientSide) {
-			TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(worldPosition, getFluid()), level, worldPosition);
+			TinkerNetwork.sendToClientsAround(new FluidUpdatePacket(worldPosition, getFluid()), level, worldPosition);
 		}
 	}
 

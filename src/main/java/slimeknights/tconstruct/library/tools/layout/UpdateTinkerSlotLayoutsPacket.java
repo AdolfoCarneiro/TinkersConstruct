@@ -6,8 +6,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 
 import java.util.Collection;
 
@@ -15,7 +18,10 @@ import java.util.Collection;
  * Packet to update the slot layouts for the tinker station
  */
 @RequiredArgsConstructor
-public class UpdateTinkerSlotLayoutsPacket implements IThreadsafePacket {
+public class UpdateTinkerSlotLayoutsPacket implements CustomPacketPayload {
+  public static final Type<UpdateTinkerSlotLayoutsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_tinker_slot_layouts"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, UpdateTinkerSlotLayoutsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateTinkerSlotLayoutsPacket::new);
+
   @Getter(AccessLevel.PACKAGE) @VisibleForTesting
   private final Collection<StationSlotLayout> layouts;
 
@@ -28,7 +34,6 @@ public class UpdateTinkerSlotLayoutsPacket implements IThreadsafePacket {
     layouts = builder.build();
   }
 
-  @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeVarInt(layouts.size());
     for (StationSlotLayout layout : layouts) {
@@ -37,7 +42,9 @@ public class UpdateTinkerSlotLayoutsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    StationSlotLayoutLoader.getInstance().setSlots(layouts);
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(UpdateTinkerSlotLayoutsPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> StationSlotLayoutLoader.getInstance().setSlots(packet.layouts));
   }
 }

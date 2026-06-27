@@ -130,7 +130,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   /** Called on datapack sync to send the tool data to all players */
   private void onDatapackSync(OnDatapackSyncEvent event) {
     UpdateTinkerSlotLayoutsPacket packet = new UpdateTinkerSlotLayoutsPacket(layoutMap.values());
-    TinkerNetwork.getInstance().sendToPlayerList(event.getPlayer(), event.getPlayerList(), packet);
+    TinkerNetwork.sendToPlayerList(event.getPlayer(), event.getPlayerList(), packet);
   }
 
   /** Adds the managers as datapack listeners */

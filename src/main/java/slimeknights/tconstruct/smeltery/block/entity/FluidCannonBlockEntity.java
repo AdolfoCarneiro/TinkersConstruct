@@ -211,7 +211,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
       super.setStack(newStack);
       if (hasChange) {
         BlockPos pos = parent.getBlockPos();
-        TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
+        TinkerNetwork.sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
       }
     }
   }

@@ -3,21 +3,23 @@ package slimeknights.tconstruct.tables.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 
-public class UpdateStationScreenPacket implements IThreadsafePacket {
+public record UpdateStationScreenPacket() implements CustomPacketPayload {
   public static final UpdateStationScreenPacket INSTANCE = new UpdateStationScreenPacket();
-
-  private UpdateStationScreenPacket() {}
-
-  @Override
-  public void encode(RegistryFriendlyByteBuf packetBuffer) {}
+  public static final Type<UpdateStationScreenPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_station_screen"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, UpdateStationScreenPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> {}, buf -> INSTANCE);
 
   @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle();
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(UpdateStationScreenPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> HandleClient.handle());
   }
 
   /** Safely runs client side only code in a method only called on client */

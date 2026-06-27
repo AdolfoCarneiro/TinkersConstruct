@@ -3,11 +3,12 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.loadable.Loadable;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -22,7 +23,9 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
-public class UpdateMaterialStatsPacket implements IThreadsafePacket {
+public class UpdateMaterialStatsPacket implements CustomPacketPayload {
+  public static final Type<UpdateMaterialStatsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_material_stats"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, UpdateMaterialStatsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateMaterialStatsPacket::new);
   private static final Logger log = Util.getLogger("NetworkSync");
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
@@ -53,7 +56,6 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
     }
   }
 
-  @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
@@ -84,7 +86,9 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    MaterialRegistry.updateMaterialStatsFromServer(this);
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(UpdateMaterialStatsPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> MaterialRegistry.updateMaterialStatsFromServer(packet));
   }
 }

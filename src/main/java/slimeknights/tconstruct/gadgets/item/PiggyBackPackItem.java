@@ -114,7 +114,7 @@ public class PiggyBackPackItem extends TooltipItem {
       // todo: possibly throw off all passengers of the target
       if (target.startRiding(toRide, true)) {
         if (player instanceof ServerPlayer) {
-          TinkerNetwork.getInstance().sendVanillaPacket(player, new ClientboundSetPassengersPacket(player));
+          TinkerNetwork.sendVanillaPacket(player, new ClientboundSetPassengersPacket(player));
         }
         return true;
       }

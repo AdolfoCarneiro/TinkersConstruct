@@ -64,7 +64,7 @@ public class ProxyItemTank<T extends MantleBlockEntity & IFluidTankUpdater> exte
     if (needsUpdate) {
       parent.onTankContentsChanged();
       BlockPos pos = parent.getBlockPos();
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
+      TinkerNetwork.sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
     }
   }
 

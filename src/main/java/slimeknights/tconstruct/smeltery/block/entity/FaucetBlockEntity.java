@@ -295,7 +295,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   private void syncToClient(FluidStack fluid, boolean isPouring) {
     renderFluid = fluid.copy();
     if (level instanceof ServerLevel) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FaucetActivationPacket(worldPosition, fluid, isPouring), (ServerLevel) level, getBlockPos());
+      TinkerNetwork.sendToClientsAround(new FaucetActivationPacket(worldPosition, fluid, isPouring), (ServerLevel) level, getBlockPos());
     }
   }
 

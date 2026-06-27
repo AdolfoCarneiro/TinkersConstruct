@@ -37,7 +37,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
       BlockEntityHelper.get(HeatingStructureBlockEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess() && te.showDebugBlockBorder(player)) {
-          TinkerNetwork.getInstance().sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
+          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
         }
       });
     }
@@ -51,7 +51,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess()) {
           player.displayClientMessage(result.getMessage(), true);
-          TinkerNetwork.getInstance().sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
+          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
         }
       });
     }

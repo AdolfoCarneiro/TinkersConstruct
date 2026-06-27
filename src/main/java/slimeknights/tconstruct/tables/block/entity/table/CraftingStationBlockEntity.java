@@ -231,7 +231,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
   public void syncRecipe(Player player) {
     // must have a last recipe and a server world
     if (this.lastRecipe != null && this.level != null && !this.level.isClientSide && player instanceof ServerPlayer) {
-      TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayer) player);
+      TinkerNetwork.sendTo(new UpdateCraftingRecipePacket(this.worldPosition, this.lastRecipe), (ServerPlayer) player);
     }
   }
 

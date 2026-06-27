@@ -2,11 +2,26 @@ package slimeknights.tconstruct.tools.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 
-public class EntityMovementChangePacket implements IThreadsafePacket {
+public class EntityMovementChangePacket implements CustomPacketPayload {
+  public static final Type<EntityMovementChangePacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "entity_movement_change"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, EntityMovementChangePacket> STREAM_CODEC = StreamCodec.composite(
+    ByteBufCodecs.VAR_INT, p -> p.entityID,
+    ByteBufCodecs.DOUBLE, p -> p.x,
+    ByteBufCodecs.DOUBLE, p -> p.y,
+    ByteBufCodecs.DOUBLE, p -> p.z,
+    ByteBufCodecs.FLOAT, p -> p.yRot,
+    ByteBufCodecs.FLOAT, p -> p.xRot,
+    EntityMovementChangePacket::new
+  );
+
   private final int entityID;
   private final double x;
   private final double y;
@@ -23,41 +38,32 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
     this.xRot = entity.getXRot();
   }
 
-  public EntityMovementChangePacket(RegistryFriendlyByteBuf buffer) {
-    this.entityID = buffer.readInt();
-    this.x = buffer.readDouble();
-    this.y = buffer.readDouble();
-    this.z = buffer.readDouble();
-    this.yRot = buffer.readFloat();
-    this.xRot = buffer.readFloat();
+  public EntityMovementChangePacket(int entityID, double x, double y, double z, float yRot, float xRot) {
+    this.entityID = entityID;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.yRot = yRot;
+    this.xRot = xRot;
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf packetBuffer) {
-    packetBuffer.writeInt(this.entityID);
-    packetBuffer.writeDouble(this.x);
-    packetBuffer.writeDouble(this.y);
-    packetBuffer.writeDouble(this.z);
-    packetBuffer.writeFloat(this.yRot);
-    packetBuffer.writeFloat(this.xRot);
-  }
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
-  @Override
-  public void handleThreadsafe(Context context) {
-    if (context.getSender() != null) {
-      HandleClient.handle(this);
-    }
+  public static void handleClient(EntityMovementChangePacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> HandleClient.handle(packet));
   }
 
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(EntityMovementChangePacket packet) {
-      assert Minecraft.getInstance().level != null;
-      Entity entity = Minecraft.getInstance().level.getEntity(packet.entityID);
-      if (entity != null) {
-        entity.setDeltaMovement(packet.x, packet.y, packet.z);
-        entity.setYRot(packet.yRot);
-        entity.setXRot(packet.xRot);
+      if (Minecraft.getInstance().level != null) {
+        Entity entity = Minecraft.getInstance().level.getEntity(packet.entityID);
+        if (entity != null) {
+          entity.setDeltaMovement(packet.x, packet.y, packet.z);
+          entity.setYRot(packet.yRot);
+          entity.setXRot(packet.xRot);
+        }
       }
     }
   }

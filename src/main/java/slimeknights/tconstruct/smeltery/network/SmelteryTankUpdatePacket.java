@@ -1,13 +1,15 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
 import java.util.ArrayList;
@@ -16,10 +18,17 @@ import java.util.List;
 /**
  * Packet sent whenever the contents of the smeltery tank change
  */
-@AllArgsConstructor
-public class SmelteryTankUpdatePacket implements IThreadsafePacket {
+public class SmelteryTankUpdatePacket implements CustomPacketPayload {
+  public static final Type<SmelteryTankUpdatePacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "smeltery_tank_update"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, SmelteryTankUpdatePacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), SmelteryTankUpdatePacket::new);
+
   private final BlockPos pos;
   private final List<FluidStack> fluids;
+
+  public SmelteryTankUpdatePacket(BlockPos pos, List<FluidStack> fluids) {
+    this.pos = pos;
+    this.fluids = fluids;
+  }
 
   public SmelteryTankUpdatePacket(RegistryFriendlyByteBuf buffer) {
     pos = buffer.readBlockPos();
@@ -30,7 +39,6 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
     }
   }
 
-  @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
@@ -40,8 +48,10 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle(this);
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(SmelteryTankUpdatePacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> HandleClient.handle(packet));
   }
 
   private static class HandleClient {

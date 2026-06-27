@@ -346,7 +346,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
       if (change != 0) {
         setFluid(updated);
         if (player != null) {
-          TinkerNetwork.getInstance().sendTo(new ToolContainerFluidUpdatePacket(updated), player);
+          TinkerNetwork.sendTo(new ToolContainerFluidUpdatePacket(updated), player);
         }
       }
     }

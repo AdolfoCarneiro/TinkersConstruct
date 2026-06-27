@@ -43,7 +43,7 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
   public void setItem(int slot, ItemStack itemstack) {
     // send a slot update to the client when items change, so we can update the TESR
     if (level != null && level instanceof ServerLevel && !level.isClientSide && !ItemStack.matches(itemstack, getItem(slot))) {
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(itemstack, slot, worldPosition), (ServerLevel) level, this.worldPosition);
+      TinkerNetwork.sendToClientsAround(new InventorySlotSyncPacket(itemstack, slot, worldPosition), (ServerLevel) level, this.worldPosition);
     }
     super.setItem(slot, itemstack);
   }
@@ -108,7 +108,7 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
    */
   protected void syncScreen(Player player) {
     if (this.level != null && !this.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-      TinkerNetwork.getInstance().sendTo(UpdateStationScreenPacket.INSTANCE, serverPlayer);
+      TinkerNetwork.sendTo(UpdateStationScreenPacket.INSTANCE, serverPlayer);
     }
   }
 

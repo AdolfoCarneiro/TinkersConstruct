@@ -162,7 +162,7 @@ public record SlingKnockbackModule(LevelingValue forceMultiplier, float drawtime
                 ));
                 target.knockback(force, angle.x, angle.z);
                 if (target instanceof ServerPlayer playerMP) {
-                  TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(target), playerMP);
+                  TinkerNetwork.sendVanillaPacket(new ClientboundSetEntityMotionPacket(target), playerMP);
                 }
                 didBonk = true;
               }

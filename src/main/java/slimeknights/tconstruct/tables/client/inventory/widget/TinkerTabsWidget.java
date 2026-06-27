@@ -102,7 +102,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
     if (level != null) {
       BlockState state = level.getBlockState(pos);
       if (state.getBlock() instanceof ITabbedBlock) {
-        TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
+        TinkerNetwork.sendToServer(new StationTabPacket(pos));
 
         // sound!
         this.parent.getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));

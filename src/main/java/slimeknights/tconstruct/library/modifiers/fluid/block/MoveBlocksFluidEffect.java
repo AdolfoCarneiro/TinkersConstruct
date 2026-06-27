@@ -127,7 +127,7 @@ public record MoveBlocksFluidEffect(boolean push, SoundEvent sound) implements F
       // if execute, we actually get to move the blocks
       if (action.execute()) {
         moveBlocks(world, pos, originalState, facing, direction, moving);
-        TinkerNetwork.getInstance().sendToClientsAround(new PushBlockRowPacket(pos, direction, push, moving), world, pos);
+        TinkerNetwork.sendToClientsAround(new PushBlockRowPacket(pos, direction, push, moving), world, pos);
         world.playSound(null, pos, Sounds.SLIME_SLING.getSound(), SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * (push ? 0.25F : 0.15f) + 0.6F);
       }
       return 1;

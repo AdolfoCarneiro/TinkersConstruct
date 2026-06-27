@@ -80,7 +80,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     // send a slot update to the client when items change, so we can update the TESR
     Level world = parent.getLevel();
     if (slotIndex != -1 && world != null && !world.isClientSide && !ItemStack.matches(stack, newStack)) {
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getBlockPos()), world, parent.getBlockPos());
+      TinkerNetwork.sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getBlockPos()), world, parent.getBlockPos());
     }
 
     // clear progress if setting to empty or the items do not match

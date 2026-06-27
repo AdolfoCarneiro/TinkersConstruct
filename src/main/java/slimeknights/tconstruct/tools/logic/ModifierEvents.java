@@ -423,7 +423,7 @@ public class ModifierEvents {
                   hurting.zPower = reboundAngle.z * 0.1;
                 }
                 if (target.getType() == EntityType.PLAYER) {
-                  TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), target);
+                  TinkerNetwork.sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), target);
                 }
                 level.playSound(null, target.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
                 event.setImpactResult(ImpactResult.SKIP_ENTITY);

@@ -484,7 +484,7 @@ public class ToolEvents {
   static void projectileSync(PlayerEvent.StartTracking event) {
     Entity entity = event.getTarget();
     if (entity instanceof Projectile) {
-      TinkerNetwork.getInstance().sendTo(new SyncProjectileModifiersPacket(entity), event.getEntity());
+      TinkerNetwork.sendTo(new SyncProjectileModifiersPacket(entity), event.getEntity());
     }
   }
 

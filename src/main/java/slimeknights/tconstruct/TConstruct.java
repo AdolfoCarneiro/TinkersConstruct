@@ -12,6 +12,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.common.network.TinkerPayloadInit;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 
@@ -38,8 +39,9 @@ public class TConstruct {
 
   public TConstruct(IEventBus modEventBus, ModContainer modContainer) {
     TConstruct.modEventBus = modEventBus;
+    modEventBus.addListener(TinkerPayloadInit::register);
     LOG.info("TConstruct Phase 0 stub loaded (NeoForge 1.21.1). Subsystems quarantined.");
-    // Later phases restore: TinkerModule registration, config, datagen, network, client events.
+    // Later phases restore: TinkerModule registration, config, datagen, client events.
   }
 
   public static ResourceLocation getResource(String name) {

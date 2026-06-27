@@ -466,7 +466,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     Level world = getLevel();
     if (world != null && !world.isClientSide) {
       BlockPos pos = getBlockPos();
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, fluidStack), world, pos);
+      TinkerNetwork.sendToClientsAround(new FluidUpdatePacket(pos, fluidStack), world, pos);
     }
   }
 

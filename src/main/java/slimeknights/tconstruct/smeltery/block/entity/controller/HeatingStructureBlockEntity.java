@@ -181,7 +181,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     BlockPos oldErrorPos = this.errorPos;
     this.errorPos = multiblock.getLastResult().getPos();
     if (!Objects.equals(oldErrorPos, errorPos)) {
-      TinkerNetwork.getInstance().sendToClientsAround(new StructureErrorPositionPacket(worldPosition, errorPos), level, worldPosition);
+      TinkerNetwork.sendToClientsAround(new StructureErrorPositionPacket(worldPosition, errorPos), level, worldPosition);
     }
   }
 
@@ -384,7 +384,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     // structure info updates
     if (formed) {
       // sync size to the client
-      TinkerNetwork.getInstance().sendToClientsAround(
+      TinkerNetwork.sendToClientsAround(
         new StructureUpdatePacket(worldPosition, newStructure.getMinPos(), newStructure.getMaxPos(), newStructure.getTanks()), level, worldPosition);
 
       // set master positions

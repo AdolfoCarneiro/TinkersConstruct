@@ -51,7 +51,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
     Level world = parent.getLevel();
     if (world != null && !world.isClientSide) {
       BlockPos pos = parent.getBlockPos();
-      TinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
+      TinkerNetwork.sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
     }
   }
 

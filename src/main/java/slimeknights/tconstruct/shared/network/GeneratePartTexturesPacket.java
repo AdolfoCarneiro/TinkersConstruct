@@ -1,34 +1,30 @@
 package slimeknights.tconstruct.shared.network;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.client.ClientGeneratePartTexturesCommand;
 
 /** Packet to tell the client to generate tool textures */
-@RequiredArgsConstructor
-public class GeneratePartTexturesPacket implements IThreadsafePacket {
-  private final Operation operation;
-  private final String modId;
-  private final String materialPath;
-
-  public GeneratePartTexturesPacket(RegistryFriendlyByteBuf buffer) {
-    operation = buffer.readEnum(Operation.class);
-    modId = buffer.readUtf(Short.MAX_VALUE);
-    materialPath = buffer.readUtf(Short.MAX_VALUE);
-  }
+public record GeneratePartTexturesPacket(Operation operation, String modId, String materialPath) implements CustomPacketPayload {
+  public static final Type<GeneratePartTexturesPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "generate_part_textures"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, GeneratePartTexturesPacket> STREAM_CODEC = StreamCodec.composite(
+    ByteBufCodecs.<RegistryFriendlyByteBuf, Operation>idMapper(i -> Operation.values()[i], Enum::ordinal),
+    GeneratePartTexturesPacket::operation,
+    ByteBufCodecs.stringUtf8(Short.MAX_VALUE), GeneratePartTexturesPacket::modId,
+    ByteBufCodecs.stringUtf8(Short.MAX_VALUE), GeneratePartTexturesPacket::materialPath,
+    GeneratePartTexturesPacket::new
+  );
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer) {
-    buffer.writeEnum(operation);
-    buffer.writeUtf(modId);
-    buffer.writeUtf(materialPath);
-  }
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
-  @Override
-  public void handleThreadsafe(Context context) {
-    context.enqueueWork(() -> ClientGeneratePartTexturesCommand.generateTextures(operation, modId, materialPath));
+  public static void handleClient(GeneratePartTexturesPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> ClientGeneratePartTexturesCommand.generateTextures(packet.operation(), packet.modId(), packet.materialPath()));
   }
 
   public enum Operation { ALL, MISSING }

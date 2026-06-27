@@ -43,7 +43,7 @@ public class ClientInteractionHandler {
     if (!player.isSpectator() && chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
       // found an interaction, time to notify the server and run logic for the client
       InteractionHand hand = event.getHand();
-      TinkerNetwork.getInstance().sendToServer(InteractWithAirPacket.fromChestplate(hand));
+      TinkerNetwork.sendToServer(InteractWithAirPacket.fromChestplate(hand));
       InteractionResult result = InteractionHandler.onChestplateUse(player, chestplate, hand);
       if (result.consumesAction()) {
         if (result.shouldSwing()) {
@@ -84,7 +84,7 @@ public class ClientInteractionHandler {
     if (!player.isSpectator() && tool.is(TinkerTags.Items.INTERACTABLE_LEFT)) {
       // found an interaction, time to notify the server and run logic for the client
       InteractionHand hand = event.getHand();
-      TinkerNetwork.getInstance().sendToServer(InteractWithAirPacket.LEFT_CLICK);
+      TinkerNetwork.sendToServer(InteractWithAirPacket.LEFT_CLICK);
       InteractionResult result = InteractionHandler.onLeftClickInteraction(player, tool, hand);
       if (result.consumesAction()) {
         if (result.shouldSwing()) {

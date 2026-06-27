@@ -65,7 +65,7 @@ public class FluidTankBase<T extends MantleBlockEntity> extends FluidTank {
     parent.setChanged();
     Level level = parent.getLevel();
     if(level != null && !level.isClientSide) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(parent.getBlockPos(), this.getFluid()), level, parent.getBlockPos());
+      TinkerNetwork.sendToClientsAround(new FluidUpdatePacket(parent.getBlockPos(), this.getFluid()), level, parent.getBlockPos());
     }
   }
 }

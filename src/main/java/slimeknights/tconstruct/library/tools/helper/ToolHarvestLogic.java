@@ -208,7 +208,7 @@ public class ToolHarvestLogic {
       // we only break the center block client side, so need to send the event directly
       // TODO: in theory, we can use this to reduce the number of sounds playing on breaking a lot of blocks, would require sending a custom packet if we want the particles still
       world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(context.getState()));
-      TinkerNetwork.getInstance().sendVanillaPacket(Objects.requireNonNull(context.getPlayer()), new ClientboundBlockUpdatePacket(world, pos));
+      TinkerNetwork.sendVanillaPacket(Objects.requireNonNull(context.getPlayer()), new ClientboundBlockUpdatePacket(world, pos));
       return true;
     }
     return false;

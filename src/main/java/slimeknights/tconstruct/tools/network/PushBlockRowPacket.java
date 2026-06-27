@@ -4,33 +4,37 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
 
 /** Packet handling {@link MoveBlocksFluidEffect} syncing to the client */
-public record PushBlockRowPacket(BlockPos pos, Direction direction, boolean push, int moving) implements IThreadsafePacket {
-  public PushBlockRowPacket(RegistryFriendlyByteBuf buffer) {
-    this(buffer.readBlockPos(), buffer.readEnum(Direction.class), buffer.readBoolean(), buffer.readVarInt());
-  }
+public record PushBlockRowPacket(BlockPos pos, Direction direction, boolean push, int moving) implements CustomPacketPayload {
+  public static final Type<PushBlockRowPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "push_block_row"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, PushBlockRowPacket> STREAM_CODEC = StreamCodec.composite(
+    BlockPos.STREAM_CODEC, PushBlockRowPacket::pos,
+    ByteBufCodecs.<RegistryFriendlyByteBuf, Direction>idMapper(i -> Direction.values()[i], Direction::ordinal),
+    PushBlockRowPacket::direction,
+    ByteBufCodecs.BOOL, PushBlockRowPacket::push,
+    ByteBufCodecs.VAR_INT, PushBlockRowPacket::moving,
+    PushBlockRowPacket::new
+  );
+
+  @Override
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
   /** Gets the facing value for this packet */
   private Direction facing() {
     return push ? direction : direction.getOpposite();
   }
 
-  @Override
-  public void encode(RegistryFriendlyByteBuf buffer) {
-    buffer.writeBlockPos(pos);
-    buffer.writeEnum(direction);
-    buffer.writeBoolean(push);
-    buffer.writeVarInt(moving);
-  }
-
-  @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle(this);
+  public static void handleClient(PushBlockRowPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> HandleClient.handle(packet));
   }
 
   /** Accesses client only safely */

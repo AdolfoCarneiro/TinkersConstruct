@@ -606,7 +606,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
-    TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
+    TinkerNetwork.sendToServer(new TinkerStationSelectionPacket(layout.getName()));
   }
 
   @Override
@@ -628,7 +628,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   private void onNameChanged(String name) {
     if (tile != null) {
       this.tile.setItemName(name);
-      TinkerNetwork.getInstance().sendToServer(new TinkerStationRenamePacket(name));
+      TinkerNetwork.sendToServer(new TinkerStationRenamePacket(name));
     }
   }
 

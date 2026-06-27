@@ -205,7 +205,7 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
   public int handleClick(int mouseX, int mouseY) {
     int index = getFluidClicked(mouseX, mouseY);
     if (index >= 0) {
-      TinkerNetwork.getInstance().sendToServer(new SmelteryFluidClickedPacket(index));
+      TinkerNetwork.sendToServer(new SmelteryFluidClickedPacket(index));
     }
     return index;
   }

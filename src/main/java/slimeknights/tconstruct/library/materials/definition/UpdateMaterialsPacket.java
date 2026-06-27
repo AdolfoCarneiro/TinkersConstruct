@@ -4,9 +4,12 @@ import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.utils.GenericTagUtil;
 
@@ -17,7 +20,10 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
-public class UpdateMaterialsPacket implements IThreadsafePacket {
+public class UpdateMaterialsPacket implements CustomPacketPayload {
+  public static final Type<UpdateMaterialsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_materials"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, UpdateMaterialsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateMaterialsPacket::new);
+
   private final Map<MaterialId,IMaterial> materials;
   private final Map<MaterialId,MaterialId> redirects;
   private final Map<TagKey<IMaterial>,List<IMaterial>> tags;
@@ -48,7 +54,6 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
     this.tags = GenericTagUtil.decodeTags(buffer, MaterialManager.REGISTRY_KEY, id -> this.materials.get(new MaterialId(id)));
   }
 
-  @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeInt(this.materials.size());
     this.materials.values().forEach(material -> {
@@ -67,7 +72,9 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    MaterialRegistry.updateMaterialsFromServer(this);
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(UpdateMaterialsPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> MaterialRegistry.updateMaterialsFromServer(packet));
   }
 }

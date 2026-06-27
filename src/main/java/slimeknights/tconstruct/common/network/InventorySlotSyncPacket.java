@@ -3,46 +3,36 @@ package slimeknights.tconstruct.common.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.tconstruct.TConstruct;
 
-public class InventorySlotSyncPacket implements IThreadsafePacket {
-
-  public final ItemStack itemStack;
-  public final int slot;
-  public final BlockPos pos;
-
-  public InventorySlotSyncPacket(ItemStack itemStack, int slot, BlockPos pos) {
-    this.itemStack = itemStack;
-    this.slot = slot;
-    this.pos = pos;
-  }
-
-  public InventorySlotSyncPacket(RegistryFriendlyByteBuf buffer) {
-    this.itemStack = buffer.readItem();
-    this.slot = buffer.readShort();
-    this.pos = buffer.readBlockPos();
-  }
+public record InventorySlotSyncPacket(ItemStack itemStack, int slot, BlockPos pos) implements CustomPacketPayload {
+  public static final Type<InventorySlotSyncPacket> TYPE =
+    new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "inventory_slot_sync"));
+  public static final StreamCodec<RegistryFriendlyByteBuf, InventorySlotSyncPacket> STREAM_CODEC =
+    StreamCodec.composite(
+      ItemStack.STREAM_CODEC, InventorySlotSyncPacket::itemStack,
+      ByteBufCodecs.SHORT.map(s -> (int) s, i -> (short) (int) i), InventorySlotSyncPacket::slot,
+      BlockPos.STREAM_CODEC,  InventorySlotSyncPacket::pos,
+      InventorySlotSyncPacket::new);
 
   @Override
-  public void encode(RegistryFriendlyByteBuf packetBuffer) {
-    packetBuffer.writeItem(this.itemStack);
-    packetBuffer.writeShort(this.slot);
-    packetBuffer.writeBlockPos(this.pos);
+  public Type<? extends CustomPacketPayload> type() { return TYPE; }
+
+  public static void handleClient(InventorySlotSyncPacket packet, IPayloadContext context) {
+    context.enqueueWork(() -> HandleClient.handle(packet));
   }
 
-  @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle(this);
-  }
-
-  /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(InventorySlotSyncPacket packet) {
       Level world = Minecraft.getInstance().level;

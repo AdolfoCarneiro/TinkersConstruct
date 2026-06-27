@@ -119,7 +119,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     if (success.consumesAction()) {
       if (!context.isAOE() && player != null) {
-        TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), player);
+        TinkerNetwork.sendTo(new UpdateNeighborsPacket(state, pos), player);
       }
       context.getLiving().swing(InteractionHand.OFF_HAND, false);
       return true;

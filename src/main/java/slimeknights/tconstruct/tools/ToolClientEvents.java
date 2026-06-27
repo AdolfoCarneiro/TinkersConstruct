@@ -307,10 +307,10 @@ public class ToolClientEvents extends ClientEventBase {
       boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
         if (TinkerEffects.antigravity.get().antigravityJump(event.player)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.ANTIGRAVITY_JUMP);
+          TinkerNetwork.sendToServer(TinkerControlPacket.ANTIGRAVITY_JUMP);
         }
         else if (DoubleJumpHandler.extraJump(event.player)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.DOUBLE_JUMP);
+          TinkerNetwork.sendToServer(TinkerControlPacket.DOUBLE_JUMP);
         }
       }
       wasJumping = isJumping;
@@ -320,12 +320,12 @@ public class ToolClientEvents extends ClientEventBase {
       if (!wasHelmetInteracting && isHelmetInteracting) {
         TooltipKey key = SafeClientAccess.getTooltipKey();
         if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.HEAD, key)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.getStartHelmetInteract(key));
+          TinkerNetwork.sendToServer(TinkerControlPacket.getStartHelmetInteract(key));
         }
       }
       if (wasHelmetInteracting && !isHelmetInteracting) {
         if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlot.HEAD)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_HELMET_INTERACT);
+          TinkerNetwork.sendToServer(TinkerControlPacket.STOP_HELMET_INTERACT);
         }
       }
 
@@ -334,12 +334,12 @@ public class ToolClientEvents extends ClientEventBase {
       if (!wasLeggingsInteracting && isLeggingsInteract) {
         TooltipKey key = SafeClientAccess.getTooltipKey();
         if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.LEGS, key)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.getStartLeggingsInteract(key));
+          TinkerNetwork.sendToServer(TinkerControlPacket.getStartLeggingsInteract(key));
         }
       }
       if (wasLeggingsInteracting && !isLeggingsInteract) {
         if (InteractionHandler.stopArmorInteract(event.player, EquipmentSlot.LEGS)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.STOP_LEGGINGS_INTERACT);
+          TinkerNetwork.sendToServer(TinkerControlPacket.STOP_LEGGINGS_INTERACT);
         }
       }
 

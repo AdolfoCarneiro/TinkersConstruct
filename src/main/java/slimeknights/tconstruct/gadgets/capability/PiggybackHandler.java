@@ -32,7 +32,7 @@ public class PiggybackHandler {
       // tell the player itself if his riders changed serverside
       if (!this.riddenPlayer.getPassengers().equals(this.lastPassengers)) {
         if (this.riddenPlayer instanceof ServerPlayer) {
-          TinkerNetwork.getInstance().sendVanillaPacket(this.riddenPlayer, new ClientboundSetPassengersPacket(this.riddenPlayer));
+          TinkerNetwork.sendVanillaPacket(this.riddenPlayer, new ClientboundSetPassengersPacket(this.riddenPlayer));
         }
       }
       this.lastPassengers = this.riddenPlayer.getPassengers();
