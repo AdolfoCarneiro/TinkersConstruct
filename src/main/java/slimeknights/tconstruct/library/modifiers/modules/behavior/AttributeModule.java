@@ -251,6 +251,11 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
       return unique(id.getNamespace() + ".modifier." + id.getPath());
     }
 
+    public Builder tooltipStyle(TooltipStyle style) {
+      this.tooltipStyle = style;
+      return this;
+    }
+
     /** @deprecated use {@link #tooltipStyle(TooltipStyle)} */
     @Deprecated
     @Override
