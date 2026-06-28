@@ -9,13 +9,16 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 /** This class handles lazy loading of a material, as the times recipes load is too soon to fetch material objects */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class LazyMaterial implements Supplier<IMaterial> {
   /** ID to fetch */
   @Getter
   private final MaterialId id;
   /** Cached material fetched from the registry */
   private IMaterial material;
+
+  protected LazyMaterial(MaterialId id) {
+    this.id = id;
+  }
 
   protected LazyMaterial(IMaterial material) {
     this.id = material.getIdentifier();
