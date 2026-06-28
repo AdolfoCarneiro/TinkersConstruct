@@ -56,6 +56,12 @@ public abstract class FluidEffectContext {
     this(level, entity, player, projectile, ItemStack.EMPTY);
   }
 
+  public Level getLevel() { return level; }
+  public LivingEntity getEntity() { return entity; }
+  public Player getPlayer() { return player; }
+  public Projectile getProjectile() { return projectile; }
+  public ItemStack getStack() { return stack; }
+
   /** Gets the relevant block position for this context */
   public abstract BlockPos getBlockPos();
 

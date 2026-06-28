@@ -364,14 +364,14 @@ public final class TinkerWorld extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     // compostables
     event.enqueueWork(() -> {
-      slimeLeaves.forEach((type, block) -> ComposterBlock.add(type.isNether() ? 0.85f : 0.35f, block));
-      slimeSapling.forEach(block -> ComposterBlock.add(0.35f, block));
-      slimeTallGrass.forEach(block -> ComposterBlock.add(0.35f, block));
-      slimeFern.forEach(block -> ComposterBlock.add(0.65f, block));
-      slimeGrassSeeds.forEach(block -> ComposterBlock.add(0.35F, block));
-      ComposterBlock.add(0.5f, skySlimeVine);
-      ComposterBlock.add(0.5f, enderSlimeVine);
-      ComposterBlock.add(0.4f, enderbarkRoots);
+      slimeLeaves.forEach((type, block) -> ComposterBlock.COMPOSTABLES.put(block, type.isNether() ? 0.85f : 0.35f));
+      slimeSapling.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 0.35f));
+      slimeTallGrass.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 0.35f));
+      slimeFern.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 0.65f));
+      slimeGrassSeeds.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 0.35f));
+      ComposterBlock.COMPOSTABLES.put(skySlimeVine, 0.5f);
+      ComposterBlock.COMPOSTABLES.put(enderSlimeVine, 0.5f);
+      ComposterBlock.COMPOSTABLES.put(enderbarkRoots, 0.4f);
 
       // head equipping
       DispenseItemBehavior dispenseArmor = new OptionalDispenseItemBehavior() {

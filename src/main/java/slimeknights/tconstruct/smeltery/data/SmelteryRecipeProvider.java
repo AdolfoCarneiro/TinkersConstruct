@@ -413,7 +413,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .define('C', Tags.Items.INGOTS_COPPER)
         .pattern("C#C")
         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.SMELTERY_BRICKS)
       .build(output, location(folder + "drain_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedChute)
                        .define('#', TinkerSmeltery.searedBrick)
@@ -431,7 +431,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .pattern("#")
         .pattern("C")
         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.SMELTERY_BRICKS)
       .build(output, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedDuct)
                        .define('#', TinkerSmeltery.searedBrick)
@@ -447,7 +447,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .define('C', Tags.Items.INGOTS_GOLD)
         .pattern("C#C")
         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.SMELTERY_BRICKS)
       .build(output, location(folder + "duct_retextured"));
 
     // controllers
@@ -870,7 +870,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .define('C', TinkerCommons.obsidianPane)
         .pattern("C#C")
         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
       .build(output, location(folder + "drain_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedChute)
                        .define('#', TinkerSmeltery.scorchedBrick)
@@ -888,7 +888,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .pattern("#")
         .pattern("C")
         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
       .build(output, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedDuct)
                        .define('#', TinkerSmeltery.scorchedBrick)
@@ -904,7 +904,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .define('C', Tags.Items.INGOTS_GOLD)
         .pattern("C#C")
         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-      .setSource('#')
+      .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
       .build(output, location(folder + "duct_retextured"));
 
     // controllers

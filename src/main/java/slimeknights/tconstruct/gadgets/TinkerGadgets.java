@@ -153,8 +153,8 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     PiggybackCapability.register();
     event.enqueueWork(() -> {
-      cake.forEach(block -> ComposterBlock.add(1.0f, block));
-      ComposterBlock.add(1.0f, magmaCake.get());
+      cake.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 1.0f));
+      ComposterBlock.COMPOSTABLES.put(magmaCake.get(), 1.0f);
 
       DispenserBlock.registerBehavior(glowBall, new ShootProjectileDispenserBehavior(glowBallEntity.get()));
       DispenserBlock.registerBehavior(efln, new ShootProjectileDispenserBehavior(eflnEntity.get()));

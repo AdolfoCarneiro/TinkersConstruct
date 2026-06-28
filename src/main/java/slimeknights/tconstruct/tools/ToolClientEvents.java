@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.gui.screens.MenuScreens;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
@@ -161,6 +161,11 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
+  static void registerMenuScreens(RegisterMenuScreensEvent event) {
+    event.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
+  }
+
+  @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     NeoForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
     NeoForge.EVENT_BUS.addListener(ToolClientEvents::handleInput);
@@ -171,9 +176,6 @@ public class ToolClientEvents extends ClientEventBase {
       // fake ingot showing in the book is a little nicer than the repair kits
       AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeIngot);
       AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeStorageBlockItem);
-      // screens
-      MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
-
       // properties
       // stone
       TinkerItemProperties.registerToolProperties(TinkerTools.pickaxe);
