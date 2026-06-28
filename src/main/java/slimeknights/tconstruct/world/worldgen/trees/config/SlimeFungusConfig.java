@@ -2,7 +2,6 @@ package slimeknights.tconstruct.world.worldgen.trees.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.Getter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -26,8 +25,12 @@ public class SlimeFungusConfig extends HugeFungusConfiguration {
     Codec.BOOL.fieldOf("planted").orElse(false).forGetter(config -> config.planted)
   ).apply(instance, SlimeFungusConfig::new));
 
-  @Getter
   private final TagKey<Block> groundTag;
+
+  public TagKey<Block> getGroundTag() {
+    return groundTag;
+  }
+
   public SlimeFungusConfig(TagKey<Block> groundTag, BlockState stem, BlockState hat, BlockState decor, BlockPredicate replaceableBlocks, boolean planted) {
     super(Blocks.AIR.defaultBlockState(), stem, hat, decor, replaceableBlocks, planted);
     this.groundTag = groundTag;

@@ -24,9 +24,12 @@ public class SlimeParticle extends BreakingItemParticle {
     super(worldIn, posXIn, posYIn, posZIn, xSpeedIn, ySpeedIn, zSpeedIn, stack);
   }
 
-  @RequiredArgsConstructor
   public static class Factory implements ParticleProvider<SimpleParticleType> {
     private final ItemLike slime;
+
+    public Factory(ItemLike slime) {
+      this.slime = slime;
+    }
 
     public Factory(SlimeType type) {
       this.slime = TinkerCommons.slimeball.get(type);

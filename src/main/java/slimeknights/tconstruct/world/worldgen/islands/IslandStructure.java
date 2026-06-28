@@ -2,9 +2,6 @@ package slimeknights.tconstruct.world.worldgen.islands;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -40,13 +37,14 @@ public class IslandStructure extends Structure {
           SimpleWeightedRandomList.wrappedCodec(BuiltInRegistries.BLOCK.byNameCodec()).fieldOf("grasses").forGetter(s -> s.grasses)))
         .apply(inst, IslandStructure::new));
 
-  @Getter
   private final IslandPlacement placement;
   private final SimpleWeightedRandomList<ResourceLocation> templates;
   private final SimpleWeightedRandomList<Holder<ConfiguredFeature<?,?>>> trees;
   private final Optional<Block> vines;
-  @Getter
   private final SimpleWeightedRandomList<Block> grasses;
+
+  public IslandPlacement getPlacement() { return placement; }
+  public SimpleWeightedRandomList<Block> getGrasses() { return grasses; }
 
   public IslandStructure(StructureSettings settings, IslandPlacement placement, SimpleWeightedRandomList<ResourceLocation> templates, SimpleWeightedRandomList<Holder<ConfiguredFeature<?,?>>> trees, Optional<Block> vines, SimpleWeightedRandomList<Block> grasses) {
     super(settings);
@@ -107,11 +105,14 @@ public class IslandStructure extends Structure {
   }
 
   @SuppressWarnings("UnusedReturnValue")  // its a builder my dude
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     private static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
     private final IslandPlacement placement;
+
+    private Builder(IslandPlacement placement) {
+      this.placement = placement;
+    }
     private final SimpleWeightedRandomList.Builder<ResourceLocation> templates = SimpleWeightedRandomList.builder();
     private final SimpleWeightedRandomList.Builder<Holder<ConfiguredFeature<?,?>>> trees = SimpleWeightedRandomList.builder();
     private final SimpleWeightedRandomList.Builder<Block> grasses = SimpleWeightedRandomList.builder();

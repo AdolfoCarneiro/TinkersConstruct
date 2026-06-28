@@ -70,12 +70,26 @@ public class SlimeTreeConfig implements FeatureConfiguration {
 
     /** Sets the trunk */
     public Builder trunk(Block block) {
-      return trunkProvider(BlockStateProvider.simple(block));
+      this.trunkProvider = BlockStateProvider.simple(block);
+      return this;
     }
 
     /** Sets the leaves */
     public Builder leaves(Block block) {
-      return leavesProvider(BlockStateProvider.simple(block));
+      this.leavesProvider = BlockStateProvider.simple(block);
+      return this;
+    }
+
+    /** Sets the base height */
+    public Builder baseHeight(int baseHeight) {
+      this.baseHeight = baseHeight;
+      return this;
+    }
+
+    /** Sets the random height */
+    public Builder randomHeight(int randomHeight) {
+      this.randomHeight = randomHeight;
+      return this;
     }
 
     /** Sets the vines */

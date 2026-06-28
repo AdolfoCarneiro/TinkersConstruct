@@ -3,6 +3,7 @@ package slimeknights.tconstruct.world.worldgen.trees;
 import com.google.common.collect.ImmutableList;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -37,7 +38,7 @@ import java.util.function.Predicate;
 
 /** Extension of {@link MangroveRootPlacer} to allow more root variants */
 public class ExtraRootVariantPlacer extends MangroveRootPlacer {
-  public static final Codec<ExtraRootVariantPlacer> CODEC = RecordCodecBuilder.create(inst -> rootPlacerParts(inst).and(inst.group(
+  public static final MapCodec<ExtraRootVariantPlacer> CODEC = RecordCodecBuilder.mapCodec(inst -> rootPlacerParts(inst).and(inst.group(
     MangroveRootPlacement.CODEC.fieldOf("mangrove_root_placement").forGetter(p -> p.mangroveRootPlacement),
     RootVariant.CODEC.listOf().fieldOf("root_variants").forGetter(p -> p.rootVariants))).apply(inst, ExtraRootVariantPlacer::new));
 
@@ -100,7 +101,15 @@ public class ExtraRootVariantPlacer extends MangroveRootPlacer {
     /** Sets the root to a block */
     @CanIgnoreReturnValue
     public Builder rootBlock(Block block) {
-      return roots(BlockStateProvider.simple(block));
+      this.roots = BlockStateProvider.simple(block);
+      return this;
+    }
+
+    /** Sets the trunk offset */
+    @CanIgnoreReturnValue
+    public Builder trunkOffset(IntProvider trunkOffset) {
+      this.trunkOffset = trunkOffset;
+      return this;
     }
 
     /**
@@ -142,7 +151,8 @@ public class ExtraRootVariantPlacer extends MangroveRootPlacer {
     @SuppressWarnings("deprecation")
     @CanIgnoreReturnValue
     public Builder canGrowThroughTag(TagKey<Block> tag) {
-      return canGrowThrough(BuiltInRegistries.BLOCK.getOrCreateTag(tag));
+      this.canGrowThrough = BuiltInRegistries.BLOCK.getOrCreateTag(tag);
+      return this;
     }
 
     /** Builds the final placer */

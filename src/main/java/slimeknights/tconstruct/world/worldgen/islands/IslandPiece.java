@@ -15,7 +15,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -104,7 +103,7 @@ public class IslandPiece extends TemplateStructurePiece {
           if (plant.isPresent()) {
             Block block = plant.get();
             BlockState state = block.defaultBlockState();
-            if (block instanceof BushBlock bush && bush.canSurvive(state, level, pos)) {
+            if (state.canSurvive(level, pos)) {
               level.setBlock(pos, state, 2);
             }
           }
