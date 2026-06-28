@@ -45,8 +45,11 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
     SwappableToolTraitsModule::new);
 
   @Nullable
-  @Getter @Accessors(fluent = true)
   private final ResourceLocation key;
+
+  @Override
+  @Nullable
+  public ResourceLocation key() { return key; }
   private final String match;
   private final ModuleHook<ToolTraitHook> hook;
   private final Component component;

@@ -37,8 +37,12 @@ public enum OverburnModule implements ModifierModule, InventoryTickModifierHook,
 
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<OverburnModule>defaultHooks(ModifierHooks.INVENTORY_TICK, ModifierHooks.REMOVE);
 
-  @Getter
   private final SingletonLoader<OverburnModule> loader = new SingletonLoader<>(this);
+
+  @Override
+  public SingletonLoader<OverburnModule> getLoader() {
+    return loader;
+  }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

@@ -127,6 +127,11 @@ public abstract class FluidEffectContext {
       this.location = Objects.requireNonNullElse(location, target.position());
     }
 
+    @Override
+    public Vec3 getLocation() {
+      return location;
+    }
+
     /** @deprecated use {@link #builder(Level)} */
     @Deprecated(forRemoval = true)
     public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {
@@ -223,11 +228,14 @@ public abstract class FluidEffectContext {
   }
 
   @Accessors(fluent = true)
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @CanIgnoreReturnValue
   public static class Builder {
     /** Context level */
     private final Level level;
+
+    private Builder(Level level) {
+      this.level = level;
+    }
     private LivingEntity entity = null;
     private Player player = null;
     /** Projectile using the fluid */

@@ -25,8 +25,10 @@ import java.util.function.IntFunction;
  */
 @AllArgsConstructor
 public class MaxToolStat implements IToolStat<Integer> {
-  @Getter
   private final ToolStatId name;
+
+  @Override
+  public ToolStatId getName() { return name; }
   private final int defaultValue;
   private final IntFunction<Component> displayName;
   @Nullable

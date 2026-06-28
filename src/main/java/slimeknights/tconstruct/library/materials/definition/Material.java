@@ -15,8 +15,12 @@ public class Material implements IMaterial {
   @Getter
   private final int tier;
   /** Materials order within the tier, for sorting */
-  @Getter
   private final int sortOrder;
+
+  @Override
+  public int getSortOrder() {
+    return sortOrder;
+  }
 
   /** Material can be crafted into parts in the PartBuilder */
   @Getter

@@ -26,6 +26,11 @@ public enum EntityInteractFluidEffect implements FluidEffect<FluidEffectContext.
   private final SingletonLoader<EntityInteractFluidEffect> loader = new SingletonLoader<>(this);
 
   @Override
+  public SingletonLoader<EntityInteractFluidEffect> getLoader() {
+    return loader;
+  }
+
+  @Override
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Entity context, FluidAction action) {
     Player player = context.getPlayer();
     if (player != null) {

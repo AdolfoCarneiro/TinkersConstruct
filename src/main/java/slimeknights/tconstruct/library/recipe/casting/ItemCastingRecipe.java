@@ -70,13 +70,13 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
     return this.coolingTime;
   }
 
+  @Override
+  public int getCoolingTime() {
+    return this.coolingTime;
+  }
+
 
   /* JEI */
-
-  @Override
-  public ResourceLocation getRecipeId() {
-    return null;
-  }
 
   @Override
   public boolean hasCast() {

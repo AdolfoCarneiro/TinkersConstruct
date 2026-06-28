@@ -31,6 +31,9 @@ public class ToolTierStat implements IToolStat<Tier> {
   private final ToolStatId name;
 
   @Override
+  public ToolStatId getName() { return name; }
+
+  @Override
   public boolean supports(Item item) {
     return RegistryHelper.contains(TinkerTags.Items.HARVEST, item);
   }

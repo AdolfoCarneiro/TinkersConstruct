@@ -41,9 +41,10 @@ public sealed class MaterialRepairModule implements ModifierModule, MaterialRepa
   /** Amount to repair */
   protected int repairAmount;
   /** Conditions to apply this module */
-  @Getter
-  @Accessors(fluent = true)
   private final ModifierCondition<IToolStackView> condition;
+
+  @Override
+  public ModifierCondition<IToolStackView> condition() { return condition; }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

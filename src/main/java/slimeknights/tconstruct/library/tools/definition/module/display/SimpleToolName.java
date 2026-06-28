@@ -27,8 +27,12 @@ public enum SimpleToolName implements ToolModule, ToolNameHook.FromDefault {
   };
 
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SimpleToolName>defaultHooks(ToolHooks.DISPLAY_NAME);
-  @Getter
   private final RecordLoadable<SimpleToolName> loader = new SingletonLoader<>(this);
+
+  @Override
+  public RecordLoadable<SimpleToolName> getLoader() {
+    return loader;
+  }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

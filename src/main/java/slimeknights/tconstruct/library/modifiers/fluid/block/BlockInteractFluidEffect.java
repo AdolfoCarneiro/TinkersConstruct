@@ -36,6 +36,11 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
 
   private final SingletonLoader<BlockInteractFluidEffect> loader = new SingletonLoader<>(this);
 
+  @Override
+  public SingletonLoader<BlockInteractFluidEffect> getLoader() {
+    return loader;
+  }
+
   /** Damages the stack in the context if needed */
   private static void damageIfNeeded(UseOnContext context) {
     ItemStack stack = context.getItemInHand();

@@ -24,19 +24,21 @@ import javax.annotation.Nullable;
  */
 public class FloatToolStat implements INumericToolStat<Float> {
   /** Name of this tool stat */
-  @Getter
   private final ToolStatId name;
   /** Color for this stat type */
-  @Getter
   private final TextColor color;
   /** Gets the default value for this stat */
   private final float defaultValue;
   /** Min value for this stat */
-  @Getter
   private final float minValue;
   /** Max value for this stat */
-  @Getter
   private final float maxValue;
+
+  @Override
+  public ToolStatId getName() { return name; }
+  public TextColor getColor() { return color; }
+  public float getMinValue() { return minValue; }
+  public float getMaxValue() { return maxValue; }
   private final IJsonPredicate<Item> items;
 
   public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue, IJsonPredicate<Item> items) {

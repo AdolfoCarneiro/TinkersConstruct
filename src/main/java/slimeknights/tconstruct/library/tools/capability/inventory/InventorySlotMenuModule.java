@@ -30,8 +30,12 @@ public enum InventorySlotMenuModule implements ModifierModule, SlotStackModifier
 
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventorySlotMenuModule>defaultHooks(ModifierHooks.SLOT_STACK);
 
-  @Getter
   private final SingletonLoader<InventorySlotMenuModule> loader = new SingletonLoader<>(this);
+
+  @Override
+  public SingletonLoader<InventorySlotMenuModule> getLoader() {
+    return loader;
+  }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
