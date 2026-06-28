@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.fluid;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -160,15 +161,30 @@ public record FluidMobEffect(MobEffect effect, int time, int level, @Nullable Li
       return this;
     }
 
+    /** Adds an effect to the builder with the passed cures. */
+    public Builder effectCure(Holder<MobEffect> effect, int time, int level, Item... curativeItems) {
+      return effectCure(effect.value(), time, level, curativeItems);
+    }
+
     /** Adds an effect to the builder with default cures */
     public Builder effect(MobEffect effect, int time, int level) {
       effects.add(new FluidMobEffect(effect, time, level, null));
       return this;
     }
 
+    /** Adds an effect to the builder with default cures */
+    public Builder effect(Holder<MobEffect> effect, int time, int level) {
+      return effect(effect.value(), time, level);
+    }
+
     /** Adds an effect to the builder */
     public Builder effect(MobEffect effect, int time) {
       return effect(effect, time, 1);
+    }
+
+    /** Adds an effect to the builder */
+    public Builder effect(Holder<MobEffect> effect, int time) {
+      return effect(effect.value(), time, 1);
     }
 
     private List<FluidMobEffect> getEffects() {

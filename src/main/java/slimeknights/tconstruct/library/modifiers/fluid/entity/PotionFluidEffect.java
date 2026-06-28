@@ -51,7 +51,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
         // report whichever effect used the most
         float used = 0;
         for (MobEffectInstance instance : effects) {
-          MobEffect effect = instance.getEffect();
+          MobEffect effect = instance.getEffect().value();
           if (effect.isInstantenous()) {
             // instant effects just apply full value always
             used = level.value();
