@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.material.Fluid;
+import java.util.List;
 import net.neoforged.neoforge.common.conditions.OrCondition;
 import slimeknights.mantle.recipe.data.IRecipeHelper;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -111,7 +112,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
 
   /** Adds recipes to melt and cast a compat material of ingot size with a second tag allowed to make the material exist */
   default void compatMeltingCasting(RecipeOutput consumer, MaterialId material, FluidObject<?> fluid, String altTag, String folder) {
-    materialMeltingCasting(withCondition(consumer, new OrCondition(tagCondition("ingots/" + material.getPath()), tagCondition("ingots/" + altTag))), material, fluid, folder);
+    materialMeltingCasting(withCondition(consumer, new OrCondition(List.of(tagCondition("ingots/" + material.getPath()), tagCondition("ingots/" + altTag)))), material, fluid, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

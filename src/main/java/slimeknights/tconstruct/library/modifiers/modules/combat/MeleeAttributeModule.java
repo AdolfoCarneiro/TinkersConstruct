@@ -113,10 +113,6 @@ public record MeleeAttributeModule(String unique, Attribute attribute, ResourceL
     return new Builder(attribute, operation);
   }
 
-  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
-  }
-
   @Setter
   @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PROTECTED)

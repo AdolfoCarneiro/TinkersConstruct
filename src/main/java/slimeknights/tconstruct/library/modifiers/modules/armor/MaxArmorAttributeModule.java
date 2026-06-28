@@ -103,10 +103,6 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
     return new Builder(attribute, operation);
   }
 
-  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
-  }
-
   public static Builder builder(net.minecraft.core.Holder<Attribute> attribute, Operation operation) {
     return new Builder(attribute.value(), operation);
   }
