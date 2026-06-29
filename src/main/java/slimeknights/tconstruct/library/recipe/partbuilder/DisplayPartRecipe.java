@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -13,8 +11,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import java.util.List;
 
 /** Part builder recipe for JEI display with full control over display. */
-@RequiredArgsConstructor
-@Getter
 public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   /** ID of recipe; should generally match a real recipe JSON */
   private final ResourceLocation id;
@@ -31,8 +27,52 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   /** List of items to display for the result */
   private final List<ItemStack> resultItems;
 
+  public DisplayPartRecipe(ResourceLocation id, MaterialVariant material, Pattern pattern, List<ItemStack> patternItems, int cost, List<ItemStack> materialItems, List<ItemStack> resultItems) {
+    this.id = id;
+    this.material = material;
+    this.pattern = pattern;
+    this.patternItems = patternItems;
+    this.cost = cost;
+    this.materialItems = materialItems;
+    this.resultItems = resultItems;
+  }
+
 
   /* Required part builder methods */
+
+  public ResourceLocation getId() {
+    return id;
+  }
+
+  @Override
+  public MaterialVariant getMaterial() {
+    return material;
+  }
+
+  @Override
+  public Pattern getPattern() {
+    return pattern;
+  }
+
+  @Override
+  public List<ItemStack> getPatternItems() {
+    return patternItems;
+  }
+
+  @Override
+  public int getCost() {
+    return cost;
+  }
+
+  @Override
+  public List<ItemStack> getMaterialItems() {
+    return materialItems;
+  }
+
+  @Override
+  public List<ItemStack> getResultItems() {
+    return resultItems;
+  }
 
   @Override
   public boolean partialMatch(IPartBuilderContainer inv) {

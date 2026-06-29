@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
@@ -34,7 +33,6 @@ import java.util.List;
 /**
  * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
  */
-@RequiredArgsConstructor
 public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   public static final RecordLoadable<ContainerFillingRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
@@ -42,16 +40,26 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
     Loadables.ITEM.requiredField("container", (ContainerFillingRecipe r) -> r.container),
     ContainerFillingRecipe::new);
 
-  @Getter
   private final TypeAwareRecipeSerializer<?> serializer;
-  @Getter
   private final String group;
   private final int fluidAmount;
   private final Item container;
 
+  public ContainerFillingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, int fluidAmount, Item container) {
+    this.serializer = serializer;
+    this.group = group;
+    this.fluidAmount = fluidAmount;
+    this.container = container;
+  }
+
   @Override
-  public net.minecraft.world.item.crafting.RecipeSerializer<?> getSerializer() {
+  public TypeAwareRecipeSerializer<?> getSerializer() {
     return serializer;
+  }
+
+  @Override
+  public String getGroup() {
+    return group;
   }
 
   @Override
@@ -120,7 +128,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   private List<DisplayCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<DisplayCastingRecipe> getRecipes(net.minecraft.core.HolderLookup.Provider access) {
+  public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = BuiltInRegistries.FLUID.stream()

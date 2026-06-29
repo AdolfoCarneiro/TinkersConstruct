@@ -97,6 +97,10 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected List<ItemStack> hiddenInputs;
   protected List<ItemStack> displayOutput;
 
+  public IModifiable getOutput() {
+    return output;
+  }
+
   @Deprecated(forRemoval = true)
   public ToolBuildingRecipe(String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
     this(group, output, outputCount, layoutSlot, ingredients, null, List.of());

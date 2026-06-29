@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -65,7 +66,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
 
   /* JEI display */
   @Override
-  public List<IDisplayableCastingRecipe> getRecipes(net.minecraft.core.HolderLookup.Provider access) {
+  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       RecipeType<?> type = getType();
       ImmutableList.Builder<IDisplayableCastingRecipe> recipes = ImmutableList.builder();

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.common.recipe;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
@@ -61,10 +60,13 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
   }
 
   /** Logic to respond properly to late running of the client */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class DuelSidedListener implements BooleanConsumer {
     private final Runnable clearCache;
     private boolean clearQueued = false;
+
+    private DuelSidedListener(Runnable clearCache) {
+      this.clearCache = clearCache;
+    }
 
     @Override
     public void accept(boolean client) {

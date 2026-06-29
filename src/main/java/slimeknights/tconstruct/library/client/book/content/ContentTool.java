@@ -9,16 +9,16 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.client.resources.language.I18n;
-import net.neoforged.neoforge.common.crafting.IShapedRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
@@ -158,22 +158,23 @@ public class ContentTool extends PageContent {
       List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
 
       // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
-      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                 .flatMap(world -> {
-                                                   RegistryAccess access = world.registryAccess();
-                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
-                                                        .findFirst();
-                                                 })
-                                                 .orElse(null);
+      CraftingRecipe recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                      .flatMap(world -> {
+                                        RegistryAccess access = world.registryAccess();
+                                        return world.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).stream()
+                                                    .map(RecipeHolder::value)
+                                                    .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+                                                    .findFirst();
+                                      })
+                                      .orElse(null);
       if (recipe != null) {
         // parts is just the items in the recipe
         this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
         // if we have a shaped recipe, display slots in order
-        if (recipe instanceof IShapedRecipe<?> shaped) {
-          int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
-          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
+        if (recipe instanceof ShapedRecipe shaped) {
+          int width = Mth.clamp(shaped.getWidth() - 1, 0, 2);
+          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getHeight() - 1, 0, 2)][width];
           this.slotPos = SLOTS_WIDTH[width];
         }
       } else {
@@ -183,7 +184,8 @@ public class ContentTool extends PageContent {
         }
         // fetch the tool building recipe for extra ingredients
         List<Ingredient> extraRequirements = Optional.ofNullable(Minecraft.getInstance().level)
-                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+                                                     .flatMap(world -> world.getRecipeManager().getAllRecipesFor(TinkerRecipeTypes.TINKER_STATION.get()).stream()
+                                                                            .map(RecipeHolder::value)
                                                                             .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
                                                                             .map(r -> ((ToolBuildingRecipe)r).getExtraRequirements())
                                                                             .findFirst()).orElse(List.of());
@@ -303,6 +305,11 @@ public class ContentTool extends PageContent {
     @Override
     public Item asItem() {
       return item;
+    }
+
+    @Override
+    public ItemStack getRenderTool() {
+      return renderTool;
     }
 
     @Override
