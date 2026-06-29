@@ -82,6 +82,11 @@ public record MiningCapacityModule(LevelingInt grant, boolean before, @Nullable 
     /** If true, runs in the before hook instead of the after */
     private boolean before = false;
 
+    public Builder before(boolean before) {
+      this.before = before;
+      return this;
+    }
+
     /** Sets the builder to run before mining. */
     public Builder before() {
       return before(true);

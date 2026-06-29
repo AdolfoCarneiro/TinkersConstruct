@@ -117,6 +117,16 @@ public record ConditionalMeleeDamageModule(IJsonPredicate<LivingEntity> target, 
       super(MeleeFormula.VARIABLES);
     }
 
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
+
+    public Builder attacker(IJsonPredicate<LivingEntity> attacker) {
+      this.attacker = attacker;
+      return this;
+    }
+
     @Override
     protected ConditionalMeleeDamageModule build(ModifierFormula formula) {
       return new ConditionalMeleeDamageModule(target, attacker, new MeleeFormula(formula, variables, percent), condition);

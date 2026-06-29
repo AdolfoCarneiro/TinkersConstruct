@@ -129,6 +129,16 @@ public record ConditionalMiningSpeedModule(
       super(MiningSpeedFormula.VARIABLES);
     }
 
+    public Builder blocks(IJsonPredicate<BlockState> blocks) {
+      this.blocks = blocks;
+      return this;
+    }
+
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
     /** Sets this to a percent boost formula */
     public Builder allowIneffective() {
       this.requireEffective = false;

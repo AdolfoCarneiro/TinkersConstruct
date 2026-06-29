@@ -84,6 +84,21 @@ public record SlingForceModule(IJsonPredicate<LivingEntity> target, IJsonPredica
       super(ConditionalStatFormula.VARIABLES);
     }
 
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
+
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
+    public Builder sling(IJsonPredicate<ModifierId> sling) {
+      this.sling = sling;
+      return this;
+    }
+
     @Override
     protected SlingForceModule build(ModifierFormula formula) {
       return new SlingForceModule(target, holder, sling, new ConditionalStatFormula(formula, variables, percent), condition);

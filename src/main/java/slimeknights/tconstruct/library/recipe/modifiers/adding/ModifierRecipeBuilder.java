@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -60,6 +61,15 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    */
   public ModifierRecipeBuilder addInput(Ingredient ingredient) {
     return addInput(SizedIngredient.of(ingredient));
+  }
+
+  /**
+   * Adds a custom ingredient to the recipe
+   * @param ingredient  Input
+   * @return  Builder instance
+   */
+  public ModifierRecipeBuilder addInput(ICustomIngredient ingredient) {
+    return addInput(ingredient.toVanilla());
   }
 
   /**

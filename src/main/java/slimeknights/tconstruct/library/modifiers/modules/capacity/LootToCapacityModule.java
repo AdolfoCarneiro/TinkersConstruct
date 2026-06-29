@@ -110,6 +110,11 @@ public record LootToCapacityModule(Ingredient consume, int amount, LevelingValue
     @Setter
     private int amount;
 
+    public Builder amount(int amount) {
+      this.amount = amount;
+      return this;
+    }
+
     @Override
     public LootToCapacityModule amount(float flat, float eachLevel) {
       return new LootToCapacityModule(consume, amount, new LevelingValue(flat, eachLevel), owner, condition);

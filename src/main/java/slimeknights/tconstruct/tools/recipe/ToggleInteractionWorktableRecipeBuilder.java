@@ -21,6 +21,15 @@ import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 public class ToggleInteractionWorktableRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ToggleInteractionWorktableRecipeBuilder> {
   private Ingredient tools = AbstractWorktableRecipe.DEFAULT_TOOLS;
 
+  public static ToggleInteractionWorktableRecipeBuilder builder() {
+    return new ToggleInteractionWorktableRecipeBuilder();
+  }
+
+  public ToggleInteractionWorktableRecipeBuilder tools(Ingredient tools) {
+    this.tools = tools;
+    return this;
+  }
+
   @Override
   public void save(RecipeOutput consumer) {
     save(consumer, Loadables.ITEM.getKey(tools.getItems()[0].getItem()));

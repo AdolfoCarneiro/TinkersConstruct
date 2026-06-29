@@ -131,6 +131,31 @@ public record RestoreLostHealthModule(LevelingValue percent, LevelingInt effectL
 
     private Builder() {}
 
+    public Builder durabilityUsage(LevelingInt durabilityUsage) {
+      this.durabilityUsage = durabilityUsage;
+      return this;
+    }
+
+    public Builder chance(LevelingValue chance) {
+      this.chance = chance;
+      return this;
+    }
+
+    public Builder effectLevel(LevelingInt effectLevel) {
+      this.effectLevel = effectLevel;
+      return this;
+    }
+
+    public Builder attacker(IJsonPredicate<LivingEntity> attacker) {
+      this.attacker = attacker;
+      return this;
+    }
+
+    public Builder defender(IJsonPredicate<LivingEntity> defender) {
+      this.defender = defender;
+      return this;
+    }
+
     @Override
     public RestoreLostHealthModule amount(float flat, float eachLevel) {
       return new RestoreLostHealthModule(new LevelingValue(flat, eachLevel), effectLevel, durabilityUsage, chance, attacker, defender, condition);

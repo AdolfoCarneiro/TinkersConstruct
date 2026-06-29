@@ -115,6 +115,26 @@ public record DepthProtectionModule(IJsonPredicate<DamageSource> source, IJsonPr
     private float baselineHeight;
     private float neutralRange;
 
+    public Builder source(IJsonPredicate<DamageSource> source) {
+      this.source = source;
+      return this;
+    }
+
+    public Builder entity(IJsonPredicate<LivingEntity> entity) {
+      this.entity = entity;
+      return this;
+    }
+
+    public Builder baselineHeight(float baselineHeight) {
+      this.baselineHeight = baselineHeight;
+      return this;
+    }
+
+    public Builder neutralRange(float neutralRange) {
+      this.neutralRange = neutralRange;
+      return this;
+    }
+
     @Override
     public DepthProtectionModule amount(float flat, float eachLevel) {
       return new DepthProtectionModule(source, entity, baselineHeight, neutralRange, new LevelingValue(flat, eachLevel), condition);

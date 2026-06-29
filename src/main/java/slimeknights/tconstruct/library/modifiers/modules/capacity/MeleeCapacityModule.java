@@ -91,6 +91,21 @@ public record MeleeCapacityModule(IJsonPredicate<LivingEntity> target, IJsonPred
     /** If true, runs in the before hook instead of the after */
     private boolean before = false;
 
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
+
+    public Builder attacker(IJsonPredicate<LivingEntity> attacker) {
+      this.attacker = attacker;
+      return this;
+    }
+
+    public Builder before(boolean before) {
+      this.before = before;
+      return this;
+    }
+
     /** Sets the builder to run before mining. */
     public Builder before() {
       return before(true);

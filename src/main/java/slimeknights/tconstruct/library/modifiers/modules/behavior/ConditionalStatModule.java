@@ -104,6 +104,11 @@ public record ConditionalStatModule(INumericToolStat<?> stat, IJsonPredicate<Liv
       this.stat = stat;
     }
 
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
     @Override
     protected ConditionalStatModule build(ModifierFormula formula) {
       return new ConditionalStatModule(stat, holder, new ConditionalStatFormula(formula, variables, percent), condition);

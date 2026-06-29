@@ -123,6 +123,11 @@ public record ToolActionTransformModule(ItemAbility action, SoundEvent sound, bo
     @Accessors(fluent = true)
     private int eventId = -1;
 
+    public Builder eventId(int eventId) {
+      this.eventId = eventId;
+      return this;
+    }
+
     /** Sets the module to require the block above to be empty */
     public Builder requireGround() {
       this.requireGround = true;

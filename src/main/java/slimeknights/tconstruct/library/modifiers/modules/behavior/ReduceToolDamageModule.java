@@ -153,6 +153,16 @@ public record ReduceToolDamageModule(IJsonPredicate<LivingEntity> holder, IJsonP
       return this;
     }
 
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
+    public Builder cause(IJsonPredicate<ModifierId> cause) {
+      this.cause = cause;
+      return this;
+    }
+
     @Override
     protected ReduceToolDamageModule build(ModifierFormula formula) {
       return new ReduceToolDamageModule(holder, cause, new ConditionalStatFormula(formula, variables, percent), reinforcedTooltip, condition);

@@ -209,6 +209,36 @@ public interface CounterModule extends ModifierModule, OnAttackedModifierHook, C
       return random(LevelingValue.flat(value));
     }
 
+    public Builder<T> chance(LevelingValue chance) {
+      this.chance = chance;
+      return this;
+    }
+
+    public Builder<T> constant(LevelingValue constant) {
+      this.constant = constant;
+      return this;
+    }
+
+    public Builder<T> random(LevelingValue random) {
+      this.random = random;
+      return this;
+    }
+
+    public Builder<T> durabilityUsage(int durabilityUsage) {
+      this.durabilityUsage = durabilityUsage;
+      return this;
+    }
+
+    public Builder<T> defender(IJsonPredicate<LivingEntity> defender) {
+      this.defender = defender;
+      return this;
+    }
+
+    public Builder<T> attacker(IJsonPredicate<LivingEntity> attacker) {
+      this.attacker = attacker;
+      return this;
+    }
+
     /** Builds the module */
     public T build() {
       return constructor.apply(chance, constant, random, durabilityUsage, defender, attacker, condition);

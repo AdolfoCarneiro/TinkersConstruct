@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
@@ -465,7 +466,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       ConditionalMiningSpeedModule.builder()
         .customVariable("bonus", new EntityConditionalStatVariable(new ConditionalEntityVariable(
           LivingEntityPredicate.EYES_IN_WATER,
-          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
+          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(BuiltInRegistries.ENCHANTMENT.getValue(Enchantments.AQUA_AFFINITY.location())), 8, 40),
           new ConditionalEntityVariable(LivingEntityPredicate.RAINING, 4, 0)
         ), 8)).formula()
         .variable(MULTIPLIER).customVariable("bonus").multiply()
@@ -538,7 +539,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .customVariable("knockback_resistance", new EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.KNOCKBACK_RESISTANCE), 0))
         .subtract().multiply()
         // knockback multiplier is a simple multiplier, though we skip if the knockback sync is disabled
-        .customVariable("knockback_multiplier", new EntityConditionalStatVariable(new AttributeEntityVariable(TinkerAttributes.KNOCKBACK_MULTIPLIER), 1))
+        .customVariable("knockback_multiplier", new EntityConditionalStatVariable(new AttributeEntityVariable(TinkerAttributes.KNOCKBACK_MULTIPLIER.value()), 1))
         .multiply()
         // finally, add to the base effect
         .variable(VALUE).add().build())

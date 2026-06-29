@@ -46,6 +46,10 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
   @Getter
   private final ResourceLocation id;
 
+  public ArmorTrimRecipe() {
+    this(TinkerModifiers.trim.getId());
+  }
+
   public ArmorTrimRecipe(ResourceLocation id) {
     this.id = id;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.trim);

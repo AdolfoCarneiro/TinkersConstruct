@@ -43,6 +43,10 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
   @Getter
   private final ResourceLocation id;
 
+  public BannerModifierRecipe() {
+    this(TinkerModifiers.banner.getId());
+  }
+
   public BannerModifierRecipe(ResourceLocation id) {
     this.id = id;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.banner);

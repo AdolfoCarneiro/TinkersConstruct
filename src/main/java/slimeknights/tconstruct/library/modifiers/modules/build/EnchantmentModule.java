@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -72,6 +73,17 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   }
 
   /**
+   * Creates a builder for a constant enchantment
+   */
+  static Builder builder(ResourceKey<Enchantment> enchantment) {
+    Enchantment value = net.minecraft.core.registries.BuiltInRegistries.ENCHANTMENT.getValue(enchantment.location());
+    if (value == null) {
+      throw new IllegalArgumentException("Unknown enchantment " + enchantment.location());
+    }
+    return builder(value);
+  }
+
+  /**
    * Shared builder instance
    */
   @SuppressWarnings("unused") // API
@@ -88,6 +100,21 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
     @Deprecated(forRemoval = true)
     public Builder level(int level) {
       return lootingLevel(LevelingInt.eachLevel(level));
+    }
+
+    public Builder lootingLevel(LevelingInt lootingLevel) {
+      this.lootingLevel = lootingLevel;
+      return this;
+    }
+
+    public Builder block(IJsonPredicate<BlockState> block) {
+      this.block = block;
+      return this;
+    }
+
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
     }
 
     /** Builds a module for a constant enchantment */

@@ -177,6 +177,66 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       return this;
     }
 
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
+
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
+    public Builder level(RandomLevelingValue level) {
+      this.level = level;
+      return this;
+    }
+
+    public Builder time(RandomLevelingValue time) {
+      this.time = time;
+      return this;
+    }
+
+    public Builder chance(LevelingValue chance) {
+      this.chance = chance;
+      return this;
+    }
+
+    public Builder applyBeforeMelee(boolean applyBeforeMelee) {
+      this.applyBeforeMelee = applyBeforeMelee;
+      return this;
+    }
+
+    public Builder directDamage(BooleanPredicate directDamage) {
+      this.directDamage = directDamage;
+      return this;
+    }
+
+    public Builder damageSource(IJsonPredicate<DamageSource> damageSource) {
+      this.damageSource = damageSource;
+      return this;
+    }
+
+    public Builder counterDurabilityUsage(int counterDurabilityUsage) {
+      this.counterDurabilityUsage = counterDurabilityUsage;
+      return this;
+    }
+
+    public Builder targetSelf(boolean targetSelf) {
+      this.targetSelf = targetSelf;
+      return this;
+    }
+
+    public Builder isAoe(BooleanPredicate isAoe) {
+      this.isAoe = isAoe;
+      return this;
+    }
+
+    public Builder isProjectile(BooleanPredicate isProjectile) {
+      this.isProjectile = isProjectile;
+      return this;
+    }
+
 
     /** Builds the effect */
     private ModifierMobEffect buildEffect() {

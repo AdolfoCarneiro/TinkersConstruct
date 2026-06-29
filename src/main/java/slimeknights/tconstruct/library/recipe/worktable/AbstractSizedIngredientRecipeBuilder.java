@@ -4,6 +4,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 
@@ -35,6 +36,15 @@ public abstract class AbstractSizedIngredientRecipeBuilder<T extends AbstractSiz
    */
   public T addInput(Ingredient ingredient) {
     return addInput(SizedIngredient.of(ingredient));
+  }
+
+  /**
+   * Adds an input to the recipe
+   * @param ingredient  Custom input
+   * @return  Builder instance
+   */
+  public T addInput(ICustomIngredient ingredient) {
+    return addInput(ingredient.toVanilla());
   }
 
   /**

@@ -170,6 +170,16 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
       super(PowerFormula.VARIABLES);
     }
 
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
+
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
     @Override
     protected ConditionalPowerModule build(ModifierFormula formula) {
       return new ConditionalPowerModule(target, holder, new PowerFormula(formula, variables, percent), condition.modifierLevel());

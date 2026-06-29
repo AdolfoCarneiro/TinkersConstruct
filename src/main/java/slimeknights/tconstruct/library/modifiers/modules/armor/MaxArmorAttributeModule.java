@@ -124,6 +124,21 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
       return this;
     }
 
+    public Builder unique(String unique) {
+      this.unique = unique;
+      return this;
+    }
+
+    public Builder heldTag(TagKey<Item> heldTag) {
+      this.heldTag = heldTag;
+      return this;
+    }
+
+    public Builder tooltipStyle(TooltipStyle tooltipStyle) {
+      this.tooltipStyle = tooltipStyle;
+      return this;
+    }
+
     /**
      * Sets the unique string using a resource location
      */

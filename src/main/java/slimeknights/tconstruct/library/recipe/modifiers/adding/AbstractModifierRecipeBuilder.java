@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -50,6 +51,15 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    */
   public T setTools(Ingredient tools) {
     return setTools(tools, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
+  }
+
+  /**
+   * Sets the list of tools this modifier can be applied to
+   * @param tools  Custom ingredient tools list
+   * @return  Builder instance
+   */
+  public T setTools(ICustomIngredient tools) {
+    return setTools(tools.toVanilla());
   }
 
   /**

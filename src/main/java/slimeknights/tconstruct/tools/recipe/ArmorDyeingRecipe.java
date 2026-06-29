@@ -40,6 +40,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   @Getter
   private final ResourceLocation id;
 
+  public ArmorDyeingRecipe() {
+    this(TinkerModifiers.dyed.getId());
+  }
+
   public ArmorDyeingRecipe(ResourceLocation id) {
     this.id = id;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.dyed);

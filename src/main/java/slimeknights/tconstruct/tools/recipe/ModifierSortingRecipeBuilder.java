@@ -13,6 +13,9 @@ import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientR
 /** Builder for modifier sorting recipes */
 @RequiredArgsConstructor(staticName = "sorting")
 public class ModifierSortingRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierSortingRecipeBuilder> {
+  public static ModifierSortingRecipeBuilder sorting() {
+    return new ModifierSortingRecipeBuilder();
+  }
 
   @Override
   public void save(RecipeOutput consumer) {

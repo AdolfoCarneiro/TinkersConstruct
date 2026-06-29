@@ -25,6 +25,15 @@ public class EnchantmentConvertingRecipeBuilder extends AbstractSizedIngredientR
   @Accessors(fluent = true)
   private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
 
+  public static EnchantmentConvertingRecipeBuilder converting(String name, boolean matchBook) {
+    return new EnchantmentConvertingRecipeBuilder(name, matchBook);
+  }
+
+  public EnchantmentConvertingRecipeBuilder modifierPredicate(IJsonPredicate<ModifierId> modifierPredicate) {
+    this.modifierPredicate = modifierPredicate;
+    return this;
+  }
+
   /**
    * If true, returns the unenchanted form of the item as an extra result
    */

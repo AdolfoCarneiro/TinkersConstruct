@@ -265,6 +265,21 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
 
     private Builder() {}
 
+    public Builder temperature(LevelingInt temperature) {
+      this.temperature = temperature;
+      return this;
+    }
+
+    public Builder nuggetsPerMetal(LevelingInt nuggetsPerMetal) {
+      this.nuggetsPerMetal = nuggetsPerMetal;
+      return this;
+    }
+
+    public Builder shardsPerGem(LevelingInt shardsPerGem) {
+      this.shardsPerGem = shardsPerGem;
+      return this;
+    }
+
     /** Builds the final module */
     public MeltingModule build() {
       return new MeltingModule(temperature, nuggetsPerMetal, shardsPerGem, condition);

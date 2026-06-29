@@ -93,6 +93,21 @@ public record TeleportDodgeModule(IJsonPredicate<LivingEntity> defender, IJsonPr
 
     private Builder() {}
 
+    public Builder defender(IJsonPredicate<LivingEntity> defender) {
+      this.defender = defender;
+      return this;
+    }
+
+    public Builder damageSource(IJsonPredicate<DamageSource> damageSource) {
+      this.damageSource = damageSource;
+      return this;
+    }
+
+    public Builder chance(LevelingValue chance) {
+      this.chance = chance;
+      return this;
+    }
+
     @Override
     public TeleportDodgeModule amount(int flat, int eachLevel) {
       return new TeleportDodgeModule(defender, damageSource, chance, new LevelingInt(flat, eachLevel), condition);

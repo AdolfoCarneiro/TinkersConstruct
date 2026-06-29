@@ -180,6 +180,26 @@ public record ProjectileExplosionModule(LevelingValue radius, float eflnBonus, L
       return blockInteraction(BlockInteraction.DESTROY);
     }
 
+    public Builder eflnBonus(float eflnBonus) {
+      this.eflnBonus = eflnBonus;
+      return this;
+    }
+
+    public Builder knockback(LevelingValue knockback) {
+      this.knockback = knockback;
+      return this;
+    }
+
+    public Builder placeFire(boolean placeFire) {
+      this.placeFire = placeFire;
+      return this;
+    }
+
+    public Builder blockInteraction(BlockInteraction blockInteraction) {
+      this.blockInteraction = blockInteraction;
+      return this;
+    }
+
     /** Sets this to place fire */
     public Builder placeFire() {
       return placeFire(true);

@@ -254,6 +254,26 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
       return this;
     }
 
+    public Builder damageType(DamageTypePair damageType) {
+      this.damageType = damageType;
+      return this;
+    }
+
+    public Builder damageMultiplier(float damageMultiplier) {
+      this.damageMultiplier = damageMultiplier;
+      return this;
+    }
+
+    public Builder durability(LevelingInt durability) {
+      this.durability = durability;
+      return this;
+    }
+
+    public Builder sound(SoundEvent sound) {
+      this.sound = sound;
+      return this;
+    }
+
     /** Creates a new fireball option */
     public Fireball fireball(Ingredient match) {
       return new Fireball(match);
@@ -290,6 +310,16 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
         for (ModifierId modifier : modifiers) {
           this.ammoModifiers.add(new ModifierEntry(modifier, 1));
         }
+        return this;
+      }
+
+      public Fireball damageType(DamageTypePair damageType) {
+        this.damageType = damageType;
+        return this;
+      }
+
+      public Fireball damageMultiplier(float damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
         return this;
       }
 

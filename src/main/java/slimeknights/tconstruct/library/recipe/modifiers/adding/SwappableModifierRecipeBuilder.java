@@ -32,6 +32,11 @@ public class SwappableModifierRecipeBuilder extends ModifierRecipeBuilder {
     return modifier(modifier.getId(), value);
   }
 
+  public SwappableModifierRecipeBuilder variantFormatter(VariantFormatter variantFormatter) {
+    this.variantFormatter = variantFormatter;
+    return this;
+  }
+
   @Override
   @Deprecated
   public ModifierRecipeBuilder setMinLevel(int level) {

@@ -118,6 +118,16 @@ public record AdjustDamageModule(ProtectionFormula formula, IJsonPredicate<Livin
       return source(DamageSourcePredicate.and(sources));
     }
 
+    public Builder holder(IJsonPredicate<LivingEntity> holder) {
+      this.holder = holder;
+      return this;
+    }
+
+    public Builder source(IJsonPredicate<DamageSource> source) {
+      this.source = source;
+      return this;
+    }
+
     @Override
     protected AdjustDamageModule build(ModifierFormula formula) {
       return new AdjustDamageModule(new ProtectionFormula(formula, variables, percent), holder, source, tooltipValue, condition);

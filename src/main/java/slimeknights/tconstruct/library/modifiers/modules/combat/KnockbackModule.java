@@ -86,6 +86,16 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
       super(FORMULA.variables());
     }
 
+    public Builder entity(IJsonPredicate<LivingEntity> entity) {
+      this.entity = entity;
+      return this;
+    }
+
+    public Builder projectile(ProjectilePredicate projectile) {
+      this.projectile = projectile;
+      return this;
+    }
+
     @Override
     protected KnockbackModule build(ModifierFormula formula) {
       return new KnockbackModule(entity, formula, projectile, condition);
