@@ -7,9 +7,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEntity;
@@ -24,9 +24,9 @@ public class UpdateCraftingRecipePacket implements CustomPacketPayload {
   private final BlockPos pos;
   private final ResourceLocation recipe;
 
-  public UpdateCraftingRecipePacket(BlockPos pos, CraftingRecipe recipe) {
+  public UpdateCraftingRecipePacket(BlockPos pos, RecipeHolder<CraftingRecipe> recipe) {
     this.pos = pos;
-    this.recipe = recipe.getId();
+    this.recipe = recipe.id();
   }
 
   public UpdateCraftingRecipePacket(RegistryFriendlyByteBuf buffer) {
@@ -52,7 +52,10 @@ public class UpdateCraftingRecipePacket implements CustomPacketPayload {
       Level world = Minecraft.getInstance().level;
       if (world != null) {
         BlockEntityHelper.get(CraftingStationBlockEntity.class, world, packet.pos).ifPresent(te ->
-          RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, CraftingRecipe.class).ifPresent(te::updateRecipe));
+          world.getRecipeManager().byKey(packet.recipe)
+               .filter(recipe -> recipe.value() instanceof CraftingRecipe)
+               .map(recipe -> (RecipeHolder<CraftingRecipe>)recipe)
+               .ifPresent(te::updateRecipe));
       }
     }
   }

@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 
 import javax.annotation.Nullable;
@@ -11,7 +8,6 @@ import java.util.function.Supplier;
 /** This class handles lazy loading of a material, as the times recipes load is too soon to fetch material objects */
 public class LazyMaterial implements Supplier<IMaterial> {
   /** ID to fetch */
-  @Getter
   private final MaterialId id;
   /** Cached material fetched from the registry */
   private IMaterial material;
@@ -23,6 +19,10 @@ public class LazyMaterial implements Supplier<IMaterial> {
   protected LazyMaterial(IMaterial material) {
     this.id = material.getIdentifier();
     this.material = material;
+  }
+
+  public MaterialId getId() {
+    return id;
   }
 
   /** Creates a new lazy material instance */

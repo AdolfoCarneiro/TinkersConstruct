@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tables.block.entity.inventory;
 
 import com.google.common.base.Preconditions;
-import lombok.Getter;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +17,7 @@ import java.util.List;
  */
 public class CraftingContainerWrapper implements CraftingContainer {
   private final Container crafter;
-  @Getter
   private final int width;
-  @Getter
   private final int height;
   public CraftingContainerWrapper(Container crafter, int width, int height) {
     Preconditions.checkArgument(crafter.getContainerSize() == width * height, "Invalid width and height for inventroy size");
@@ -29,6 +27,21 @@ public class CraftingContainerWrapper implements CraftingContainer {
   }
 
   /** Inventory redirection */
+
+  @Override
+  public int getWidth() {
+    return width;
+  }
+
+  @Override
+  public int getHeight() {
+    return height;
+  }
+
+  @Override
+  public CraftingInput asCraftInput() {
+    return CraftingInput.of(width, height, getItems());
+  }
 
   @Override
   public ItemStack getItem(int index) {

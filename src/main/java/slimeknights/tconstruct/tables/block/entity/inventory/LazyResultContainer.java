@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block.entity.inventory;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -12,9 +11,12 @@ import java.util.Objects;
  * This class represents an output slot inventory for a crafting inventory.
  * It will calculate the result when requested based on the methods in {@link ILazyCrafter}, and update other slots on recipe take
  */
-@RequiredArgsConstructor
 public class LazyResultContainer implements Container {
   private final ILazyCrafter crafter;
+
+  public LazyResultContainer(ILazyCrafter crafter) {
+    this.crafter = crafter;
+  }
 
   /** Cache of the last result */
   @Nullable
