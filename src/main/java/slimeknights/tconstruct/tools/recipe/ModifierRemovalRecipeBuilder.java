@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.recipe;
 
 import com.mojang.datafixers.util.Function6;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,7 +23,6 @@ import java.util.List;
 
 
 /** Builder for {@link ModifierRemovalRecipe} and {@link ExtractModifierRecipe} */
-@RequiredArgsConstructor(staticName = "removal")
 public class ModifierRemovalRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierRemovalRecipeBuilder> {
   private final Function6<ResourceLocation,String,SizedIngredient,List<SizedIngredient>,List<ItemStack>,IJsonPredicate<ModifierId>,ModifierRemovalRecipe> constructor;
   private final List<ItemStack> leftovers = new ArrayList<>();
@@ -36,12 +34,30 @@ public class ModifierRemovalRecipeBuilder extends AbstractSizedIngredientRecipeB
   @Setter
   private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
 
+  private ModifierRemovalRecipeBuilder(Function6<ResourceLocation,String,SizedIngredient,List<SizedIngredient>,List<ItemStack>,IJsonPredicate<ModifierId>,ModifierRemovalRecipe> constructor) {
+    this.constructor = constructor;
+  }
+
+  public static ModifierRemovalRecipeBuilder removal(Function6<ResourceLocation,String,SizedIngredient,List<SizedIngredient>,List<ItemStack>,IJsonPredicate<ModifierId>,ModifierRemovalRecipe> constructor) {
+    return new ModifierRemovalRecipeBuilder(constructor);
+  }
+
   public static ModifierRemovalRecipeBuilder removal() {
-    return removal(ModifierRemovalRecipe::new);
+    return removal((id, name, tools, inputs, leftovers, modifierPredicate) -> new ModifierRemovalRecipe(name, tools, inputs, leftovers, modifierPredicate));
   }
 
   public static ModifierRemovalRecipeBuilder extract() {
-    return removal(ExtractModifierRecipe::new);
+    return removal((id, name, tools, inputs, leftovers, modifierPredicate) -> new ExtractModifierRecipe(name, tools, inputs, leftovers, modifierPredicate));
+  }
+
+  public ModifierRemovalRecipeBuilder setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public ModifierRemovalRecipeBuilder modifierPredicate(IJsonPredicate<ModifierId> modifierPredicate) {
+    this.modifierPredicate = modifierPredicate;
+    return this;
   }
 
   /** Sets the name from the given slot */

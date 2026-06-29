@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.recipe.worktable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -19,8 +16,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 
 /** Builder for recipes to add or remove a modifier from a set in persistent data */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierSetWorktableRecipeBuilder> {
   private final ResourceLocation dataKey;
   @Setter @Accessors(fluent = true)
@@ -28,6 +23,11 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
   private final boolean addToSet;
   private Ingredient tools = AbstractWorktableRecipe.DEFAULT_TOOLS;
   private boolean allowTraits = false;
+
+  private ModifierSetWorktableRecipeBuilder(ResourceLocation dataKey, boolean addToSet) {
+    this.dataKey = dataKey;
+    this.addToSet = addToSet;
+  }
 
   /** Creates a new recipe for adding to a set */
   public static ModifierSetWorktableRecipeBuilder setAdding(ResourceLocation dataKey) {
@@ -37,6 +37,11 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
   /** Creates a new recipe for removing from a set */
   public static ModifierSetWorktableRecipeBuilder setRemoving(ResourceLocation dataKey) {
     return new ModifierSetWorktableRecipeBuilder(dataKey, false);
+  }
+
+  public ModifierSetWorktableRecipeBuilder modifierPredicate(IJsonPredicate<ModifierId> modifierPredicate) {
+    this.modifierPredicate = modifierPredicate;
+    return this;
   }
 
   /** Sets the tool requirement for this recipe */
