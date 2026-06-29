@@ -1,50 +1,28 @@
 package slimeknights.tconstruct.fluids.item;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.world.item.Item;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Item;
-import net.minecraft.core.Holder;
-import net.minecraft.world.item.Item;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.Item;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.Item;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -117,8 +95,8 @@ public class PotionBucketItem extends PotionItem {
     if (!level.isClientSide) {
       Potion potion = getPotionFromTag(stack).value();
       for (MobEffectInstance effect : potion.getEffects()) {
-        if (effect.getEffect().isInstantenous()) {
-          effect.getEffect().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
+        if (effect.getEffect().value().isInstantenous()) {
+          effect.getEffect().value().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
         } else {
           living.addEffect(new MobEffectInstance(effect.getEffect(), effect.getDuration() * 5 / 2, effect.getAmplifier()));
         }

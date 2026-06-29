@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BuiltInRegistries;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -52,6 +53,10 @@ public record LightspeedAttributeModule(String unique, Attribute attribute, Oper
     FloatLoadable.ANY.requiredField("per_level", LightspeedAttributeModule::amount),
     FloatLoadable.FROM_ZERO.requiredField("damage_chance", LightspeedAttributeModule::damageChance),
     LightspeedAttributeModule::new);
+
+  public LightspeedAttributeModule(String unique, Holder<Attribute> attribute, Operation operation, @Nullable LightLayer lightLayer, int minLight, float amount, float damageChance) {
+    this(unique, attribute.value(), operation, lightLayer, minLight, amount, damageChance);
+  }
 
   private ResourceLocation modifierId() {
     return ResourceLocation.parse(unique.replace('.', ':').replace("modifier.", ""));

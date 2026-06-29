@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.armor;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -23,7 +24,6 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * Module for armor modifiers that makes the wearer immune to a mob effect
@@ -48,16 +48,16 @@ public record EffectImmunityModule(MobEffect effect, LevelingInt maxLevel, Modif
     this(effect, maxLevel, ModifierCondition.ANY_TOOL);
   }
 
+  public EffectImmunityModule(Holder<MobEffect> effect, LevelingInt maxLevel) {
+    this(effect.value(), maxLevel);
+  }
+
   public EffectImmunityModule(MobEffect effect) {
     this(effect, ANY_LEVEL);
   }
 
-  public EffectImmunityModule(Supplier<? extends MobEffect> effect, LevelingInt maxLevel) {
-    this(effect.get(), maxLevel);
-  }
-
-  public EffectImmunityModule(Supplier<? extends MobEffect> effect) {
-    this(effect.get());
+  public EffectImmunityModule(Holder<MobEffect> effect) {
+    this(effect.value());
   }
 
   @Override

@@ -69,9 +69,9 @@ public class TooltipUtil {
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
+  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ATTACK_DAMAGE.value() && att != Attributes.ATTACK_SPEED.value() && att != Attributes.ARMOR.value() && att != Attributes.ARMOR_TOUGHNESS.value() && att != Attributes.KNOCKBACK_RESISTANCE.value());
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
+  public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ARMOR.value() && att != Attributes.ARMOR_TOUGHNESS.value() && att != Attributes.KNOCKBACK_RESISTANCE.value());
 
   /** Flags used when not holding control or shift (legacy, TooltipPart removed in 1.21.1) */
   private static final int DEFAULT_HIDE_FLAGS = 0;
@@ -466,7 +466,7 @@ public class TooltipUtil {
     double displayValue = amount;
     if (operation == Operation.ADD_VALUE) {
       // vanilla multiplies knockback resist by 10 for some odd reason
-      if (attribute.equals(Attributes.KNOCKBACK_RESISTANCE)) {
+      if (attribute.equals(Attributes.KNOCKBACK_RESISTANCE.value())) {
         displayValue *= 10;
       }
     } else {

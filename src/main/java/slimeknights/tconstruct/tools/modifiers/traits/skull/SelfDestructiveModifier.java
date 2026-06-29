@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Level.ExplosionInteraction;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -54,7 +55,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
     public SelfDestructiveEffect() {
       super(MobEffectCategory.HARMFUL, 0x59D24A, true);
       // make the player slow
-      addAttributeModifier(Attributes.MOVEMENT_SPEED, "68ee3026-1d50-4eb4-914e-a8b05fbfdb71", -0.9f, Operation.ADD_MULTIPLIED_TOTAL);
+      addAttributeModifier(Attributes.MOVEMENT_SPEED, TConstruct.getResource("self_destructing_slowdown"), -0.9f, Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override

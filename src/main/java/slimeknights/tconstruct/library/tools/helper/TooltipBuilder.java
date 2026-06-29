@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -167,13 +169,18 @@ public class TooltipBuilder {
     float damage = (float) attribute.getDefaultValue();
     Player player = Minecraft.getInstance().player;
     if (player != null) {
-      AttributeInstance instance = player.getAttribute(attribute);
+      AttributeInstance instance = player.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
       if (instance != null) {
         damage = (float) instance.getBaseValue();
       }
     }
     this.tooltips.add(stat.formatValue(damage + tool.getStats().get(stat).floatValue()));
     return this;
+  }
+
+  /** Adds the given stat to the tooltip, summing in the attribute value */
+  public TooltipBuilder addWithAttribute(INumericToolStat<?> stat, Holder<Attribute> attribute) {
+    return addWithAttribute(stat, attribute.value());
   }
 
   /**

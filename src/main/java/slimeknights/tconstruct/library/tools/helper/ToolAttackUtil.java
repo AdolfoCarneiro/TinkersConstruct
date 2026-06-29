@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.neoforge.common.CommonHooks;
@@ -110,6 +111,11 @@ public class ToolAttackUtil {
 
     // add in the tool value and build the stat
     return (float) CombatHelper.computeAttribute(attrHolder, instance.getBaseValue() + toolValue, modifiers);
+  }
+
+  /** Gets the attack damage for the given tool, acting as though it was used in the main hand. */
+  public static float getToolAttribute(IToolStackView tool, LivingEntity holder, Holder<Attribute> attribute, float toolValue) {
+    return getToolAttribute(tool, holder, attribute.value(), toolValue);
   }
 
   /** Gets the critical modifier to apply, returning 1.0 if not critical. */
@@ -508,9 +514,15 @@ public class ToolAttackUtil {
   @Deprecated(forRemoval = true)
   public static float getSlotAttribute(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType, Attribute attribute, float toolValue) {
     if (slotType == EquipmentSlot.MAINHAND) {
-      return (float) holder.getAttributeValue(attribute);
+      return (float) holder.getAttributeValue(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
     }
     return getToolAttribute(tool, holder, attribute, toolValue);
+  }
+
+  /** @deprecated use {@link #getSlotAttribute(IToolStackView, LivingEntity, EquipmentSlot, Attribute, float)} */
+  @Deprecated(forRemoval = true)
+  public static float getSlotAttribute(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType, Holder<Attribute> attribute, float toolValue) {
+    return getSlotAttribute(tool, holder, slotType, attribute.value(), toolValue);
   }
 
   /**

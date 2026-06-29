@@ -151,7 +151,7 @@ public class PiggyBackPackItem extends TooltipItem {
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if (entityIn instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(EquipmentSlot.CHEST) == stack && entityIn.isVehicle()) {
       int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect.get(), 2, amplifier, true, false, true));
+      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect, 2, amplifier, true, false, true));
     }
   }
 

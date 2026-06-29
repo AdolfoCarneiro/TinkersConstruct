@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +29,7 @@ public class CheeseItem extends Item {
       Collection<MobEffectInstance> effects = living.getActiveEffects();
       if (!effects.isEmpty()) {
         // don't remove effects that are not milk removable
-        List<MobEffect> removable = effects.stream().filter(effect -> effect.getCurativeItems().stream().anyMatch(item -> item.is(Items.MILK_BUCKET))).map(MobEffectInstance::getEffect).toList();
+        List<Holder<MobEffect>> removable = effects.stream().filter(effect -> effect.getCurativeItems().stream().anyMatch(item -> item.is(Items.MILK_BUCKET))).map(MobEffectInstance::getEffect).toList();
         if (!removable.isEmpty()) {
           living.removeEffect(removable.get(living.getRandom().nextInt(removable.size())));
         }
