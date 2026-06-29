@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.data.recipe;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.CheckReturnValue;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,7 +15,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.crafting.ConditionalRecipe;
 import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
 import net.neoforged.neoforge.common.crafting.IntersectionIngredient;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -42,6 +39,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static slimeknights.mantle.Mantle.commonResource;
@@ -57,7 +55,6 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
  *   <li>Finally, call any other recipe helpers such as {@link #dust()}, {@link #plate()} or the tool helpers through {@link #common(CommonRecipe...)} to generate non-common recipes.</li>
  * </ol>
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Accessors(fluent = true)
 @CanIgnoreReturnValue
 public class SmelteryRecipeBuilder {
@@ -103,6 +100,14 @@ public class SmelteryRecipeBuilder {
   @Setter
   private int damageUnit = 1;
 
+  private SmelteryRecipeBuilder(RecipeOutput consumer, ResourceLocation name, @Nullable FluidObject<?> fluidObject, @Nullable Fluid fluid, @Nullable TagKey<Fluid> fluidTag) {
+    this.consumer = consumer;
+    this.name = name;
+    this.fluidObject = fluidObject;
+    this.fluid = fluid;
+    this.fluidTag = fluidTag;
+  }
+
   /* Constructors */
 
   /** Creates a builder for the given fluid object */
@@ -139,7 +144,18 @@ public class SmelteryRecipeBuilder {
 
   /** Sets all recipes to optional, used for compat */
   public SmelteryRecipeBuilder optional() {
-    return optional(true);
+    this.optional = true;
+    return this;
+  }
+
+  public SmelteryRecipeBuilder optional(boolean optional) {
+    this.optional = optional;
+    return this;
+  }
+
+  public SmelteryRecipeBuilder temperature(int temperature) {
+    this.temperature = temperature;
+    return this;
   }
 
   /** Sets the byproducts for following recipes */
@@ -319,29 +335,11 @@ public class SmelteryRecipeBuilder {
               .setOre(oreRate, oreByproducts[0].getOreRate())
               .save(wrapped, location);
     } else {
-      // multiple options, will need a conditonal recipe
-      ConditionalRecipe.Builder builder = ConditionalRecipe.builder();
-      boolean alwaysPresent = false;
-      for (IByproduct byproduct : oreByproducts) {
-        // found an always present byproduct? no need to tag and we are done
-        alwaysPresent = byproduct.isAlwaysPresent();
-        if (alwaysPresent) {
-          builder.addCondition(TrueCondition.INSTANCE);
-        } else {
-          builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
-        }
-        builder.addRecipe(supplier.get().addByproduct(byproduct.getFluid(scale)).setOre(oreRate, byproduct.getOreRate())::save);
-
-        if (alwaysPresent) {
-          break;
-        }
-      }
-      // not always present? add a recipe with no byproducts as a final fallback
-      if (!alwaysPresent) {
-        builder.addCondition(TrueCondition.INSTANCE);
-        builder.addRecipe(supplier.get()::save);
-      }
-      builder.build(wrapped, location);
+      // Compile-clean fallback until the 1.21.1 conditional recipe replacement is ported.
+      supplier.get()
+              .addByproduct(oreByproducts[0].getFluid(scale))
+              .setOre(oreRate, oreByproducts[0].getOreRate())
+              .save(wrapped, location);
     }
   }
 

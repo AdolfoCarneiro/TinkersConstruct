@@ -18,7 +18,6 @@ import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
-import slimeknights.tconstruct.shared.command.subcommand.GenerateMeltingRecipesCommand;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.LinkedHashMap;
@@ -28,6 +27,7 @@ import java.util.concurrent.CompletableFuture;
 
 /** Data generator for someone-off JSON files used for command configuration */
 public class ConfigurationDataProvider extends GenericDataProvider {
+  private static final ResourceLocation MELTING_CONFIGURATION = TConstruct.getResource("command/generate_melting_recipes.json");
   private final Map<ResourceLocation, JsonObject> configuration = new LinkedHashMap<>();
   public ConfigurationDataProvider(PackOutput output) {
     super(output, Target.DATA_PACK, "");
@@ -36,7 +36,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
   @Override
   public CompletableFuture<?> run(CachedOutput output) {
     // config for which items to generate melting recipes for and which items to ignore
-    JsonObject meltingRecipes = config(GenerateMeltingRecipesCommand.MELTING_CONFIGURATION);
+    JsonObject meltingRecipes = config(MELTING_CONFIGURATION);
     item(meltingRecipes, "melt", ItemPredicate.or(
       ItemPredicate.tag(TinkerTags.Items.MODIFIABLE),
       ItemPredicate.tag(TinkerTags.Items.BOOKS),
@@ -75,10 +75,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
         ItemPredicate.tag(ItemTags.SHOVELS),
         ItemPredicate.tag(ItemTags.SWORDS),
         ItemPredicate.tag(ItemTags.HOES),
-        ItemPredicate.tag(Tags.Items.TOOLS_SHIELDS),
-        ItemPredicate.tag(Tags.Items.TOOLS_BOWS),
-        ItemPredicate.tag(Tags.Items.TOOLS_CROSSBOWS),
-        ItemPredicate.tag(Tags.Items.TOOLS_FISHING_RODS),
+        ItemPredicate.set(Items.SHIELD, Items.BOW, Items.CROSSBOW, Items.FISHING_ROD),
         ItemPredicate.tag(Tags.Items.ARMORS),
         ItemPredicate.set(Items.FLINT_AND_STEEL, Items.SHEARS, Items.BRUSH)
       ),
