@@ -105,6 +105,11 @@ public class PotionFluidType extends FluidType {
   }
 
   /** Creates a fluid output for the given potion */
+  public static FluidOutput potionResult(Holder<Potion> potion, int size) {
+    return potionResult(potion.value(), size);
+  }
+
+  /** Creates a fluid output for the given potion */
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidOutput potionResult(Potion potion, int size) {
     CompoundTag tag = null;

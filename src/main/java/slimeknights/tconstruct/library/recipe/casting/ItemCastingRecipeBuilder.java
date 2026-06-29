@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -25,7 +26,6 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
  * Builder for an item casting recipe. Takes a fluid and optional cast to create an item
  */
 @SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
-@RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemOutput result;
   private final TypeAwareRecipeSerializer<? extends ItemCastingRecipe> recipeSerializer;
@@ -35,6 +35,15 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
   private int coolingTime = -1;
   private boolean consumed = false;
   private boolean switchSlots = false;
+
+  private ItemCastingRecipeBuilder(ItemOutput result, TypeAwareRecipeSerializer<? extends ItemCastingRecipe> recipeSerializer) {
+    this.result = result;
+    this.recipeSerializer = recipeSerializer;
+  }
+
+  public static ItemCastingRecipeBuilder castingRecipe(ItemOutput result, TypeAwareRecipeSerializer<? extends ItemCastingRecipe> recipeSerializer) {
+    return new ItemCastingRecipeBuilder(result, recipeSerializer);
+  }
 
   /**
    * Creates a new casting basin recipe
@@ -167,6 +176,15 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
   }
 
   /**
+   * Sets the recipe cooling time directly.
+   * @param time  Cooling time in ticks
+   */
+  public ItemCastingRecipeBuilder setCoolingTime(int time) {
+    this.coolingTime = time;
+    return this;
+  }
+
+  /**
    * Sets the fluid for this recipe, and cooling time if unset.
    * @param fluidStack  Fluid input
    * @return  Builder instance
@@ -222,6 +240,16 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     this.cast = ingredient;
     this.consumed = consumed;
     return this;
+  }
+
+  /**
+   * Sets the cast from a custom ingredient.
+   * @param ingredient  Cast ingredient
+   * @param consumed    If true, the cast is consumed
+   * @return  Builder instance
+   */
+  public ItemCastingRecipeBuilder setCast(ICustomIngredient ingredient, boolean consumed) {
+    return setCast(ingredient.toVanilla(), consumed);
   }
 
   /**

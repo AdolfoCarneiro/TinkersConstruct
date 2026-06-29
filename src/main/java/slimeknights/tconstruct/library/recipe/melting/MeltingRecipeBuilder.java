@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.FluidOutput;
@@ -26,7 +27,6 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
 /**
  * Builder for a recipe that melts an ingredient into a fuel
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBuilder> {
   private final Ingredient input;
   private final FluidOutput output;
@@ -38,6 +38,13 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   @Nullable
   private int[] unitSizes;
   private final List<FluidOutput> byproducts = new ArrayList<>();
+
+  private MeltingRecipeBuilder(Ingredient input, FluidOutput output, int temperature, int time) {
+    this.input = input;
+    this.output = output;
+    this.temperature = temperature;
+    this.time = time;
+  }
 
   /**
    * Creates a new builder instance using a specific temperature
@@ -54,6 +61,18 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input        Recipe input
+   * @param output       Recipe output
+   * @param temperature  Temperature required
+   * @param time         Time this recipe takes
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, FluidOutput output, int temperature, int time) {
+    return melting(input.toVanilla(), output, temperature, time);
+  }
+
+  /**
    * Creates a new builder instance using a factored temperature
    * @param input        Recipe input
    * @param output       Recipe output
@@ -62,6 +81,17 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    */
   public static MeltingRecipeBuilder melting(Ingredient input, FluidOutput output, int temperature, float timeFactor) {
     return melting(input, output, temperature, IMeltingRecipe.calcTime(temperature, timeFactor));
+  }
+
+  /**
+   * Creates a new builder instance using a factored temperature.
+   * @param input        Recipe input
+   * @param output       Recipe output
+   * @param temperature  Temperature required
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, FluidOutput output, int temperature, float timeFactor) {
+    return melting(input.toVanilla(), output, temperature, timeFactor);
   }
 
   /**
@@ -90,6 +120,18 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input        Recipe input
+   * @param fluid        Recipe result
+   * @param amount       Result amount
+   * @param timeFactor   Factor this recipe takes compared to the standard of ingots
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, FluidObject<?> fluid, int amount, float timeFactor) {
+    return melting(input.toVanilla(), fluid, amount, timeFactor);
+  }
+
+  /**
    * Creates a new builder instance using a specific temperature
    * @param input        Recipe input
    * @param output       Recipe output
@@ -99,6 +141,17 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, float timeFactor) {
     int temperature = getTemperature(output);
     return melting(input, output, temperature, IMeltingRecipe.calcTime(temperature, timeFactor));
+  }
+
+  /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input        Recipe input
+   * @param output       Recipe output
+   * @param timeFactor   Factor this recipe takes compared to the standard of ingots
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, FluidStack output, float timeFactor) {
+    return melting(input.toVanilla(), output, timeFactor);
   }
 
   /**
@@ -114,6 +167,18 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input       Recipe input
+   * @param fluid       Fluid result
+   * @param amount      Fluid returned from recipe
+   * @param timeFactor  Factor this recipe takes compared to the standard of ingots
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, Fluid fluid, int amount, float timeFactor) {
+    return melting(input.toVanilla(), fluid, amount, timeFactor);
+  }
+
+  /**
    * Creates a new builder instance using a specific temperature
    * @param input       Recipe input
    * @param fluid       Fluid result
@@ -125,6 +190,17 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input       Recipe input
+   * @param fluid       Fluid result
+   * @param amount      Fluid returned from recipe
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, FluidObject<?> fluid, int amount) {
+    return melting(input.toVanilla(), fluid, amount);
+  }
+
+  /**
    * Creates a new builder instance using a specific temperature
    * @param input       Recipe input
    * @param fluid       Fluid result
@@ -133,6 +209,17 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    */
   public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount) {
     return melting(input, fluid, amount, IMeltingRecipe.calcTimeFactor(amount));
+  }
+
+  /**
+   * Creates a new builder instance using a specific temperature.
+   * @param input       Recipe input
+   * @param fluid       Fluid result
+   * @param amount      Fluid returned from recipe
+   * @return  Builder instance
+   */
+  public static MeltingRecipeBuilder melting(ICustomIngredient input, Fluid fluid, int amount) {
+    return melting(input.toVanilla(), fluid, amount);
   }
 
   /**

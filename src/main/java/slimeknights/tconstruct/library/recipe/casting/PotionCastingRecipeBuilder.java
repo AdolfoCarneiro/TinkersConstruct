@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
  * Builder for a potion bottle filling recipe. Takes a fluid and optional cast to create an item that copies the fluid NBT
  */
 @SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCastingRecipeBuilder> {
   private final Item result;
   @Nullable
@@ -35,6 +34,21 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
   private int coolingTime = 5;
+
+  /**
+   * Sets the recipe cooling time directly.
+   * @param time  Cooling time in ticks
+   */
+  public PotionCastingRecipeBuilder setCoolingTime(int time) {
+    this.coolingTime = time;
+    return this;
+  }
+
+  private PotionCastingRecipeBuilder(Item result, @Nullable ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> recipeSerializer) {
+    this.result = result;
+    this.modifier = modifier;
+    this.recipeSerializer = recipeSerializer;
+  }
 
   /* Bottle filling */
 
@@ -178,9 +192,9 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     }
     net.minecraft.advancements.AdvancementHolder advancementHolder = this.buildOptionalAdvancement(output, id, "casting");
     if (modifier != null) {
-      output.accept(id, new TippingCastingRecipe(recipeSerializer, group, bottle, fluid, coolingTime, modifier), advancementHolder);
+      output.accept(id, new TippingCastingRecipe(recipeSerializer, id, group, bottle, fluid, coolingTime, modifier), advancementHolder);
     } else {
-      output.accept(id, new PotionCastingRecipe(recipeSerializer, group, bottle, fluid, result, coolingTime), advancementHolder);
+      output.accept(id, new PotionCastingRecipe(recipeSerializer, id, group, bottle, fluid, result, coolingTime), advancementHolder);
     }
   }
 }

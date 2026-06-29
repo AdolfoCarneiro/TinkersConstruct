@@ -24,9 +24,7 @@ public class CastItemObject extends ItemObject<Item> {
   public ResourceLocation getName() { return name; }
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
-  @Getter
   private final TagKey<Item> singleUseTag;
-  @Getter
   private final TagKey<Item> multiUseTag;
 
   @SuppressWarnings("deprecation")  // you know, pointless deprecations is really going to make people start ignoring deprecations
@@ -54,6 +52,16 @@ public class CastItemObject extends ItemObject<Item> {
    */
   protected TagKey<Item> makeTag(String type) {
     return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
+  }
+
+  /** Gets the single use tag for this object */
+  public TagKey<Item> getSingleUseTag() {
+    return singleUseTag;
+  }
+
+  /** Gets the multi use tag for this object */
+  public TagKey<Item> getMultiUseTag() {
+    return multiUseTag;
   }
 
   /**

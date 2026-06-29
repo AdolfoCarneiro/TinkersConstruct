@@ -82,10 +82,18 @@ public class GeodeItemObject extends ItemObject<Item> {
 
     public static final BudSize[] SIZES = {SMALL, MEDIUM, LARGE};
 
-    @Getter
     private final String name = name().toLowerCase(Locale.ROOT);
-    @Getter
     private final int size = ordinal() + 1;
+
+    /** Gets the serialized name for this bud size. */
+    public String getName() {
+      return name;
+    }
+
+    /** Gets the growth size for this bud size. */
+    public int getSize() {
+      return size;
+    }
 
     /** Gets the next bud size */
     public BudSize getNext() {

@@ -20,7 +20,7 @@ public class NoContainerIngredient extends NestedIngredient {
   public static final StreamCodec<RegistryFriendlyByteBuf, NoContainerIngredient> STREAM_CODEC =
     Ingredient.CONTENTS_STREAM_CODEC.map(NoContainerIngredient::new, i -> i.nested);
 
-  protected NoContainerIngredient(Ingredient nested) {
+  private NoContainerIngredient(Ingredient nested) {
     super(nested);
   }
 
@@ -43,22 +43,22 @@ public class NoContainerIngredient extends NestedIngredient {
   /* Static constructors */
 
   /** Creates an instance from the given nested ingredient */
-  public static NoContainerIngredient of(Ingredient ingredient) {
-    return new NoContainerIngredient(ingredient);
+  public static Ingredient of(Ingredient ingredient) {
+    return new NoContainerIngredient(ingredient).toVanilla();
   }
 
   /** Creates an instance from the given items */
-  public static NoContainerIngredient of(ItemLike... items) {
+  public static Ingredient of(ItemLike... items) {
     return of(Ingredient.of(items));
   }
 
   /** Creates an instance from the given stacks */
-  public static NoContainerIngredient of(ItemStack... stacks) {
+  public static Ingredient of(ItemStack... stacks) {
     return of(Ingredient.of(stacks));
   }
 
   /** Creates an instance from the given tag */
-  public static NoContainerIngredient of(TagKey<Item> tag) {
+  public static Ingredient of(TagKey<Item> tag) {
     return of(Ingredient.of(tag));
   }
 }
