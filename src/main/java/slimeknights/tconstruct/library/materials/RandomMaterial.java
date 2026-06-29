@@ -121,6 +121,10 @@ public abstract class RandomMaterial implements IHaveLoader {
 
     private final MaterialVariantId material;
 
+    private Fixed(MaterialVariantId material) {
+      this.material = material;
+    }
+
     @Override
     public MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random) {
       return material;
@@ -187,6 +191,12 @@ public abstract class RandomMaterial implements IHaveLoader {
     /** Cached list of material choices, automatically deleted when loot tables reload */
     private final Map<MaterialStatsId,List<MaterialId>> materialChoices = new ConcurrentHashMap<>();
 
+    private Randomized(IntRange tier, boolean allowHidden, IJsonPredicate<MaterialVariantId> material) {
+      this.tier = tier;
+      this.allowHidden = allowHidden;
+      this.material = material;
+    }
+
     @Override
     public List<MaterialId> apply(MaterialStatsId statType) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
@@ -249,6 +259,10 @@ public abstract class RandomMaterial implements IHaveLoader {
     /** Cached list of material choices, each containing a list of variant choices. Ensures materials with more variants don't get weighted higher */
     private final Map<MaterialStatsId,List<List<MaterialVariantId>>> materialChoices = new ConcurrentHashMap<>();
 
+    private RandomVariant(IJsonPredicate<MaterialVariantId> material) {
+      this.material = material;
+    }
+
     @Override
     public List<List<MaterialVariantId>> apply(MaterialStatsId statType) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
@@ -303,6 +317,12 @@ public abstract class RandomMaterial implements IHaveLoader {
     private final RandomMaterial ifFalse;
     private final ICondition[] conditions;
 
+    private Conditional(RandomMaterial ifTrue, RandomMaterial ifFalse, ICondition[] conditions) {
+      this.ifTrue = ifTrue;
+      this.ifFalse = ifFalse;
+      this.conditions = conditions;
+    }
+
     @Override
     public MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random) {
       return (Util.testConditions(conditions) ? ifTrue : ifFalse).getMaterial(statType, random);
@@ -311,6 +331,21 @@ public abstract class RandomMaterial implements IHaveLoader {
     @Override
     public RecordLoadable<? extends RandomMaterial> getLoader() {
       return LOADER.getConditionalLoader();
+    }
+
+    @Override
+    public RandomMaterial ifTrue() {
+      return ifTrue;
+    }
+
+    @Override
+    public RandomMaterial ifFalse() {
+      return ifFalse;
+    }
+
+    @Override
+    public ICondition[] conditions() {
+      return conditions;
     }
   }
 
@@ -356,6 +391,12 @@ public abstract class RandomMaterial implements IHaveLoader {
     /** Sets the material predicate to a tag predicate */
     public RandomBuilder tag(TagKey<IMaterial> tag) {
       this.material = MaterialPredicate.tag(tag);
+      return this;
+    }
+
+    /** Sets the material predicate directly */
+    public RandomBuilder material(IJsonPredicate<MaterialVariantId> material) {
+      this.material = material;
       return this;
     }
 

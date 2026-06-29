@@ -104,6 +104,14 @@ public enum SmelteryCompat {
     return fluid;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public CompatType getType() {
+    return type;
+  }
+
   /** Checks if this compat is present */
   public boolean isPresent() {
     // if given a material, that being present means we show
