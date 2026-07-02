@@ -45,6 +45,10 @@ public class TinkersChestBlockEntity extends AbstractChestBlockEntity {
     this.hasColor = true;
   }
 
+  public int getColor() {
+    return color;
+  }
+
   @Override
   public boolean canInsert(Player player, ItemStack heldItem) {
     return false;

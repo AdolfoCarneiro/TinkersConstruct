@@ -46,6 +46,10 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
   /** Helper handling updating fluids */
   private final ToolTankHelper helper;
 
+  public TankModule(ToolTankHelper helper) {
+    this.helper = helper;
+  }
+
 
   /* Module logic */
 

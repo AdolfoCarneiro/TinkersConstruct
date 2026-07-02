@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.modifiers.util;
 
-import lombok.RequiredArgsConstructor;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -15,7 +14,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 /** Utility similar to {@link net.neoforged.neoforge.registries.DeferredRegister} but for modifiers, as they no longer use a forge registry */
-@RequiredArgsConstructor(staticName = "create")
 public class ModifierDeferredRegister {
   /** All modifiers will be registered under this domain */
   private final String modId;
@@ -26,6 +24,14 @@ public class ModifierDeferredRegister {
 
   /** If true, the registration event has been seen, so its now too late to register new modifiers */
   private boolean seenRegisterEvent = false;
+
+  private ModifierDeferredRegister(String modId) {
+    this.modId = modId;
+  }
+
+  public static ModifierDeferredRegister create(String modId) {
+    return new ModifierDeferredRegister(modId);
+  }
 
   /** Registers the deferred register with the relevant forge event busses */
   public void register(IEventBus bus) {

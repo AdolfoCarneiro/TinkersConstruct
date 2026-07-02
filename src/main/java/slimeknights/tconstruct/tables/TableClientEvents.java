@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables;
 
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -57,6 +57,6 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerItemColors(final RegisterColorHandlersEvent.Item event) {
-    event.register((stack, index) -> ((DyeableLeatherItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
+    event.register((stack, index) -> DyedItemColor.getOrDefault(stack, TinkersChestBlockEntity.DEFAULT_COLOR), TinkerTables.tinkersChest.asItem());
   }
 }
