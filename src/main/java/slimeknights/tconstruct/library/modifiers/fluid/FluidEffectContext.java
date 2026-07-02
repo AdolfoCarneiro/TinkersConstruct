@@ -170,13 +170,16 @@ public abstract class FluidEffectContext {
 
   /** Context for fluid effects targeting an entity */
   public static class Block extends FluidEffectContext {
-    @Getter
     private final BlockHitResult hitResult;
     private BlockState state;
 
     private Block(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, ItemStack stack, BlockHitResult hitResult) {
       super(level, holder, player, projectile, stack);
       this.hitResult = hitResult;
+    }
+
+    public BlockHitResult getHitResult() {
+      return hitResult;
     }
 
     /** @deprecated use {@link #builder(Level)} */

@@ -106,6 +106,34 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
     /** Behavior of explosion against blocks */
     private BlockInteraction blockInteraction = BlockInteraction.DESTROY_WITH_DECAY;
 
+    private Builder(LevelingValue radius) {
+      this.radius = radius;
+    }
+
+    /** Sets the explosion damage multiplier for entities */
+    public Builder damage(LevelingValue damage) {
+      this.damage = damage;
+      return this;
+    }
+
+    /** Sets the explosion knockback multiplier for entities */
+    public Builder knockback(LevelingValue knockback) {
+      this.knockback = knockback;
+      return this;
+    }
+
+    /** Sets whether this explosion places fires */
+    public Builder placeFire(boolean placeFire) {
+      this.placeFire = placeFire;
+      return this;
+    }
+
+    /** Sets the behavior of the explosion against blocks */
+    public Builder blockInteraction(BlockInteraction blockInteraction) {
+      this.blockInteraction = blockInteraction;
+      return this;
+    }
+
     /** Sets the explosion not damage blocks */
     public Builder ignoreBlocks() {
       return blockInteraction(BlockInteraction.KEEP);

@@ -9,15 +9,18 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.netty.handler.codec.DecoderException;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
+import net.minecraft.world.item.component.CustomData;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
@@ -67,7 +70,7 @@ public abstract class LayoutIcon {
     switch (type) {
       case EMPTY: return EMPTY;
       case ITEM: {
-        ItemStack stack = buffer.readItem();
+        ItemStack stack = ItemStack.STREAM_CODEC.decode(buffer);
         return new ItemStackIcon(stack);
       }
       case PATTERN: {
@@ -85,9 +88,13 @@ public abstract class LayoutIcon {
   public abstract JsonObject toJson();
 
   /** Icon drawing an item stack */
-  @RequiredArgsConstructor @VisibleForTesting
+  @VisibleForTesting
   protected static class ItemStackIcon extends LayoutIcon {
     private final ItemStack stack;
+
+    protected ItemStackIcon(ItemStack stack) {
+      this.stack = stack;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -101,7 +108,7 @@ public abstract class LayoutIcon {
     @Override
     public void write(RegistryFriendlyByteBuf buffer) {
       buffer.writeEnum(Type.ITEM);
-      buffer.writeItem(stack);
+      ItemStack.STREAM_CODEC.encode(buffer, stack);
     }
 
     @Override
@@ -116,9 +123,13 @@ public abstract class LayoutIcon {
   }
 
   /** Icon drawing a static patttern sprite */
-  @RequiredArgsConstructor @VisibleForTesting
+  @VisibleForTesting
   protected static class PatternIcon extends LayoutIcon {
     private final Pattern pattern;
+
+    protected PatternIcon(Pattern pattern) {
+      this.pattern = pattern;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -160,7 +171,20 @@ public abstract class LayoutIcon {
         return new PatternIcon(pattern);
       }
       if (object.has("item")) {
-        ItemStack stack = CraftingHelper.getItemStack(object, true);
+        ResourceLocation itemName = JsonHelper.getResourceLocation(object, "item");
+        if (!BuiltInRegistries.ITEM.containsKey(itemName)) {
+          throw new JsonSyntaxException("Unknown item '" + itemName + "'");
+        }
+        Item item = BuiltInRegistries.ITEM.get(itemName);
+        ItemStack stack = new ItemStack(item);
+        if (object.has("nbt")) {
+          try {
+            CompoundTag nbt = TagParser.parseTag(GsonHelper.getAsString(object, "nbt"));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+          } catch (CommandSyntaxException e) {
+            throw new JsonSyntaxException("Invalid nbt tag: " + e.getMessage());
+          }
+        }
         return new ItemStackIcon(stack);
       }
       // not sure why this would be needed, but might as well
