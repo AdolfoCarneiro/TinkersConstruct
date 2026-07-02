@@ -547,85 +547,9 @@ C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tco
                                                                    ^
   symbol:   method getFluid()
   location: variable bucket of type BucketItem
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:32: error: cannot find symbol
-    CompoundTag tag = stack.getTag();
-                           ^
-  symbol:   method getTag()
-  location: variable stack of type FluidStack
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:33: error: cannot find symbol
-    Holder<Potion> potion = Potions.EMPTY;
-                                   ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:35: error: cannot find symbol
-      potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
-                                                                                                                 ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:37: error: method getName in class Potion cannot be applied to given types;
-    return potion.value().getName("item.minecraft.potion.effect.");
-                         ^
-  required: Optional<Holder<Potion>>,String
-  found:    String
-  reason: actual and formal argument lists differ in length
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:43: error: cannot find symbol
-    itemStack.setTag(fluidStack.getTag());
-                               ^
-  symbol:   method getTag()
-  location: variable fluidStack of type FluidStack
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:48: warning: [removal] initializeClient(Consumer<IClientFluidTypeExtensions>) in FluidType has been deprecated and marked for removal
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:52: warning: [removal] initializeClient(Consumer<IClientFluidTypeExtensions>) in FluidType has been deprecated and marked for removal
   public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
               ^
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:57: error: cannot find symbol
-        CompoundTag tag = stack.getTag();
-                               ^
-  symbol:   method getTag()
-  location: variable stack of type FluidStack
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:64: error: cannot find symbol
-        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
-                                                                                                                                  ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:65: error: cannot find symbol
-        if (potion == Potions.EMPTY) {
-                             ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:83: error: cannot find symbol
-    if (potion != Potions.EMPTY_ID) {
-                         ^
-  symbol:   variable EMPTY_ID
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:97: error: cannot find symbol
-    if (potion != Potions.EMPTY) {
-                         ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:116: error: cannot find symbol
-    if (potion != Potions.EMPTY) {
-                         ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:125: error: cannot find symbol
-    if (potion != Potions.EMPTY_ID) {
-                         ^
-  symbol:   variable EMPTY_ID
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:126: error: cannot find symbol
-      stack.setTag(potionTag(potion.location()));
-           ^
-  symbol:   method setTag(CompoundTag)
-  location: variable stack of type ItemStack
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:135: error: cannot find symbol
-    if (potion != Potions.EMPTY) {
-                         ^
-  symbol:   variable EMPTY
-  location: class Potions
-C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\fluids\PotionFluidType.java:136: error: cannot find symbol
-      stack.setTag(potionTag(BuiltInRegistries.POTION.getKey(potion)));
-           ^
-  symbol:   method setTag(CompoundTag)
-  location: variable stack of type ItemStack
 C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\fluids\item\EmptyPotionTransfer.java:39: error: no suitable constructor found for FluidStack(Fluid,int,_tag.isEmp[...] _tag)
     return new FluidStack(fluid.get().getFluid(), fluid.getAmount(), _tag.isEmpty() ? null : _tag);
            ^
@@ -9233,7 +9157,7 @@ Note: Some input files additionally use or override a deprecated API that is mar
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-1.394 errors
+1.379 errors
 100 warnings
 
 > Task :compileJava FAILED
@@ -9248,5 +9172,5 @@ Execution failed for task ':compileJava'.
 > Run with --info option to get more log output.
 > Run with --scan to get full insights.
 
-BUILD FAILED in 15s
+BUILD FAILED in 17s
 3 actionable tasks: 2 executed, 1 up-to-date

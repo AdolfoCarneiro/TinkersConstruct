@@ -20,27 +20,31 @@ import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class PotionFluidType extends FluidType {
+  /** No-tag potion fluid/bucket represents plain water, matching the default this mod already excludes from bucket/JEI generation */
+  private static final ResourceKey<Potion> NO_POTION_KEY = Potions.WATER.unwrapKey().orElseThrow();
+
   public PotionFluidType(Properties properties) {
     super(properties);
   }
 
   @Override
   public String getDescriptionId(FluidStack stack) {
-    CompoundTag tag = stack.getTag();
-    Holder<Potion> potion = Potions.EMPTY;
-    if (tag != null && tag.contains("Potion")) {
-      potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
+    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    Holder<Potion> potion = Potions.WATER;
+    if (tag.contains("Potion")) {
+      potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).<Holder<Potion>>map(h -> h).orElse(Potions.WATER);
     }
-    return potion.value().getName("item.minecraft.potion.effect.");
+    return Potion.getName(Optional.of(potion), "item.minecraft.potion.effect.");
   }
 
   @Override
   public ItemStack getBucket(FluidStack fluidStack) {
     ItemStack itemStack = new ItemStack(fluidStack.getFluid().getBucket());
-    itemStack.setTag(fluidStack.getTag());
+    itemStack.set(DataComponents.CUSTOM_DATA, fluidStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY));
     return itemStack;
   }
 
@@ -54,15 +58,15 @@ public class PotionFluidType extends FluidType {
        */
       @Override
       public int getTintColor(FluidStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("CustomPotionColor", Tag.TAG_ANY_NUMERIC)) {
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (tag.contains("CustomPotionColor", Tag.TAG_ANY_NUMERIC)) {
           return tag.getInt("CustomPotionColor") | 0xFF000000;
         }
-        if (tag == null || !tag.contains("Potion")) {
+        if (!tag.contains("Potion")) {
           return getTintColor();
         }
-        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
-        if (potion == Potions.EMPTY) {
+        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).<Holder<Potion>>map(h -> h).orElse(Potions.WATER);
+        if (potion.value() == Potions.WATER.value()) {
           return getTintColor();
         }
         return PotionContents.getColor(potion) | 0xFF000000;
@@ -80,7 +84,7 @@ public class PotionFluidType extends FluidType {
   /** Creates a fluid stack for the given potion */
   public static FluidStack potionFluid(ResourceKey<Potion> potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY_ID) {
+    if (potion != NO_POTION_KEY) {
       tag = potionTag(potion.location());
     }
     FluidStack stack = new FluidStack(TinkerFluids.potion.get(), size);
@@ -94,7 +98,7 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidStack potionFluid(Potion potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY) {
+    if (potion != Potions.WATER.value()) {
       tag = potionTag(BuiltInRegistries.POTION.getKey(potion));
     }
     FluidStack stack = new FluidStack(TinkerFluids.potion.get(), size);
@@ -113,7 +117,7 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidOutput potionResult(Potion potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY) {
+    if (potion != Potions.WATER.value()) {
       tag = potionTag(BuiltInRegistries.POTION.getKey(potion));
     }
     return FluidOutput.fromTag(Objects.requireNonNull(TinkerFluids.potion.getCommonTag()), size, tag);
@@ -122,8 +126,8 @@ public class PotionFluidType extends FluidType {
   /** Creates a potion bucket for the given potion */
   public static ItemStack potionBucket(ResourceKey<Potion> potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
-    if (potion != Potions.EMPTY_ID) {
-      stack.setTag(potionTag(potion.location()));
+    if (potion != NO_POTION_KEY) {
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(potionTag(potion.location())));
     }
     return stack;
   }
@@ -132,8 +136,8 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static ItemStack potionBucket(Potion potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
-    if (potion != Potions.EMPTY) {
-      stack.setTag(potionTag(BuiltInRegistries.POTION.getKey(potion)));
+    if (potion != Potions.WATER.value()) {
+      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(potionTag(BuiltInRegistries.POTION.getKey(potion))));
     }
     return stack;
   }
