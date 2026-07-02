@@ -118,6 +118,9 @@ public abstract class AbstractMaterialSpriteProvider {
       }
       return false;
     }
+
+    public ResourceLocation getTexture() { return texture; }
+    public String[] getFallbacks() { return fallbacks; }
   }
 
   /** Builder for material sprite info */
@@ -136,6 +139,20 @@ public abstract class AbstractMaterialSpriteProvider {
     private ISpriteTransformer transformer;
     @Setter
     private boolean variant = false;
+
+    private MaterialSpriteInfoBuilder(ResourceLocation texture) {
+      this.texture = texture;
+    }
+
+    public MaterialSpriteInfoBuilder transformer(@Nullable ISpriteTransformer transformer) {
+      this.transformer = transformer;
+      return this;
+    }
+
+    public MaterialSpriteInfoBuilder variant(boolean variant) {
+      this.variant = variant;
+      return this;
+    }
 
     /** Sets the fallbacks */
     public MaterialSpriteInfoBuilder fallbacks(String... fallbacks) {

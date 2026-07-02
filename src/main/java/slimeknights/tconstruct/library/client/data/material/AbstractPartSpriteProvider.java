@@ -165,6 +165,18 @@ public abstract class AbstractPartSpriteProvider {
     /** Cache of fetched images for each sprite name */
     private transient final Map<String,NativeImage> sprites = new HashMap<>();
 
+    public PartSpriteInfo(ResourceLocation path, Set<MaterialStatsId> statTypes, boolean allowAnimated, boolean skipVariants) {
+      this.path = path;
+      this.statTypes = statTypes;
+      this.allowAnimated = allowAnimated;
+      this.skipVariants = skipVariants;
+    }
+
+    public ResourceLocation getPath() { return path; }
+    public Set<MaterialStatsId> getStatTypes() { return statTypes; }
+    public boolean isAllowAnimated() { return allowAnimated; }
+    public boolean isSkipVariants() { return skipVariants; }
+
     /** Gets the texture for the given fallback name, use empty string for the default */
     @Nullable
     public NativeImage getTexture(AbstractSpriteReader spriteReader, String name) {
@@ -197,6 +209,16 @@ public abstract class AbstractPartSpriteProvider {
         this.statTypes = ImmutableSet.copyOf(requiredStats);
       }
 
+      private Builder allowAnimated(boolean allowAnimated) {
+        this.allowAnimated = allowAnimated;
+        return this;
+      }
+
+      private Builder skipVariants(boolean skipVariants) {
+        this.skipVariants = skipVariants;
+        return this;
+      }
+
       /** Disallows animating this sprite. Used for things that don't support animation such as armor */
       public Builder disallowAnimated() {
         return allowAnimated(false);
@@ -223,6 +245,10 @@ public abstract class AbstractPartSpriteProvider {
     private boolean hasLarge = false;
     private boolean allowAnimated = true;
     private boolean skipVariants = false;
+
+    private ToolSpriteBuilder(ResourceLocation name) {
+      this.name = name;
+    }
 
     /** Adds sprites for large parts as well */
     public ToolSpriteBuilder withLarge() {

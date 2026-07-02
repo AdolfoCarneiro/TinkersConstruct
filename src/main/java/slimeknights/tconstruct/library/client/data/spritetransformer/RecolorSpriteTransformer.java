@@ -24,6 +24,12 @@ public class RecolorSpriteTransformer implements IRecolorSpriteTransformer {
   @Getter
   private final IColorMapping colorMapping;
 
+  public RecolorSpriteTransformer(IColorMapping colorMapping) {
+    this.colorMapping = colorMapping;
+  }
+
+  public IColorMapping getColorMapping() { return colorMapping; }
+
   @Override
   public int getNewColor(int color, int x, int y, int frame) {
     return colorMapping.mapColor(color);

@@ -59,6 +59,7 @@ import java.util.stream.Collectors;
 /** Actual logic to generate tool textures */
 @Log4j2
 public class ClientGeneratePartTexturesCommand {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ClientGeneratePartTexturesCommand.class);
   private static final String SUCCESS_KEY = TConstruct.makeTranslationKey("command", "generate_part_textures.finish");
   private static final String FAILURE_KEY = TConstruct.makeTranslationKey("command", "generate_part_textures.failure");
   private static final Component NO_PARTS = TConstruct.makeTranslation("command", "generate_part_textures.no_parts");

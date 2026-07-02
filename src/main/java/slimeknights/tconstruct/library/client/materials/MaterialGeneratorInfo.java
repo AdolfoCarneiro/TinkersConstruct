@@ -47,6 +47,16 @@ public class MaterialGeneratorInfo {
   @Getter
   private final boolean variant;
 
+  public MaterialGeneratorInfo(ISpriteTransformer transformer, Set<MaterialStatsId> supportedStats, boolean ignoreMaterialStats, boolean variant) {
+    this.transformer = transformer;
+    this.supportedStats = supportedStats;
+    this.ignoreMaterialStats = ignoreMaterialStats;
+    this.variant = variant;
+  }
+
+  public ISpriteTransformer getTransformer() { return transformer; }
+  public boolean isVariant() { return variant; }
+
   public MaterialGeneratorInfo(MaterialGeneratorInfo other) {
     this(other.transformer, other.supportedStats, other.ignoreMaterialStats, other.variant);
   }

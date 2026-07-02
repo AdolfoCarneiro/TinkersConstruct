@@ -20,6 +20,11 @@ public class ResourceManagerSpriteReader extends AbstractSpriteReader {
   private final ResourceManager manager;
   private final String folder;
 
+  public ResourceManagerSpriteReader(ResourceManager manager, String folder) {
+    this.manager = manager;
+    this.folder = folder;
+  }
+
   /** Gets a location with the given extension */
   private ResourceLocation getLocation(ResourceLocation base, String extension) {
     return ResourceLocation.fromNamespaceAndPath(base.getNamespace(), folder + "/" + base.getPath() + extension);
