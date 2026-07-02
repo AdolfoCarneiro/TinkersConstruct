@@ -77,6 +77,12 @@ public abstract class TinkerToolEvent extends Event {
       return context.getPlayer();
     }
 
+    public UseOnContext getContext() { return context; }
+    public ServerLevel getWorld() { return world; }
+    public BlockState getState() { return state; }
+    public BlockPos getPos() { return pos; }
+    public InteractionSource getSource() { return source; }
+
     public Result getResult() { return result; }
     public void setResult(Result result) { this.result = result; }
 
@@ -105,6 +111,11 @@ public abstract class TinkerToolEvent extends Event {
       this.target = target;
       this.fortune = fortune;
     }
+
+    public Level getWorld() { return world; }
+    public Player getPlayer() { return player; }
+    public Entity getTarget() { return target; }
+    public int getFortune() { return fortune; }
 
     public Result getResult() { return result; }
     public void setResult(Result result) { this.result = result; }
