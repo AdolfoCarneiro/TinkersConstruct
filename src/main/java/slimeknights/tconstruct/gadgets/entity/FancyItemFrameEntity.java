@@ -10,14 +10,17 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
 import slimeknights.tconstruct.common.Sounds;
@@ -59,9 +62,16 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityWithComple
       Level level = level();
       BlockState state = level.getBlockState(behind);
       if (!state.isAir()) {
-        InteractionResult result = state.use(level, player, hand, Util.createTraceResult(behind, direction, false));
-        if (result.consumesAction()) {
-          return result;
+        BlockHitResult hitResult = Util.createTraceResult(behind, direction, false);
+        ItemInteractionResult itemResult = state.useItemOn(player.getItemInHand(hand), level, player, hand, hitResult);
+        if (itemResult.consumesAction()) {
+          return itemResult.result();
+        }
+        if (itemResult == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION && hand == InteractionHand.MAIN_HAND) {
+          InteractionResult result = state.useWithoutItem(level, player, hitResult);
+          if (result.consumesAction()) {
+            return result;
+          }
         }
       }
     }
@@ -128,7 +138,12 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityWithComple
   }
 
   @Override
-  protected void setRotation(int rotationIn, boolean updateComparator) {
+  public void setRotation(int rotationIn) {
+    setRotation(rotationIn, true);
+  }
+
+  /** Internal logic to set the rotation, replicating {@link ItemFrame}'s now-private two-arg overload */
+  private void setRotation(int rotationIn, boolean updateComparator) {
     this.rotationTimer = 0;
     // diamond, manyullyn, and netherite goes 0-8 rotation
     int id = getFrameId();
@@ -193,8 +208,8 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityWithComple
   }
 
   @Override
-  public boolean ignoreExplosion() {
-    return super.ignoreExplosion() || getFrameId() == FrameType.NETHERITE.getId();
+  public boolean ignoreExplosion(Explosion explosion) {
+    return super.ignoreExplosion(explosion) || getFrameId() == FrameType.NETHERITE.getId();
   }
 
   @Override
