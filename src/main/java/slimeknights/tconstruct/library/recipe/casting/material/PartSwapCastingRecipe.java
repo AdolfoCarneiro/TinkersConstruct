@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -251,7 +252,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
                 return Stream.empty();
               }
               List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-              return Stream.of(new DisplayCastingRecipe(getId(), getType(), List.copyOf(inputs), fluids, List.copyOf(results),
+              return Stream.of(new DisplayCastingRecipe(null, getType(), List.copyOf(inputs), fluids, List.copyOf(results),
                 ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * getFluidAmount(fluids)), isConsumed()));
             }),
           // all composite fluids become special composite swapping recipes
@@ -284,7 +285,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
               }
               // build the recipe
               List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-              return Stream.of(new DisplayCastingRecipe(getId(), getType(), List.copyOf(inputs), fluids, List.copyOf(outputs),
+              return Stream.of(new DisplayCastingRecipe(null, getType(), List.copyOf(inputs), fluids, List.copyOf(outputs),
                 ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * getFluidAmount(fluids)), isConsumed()));
             })
         )

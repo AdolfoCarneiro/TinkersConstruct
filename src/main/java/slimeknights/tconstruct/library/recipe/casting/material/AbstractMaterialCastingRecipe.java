@@ -36,6 +36,9 @@ public abstract class AbstractMaterialCastingRecipe extends AbstractCastingRecip
     this.materials = materials;
   }
 
+  @Override
+  public RecipeSerializer<?> getSerializer() { return serializer; }
+
   /** @deprecated use {@link #AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, Ingredient, int, boolean, boolean, IJsonPredicate)} */
   @Deprecated(forRemoval = true)
   public AbstractMaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, int itemCost, boolean consumed, boolean switchSlots) {

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 import com.google.common.collect.Streams;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -257,12 +258,12 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
         for (MaterialFluidRecipe recipe : validCasting) {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());
           int amount = itemCost * getFluidAmount(fluids);
-          recipes.add(new DisplayCastingRecipe(getId(), getType(), castsWithTool, fluids, materials.apply(recipe.getOutput(), castsWithTool),
+          recipes.add(new DisplayCastingRecipe(null, getType(), castsWithTool, fluids, materials.apply(recipe.getOutput(), castsWithTool),
             ICastingRecipe.calcCoolingTime(recipe.getTemperature(), amount), consumed));
 
           // if the cast is not consumed, then part swapping will have to be done separately for the proper consumed flag
           if (!consumed) {
-            recipes.add(new DisplayCastingRecipe(getId(), getType(), partSwapList, fluids, materials.apply(recipe.getOutput(), partSwapList),
+            recipes.add(new DisplayCastingRecipe(null, getType(), partSwapList, fluids, materials.apply(recipe.getOutput(), partSwapList),
               ICastingRecipe.calcCoolingTime(recipe.getTemperature(), amount), true));
           }
         }
@@ -272,7 +273,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
           .filter(validRecipe)
           .map(recipe -> {
             List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-            return new DisplayCastingRecipe(getId(), getType(), materials.apply(recipe.getInput(), casts), fluids, materials.apply(recipe.getOutput(), casts),
+            return new DisplayCastingRecipe(null, getType(), materials.apply(recipe.getInput(), casts), fluids, materials.apply(recipe.getOutput(), casts),
               ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * getFluidAmount(fluids)), true);
           }).forEach(recipes::add);
         multiRecipes = List.copyOf(recipes);

@@ -47,6 +47,13 @@ public class TooltipBuilder {
   @Getter
   private final List<Component> tooltips;
 
+  public TooltipBuilder(IToolStackView tool, List<Component> tooltips) {
+    this.tool = tool;
+    this.tooltips = tooltips;
+  }
+
+  public List<Component> getTooltips() { return tooltips; }
+
   public TooltipBuilder(IToolStackView tool) {
     this.tool = tool;
     this.tooltips = new ArrayList<>();

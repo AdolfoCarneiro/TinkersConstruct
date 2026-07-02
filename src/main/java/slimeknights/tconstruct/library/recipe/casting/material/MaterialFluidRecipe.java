@@ -42,6 +42,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   @Getter
   private final MaterialVariant output;
 
+  public int getTemperature() { return temperature; }
+  @Nullable
+  public MaterialVariant getInput() { return input; }
+  public MaterialVariant getOutput() { return output; }
+
   public MaterialFluidRecipe(FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId) {
     this.fluid = fluid;
     this.temperature = temperature;
