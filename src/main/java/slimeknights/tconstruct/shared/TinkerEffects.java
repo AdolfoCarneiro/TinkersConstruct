@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
@@ -8,13 +10,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.minecraft.world.effect.MobEffect;
 import slimeknights.mantle.registration.deferred.PotionDeferredRegister;
@@ -73,26 +75,25 @@ public class TinkerEffects extends TinkerModule {
   }
 
   @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
-    event.enqueueWork(() -> {
-      brewing(experiencedPotion,  Potions.AWKWARD, Ingredient.of(TinkerWorld.congealedSlime.get(SlimeType.EARTH)));
-      brewing(ricochetPotion,     Potions.AWKWARD, Ingredient.of(TinkerWorld.congealedSlime.get(SlimeType.SKY)));
-      brewing(levitationPotion,   Potions.AWKWARD, Ingredient.of(TinkerWorld.congealedSlime.get(SlimeType.ICHOR)));
-      brewing(enderferencePotion, Potions.AWKWARD, Ingredient.of(TinkerWorld.congealedSlime.get(SlimeType.ENDER)));
-    });
+  void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
+    PotionBrewing.Builder builder = event.getBuilder();
+    brewing(builder, experiencedPotion,  Potions.AWKWARD, TinkerWorld.congealedSlime.get(SlimeType.EARTH).asItem());
+    brewing(builder, ricochetPotion,     Potions.AWKWARD, TinkerWorld.congealedSlime.get(SlimeType.SKY).asItem());
+    brewing(builder, levitationPotion,   Potions.AWKWARD, TinkerWorld.congealedSlime.get(SlimeType.ICHOR).asItem());
+    brewing(builder, enderferencePotion, Potions.AWKWARD, TinkerWorld.congealedSlime.get(SlimeType.ENDER).asItem());
   }
 
   /** Registers recipes for brewing, longer and stronger potions for the given object */
-  private static void brewing(EnumObject<PotionType,Potion> potion, Potion base, Ingredient ingredient) {
-    Potion normal = potion.get(PotionType.NORMAL);
-    PotionBrewing.POTION_MIXES.add(new PotionBrewing.Mix<>(ForgeRegistries.POTIONS, base, ingredient, normal));
+  private static void brewing(PotionBrewing.Builder builder, EnumObject<PotionType,Potion> potion, Holder<Potion> base, Item reagent) {
+    Holder<Potion> normal = BuiltInRegistries.POTION.wrapAsHolder(potion.get(PotionType.NORMAL));
+    builder.addMix(base, reagent, normal);
     Potion longer = potion.getOrNull(PotionType.LONG);
     if (longer != null) {
-      PotionBrewing.addMix(normal, Items.REDSTONE, longer);
+      builder.addMix(normal, Items.REDSTONE, BuiltInRegistries.POTION.wrapAsHolder(longer));
     }
     Potion strong = potion.getOrNull(PotionType.STRONG);
     if (strong != null) {
-      PotionBrewing.addMix(normal, Items.GLOWSTONE_DUST, strong);
+      builder.addMix(normal, Items.GLOWSTONE_DUST, BuiltInRegistries.POTION.wrapAsHolder(strong));
     }
   }
 
