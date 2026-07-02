@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
@@ -27,14 +26,14 @@ import java.util.List;
 /** Casting recipe clearing the potion from a tool */
 public class TipClearingCastingRecipe extends PotionCastingRecipe {
   public static final RecordLoadable<TipClearingCastingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     TippingCastingRecipe.TOOL_FIELD, FLUID_FIELD, COOLING_TIME_FIELD,
     ModifierId.PARSER.requiredField("modifier", r -> r.modifier),
     TipClearingCastingRecipe::new);
 
   private final ModifierId modifier;
-  public TipClearingCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient tool, FluidIngredient fluid, int coolingTime, ModifierId modifier) {
-    super(serializer, id, group, tool, fluid, Items.AIR, coolingTime);
+  public TipClearingCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient tool, FluidIngredient fluid, int coolingTime, ModifierId modifier) {
+    super(serializer, group, tool, fluid, Items.AIR, coolingTime);
     this.modifier = modifier;
   }
 
@@ -47,7 +46,7 @@ public class TipClearingCastingRecipe extends PotionCastingRecipe {
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = inv.getStack().copy();
     ToolStack.from(result).getPersistentData().remove(modifier);
     return result;
@@ -65,7 +64,7 @@ public class TipClearingCastingRecipe extends PotionCastingRecipe {
         .toList();
       // list of tools with the potion set
       List<ItemStack> toolWithPotion = BuiltInRegistries.POTION.stream()
-        .filter(potion -> potion != Potions.EMPTY)
+        .filter(potion -> potion != Potions.WATER.value())
         .flatMap(potion -> {
           String id = Loadables.POTION.getString(potion);
           return tools.stream().map(stack -> {
@@ -76,9 +75,9 @@ public class TipClearingCastingRecipe extends PotionCastingRecipe {
         }).toList();
       // list of tools without the potion set, want the sizes to match
       List<ItemStack> toolWithoutPotion = BuiltInRegistries.POTION.stream()
-        .filter(potion -> potion != Potions.EMPTY)
+        .filter(potion -> potion != Potions.WATER.value())
         .flatMap(i -> tools.stream()).toList();
-      displayRecipes = List.of(new DisplayCastingRecipe(getId(), getType(), toolWithPotion, fluid.getFluids(), toolWithoutPotion, coolingTime, true));
+      displayRecipes = List.of(new DisplayCastingRecipe(null, getType(), toolWithPotion, fluid.getFluids(), toolWithoutPotion, coolingTime, true));
     }
     return displayRecipes;
   }

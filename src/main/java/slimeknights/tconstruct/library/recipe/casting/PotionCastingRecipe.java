@@ -1,17 +1,18 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
-import lombok.Getter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -26,6 +27,7 @@ import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import slimeknights.tconstruct.fluids.fluids.PotionFluidType;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
   protected static final LoadableField<FluidIngredient, PotionCastingRecipe> FLUID_FIELD = FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid);
   protected static final LoadableField<Integer, PotionCastingRecipe> COOLING_TIME_FIELD = IntLoadable.FROM_ONE.defaultField("cooling_time", 5, r -> r.coolingTime);
   public static final RecordLoadable<PotionCastingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("bottle", r -> r.bottle),
     FLUID_FIELD,
     Loadables.ITEM.requiredField("result", r -> r.result),
@@ -45,8 +47,6 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
 
   @Getter
   protected final TypeAwareRecipeSerializer<?> serializer;
-  @Getter
-  protected final ResourceLocation id;
   @Getter
   protected final String group;
   /** Input on the casting table, always consumed */
@@ -58,15 +58,19 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
   /** Cooling time for this recipe, used for tipped arrows */
   protected final int coolingTime;
 
-  public PotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime) {
+  public PotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime) {
     this.serializer = serializer;
-    this.id = id;
     this.group = group;
     this.bottle = bottle;
     this.fluid = fluid;
     this.result = result;
     this.coolingTime = coolingTime;
     CastingRecipeLookup.registerCastable(result);
+  }
+
+  @Override
+  public RecipeSerializer<?> getSerializer() {
+    return serializer;
   }
 
   @Override
@@ -102,7 +106,10 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
   @Override
   public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = new ItemStack(this.result);
-    result.setTag(inv.getFluidTag());
+    CompoundTag tag = inv.getFluidTag();
+    if (tag != null) {
+      result.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
     return result;
   }
 
@@ -116,12 +123,12 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
       // create a subrecipe for every potion variant
       List<ItemStack> bottles = List.of(bottle.getItems());
       displayRecipes = BuiltInRegistries.POTION.holders()
-        .filter(potion -> potion != Potions.EMPTY)
+        .filter(potion -> potion.value() != Potions.WATER.value())
         .map(potion -> {
           ItemStack result = new ItemStack(this.result);
           result.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
-          return new DisplayCastingRecipe(getId(), getType(), bottles, fluid.getFluids().stream()
-                                                              .map(fluid -> new FluidStack(fluid.getFluid(), fluid.getAmount(), result.getTag()))
+          return new DisplayCastingRecipe(null, getType(), bottles, fluid.getFluids().stream()
+                                                              .map(fluidStack -> PotionFluidType.potionFluid(potion.value(), fluidStack.getAmount()))
                                                               .toList(),
                                           result, coolingTime, true);
         }).toList();

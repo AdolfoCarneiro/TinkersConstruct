@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -35,14 +34,14 @@ import java.util.List;
 public class TippingCastingRecipe extends PotionCastingRecipe {
   protected static final LoadableField<Ingredient, PotionCastingRecipe> TOOL_FIELD = IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.bottle);
   public static final RecordLoadable<TippingCastingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     TOOL_FIELD, FLUID_FIELD, COOLING_TIME_FIELD,
     ModifierId.PARSER.requiredField("modifier", r -> r.modifier),
     TippingCastingRecipe::new);
 
   private final ModifierId modifier;
-  public TippingCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient tool, FluidIngredient fluid, int coolingTime, ModifierId modifier) {
-    super(serializer, id, group, tool, fluid, Items.AIR, coolingTime);
+  public TippingCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient tool, FluidIngredient fluid, int coolingTime, ModifierId modifier) {
+    super(serializer, group, tool, fluid, Items.AIR, coolingTime);
     this.modifier = modifier;
   }
 
@@ -61,7 +60,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = inv.getStack().copy();
     CompoundTag tag = inv.getFluidTag();
     if (tag != null) {
@@ -81,7 +80,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
         .map(stack -> IDisplayModifierRecipe.withModifiers(IModifiableDisplay.getDisplayStack(stack), List.of(new ModifierEntry(modifier, 1))))
         .toList();
       displayRecipes = BuiltInRegistries.POTION.stream()
-        .filter(potion -> potion != Potions.EMPTY)
+        .filter(potion -> potion != Potions.WATER.value())
         .map(potion -> {
           // add the potion to the tool list
           String id = Loadables.POTION.getString(potion);
@@ -94,7 +93,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
           CompoundTag fluidNBT = new CompoundTag();
           fluidNBT.putString("Potion", id);
           // create the recipe
-          return new DisplayCastingRecipe(getId(), getType(), tools, fluid.getFluids().stream()
+          return new DisplayCastingRecipe(null, getType(), tools, fluid.getFluids().stream()
             .map(fluid -> {
               FluidStack tipped = new FluidStack(fluid.getFluid(), fluid.getAmount());
               tipped.set(DataComponents.CUSTOM_DATA, CustomData.of(fluidNBT));

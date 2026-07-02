@@ -192,9 +192,9 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     }
     net.minecraft.advancements.AdvancementHolder advancementHolder = this.buildOptionalAdvancement(output, id, "casting");
     if (modifier != null) {
-      output.accept(id, new TippingCastingRecipe(recipeSerializer, id, group, bottle, fluid, coolingTime, modifier), advancementHolder);
+      output.accept(id, new TippingCastingRecipe(recipeSerializer, group, bottle, fluid, coolingTime, modifier), advancementHolder);
     } else {
-      output.accept(id, new PotionCastingRecipe(recipeSerializer, id, group, bottle, fluid, result, coolingTime), advancementHolder);
+      output.accept(id, new PotionCastingRecipe(recipeSerializer, group, bottle, fluid, result, coolingTime), advancementHolder);
     }
   }
 }
