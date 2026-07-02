@@ -109,6 +109,10 @@ public class FixedArmorTextureSupplier implements ArmorTextureSupplier {
     private int luminosity;
     private String suffix = "";
 
+    private Builder(ResourceLocation name) {
+      this.name = name;
+    }
+
     /** Sets the suffix to a material variant */
     public Builder materialSuffix(MaterialVariantId id) {
       this.suffix = '_' + id.getSuffix();
