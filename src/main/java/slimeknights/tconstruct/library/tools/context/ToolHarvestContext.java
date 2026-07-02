@@ -47,6 +47,21 @@ public class ToolHarvestContext {
   /** Originally targeted block state. Will be the same as {@link #state} for the original block */
   private final BlockState targetedState;
 
+  private ToolHarvestContext(ServerLevel world, LivingEntity living, @Nullable ServerPlayer player, @Nullable Projectile projectile, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective, boolean isAOE, BlockPos targetedPos, BlockState targetedState) {
+    this.world = world;
+    this.living = living;
+    this.player = player;
+    this.projectile = projectile;
+    this.state = state;
+    this.pos = pos;
+    this.sideHit = sideHit;
+    this.canHarvest = canHarvest;
+    this.isEffective = isEffective;
+    this.isAOE = isAOE;
+    this.targetedPos = targetedPos;
+    this.targetedState = targetedState;
+  }
+
   public ToolHarvestContext(ServerLevel world, ServerPlayer player, @Nullable Projectile projectile, BlockState state, BlockPos pos, Direction sideHit, boolean canHarvest, boolean isEffective) {
     this(world, player, player, projectile, state, pos, sideHit, canHarvest, isEffective, false, pos, state);
   }
@@ -79,4 +94,19 @@ public class ToolHarvestContext {
   public boolean isProjectile() {
     return projectile != null;
   }
+
+  public ServerLevel getWorld() { return world; }
+  public LivingEntity getLiving() { return living; }
+  @Nullable
+  public ServerPlayer getPlayer() { return player; }
+  @Nullable
+  public Projectile getProjectile() { return projectile; }
+  public BlockState getState() { return state; }
+  public BlockPos getPos() { return pos; }
+  public Direction getSideHit() { return sideHit; }
+  public boolean canHarvest() { return canHarvest; }
+  public boolean isEffective() { return isEffective; }
+  public boolean isAOE() { return isAOE; }
+  public BlockPos getTargetedPos() { return targetedPos; }
+  public BlockState getTargetedState() { return targetedState; }
 }

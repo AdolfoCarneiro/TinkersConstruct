@@ -23,4 +23,17 @@ public class MaterialJson {
   private final Boolean hidden;
   @Nullable
   private final JsonRedirect[] redirect;
+
+  @Nullable
+  public ICondition getCondition() { return condition; }
+  @Nullable
+  public Boolean getCraftable() { return craftable; }
+  @Nullable
+  public Integer getTier() { return tier; }
+  @Nullable
+  public Integer getSortOrder() { return sortOrder; }
+  @Nullable
+  public Boolean getHidden() { return hidden; }
+  @Nullable
+  public JsonRedirect[] getRedirect() { return redirect; }
 }

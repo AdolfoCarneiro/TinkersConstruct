@@ -28,6 +28,16 @@ public class UpdateMaterialsPacket implements CustomPacketPayload {
   private final Map<MaterialId,MaterialId> redirects;
   private final Map<TagKey<IMaterial>,List<IMaterial>> tags;
 
+  public UpdateMaterialsPacket(Map<MaterialId,IMaterial> materials, Map<MaterialId,MaterialId> redirects, Map<TagKey<IMaterial>,List<IMaterial>> tags) {
+    this.materials = materials;
+    this.redirects = redirects;
+    this.tags = tags;
+  }
+
+  public Map<MaterialId,IMaterial> getMaterials() { return materials; }
+  public Map<MaterialId,MaterialId> getRedirects() { return redirects; }
+  public Map<TagKey<IMaterial>,List<IMaterial>> getTags() { return tags; }
+
   public UpdateMaterialsPacket(RegistryFriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
     ImmutableMap.Builder<MaterialId,IMaterial> materials = ImmutableMap.builder();

@@ -51,6 +51,7 @@ import static java.util.Objects.requireNonNullElse;
  */
 @Log4j2
 public class MaterialManager extends SimpleJsonResourceReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(MaterialManager.class);
   /** Location of materials */
   public static final String FOLDER = "tinkering/materials/definition";
   /** Location of material tags */

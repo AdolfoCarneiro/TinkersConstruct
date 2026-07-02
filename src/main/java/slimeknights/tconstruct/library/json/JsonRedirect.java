@@ -22,6 +22,10 @@ public class JsonRedirect {
     this.condition = condition;
   }
 
+  public ResourceLocation getId() { return id; }
+  @Nullable
+  public ICondition getCondition() { return condition; }
+
   /** Serializes this to JSON */
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
