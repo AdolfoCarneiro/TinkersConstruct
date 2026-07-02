@@ -8,10 +8,10 @@ import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.plugin.jei.MantleJEIConstants;
@@ -25,55 +25,38 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.stream.Stream;
 
-/** Common logic for {@link ShapedMaterialsExtension} and {@link ShapelessMaterialsExtension} */
-public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraftingTableRecipe> implements ICraftingCategoryExtension {
-  protected final T recipe;
-  private final ItemStack plainResult;
-  private final List<ItemStack> result;
-  @Nullable
-  private final int[] materialSlots;
+/**
+ * Common logic for {@link ShapedMaterialsExtension} and shapeless material crafting recipes.
+ * JEI 16.0.0+ extensions are singletons that receive the recipe on every call, so the per-recipe
+ * display data computed in the old per-instance constructor is now lazily cached here instead.
+ */
+public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraftingTableRecipe> implements ICraftingCategoryExtension<T> {
+  private static final MaterialsCraftingExtension<ShapelessMaterialsRecipe> SHAPELESS = new MaterialsCraftingExtension<>();
 
-  public MaterialsCraftingExtension(T recipe) {
-    this.recipe = recipe;
-    this.plainResult = recipe.getResultItem(Objects.requireNonNull(SafeClientAccess.getRegistryAccess()));
+  private final Map<T, Display> cache = new WeakHashMap<>();
 
-    // if we have just the one part, set the output to match its material
-    if (recipe.getPartCount() == 1) {
-      Ingredient firstPart = recipe.getParts().get(0);
-      this.result = Arrays.stream(firstPart.getItems()).map(variant -> {
-        ItemStack stack = plainResult.copy();
-        if (variant.getItem() instanceof IMaterialItem materialItem) {
-          recipe.setMaterial(stack, materialItem.getMaterial(variant));
-        } else {
-          recipe.setMaterial(stack, MaterialRecipeCache.findRecipe(variant).getMaterial().getVariant());
-        }
-        return stack;
-      }).toList();
-      this.materialSlots = getMaterialSlots(recipe, firstPart);
-      // otherwise, use a display material. allow display tool part if it has just 1 material
-    } else if (recipe.getExtraMaterials().isEmpty() && plainResult.getItem() instanceof IMaterialItem materialItem) {
-      this.result = List.of(materialItem.setMaterialForced(plainResult, ToolBuildHandler.getRenderMaterial(0)));
-      this.materialSlots = null;
-    } else {
-      // display tool
-      this.result = List.of(IModifiableDisplay.getDisplayStack(plainResult));
-      this.materialSlots = null;
-    }
+  protected MaterialsCraftingExtension() {}
+
+  /** {@return the singleton extension instance for shapeless material crafting recipes} */
+  public static MaterialsCraftingExtension<ShapelessMaterialsRecipe> shapeless() {
+    return SHAPELESS;
   }
 
-  /** {@return Instance of the shapeless extension, or null if the recipe is invalid for display} */
-  @Nullable
-  public static MaterialsCraftingExtension<ShapelessMaterialsRecipe> shapeless(ShapelessMaterialsRecipe recipe) {
+  @Override
+  public boolean isHandled(RecipeHolder<T> recipeHolder) {
+    T recipe = recipeHolder.value();
     List<Ingredient> parts = recipe.getIngredients();
     for (int i = 0; i < recipe.getPartCount(); i++) {
       if (parts.get(i).getItems().length == 0) {
-        return null;
+        return false;
       }
     }
-    return new MaterialsCraftingExtension<>(recipe);
+    return true;
   }
 
   /** Gets the material slots for the given recipe */
@@ -81,20 +64,47 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     return new int[] {0};
   }
 
-  @Override
-  public ResourceLocation getRegistryName() {
-    return recipe.getId();
+  /** Computes, and caches, the display data for the given recipe */
+  private Display getDisplay(T recipe) {
+    return cache.computeIfAbsent(recipe, r -> {
+      ItemStack plainResult = r.getResultItem(Objects.requireNonNull(SafeClientAccess.getRegistryAccess()));
+      List<ItemStack> result;
+      @Nullable int[] materialSlots;
+      // if we have just the one part, set the output to match its material
+      if (r.getPartCount() == 1) {
+        Ingredient firstPart = r.getParts().get(0);
+        result = Arrays.stream(firstPart.getItems()).map(variant -> {
+          ItemStack stack = plainResult.copy();
+          if (variant.getItem() instanceof IMaterialItem materialItem) {
+            r.setMaterial(stack, materialItem.getMaterial(variant));
+          } else {
+            r.setMaterial(stack, MaterialRecipeCache.findRecipe(variant).getMaterial().getVariant());
+          }
+          return stack;
+        }).toList();
+        materialSlots = getMaterialSlots(r, firstPart);
+        // otherwise, use a display material. allow display tool part if it has just 1 material
+      } else if (r.getExtraMaterials().isEmpty() && plainResult.getItem() instanceof IMaterialItem materialItem) {
+        result = List.of(materialItem.setMaterialForced(plainResult, ToolBuildHandler.getRenderMaterial(0)));
+        materialSlots = null;
+      } else {
+        // display tool
+        result = List.of(IModifiableDisplay.getDisplayStack(plainResult));
+        materialSlots = null;
+      }
+      return new Display(plainResult, result, materialSlots);
+    });
   }
 
-  /** Sets the recipe in the builder */
-  public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, CraftingRecipe recipe, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
+  /** Sets the recipe in the builder, shared with the legacy {@code ShapedMaterialExtension} */
+  public static <R extends CraftingRecipe> void setRecipe(ICraftingCategoryExtension<R> self, RecipeHolder<R> recipeHolder, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, R recipe, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
     builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStack(plainResult);
 
     // apply ingredient stacks
     List<List<ItemStack>> inputStacks = recipe.getIngredients().stream().map(ingredient -> List.of(ingredient.getItems())).toList();
     // shapeless needs its width and height set, but we also want to recover those sizes, so calculate it locally
-    int width = self.getWidth();
-    int height = self.getHeight();
+    int width = self.getWidth(recipeHolder);
+    int height = self.getHeight(recipeHolder);
     if (width <= 0 || height <= 0) {
       width = height = getShapelessSize(inputStacks.size());
       builder.setShapeless();
@@ -102,7 +112,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputStacks, width, height);
     IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result);
     if (inputs.size() != 9) {
-      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipe.getId(), builder.getClass().getName());
+      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipeHolder.id(), builder.getClass().getName());
     } else if (materialSlots != null) {
       // apply focus links
       int finalWidth = width;
@@ -115,8 +125,10 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
   }
 
   @Override
-  public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
-    setRecipe(this, builder, craftingGridHelper, recipe, result, plainResult, materialSlots);
+  public void setRecipe(RecipeHolder<T> recipeHolder, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
+    T recipe = recipeHolder.value();
+    Display display = getDisplay(recipe);
+    setRecipe(this, recipeHolder, builder, craftingGridHelper, recipe, display.result(), display.plainResult(), display.materialSlots());
   }
 
   /** Gets the width and height of the grid for a shapeless recipe. */
@@ -129,4 +141,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
       return 1;
     }
   }
+
+  /** Cached per-recipe display data */
+  private record Display(ItemStack plainResult, List<ItemStack> result, @Nullable int[] materialSlots) {}
 }

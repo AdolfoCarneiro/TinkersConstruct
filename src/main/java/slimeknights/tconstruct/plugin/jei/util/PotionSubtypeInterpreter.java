@@ -8,33 +8,27 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
 
-import javax.annotation.Nullable;
-import java.util.List;
+import java.util.Optional;
 
 /** Common logic for subtype interpreter between the fluid and item form of our potion. Based on a JEI class with the same name */
 public interface PotionSubtypeInterpreter<T> extends IIngredientSubtypeInterpreter<T> {
-  @Nullable
+  /** Gets the custom data tag off the ingredient, empty if none is present */
   CompoundTag getTag(T ingredient);
 
   @Override
   default String apply(T ingredient, UidContext context) {
     CompoundTag tag = getTag(ingredient);
-    if (tag == null) {
+    if (!tag.contains("Potion")) {
       return IIngredientSubtypeInterpreter.NONE;
     }
-    Holder<Potion> potionHolder = Potions.EMPTY;
-    if (tag.contains("Potion")) {
-      potionHolder = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).orElse(Potions.EMPTY);
-    }
-    Potion potionType = potionHolder.value();
-    String potionTypeString = potionType.getName("");
-    StringBuilder stringBuilder = new StringBuilder(potionTypeString);
-    List<MobEffectInstance> effects = potionType.getEffects();
-    for (MobEffectInstance effect : effects) {
-      stringBuilder.append(";").append(effect);
-    }
+    Optional<Holder<Potion>> potionHolder = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion"))).map(h -> h);
+    StringBuilder stringBuilder = new StringBuilder(Potion.getName(potionHolder, ""));
+    potionHolder.ifPresent(holder -> {
+      for (MobEffectInstance effect : holder.value().getEffects()) {
+        stringBuilder.append(";").append(effect);
+      }
+    });
     return stringBuilder.toString();
   }
 }
