@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -28,7 +26,6 @@ import java.util.Objects;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 @Accessors(chain = true)
-@RequiredArgsConstructor(staticName = "castingRecipe")
 public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<MaterialCastingRecipeBuilder> {
   @Nullable
   private final IMaterialItem result;
@@ -36,14 +33,34 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   private final IModifiable resultTool;
   private final TypeAwareRecipeSerializer<? extends AbstractMaterialCastingRecipe> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
-  @Setter
   private int itemCost = 0;
   private CastPurpose castPurpose = CastPurpose.CATALYST;
   private boolean switchSlots = false;
-  @Setter
   private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
   /** Extra materials for tool casting. Has no impact on part casting. */
   private final List<MaterialVariantId> extraMaterials = new ArrayList<>();
+
+  private MaterialCastingRecipeBuilder(@Nullable IMaterialItem result, @Nullable IModifiable resultTool, TypeAwareRecipeSerializer<? extends AbstractMaterialCastingRecipe> recipeSerializer) {
+    this.result = result;
+    this.resultTool = resultTool;
+    this.recipeSerializer = recipeSerializer;
+  }
+
+  private static MaterialCastingRecipeBuilder castingRecipe(@Nullable IMaterialItem result, @Nullable IModifiable resultTool, TypeAwareRecipeSerializer<? extends AbstractMaterialCastingRecipe> recipeSerializer) {
+    return new MaterialCastingRecipeBuilder(result, resultTool, recipeSerializer);
+  }
+
+  /** Sets the amount of fluid needed to cast the item */
+  public MaterialCastingRecipeBuilder setItemCost(int itemCost) {
+    this.itemCost = itemCost;
+    return this;
+  }
+
+  /** Sets the predicate for materials allowed to be cast */
+  public MaterialCastingRecipeBuilder setAllowedMaterials(IJsonPredicate<MaterialVariantId> allowedMaterials) {
+    this.allowedMaterials = allowedMaterials;
+    return this;
+  }
 
   /**
    * Creates a new material casting recipe for an basin recipe
@@ -141,7 +158,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    * @return  Builder instance
    */
   public MaterialCastingRecipeBuilder setPart(ItemLike part, boolean first) {
-    return this.setCast(MaterialIngredient.of(part), first ? CastPurpose.FIRST_MATERIAL : CastPurpose.SECOND_MATERIAL);
+    return this.setCast(MaterialIngredient.of(part).toVanilla(), first ? CastPurpose.FIRST_MATERIAL : CastPurpose.SECOND_MATERIAL);
   }
 
   /**

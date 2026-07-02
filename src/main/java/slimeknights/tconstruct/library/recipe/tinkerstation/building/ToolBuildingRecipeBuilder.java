@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -25,20 +23,44 @@ import java.util.List;
 /**
  * Builder for a recipe that builds a tool
  */
-@RequiredArgsConstructor(staticName = "toolBuildingRecipe")
 @Accessors(fluent = true)
 public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildingRecipeBuilder> {
   private final IModifiable output;
-  @Setter
   private int outputSize = 1;
-  @Nullable @Setter
+  @Nullable
   private ResourceLocation layoutSlot = null;
   private final List<Ingredient> extraRequirements = new ArrayList<>();
   private List<IToolPart> partsOverride = null;
   private final List<MaterialVariantId> extraMaterials = new ArrayList<>();
   /** Modifier ID for the tipped arrow transformation recipe. Not typically needed by addons, just didn't feel like making another builder. */
-  @Nullable @Setter
+  @Nullable
   private ModifierId tippedModifier = null;
+
+  private ToolBuildingRecipeBuilder(IModifiable output) {
+    this.output = output;
+  }
+
+  public static ToolBuildingRecipeBuilder toolBuildingRecipe(IModifiable output) {
+    return new ToolBuildingRecipeBuilder(output);
+  }
+
+  /** Sets the number of items output by this recipe */
+  public ToolBuildingRecipeBuilder outputSize(int outputSize) {
+    this.outputSize = outputSize;
+    return this;
+  }
+
+  /** Sets the layout slot pattern to display in JEI */
+  public ToolBuildingRecipeBuilder layoutSlot(@Nullable ResourceLocation layoutSlot) {
+    this.layoutSlot = layoutSlot;
+    return this;
+  }
+
+  /** Sets the modifier ID for the tipped arrow transformation recipe */
+  public ToolBuildingRecipeBuilder tippedModifier(@Nullable ModifierId tippedModifier) {
+    this.tippedModifier = tippedModifier;
+    return this;
+  }
 
   /** Adds an extra ingredient requirement */
   public ToolBuildingRecipeBuilder addExtraRequirement(Ingredient ingredient) {

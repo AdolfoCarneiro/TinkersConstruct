@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -17,16 +15,34 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /** Builder for {@link PartSwapCastingRecipe} */
 @Accessors(chain = true)
-@RequiredArgsConstructor(staticName = "castingRecipe")
 public class PartSwapCastingRecipeBuilder extends AbstractRecipeBuilder<PartSwapCastingRecipeBuilder> {
   private final Ingredient tools;
   private final int itemCost;
   private final TypeAwareRecipeSerializer<PartSwapCastingRecipe> recipeSerializer;
-  @Setter
-  @Accessors(fluent = true)
   private int index = 0;
-  @Setter
   private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
+
+  private PartSwapCastingRecipeBuilder(Ingredient tools, int itemCost, TypeAwareRecipeSerializer<PartSwapCastingRecipe> recipeSerializer) {
+    this.tools = tools;
+    this.itemCost = itemCost;
+    this.recipeSerializer = recipeSerializer;
+  }
+
+  private static PartSwapCastingRecipeBuilder castingRecipe(Ingredient tools, int itemCost, TypeAwareRecipeSerializer<PartSwapCastingRecipe> recipeSerializer) {
+    return new PartSwapCastingRecipeBuilder(tools, itemCost, recipeSerializer);
+  }
+
+  /** Sets the index of the part to swap */
+  public PartSwapCastingRecipeBuilder index(int index) {
+    this.index = index;
+    return this;
+  }
+
+  /** Sets the predicate for materials allowed to be swapped in */
+  public PartSwapCastingRecipeBuilder setAllowedMaterials(IJsonPredicate<MaterialVariantId> allowedMaterials) {
+    this.allowedMaterials = allowedMaterials;
+    return this;
+  }
 
   /**
    * Creates a new part swapping recipe

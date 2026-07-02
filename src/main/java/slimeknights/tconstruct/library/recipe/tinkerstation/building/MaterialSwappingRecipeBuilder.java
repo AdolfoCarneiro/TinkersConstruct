@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import net.minecraft.advancements.AdvancementHolder;
@@ -25,11 +23,9 @@ import java.util.List;
 
 /** Builder for {@link FixedMaterialSwappingRecipe} and {@link PartSwappingOverrideRecipe}. */
 @Accessors(fluent = true)
-@RequiredArgsConstructor(staticName = "tools")
 public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<MaterialSwappingRecipeBuilder> {
   /** Tools that support this recipe */
   private final Ingredient tools;
-  @Setter
   private int maxStackSize = 16;
   /** List of indices swapped by this recipe */
   private final BitSet indices = new BitSet();
@@ -37,7 +33,6 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
   private final List<SizedIngredient> extraRequirements = new ArrayList<>();
 
   /** Part to swap, used by part override */
-  @Setter
   private IToolPart part = null;
 
   /** Ingredient for the input part, used by fixed */
@@ -45,8 +40,34 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
   /** Material to swap to, used by fixed */
   private MaterialVariantId material = IMaterial.UNKNOWN_ID;
   /** Repair value on swapping, used by fixed */
-  @Setter
   private int repairValue = 0;
+
+  private MaterialSwappingRecipeBuilder(Ingredient tools) {
+    this.tools = tools;
+  }
+
+  /** Creates a builder for the given tools */
+  public static MaterialSwappingRecipeBuilder tools(Ingredient tools) {
+    return new MaterialSwappingRecipeBuilder(tools);
+  }
+
+  /** Sets the max stack size a tool may have to use this recipe */
+  public MaterialSwappingRecipeBuilder maxStackSize(int maxStackSize) {
+    this.maxStackSize = maxStackSize;
+    return this;
+  }
+
+  /** Sets the part to swap, used by part override */
+  public MaterialSwappingRecipeBuilder part(IToolPart part) {
+    this.part = part;
+    return this;
+  }
+
+  /** Sets the repair value on swapping, used by fixed */
+  public MaterialSwappingRecipeBuilder repairValue(int repairValue) {
+    this.repairValue = repairValue;
+    return this;
+  }
 
   /** Creates a builder for the given tool */
   public static MaterialSwappingRecipeBuilder tool(ItemLike tool) {

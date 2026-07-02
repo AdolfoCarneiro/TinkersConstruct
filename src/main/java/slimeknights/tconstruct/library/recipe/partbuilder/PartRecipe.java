@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
@@ -36,7 +34,6 @@ import java.util.stream.Stream;
 /**
  * Recipe to make a tool part from a material item in the part builder
  */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
   public static final RecordLoadable<PartRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.RECIPE_GROUP,
@@ -65,10 +62,35 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
   /** Count for the recipe output */
   protected final int outputCount;
 
+  protected PartRecipe(String group, Pattern pattern, Ingredient patternItem, int cost, boolean allowUncraftable, IMaterialItem output, int outputCount) {
+    this.group = group;
+    this.pattern = pattern;
+    this.patternItem = patternItem;
+    this.cost = cost;
+    this.allowUncraftable = allowUncraftable;
+    this.output = output;
+    this.outputCount = outputCount;
+  }
+
   /** @deprecated use {@link #PartRecipe(String, Pattern, Ingredient, int, boolean, IMaterialItem, int)} */
   @Deprecated(forRemoval = true)
   public PartRecipe(String group, Pattern pattern, Ingredient patternItem, int cost, IMaterialItem output, int outputCount) {
     this(group, pattern, patternItem, cost, false, output, outputCount);
+  }
+
+  @Override
+  public Pattern getPattern() {
+    return pattern;
+  }
+
+  @Override
+  public int getCost() {
+    return cost;
+  }
+
+  @Override
+  public boolean allowUncraftable() {
+    return allowUncraftable;
   }
 
   @Override

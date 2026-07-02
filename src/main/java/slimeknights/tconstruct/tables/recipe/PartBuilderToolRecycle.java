@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.recipe;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -58,7 +57,6 @@ import java.util.stream.Stream;
  * TODO 1.21: move to {@link slimeknights.tconstruct.library.recipe.partbuilder.recycle}.
  */
 @SuppressWarnings("deprecation")  // Forge is dumb
-@RequiredArgsConstructor
 public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<DisplayPartRecipe> {
   /** Title for the screen */
   private static final Component TOOL_RECYCLING = TConstruct.makeTranslation("recipe", "tool_recycling");
@@ -79,6 +77,12 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
   private final SizedIngredient toolRequirement;
   private final Ingredient pattern;
   private final List<IMaterialItem> parts;
+
+  public PartBuilderToolRecycle(SizedIngredient toolRequirement, Ingredient pattern, List<IMaterialItem> parts) {
+    this.toolRequirement = toolRequirement;
+    this.pattern = pattern;
+    this.parts = parts;
+  }
 
   /** @deprecated use {@link FinishedRecipe} */
   @Deprecated(forRemoval = true)

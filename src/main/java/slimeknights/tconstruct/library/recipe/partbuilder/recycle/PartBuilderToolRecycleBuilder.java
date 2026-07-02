@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.partbuilder.recycle;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -26,13 +24,26 @@ import java.util.function.Supplier;
  * Builder for custom part builder tool recycling recipes.
  * Note we automatically add recycling for all tools in {@link TinkerTags.Items#MULTIPART_TOOL} unless they are also in {@link TinkerTags.Items#UNRECYCLABLE}; latter notably includes {@link TinkerTags.Items#ANCIENT_TOOLS}
  */
-@RequiredArgsConstructor(staticName = "tools")
 @Accessors(fluent = true)
 public class PartBuilderToolRecycleBuilder extends AbstractRecipeBuilder<PartBuilderToolRecycleBuilder> {
   private final SizedIngredient tools;
-  @Setter
   private Ingredient pattern = Ingredient.of(TinkerFluids.venomBottle);
   private final List<IMaterialItem> parts = new ArrayList<>();
+
+  private PartBuilderToolRecycleBuilder(SizedIngredient tools) {
+    this.tools = tools;
+  }
+
+  /** Creates a builder for the given tools */
+  public static PartBuilderToolRecycleBuilder tools(SizedIngredient tools) {
+    return new PartBuilderToolRecycleBuilder(tools);
+  }
+
+  /** Sets the pattern item required to recycle the tool */
+  public PartBuilderToolRecycleBuilder pattern(Ingredient pattern) {
+    this.pattern = pattern;
+    return this;
+  }
 
   /** Creates a builder for the given tool */
   public static PartBuilderToolRecycleBuilder tool(ItemLike tool) {

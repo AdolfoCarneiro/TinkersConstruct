@@ -56,6 +56,21 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
+  public MaterialVariant getMaterial() {
+    return material;
+  }
+
+  @Override
+  public Pattern getPattern() {
+    return pattern;
+  }
+
+  @Override
+  public int getCost() {
+    return cost;
+  }
+
+  @Override
   public boolean allowUncraftable() {
     // if we have a recipe, we craft it
     return true;

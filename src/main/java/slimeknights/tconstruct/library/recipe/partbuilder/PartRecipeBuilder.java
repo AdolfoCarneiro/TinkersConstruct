@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -18,18 +16,28 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
  * Builder for a material item part crafting recipe
  */
 @Accessors(chain = true)
-@RequiredArgsConstructor(staticName = "partRecipe")
 public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> {
   private final IMaterialItem output;
   private final int outputAmount;
-  @Setter
   private int cost = 1;
-  @Setter
   private ResourceLocation pattern = null;
-  @Setter
   private Ingredient patternItem = IPartBuilderRecipe.DEFAULT_PATTERNS;
-  @Setter
   private boolean allowUncraftable = false;
+
+  private PartRecipeBuilder(IMaterialItem output, int outputAmount) {
+    this.output = output;
+    this.outputAmount = outputAmount;
+  }
+
+  /**
+   * Creates a new part recipe with a custom output amount
+   * @param output       Output item
+   * @param outputAmount Number of items output
+   * @return  Builder instance
+   */
+  public static PartRecipeBuilder partRecipe(IMaterialItem output, int outputAmount) {
+    return new PartRecipeBuilder(output, outputAmount);
+  }
 
   /**
    * Creates a new part recipe that outputs a single item
@@ -38,6 +46,30 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
    */
   public static PartRecipeBuilder partRecipe(IMaterialItem output) {
     return partRecipe(output, 1);
+  }
+
+  /** Sets the pattern item cost of the recipe */
+  public PartRecipeBuilder setCost(int cost) {
+    this.cost = cost;
+    return this;
+  }
+
+  /** Sets the pattern used for datagen purposes */
+  public PartRecipeBuilder setPattern(ResourceLocation pattern) {
+    this.pattern = pattern;
+    return this;
+  }
+
+  /** Sets the ingredient used for the pattern item */
+  public PartRecipeBuilder setPatternItem(Ingredient patternItem) {
+    this.patternItem = patternItem;
+    return this;
+  }
+
+  /** Sets whether the recipe should be craftable without a pattern */
+  public PartRecipeBuilder setAllowUncraftable(boolean allowUncraftable) {
+    this.allowUncraftable = allowUncraftable;
+    return this;
   }
 
   @Override

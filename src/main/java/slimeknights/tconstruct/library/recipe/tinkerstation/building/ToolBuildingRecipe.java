@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -53,7 +54,6 @@ import java.util.Objects;
  * This recipe is used for crafting a set of parts into a tool.
  * TODO 1.21: extend {@link MaterialSwappingRecipe} to automatically provide part swapping here.
  */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   // placement of recipes in JEI
   public static final int X_OFFSET = -6;
@@ -99,6 +99,16 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   public IModifiable getOutput() {
     return output;
+  }
+
+  protected ToolBuildingRecipe(String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients, @Nullable List<IToolPart> parts, List<MaterialVariantId> materials) {
+    this.group = group;
+    this.output = output;
+    this.outputCount = outputCount;
+    this.layoutSlot = layoutSlot;
+    this.ingredients = ingredients;
+    this.parts = parts;
+    this.materials = materials;
   }
 
   @Deprecated(forRemoval = true)
@@ -214,7 +224,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     if (error != null) {
       return RecipeResult.failure(error);
     }
-    return LazyToolStack.success(tool, Math.min(output.asItem().getMaxStackSize(), count));
+    return LazyToolStack.success(tool, Math.min(output.asItem().getDefaultInstance().getMaxStackSize(), count));
   }
 
 
@@ -273,7 +283,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
       int missingSlots = getAllToolParts().size() + getExtraRequirements().size() - layoutSlots.size();
       // check layout slots if its too small
       if (missingSlots > 0) {
-        TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", getId()));
+        TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", getLayoutSlotId()));
         layoutSlots = new ArrayList<>(layoutSlots);
         for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
           layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE - X_OFFSET, -Y_OFFSET, null));
@@ -311,7 +321,9 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
           } else {
             // not a full list? mark it for display with just the materials on the end
             result = new MaterialIdNBT(list).updateStack(new ItemStack(output, outputCount));
-            result.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            CompoundTag _nbt = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            _nbt.putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            result.set(DataComponents.CUSTOM_DATA, CustomData.of(_nbt));
           }
         }
       }
