@@ -40,12 +40,8 @@ public record PunchModule(LevelingValue amount, ModifierCondition<IToolStackView
   public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (condition.matches(tool, modifier)) {
       float amount = this.amount.compute(modifier.getEffectiveLevel());
-      if (amount > 0) {
-        if (arrow != null) {
-          arrow.setKnockback((int) amount);
-        } else if (projectile instanceof ProjectileWithKnockback withKnockback) {
-          withKnockback.addKnockback(amount);
-        }
+      if (amount > 0 && projectile instanceof ProjectileWithKnockback withKnockback) {
+        withKnockback.addKnockback(amount);
       }
     }
   }

@@ -5,8 +5,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -14,6 +16,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithKnockback;
 import slimeknights.tconstruct.library.modifiers.entity.ReusableProjectile;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
@@ -31,7 +34,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import javax.annotation.Nullable;
 
 /** Arrow with material variants */
-public class ModifiableArrow extends AbstractArrow implements ToolProjectile, ReusableProjectile {
+public class ModifiableArrow extends AbstractArrow implements ToolProjectile, ReusableProjectile, ProjectileWithKnockback {
   /** Key to sync the stack to the client */
   protected static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(ModifiableArrow.class, EntityDataSerializers.ITEM_STACK);
   /** Movement speed in water */
@@ -43,17 +46,23 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   private boolean dealtDamage = false;
   /** Tasks queued by modifiers */
   private Schedule tasks = Schedule.EMPTY;
+  /** Bonus knockback added by modifiers on top of the vanilla enchantment-based knockback */
+  private float bonusKnockback = 0;
 
   public ModifiableArrow(EntityType<? extends AbstractArrow> type, Level level) {
     super(type, level);
   }
 
   public ModifiableArrow(Level level, double pX, double pY, double pZ) {
-    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level);
+    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level, new ItemStack(TinkerTools.arrow.get()), null);
   }
 
   public ModifiableArrow(Level level, LivingEntity shooter) {
-    super(TinkerTools.materialArrow.get(), shooter, level);
+    this(level, shooter, null);
+  }
+
+  public ModifiableArrow(Level level, LivingEntity shooter, @Nullable ItemStack firedFromWeapon) {
+    super(TinkerTools.materialArrow.get(), shooter, level, new ItemStack(TinkerTools.arrow.get()), firedFromWeapon);
   }
 
 
@@ -136,11 +145,23 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
     return entityData.get(WATER_INERTIA);
   }
 
-  // need to replace some setters with adders so vanilla bows work with our logic
+  // vanilla dropped get/setKnockback; modifiers add bonus knockback via ProjectileWithKnockback instead,
+  // applied on top of the vanilla enchantment-based knockback in doKnockback below
+  @Override
+  public void addKnockback(float amount) {
+    this.bonusKnockback += amount;
+  }
 
   @Override
-  public void setKnockback(int knockback) {
-    super.setKnockback(getKnockback() + knockback);
+  public void doKnockback(LivingEntity entity, DamageSource damageSource) {
+    super.doKnockback(entity, damageSource);
+    if (bonusKnockback > 0) {
+      double resistance = Math.max(0, 1 - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+      Vec3 motion = getDeltaMovement().multiply(1, 0, 1).normalize().scale(bonusKnockback * 0.6 * resistance);
+      if (motion.lengthSqr() > 0) {
+        entity.push(motion.x, 0.1, motion.z);
+      }
+    }
   }
 
   @Override
@@ -213,7 +234,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   @Override
   protected ItemStack getDefaultPickupItem() {
-    return new ItemStack(TinkerTools.materialArrow.get());
+    return new ItemStack(TinkerTools.arrow.get());
   }
 
   @Override
@@ -236,7 +257,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
+    tag.put(KEY_STACK, this.stack.save(registryAccess()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     tag.putBoolean(KEY_DEALT_DAMAGE, dealtDamage);
     if (!this.tasks.isEmpty()) {
@@ -248,7 +269,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     if (tag.contains(KEY_STACK, CompoundTag.TAG_COMPOUND)) {
-      setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
+      setStack(ItemStack.parseOptional(registryAccess(), tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
     this.dealtDamage = tag.getBoolean(KEY_DEALT_DAMAGE);
