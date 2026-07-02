@@ -78,6 +78,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   /** Tool definition for the given tool */
   @Getter
   private final ToolDefinition toolDefinition;
+  @Override public ToolDefinition getToolDefinition() { return toolDefinition; }
 
   /** Max stack size override */
   private final int maxStackSize;
@@ -192,7 +193,6 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return false;
   }
 
-  @Override
   public boolean canBeDepleted() {
     return true;
   }

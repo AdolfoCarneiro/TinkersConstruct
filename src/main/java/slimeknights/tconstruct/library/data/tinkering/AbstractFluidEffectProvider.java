@@ -17,7 +17,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.common.conditions.OrCondition;
@@ -203,6 +202,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   protected static class Builder {
     private final List<ICondition> conditions = new ArrayList<>();
     private final FluidIngredient ingredient;
+    Builder(FluidIngredient ingredient) { this.ingredient = ingredient; }
     private final List<FluidEffect<? super FluidEffectContext.Block>> blockEffects = new ArrayList<>();
     private final List<FluidEffect<? super FluidEffectContext.Entity>> entityEffects = new ArrayList<>();
     private boolean hidden = false;
@@ -221,10 +221,10 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
 
     /** Adds conditions for a metal fluid based on any of the given list of ingots being present */
     public Builder metalCondition(String... names) {
-      ICondition[] conditions = new ICondition[names.length + 1];
-      conditions[0] = ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS;
-      for (int i = 0; i < names.length; i++) {
-        conditions[i+1] = new TagFilledCondition<>(ItemTags.create(commonResource("ingots/" + names[i])));
+      List<ICondition> conditions = new ArrayList<>();
+      conditions.add(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS);
+      for (String name : names) {
+        conditions.add(new TagFilledCondition<>(ItemTags.create(commonResource("ingots/" + name))));
       }
       return addCondition(new OrCondition(conditions));
     }
@@ -336,7 +336,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     private JsonObject build(ResourceLocation id) {
       JsonObject json = new JsonObject();
       if (!conditions.isEmpty()) {
-        json.add("conditions", CraftingHelper.serialize(conditions.toArray(new ICondition[0])));
+        ICondition.writeConditions(com.mojang.serialization.JsonOps.INSTANCE, json, conditions);
       }
       if (blockEffects.isEmpty() && entityEffects.isEmpty()) {
         throw new IllegalStateException("Must have at least 1 effect");

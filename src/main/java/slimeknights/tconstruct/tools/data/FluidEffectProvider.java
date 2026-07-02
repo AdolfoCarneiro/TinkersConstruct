@@ -207,7 +207,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     // foods - setup to give equivalent saturation on a full bowl/bottle to their food counterparts, though hunger may be slightly different
     addFluid(TinkerFluids.honey.getTag(), FluidValues.SIP)
       .addEntityEffect(new RestoreHungerFluidEffect(1, 0.12f, false, ItemOutput.fromItem(Items.HONEY_BOTTLE)))
-      .addEntityEffect(new RemoveEffectFluidEffect(MobEffects.POISON));
+      .addEntityEffect(new RemoveEffectFluidEffect(MobEffects.POISON.value()));
     // soups
     addFluid(TinkerFluids.beetrootSoup.getTag(), FluidValues.SIP).addEntityEffect(new RestoreHungerFluidEffect(1, 0.72f, false, ItemOutput.fromItem(Items.BEETROOT_SOUP)));
     addFluid(TinkerFluids.mushroomStew.getTag(), FluidValues.SIP).addEntityEffect(new RestoreHungerFluidEffect(1, 0.72f, false, ItemOutput.fromItem(Items.MUSHROOM_STEW)));
