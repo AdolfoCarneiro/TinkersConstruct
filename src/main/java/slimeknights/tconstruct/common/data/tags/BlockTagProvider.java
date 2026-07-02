@@ -103,20 +103,20 @@ public class BlockTagProvider extends BlockTagsProvider {
       Blocks.PURPLE_STAINED_GLASS_PANE, Blocks.RED_STAINED_GLASS_PANE, Blocks.WHITE_STAINED_GLASS_PANE, Blocks.YELLOW_STAINED_GLASS_PANE);
     this.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS).add(TinkerCommons.clearGlass.get());
     this.tag(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
-    addGlass(TinkerCommons.clearStainedGlass, "glass/", tag(Tags.Blocks.STAINED_GLASS));
-    addGlass(TinkerCommons.clearStainedGlassPane, "glass_panes/", tag(Tags.Blocks.STAINED_GLASS_PANES));
+    addGlass(TinkerCommons.clearStainedGlass, "glass/", tag(Tags.Blocks.GLASS_BLOCKS));
+    addGlass(TinkerCommons.clearStainedGlassPane, "glass_panes/", tag(Tags.Blocks.GLASS_PANES));
     TinkerCommons.clearStainedGlassPane.forEach(pane -> silicaPanes.add(pane));
 
     // impermeable for all glass
     IntrinsicTagAppender<Block> impermeable = tag(BlockTags.IMPERMEABLE);
-    IntrinsicTagAppender<Block> silicaGlass = tag(Tags.Blocks.GLASS_SILICA);
+    IntrinsicTagAppender<Block> silicaGlass = tag(Tags.Blocks.GLASS_BLOCKS_CHEAP);
     impermeable.add(TinkerCommons.clearGlass.get(), TinkerCommons.soulGlass.get(), TinkerCommons.clearTintedGlass.get(),
                     TinkerSmeltery.searedGlass.get(), TinkerSmeltery.searedSoulGlass.get(), TinkerSmeltery.searedTintedGlass.get(),
                     TinkerSmeltery.scorchedGlass.get(), TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedTintedGlass.get());
     silicaGlass.add(TinkerCommons.clearGlass.get());
     TinkerCommons.clearStainedGlass.values().forEach(impermeable::add);
     TinkerCommons.clearStainedGlass.values().forEach(silicaGlass::add);
-    tag(Tags.Blocks.GLASS_TINTED).add(TinkerCommons.clearTintedGlass.get());
+    tag(Tags.Blocks.GLASS_BLOCKS_TINTED).add(TinkerCommons.clearTintedGlass.get());
 
     // soul speed on glass
     this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get(),
@@ -268,7 +268,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     TinkerWorld.slimeDirt.forEach((type, block) -> this.tag(type.getBlockTag()).add(block));
     IntrinsicTagAppender<Block> enderBarkRoots = this.tag(TinkerTags.Blocks.ENDERBARK_ROOTS).add(TinkerWorld.enderbarkRoots.get());
     TinkerWorld.slimyEnderbarkRoots.forEach((type, block) -> {
-      this.tag(type.getDirtType().getBlockTag()).add(block);
+      this.tag(type.asDirt().getBlockTag()).add(block);
       enderBarkRoots.add(block);
     });
     endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
@@ -449,10 +449,10 @@ public class BlockTagProvider extends BlockTagsProvider {
         Tiers grassTier = grass.getHarvestTier();
         // cannot use tier sorting registry as it's not init during datagen, stuck comparing levels and falling back to ordinal for gold
         Tiers tier;
-        if (dirtTier.getLevel() == grassTier.getLevel()) {
+        if (harvestLevel(dirtTier) == harvestLevel(grassTier)) {
           tier = dirtTier.ordinal() > grassTier.ordinal() ? dirtTier : grassTier;
         } else {
-          tier = dirtTier.getLevel() > grassTier.getLevel() ? dirtTier : grassTier;
+          tier = harvestLevel(dirtTier) > harvestLevel(grassTier) ? dirtTier : grassTier;
         }
         this.tag(Objects.requireNonNull(tier.getTag())).add(TinkerWorld.slimeGrass.get(dirt).get(grass));
       }
@@ -532,6 +532,22 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // copy of blocks list from FlowingFluid#canHoldFLuid
     tag(UNREPLACABLE_BY_LIQUID).addTags(BlockTags.SIGNS, BlockTags.DOORS).add(Blocks.LADDER, Blocks.SUGAR_CANE, Blocks.BUBBLE_COLUMN, Blocks.NETHER_PORTAL, Blocks.END_PORTAL, Blocks.END_GATEWAY, Blocks.STRUCTURE_VOID);
+  }
+
+  /**
+   * Gets the vanilla harvest level for a tool tier. 1.21.1 removed {@code Tiers#getLevel()}
+   * entirely (tools now compare purely via {@link Tiers#getTag()}'s tag membership, no numeric
+   * level API remains, and NeoForge's old {@code TierSortingRegistry} is gone too), so this
+   * mirrors the historical fixed vanilla harvest levels used since these tiers were introduced.
+   */
+  private static int harvestLevel(Tiers tier) {
+    return switch (tier) {
+      case WOOD, GOLD -> 0;
+      case STONE -> 1;
+      case IRON -> 2;
+      case DIAMOND -> 3;
+      case NETHERITE -> 4;
+    };
   }
 
   @Override

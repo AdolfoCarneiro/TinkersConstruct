@@ -22,6 +22,11 @@ public enum Orientation2D {
   private final Orientation1D x;
   private final Orientation1D y;
 
+  Orientation2D(Orientation1D x, Orientation1D y) {
+    this.x = x;
+    this.y = y;
+  }
+
   public Orientation1D getX() {
     return x;
   }

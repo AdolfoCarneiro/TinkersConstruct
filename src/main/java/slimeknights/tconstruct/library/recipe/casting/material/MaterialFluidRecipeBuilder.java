@@ -34,6 +34,33 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   @Setter @Nullable
   private MaterialVariantId inputId;
 
+  private MaterialFluidRecipeBuilder(MaterialVariantId outputId) {
+    this.outputId = outputId;
+  }
+
+  /** Creates a new builder for the given output material */
+  public static MaterialFluidRecipeBuilder material(MaterialVariantId outputId) {
+    return new MaterialFluidRecipeBuilder(outputId);
+  }
+
+  /** Sets the fluid for this recipe */
+  public MaterialFluidRecipeBuilder setFluid(FluidIngredient fluid) {
+    this.fluid = fluid;
+    return this;
+  }
+
+  /** Sets the cooling temperature for this recipe */
+  public MaterialFluidRecipeBuilder setTemperature(int temperature) {
+    this.temperature = temperature;
+    return this;
+  }
+
+  /** Sets the input material base for this composite */
+  public MaterialFluidRecipeBuilder setInputId(@Nullable MaterialVariantId inputId) {
+    this.inputId = inputId;
+    return this;
+  }
+
   /**
    * Sets the fluid for this recipe, and cooling time if unset.
    * @param fluidStack  Fluid input

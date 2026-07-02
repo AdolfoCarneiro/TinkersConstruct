@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.client;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -18,22 +17,22 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.SkullBlock.Type;
@@ -79,15 +78,15 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         //noinspection UnstableApiUsage  I am reimplementing vanilla stuff, I will call vanilla hooks
         Model model = ClientHooks.getArmorModel(entity, helmet, EquipmentSlot.HEAD, armorModel);
         boolean enchanted = helmet.hasFoil();
-        if (armor instanceof DyeableLeatherItem dyeable) {
-          int color = dyeable.getColor(helmet);
-          float red = (color >> 16 & 255) / 255.0F;
-          float green = (color >> 8 & 255) / 255.0F;
-          float blue = (color & 255) / 255.0F;
-          renderModel(matrices, buffer, packedLight, enchanted, model, red, green, blue, getArmorResource(entity, helmet, armor, ""));
-          renderModel(matrices, buffer, packedLight, enchanted, model, 1.0F, 1.0F, 1.0F, getArmorResource(entity, helmet, armor, "_overlay"));
-        } else {
-          renderModel(matrices, buffer, packedLight, enchanted, model, 1.0F, 1.0F, 1.0F, getArmorResource(entity, helmet, armor, ""));
+        Holder<ArmorMaterial> materialHolder = armor.getMaterial();
+        ArmorMaterial material = materialHolder.value();
+        for (ArmorMaterial.Layer layer : material.layers()) {
+          int color = -1;
+          if (layer.dyeable() && helmet.is(ItemTags.DYEABLE)) {
+            color = DyedItemColor.getOrDefault(helmet, DyedItemColor.LEATHER_COLOR);
+          }
+          ResourceLocation texture = getArmorResource(entity, helmet, layer, false, EquipmentSlot.HEAD);
+          renderModel(matrices, buffer, packedLight, enchanted, model, color, texture);
         }
       } else {
         // block model renderer, based on custom head layer
@@ -95,15 +94,11 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         // skull block rendering
         if (item instanceof BlockItem block && block.getBlock() instanceof AbstractSkullBlock skullBlock) {
           matrices.scale(1.1875F, -1.1875F, -1.1875F);
-          GameProfile gameprofile = null;
-          CompoundTag tag = helmet.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-          if (tag.contains("SkullOwner", Tag.TAG_COMPOUND)) {
-            gameprofile = NbtUtils.readGameProfile(tag.getCompound("SkullOwner"));
-          }
+          ResolvableProfile profile = helmet.get(DataComponents.PROFILE);
           matrices.translate(-0.5, 0.0, -0.5);
           SkullBlock.Type type = skullBlock.getType();
           SkullModelBase skullModel = this.skullModels.get(type);
-          RenderType renderType = SkullBlockRenderer.getRenderType(type, gameprofile);
+          RenderType renderType = SkullBlockRenderer.getRenderType(type, profile);
           SkullBlockRenderer.renderSkull(null, 180.0F, pLimbSwing, matrices, buffer, packedLight, skullModel, renderType);
         } else {
           // standard rendering
@@ -115,36 +110,22 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
     }
   }
 
-  private static void renderModel(PoseStack matrices, MultiBufferSource buffer, int packedLight, boolean enchanted, Model model, float red, float green, float blue, ResourceLocation texture) {
-    VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(texture), false, enchanted);
-    model.renderToBuffer(matrices, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
+  private static void renderModel(PoseStack matrices, MultiBufferSource buffer, int packedLight, boolean enchanted, Model model, int packedColor, ResourceLocation texture) {
+    VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(texture), enchanted);
+    model.renderToBuffer(matrices, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, packedColor);
   }
 
   /**
    * More generic ForgeHook version of the above function, it allows for Items to have more control over what texture they provide.
    *
-   * @param entity Entity wearing the armor
-   * @param stack ItemStack for the armor
-   * @param armor Armor item instance
-   * @param type Subtype, can be null or "overlay"
+   * @param entity      Entity wearing the armor
+   * @param stack       ItemStack for the armor
+   * @param layer       Armor material layer, holding the pre-resolved vanilla texture
+   * @param innerModel  If true, uses the inner (leggings) texture variant of the layer
+   * @param slot        Equipment slot the armor is worn in
    * @return ResourceLocation pointing at the armor's texture
    */
-  public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, ArmorItem armor, String type) {
-    String texture = armor.getMaterial().getName();
-    String domain = "minecraft";
-    int idx = texture.indexOf(':');
-    if (idx != -1) {
-      domain = texture.substring(0, idx);
-      texture = texture.substring(idx + 1);
-    }
-    String path = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, type);
-    path = ClientHooks.getArmorTexture(entity, stack, path, EquipmentSlot.HEAD, type);
-    ResourceLocation location = HumanoidArmorLayer.ARMOR_LOCATION_CACHE.get(path);
-    if (location == null) {
-      location = ResourceLocation.parse(path);
-      HumanoidArmorLayer.ARMOR_LOCATION_CACHE.put(path, location);
-    }
-
-    return location;
+  public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, ArmorMaterial.Layer layer, boolean innerModel, EquipmentSlot slot) {
+    return ClientHooks.getArmorTexture(entity, stack, layer, innerModel, slot);
   }
 }
