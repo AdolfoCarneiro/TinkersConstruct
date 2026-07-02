@@ -48,9 +48,21 @@ public class NormalModifierModel implements SimpleModifierModel {
   /** Luminosity to apply to the texture */
   private final int luminosity;
 
+  public NormalModifierModel(@Nullable Material small, @Nullable Material large, int color, int luminosity) {
+    this.small = small;
+    this.large = large;
+    this.color = color;
+    this.luminosity = luminosity;
+  }
+
   public NormalModifierModel(@Nullable Material smallTexture, @Nullable Material largeTexture) {
     this(smallTexture, largeTexture, -1, 0);
   }
+
+  @Nullable @Override public Material small() { return small; }
+  @Nullable @Override public Material large() { return large; }
+  public int color() { return color; }
+  public int luminosity() { return luminosity; }
 
   @Override
   public RecordLoadable<? extends NormalModifierModel> getLoader() {

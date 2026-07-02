@@ -4,10 +4,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.block.RetexturedBlock;
@@ -33,11 +36,11 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   protected boolean openGui(Player player, Level world, BlockPos pos) {
     super.openGui(player, world, pos);
     // only need to update if holding the proper items
-    if (!world.isClientSide) {
+    if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
       BlockEntityHelper.get(HeatingStructureBlockEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess() && te.showDebugBlockBorder(player)) {
-          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
+          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), serverPlayer);
         }
       });
     }
@@ -46,12 +49,12 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
 
   @Override
   protected boolean displayStatus(Player player, Level world, BlockPos pos, BlockState state) {
-    if (!world.isClientSide) {
+    if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
       BlockEntityHelper.get(HeatingStructureBlockEntity.class, world, pos).ifPresent(te -> {
         MultiblockResult result = te.getStructureResult();
         if (!result.isSuccess()) {
           player.displayClientMessage(result.getMessage(), true);
-          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
+          TinkerNetwork.sendTo(new StructureErrorPositionPacket(pos, result.getPos()), serverPlayer);
         }
       });
     }
@@ -59,7 +62,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter pLevel, List<Component> tooltip, TooltipFlag pFlag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext pLevel, List<Component> tooltip, TooltipFlag pFlag) {
     RetexturedHelper.addTooltip(stack, tooltip);
   }
 
@@ -70,7 +73,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader world, BlockPos pos, Player player) {
     return RetexturedBlock.getPickBlock(world, pos, state);
   }
 }

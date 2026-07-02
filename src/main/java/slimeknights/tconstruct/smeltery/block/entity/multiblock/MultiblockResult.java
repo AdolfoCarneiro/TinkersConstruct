@@ -25,6 +25,16 @@ public final class MultiblockResult {
   /** Message to display for errors */
   private final Component message;
 
+  private MultiblockResult(boolean success, @Nullable BlockPos pos, Component message) {
+    this.success = success;
+    this.pos = pos;
+    this.message = message;
+  }
+
+  public boolean isSuccess() { return success; }
+  @Nullable public BlockPos getPos() { return pos; }
+  public Component getMessage() { return message; }
+
   /**
    * Creates an error for the given arguments
    * @param pos  Position that caused the issue, may be null if no position

@@ -20,8 +20,14 @@ import java.util.NoSuchElementException;
 @Log4j2
 @RequiredArgsConstructor
 public class DataGenSpriteReader extends AbstractSpriteReader {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(DataGenSpriteReader.class);
   private final ExistingFileHelper existingFileHelper;
   private final String folder;
+
+  public DataGenSpriteReader(ExistingFileHelper existingFileHelper, String folder) {
+    this.existingFileHelper = existingFileHelper;
+    this.folder = folder;
+  }
 
   @Override
   public boolean exists(ResourceLocation path) {

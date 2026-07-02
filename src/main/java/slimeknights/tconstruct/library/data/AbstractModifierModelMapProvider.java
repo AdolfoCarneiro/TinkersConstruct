@@ -138,6 +138,10 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     private final Map<ModifierId, ModifierModel> modifiers = new LinkedHashMap<>();
     private final ResourceLocation id;
 
+    private Builder(ResourceLocation id) {
+      this.id = id;
+    }
+
     /** Merges the variable arguments */
     private static ModifierModel merge(ModifierModel model, ModifierModel... models) {
       if (models.length > 0) {

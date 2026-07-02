@@ -59,6 +59,10 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   /** Cache of the sprites to use for each color value */
   private final SpriteRange[] foundSpriteCache = new SpriteRange[256];
 
+  protected GreyToSpriteTransformer(List<SpriteMapping> sprites) {
+    this.sprites = sprites;
+  }
+
   /** Constructor for search */
   private static final Interpolate<SpriteMapping, SpriteRange> SPRITE_RANGE = (first, second, grey) -> new SpriteRange(first, second);
   /** Gets the grey value of a color */
@@ -227,6 +231,14 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
 
     /** Loaded image */
     private transient NativeImage image = null;
+
+    private SpriteMapping(int grey, int color, @Nullable ResourceLocation path) {
+      this.grey = grey;
+      this.color = color;
+      this.path = path;
+    }
+
+    public int getGrey() { return grey; }
 
     /** Gets the image for this mapping */
     @Nullable

@@ -54,6 +54,14 @@ public class PotionModifierModel implements SimpleModifierModel {
   @Nullable
   private final Material large;
 
+  public PotionModifierModel(@Nullable Material small, @Nullable Material large) {
+    this.small = small;
+    this.large = large;
+  }
+
+  @Nullable @Override public Material small() { return small; }
+  @Nullable @Override public Material large() { return large; }
+
   @Override
   public RecordLoadable<? extends PotionModifierModel> getLoader() {
     return LOADER;

@@ -41,6 +41,14 @@ public class TankModifierModel implements ModifierModel {
   private final Material largeFull;
   private final int tolerance;
 
+  public TankModifierModel(@Nullable Material smallPartial, @Nullable Material smallFull, @Nullable Material largePartial, @Nullable Material largeFull, int tolerance) {
+    this.smallPartial = smallPartial;
+    this.smallFull = smallFull;
+    this.largePartial = largePartial;
+    this.largeFull = largeFull;
+    this.tolerance = tolerance;
+  }
+
   @Override
   public RecordLoadable<? extends TankModifierModel> getLoader() {
     return LOADER;

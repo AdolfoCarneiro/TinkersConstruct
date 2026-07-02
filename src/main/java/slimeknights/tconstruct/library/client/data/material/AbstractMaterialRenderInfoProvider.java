@@ -116,6 +116,11 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
     @Setter
     private MaterialGeneratorInfo generator = null;
 
+    public RenderInfoBuilder texture(@Nullable ResourceLocation texture) { this.texture = texture; return this; }
+    public RenderInfoBuilder parent(@Nullable ResourceLocation parent) { this.parent = parent; return this; }
+    public RenderInfoBuilder luminosity(int luminosity) { this.luminosity = luminosity; return this; }
+    public RenderInfoBuilder generator(MaterialGeneratorInfo generator) { this.generator = generator; return this; }
+
     /** Sets the parent to the given material ID */
     public RenderInfoBuilder parentMaterial(MaterialVariantId material) {
       return parent(material.getLocation('/'));
