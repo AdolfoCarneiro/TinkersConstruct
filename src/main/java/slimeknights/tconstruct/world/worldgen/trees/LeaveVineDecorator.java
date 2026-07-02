@@ -3,7 +3,6 @@ package slimeknights.tconstruct.world.worldgen.trees;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.world.TinkerStructures;
  * Recreation of {@link net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator} with variable vine type.
  */
 @SuppressWarnings("deprecation")
-@RequiredArgsConstructor
 public class LeaveVineDecorator extends TreeDecorator {
   public static final MapCodec<LeaveVineDecorator> CODEC = RecordCodecBuilder.mapCodec(inst ->
     inst.group(
@@ -30,6 +28,11 @@ public class LeaveVineDecorator extends TreeDecorator {
 
   private final Block vines;
   private final float probability;
+
+  public LeaveVineDecorator(Block vines, float probability) {
+    this.vines = vines;
+    this.probability = probability;
+  }
 
   @Override
   protected TreeDecoratorType<?> type() {

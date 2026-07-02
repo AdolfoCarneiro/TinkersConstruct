@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.block;
 
-import lombok.Getter;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
@@ -14,7 +13,6 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 
 /** Variants of slimy foliage, for grass and leaves notably. */
-@Getter
 public enum FoliageType implements StringRepresentable {
   EARTH(0x8CD782, Tiers.STONE,   MapColor.GRASS, false),
   SKY  (0x00F4DA, Tiers.GOLD,    MapColor.DIAMOND, false),
@@ -42,9 +40,29 @@ public enum FoliageType implements StringRepresentable {
   @Override
   public String getSerializedName() { return serializedName; }
 
+  public int getColor() {
+    return color;
+  }
+
+  public Tiers getHarvestTier() {
+    return harvestTier;
+  }
+
+  public MapColor getMapColor() {
+    return mapColor;
+  }
+
+  public boolean isNether() {
+    return nether;
+  }
+
   /* Tags */
   /** Tag for grass blocks with this foliage type */
   private final TagKey<Block> grassBlockTag;
+
+  public TagKey<Block> getGrassBlockTag() {
+    return grassBlockTag;
+  }
 
   FoliageType(int color, Tiers harvestTier, MapColor mapColor, boolean nether) {
     this.color = color;

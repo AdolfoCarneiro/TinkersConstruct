@@ -150,7 +150,7 @@ import static slimeknights.mantle.Mantle.commonResource;
 @SuppressWarnings("unused")
 public final class TinkerSmeltery extends TinkerModule {
   /** Predicate for something that never happens */
-  private static final StatePredicate NEVER = Blocks::never;
+  private static final StatePredicate NEVER = (s, l, p) -> false;
   /** Creative tab for smeltery, all contents related to the multiblocks */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
     "smeltery", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
@@ -671,7 +671,7 @@ public final class TinkerSmeltery extends TinkerModule {
 
   /** Properties for transparent smeltery or foundry blocks, such as glass. */
   private static Properties structureNonSolid(MapColor color, SoundType sound) {
-    return structureProps(color, sound).isValidSpawn(Blocks::never).isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER).noOcclusion().forceSolidOn();
+    return structureProps(color, sound).isValidSpawn((s, l, p, e) -> false).isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER).noOcclusion().forceSolidOn();
   }
 
   /** Properties for an opaque seared block, such as bricks. */

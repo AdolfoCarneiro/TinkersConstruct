@@ -134,8 +134,8 @@ public abstract class TinkerModule {
   protected static BlockBehaviour.Properties glassBuilder(MapColor color) {
     return builder(color, SoundType.GLASS)
       .instrument(NoteBlockInstrument.HAT)
-      .strength(0.3F).noOcclusion().isValidSpawn(Blocks::never)
-      .isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
+      .strength(0.3F).noOcclusion().isValidSpawn((s, l, p, e) -> false)
+      .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false);
   }
 
   /** Builder that pre-supplies glass properties */

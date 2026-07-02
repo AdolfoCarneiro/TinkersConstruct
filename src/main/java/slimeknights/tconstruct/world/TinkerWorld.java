@@ -5,6 +5,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -206,7 +208,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final WoodBlockObject skyroot     = BLOCKS.registerWood("skyroot",     createSlimewood(MapColor.COLOR_CYAN,        MapColor.TERRACOTTA_CYAN), false);
   public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", createSlimewood(MapColor.COLOR_RED,         MapColor.COLOR_ORANGE),    false);
   public static final WoodBlockObject enderbark   = BLOCKS.registerWood("enderbark",   createSlimewood(MapColor.COLOR_BLACK,       MapColor.COLOR_BLACK),     false);
-  public static final ItemObject<Block> enderbarkRoots = BLOCKS.register("enderbark_roots", () -> new SlimeRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(0.7F).randomTicks().sound(SoundType.MANGROVE_ROOTS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).noOcclusion()), BLOCK_ITEM);
+  public static final ItemObject<Block> enderbarkRoots = BLOCKS.register("enderbark_roots", () -> new SlimeRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(0.7F).randomTicks().sound(SoundType.MANGROVE_ROOTS).noOcclusion().isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).noOcclusion()), BLOCK_ITEM);
   public static final EnumObject<SlimeType,Block> slimyEnderbarkRoots = BLOCKS.registerEnum(SlimeType.values(), "enderbark_roots", type -> new SlimeDirtBlock(BlockBehaviour.Properties.of().mapColor(type.getMapColor()).strength(0.7F).sound(SoundType.MUDDY_MANGROVE_ROOTS).lightLevel(s -> type.getLightLevel())), BLOCK_ITEM);
 
   // plants
@@ -233,14 +235,14 @@ public final class TinkerWorld extends TinkerModule {
       .putAll(BLOCKS.registerEnum(FoliageType.OVERWORLD, "slime_sapling", (type) -> new SlimeSaplingBlock(SlimeTree.forType(type), type, props.apply(type).randomTicks()), TOOLTIP_BLOCK_ITEM))
       .put(FoliageType.BLOOD, BLOCKS.register("blood_slime_sapling", () -> new SlimeFungusBlock(TinkerStructures.bloodSlimeFungus, props.apply(FoliageType.BLOOD)), TOOLTIP_BLOCK_ITEM))
       .put(FoliageType.ICHOR, BLOCKS.register("ichor_slime_sapling", () -> new SlimeFungusBlock(TinkerStructures.ichorSlimeFungus, props.apply(FoliageType.ICHOR)), BLOCK_ITEM))
-      .put(FoliageType.ENDER, BLOCKS.register("ender_slime_sapling", () -> new SlimePropaguleBlock(new SlimeTree(FoliageType.ENDER), FoliageType.ENDER, props.apply(FoliageType.ENDER).randomTicks()), TOOLTIP_BLOCK_ITEM))
+      .put(FoliageType.ENDER, BLOCKS.register("ender_slime_sapling", () -> new SlimePropaguleBlock(SlimeTree.forType(FoliageType.ENDER), FoliageType.ENDER, props.apply(FoliageType.ENDER).randomTicks()), TOOLTIP_BLOCK_ITEM))
       .build();
   });
   public static final EnumObject<FoliageType,FlowerPotBlock> pottedSlimeSapling = BLOCKS.registerPottedEnum(FoliageType.values(), "slime_sapling", slimeSapling);
   public static final EnumObject<FoliageType, Block> slimeLeaves = new EnumObject.Builder<FoliageType, Block>(FoliageType.class)
-    .putAll(BLOCKS.registerEnum(FoliageType.OVERWORLD, "slime_leaves", type -> new SlimeLeavesBlock(builder(type.getMapColor(), SoundType.GRASS).strength(1.0f).randomTicks().noOcclusion().isValidSpawn(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never), type), BLOCK_ITEM))
+    .putAll(BLOCKS.registerEnum(FoliageType.OVERWORLD, "slime_leaves", type -> new SlimeLeavesBlock(builder(type.getMapColor(), SoundType.GRASS).strength(1.0f).randomTicks().noOcclusion().isValidSpawn((s, l, p, e) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).pushReaction(PushReaction.DESTROY).isRedstoneConductor((s, l, p) -> false), type), BLOCK_ITEM))
     .putAll(BLOCKS.registerEnum(FoliageType.NETHER, "slime_leaves", type -> new Block(builder(type.getMapColor(), SoundType.WART_BLOCK).strength(1.5F).isValidSpawn((s, w, p, e) -> false)), BLOCK_ITEM))
-    .put(FoliageType.ENDER, BLOCKS.register("ender_slime_leaves", () -> new SlimePropaguleLeavesBlock(builder(FoliageType.ENDER.getMapColor(), SoundType.GRASS).strength(1.0f).randomTicks().noOcclusion().isValidSpawn(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never), FoliageType.ENDER), BLOCK_ITEM))
+    .put(FoliageType.ENDER, BLOCKS.register("ender_slime_leaves", () -> new SlimePropaguleLeavesBlock(builder(FoliageType.ENDER.getMapColor(), SoundType.GRASS).strength(1.0f).randomTicks().noOcclusion().isValidSpawn((s, l, p, e) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).pushReaction(PushReaction.DESTROY).isRedstoneConductor((s, l, p) -> false), FoliageType.ENDER), BLOCK_ITEM))
     .build();
 
   // slime vines
@@ -287,20 +289,17 @@ public final class TinkerWorld extends TinkerModule {
     EntityType.Builder.of(SkySlimeEntity::new, MobCategory.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(20)
-                      .sized(2.04F, 2.04F)
-                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world)), 0x47eff5, 0xacfff4);
+                      .sized(2.04F, 2.04F), 0x47eff5, 0xacfff4);
   public static final EntityObject<EnderSlimeEntity> enderSlimeEntity = ENTITIES.registerWithEgg("ender_slime", () ->
     EntityType.Builder.of(EnderSlimeEntity::new, MobCategory.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(32)
-                      .sized(2.04F, 2.04F)
-                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.enderSlimeEntity.get().create(world)), 0x6300B0, 0xD37CFF);
+                      .sized(2.04F, 2.04F), 0x6300B0, 0xD37CFF);
   public static final EntityObject<TerracubeEntity> terracubeEntity = ENTITIES.registerWithEgg("terracube", () ->
     EntityType.Builder.of(TerracubeEntity::new, MobCategory.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
                       .setTrackingRange(8)
-                      .sized(2.04F, 2.04F)
-                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.terracubeEntity.get().create(world)), 0xAFB9D6, 0xA1A7B1);
+                      .sized(2.04F, 2.04F), 0xAFB9D6, 0xA1A7B1);
 
   public static final ResourceKey<BiomeModifier> spawnOverworldSlime = key(NeoForgeRegistries.Keys.BIOME_MODIFIERS, "spawn_overworld_slime");
   public static final ResourceKey<BiomeModifier> spawnTerracube = key(NeoForgeRegistries.Keys.BIOME_MODIFIERS, "spawn_terracube");
@@ -354,9 +353,9 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void registerSpawnPlacement(RegisterSpawnPlacementsEvent event) {
     event.register(EntityType.SLIME, null, null, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
-    event.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
-    event.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
-    event.register(terracubeEntity.get(),  SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);
+    event.register(skySlimeEntity.get(),   SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
+    event.register(enderSlimeEntity.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
+    event.register(terracubeEntity.get(),  SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);
 
   }
 

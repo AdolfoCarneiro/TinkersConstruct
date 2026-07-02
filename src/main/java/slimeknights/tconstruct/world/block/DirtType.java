@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.block;
 
-import lombok.Getter;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
@@ -14,7 +13,6 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 
 /** Variants of slimy dirt */
-@Getter
 public enum DirtType implements StringRepresentable {
   EARTH  (Tiers.STONE,   MapColor.GRASS),
   SKY    (Tiers.GOLD,    MapColor.WARPED_STEM),
@@ -34,9 +32,21 @@ public enum DirtType implements StringRepresentable {
   @Override
   public String getSerializedName() { return serializedName; }
 
+  public Tiers getHarvestTier() {
+    return harvestTier;
+  }
+
+  public MapColor getMapColor() {
+    return mapColor;
+  }
+
   /* Tags */
   /** Tag for dirt blocks of this type, including blocks with grass on top */
   private final TagKey<Block> blockTag;
+
+  public TagKey<Block> getBlockTag() {
+    return blockTag;
+  }
 
   DirtType(Tiers harvestTier, MapColor mapColor) {
     this.harvestTier = harvestTier;
