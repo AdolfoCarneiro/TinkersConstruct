@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
-import lombok.Getter;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
@@ -17,10 +16,8 @@ public class SideButtonsWidget<T extends Button> implements Renderable, GuiEvent
 
   protected final MultiModuleScreen<?> parent;
 
-  @Getter
   private final int leftPos;
   private final int topPos;
-  @Getter
   private final int imageWidth;
   private final int imageHeight;
 
@@ -37,6 +34,16 @@ public class SideButtonsWidget<T extends Button> implements Renderable, GuiEvent
 
     this.imageWidth = size(columns, buttonWidth);
     this.imageHeight = size(rows, buttonHeight);
+  }
+
+  /** Gets the left position of this widget */
+  public int getLeftPos() {
+    return leftPos;
+  }
+
+  /** Gets the image width of this widget */
+  public int getImageWidth() {
+    return imageWidth;
   }
 
   public int guiRight() {

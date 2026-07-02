@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block.entity.inventory;
 
-import lombok.Setter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -31,8 +30,13 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
   private LazyToolStack tool;
 
   private MaterialRecipe lastMaterialRecipe;
-  @Nullable @Setter
+  @Nullable
   private Player player;
+
+  /** Sets the player currently interacting with this container, used for crafting side-effects */
+  public void setPlayer(@Nullable Player player) {
+    this.player = player;
+  }
 
   /**
    * Creates a new wrapper instance for the station

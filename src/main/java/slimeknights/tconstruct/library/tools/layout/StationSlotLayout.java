@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.library.tools.layout;
 
 import com.google.common.collect.ImmutableList;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -25,12 +22,10 @@ import static java.util.Objects.requireNonNullElse;
 /**
  * A full layout for the tinker station
  */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class StationSlotLayout {
   private static final ResourceLocation EMPTY_NAME = TConstruct.getResource("empty");
   public static final StationSlotLayout EMPTY = new StationSlotLayout("", LayoutIcon.EMPTY, null, LayoutSlot.EMPTY, Collections.emptyList());
 
-  @Getter @Setter(AccessLevel.PROTECTED)
   private transient ResourceLocation name = EMPTY_NAME;
   private final String translation_key;
   private final LayoutIcon icon;
@@ -38,6 +33,24 @@ public class StationSlotLayout {
   private final Integer sortIndex;
   private final LayoutSlot tool_slot;
   private final List<LayoutSlot> input_slots;
+
+  protected StationSlotLayout(String translation_key, LayoutIcon icon, @Nullable Integer sortIndex, LayoutSlot tool_slot, List<LayoutSlot> input_slots) {
+    this.translation_key = translation_key;
+    this.icon = icon;
+    this.sortIndex = sortIndex;
+    this.tool_slot = tool_slot;
+    this.input_slots = input_slots;
+  }
+
+  /** Gets the name of this layout */
+  public ResourceLocation getName() {
+    return name;
+  }
+
+  /** Sets the name of this layout */
+  protected void setName(ResourceLocation name) {
+    this.name = name;
+  }
 
   /** Creates a new builder instance */
   public static Builder builder() {

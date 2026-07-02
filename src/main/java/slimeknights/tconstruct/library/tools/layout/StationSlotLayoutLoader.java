@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.layout;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -10,8 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -19,7 +19,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ICondition.IContext;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
@@ -40,8 +40,9 @@ import java.util.stream.Collectors;
 /**
  * Loader for tinker station slot layouts, loaded serverside as that makes it eaiser to modify with recipes and the filters are needed both sides
  */
-@Log4j2
 public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(StationSlotLayoutLoader.class);
+
   public static final String FOLDER = "tinkering/station_layouts";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeHierarchyAdapter(Ingredient.class, new IngredientSerializer())
@@ -58,11 +59,15 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   private final List<ResourceLocation> requiredLayouts = new ArrayList<>();
 
   /** List of all slots in order */
-  @Getter
   private List<StationSlotLayout> sortedSlots = Collections.emptyList();
 
   /** Context for parsing conditions */
   private IContext conditionContext = IContext.EMPTY;
+
+  /** Gets the list of all slots in order */
+  public List<StationSlotLayout> getSortedSlots() {
+    return sortedSlots;
+  }
 
   private StationSlotLayoutLoader() {
     super(GSON, FOLDER);
@@ -92,7 +97,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
         JsonObject object = GsonHelper.convertToJsonObject(value, "station_layout");
-        if (!object.entrySet().isEmpty() && CraftingHelper.processConditions(object, "conditions", conditionContext)) {
+        if (!object.entrySet().isEmpty() && processConditions(object, "conditions", conditionContext)) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);
           int size = layout.getInputSlots().size() + (layout.getToolSlot().isHidden() ? 0 : 1);
@@ -117,6 +122,21 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   /** Gets a layout by name */
   public StationSlotLayout get(ResourceLocation name) {
     return layoutMap.getOrDefault(name, StationSlotLayout.EMPTY);
+  }
+
+  /** Returns true if every condition in the given key's array passes, or if the key is absent */
+  private static boolean processConditions(JsonObject object, String key, IContext context) {
+    if (!object.has(key)) {
+      return true;
+    }
+    JsonArray array = GsonHelper.getAsJsonArray(object, key);
+    for (JsonElement element : array) {
+      ICondition condition = ICondition.CODEC.parse(JsonOps.INSTANCE, element).getOrThrow();
+      if (!condition.test(context)) {
+        return false;
+      }
+    }
+    return true;
   }
 
 
@@ -157,12 +177,12 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   private static class IngredientSerializer implements JsonSerializer<Ingredient>, JsonDeserializer<Ingredient> {
     @Override
     public Ingredient deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      return Ingredient.fromJson(json);
+      return Ingredient.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
     }
 
     @Override
     public JsonElement serialize(Ingredient ingredient, Type typeOfSrc, JsonSerializationContext context) {
-      return ingredient.toJson();
+      return Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, ingredient).getOrThrow();
     }
   }
 }

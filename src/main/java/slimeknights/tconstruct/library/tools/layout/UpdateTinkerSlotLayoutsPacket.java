@@ -2,9 +2,6 @@ package slimeknights.tconstruct.library.tools.layout;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -17,13 +14,16 @@ import java.util.Collection;
 /**
  * Packet to update the slot layouts for the tinker station
  */
-@RequiredArgsConstructor
 public class UpdateTinkerSlotLayoutsPacket implements CustomPacketPayload {
   public static final Type<UpdateTinkerSlotLayoutsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_tinker_slot_layouts"));
   public static final StreamCodec<RegistryFriendlyByteBuf, UpdateTinkerSlotLayoutsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateTinkerSlotLayoutsPacket::new);
 
-  @Getter(AccessLevel.PACKAGE) @VisibleForTesting
-  private final Collection<StationSlotLayout> layouts;
+  @VisibleForTesting
+  final Collection<StationSlotLayout> layouts;
+
+  public UpdateTinkerSlotLayoutsPacket(Collection<StationSlotLayout> layouts) {
+    this.layouts = layouts;
+  }
 
   public UpdateTinkerSlotLayoutsPacket(RegistryFriendlyByteBuf buffer) {
     ImmutableList.Builder<StationSlotLayout> builder = ImmutableList.builder();

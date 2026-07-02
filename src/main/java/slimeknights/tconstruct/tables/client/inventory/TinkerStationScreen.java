@@ -109,6 +109,8 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   // components
   protected EditBox textField;
   protected TinkerStationButtonsWidget buttonsScreen;
+  /** Mirrors {@code textField}'s editable state; {@link EditBox#isEditable()} is private in 1.21.1 */
+  protected boolean textFieldEditable = false;
 
   /** Maximum available slots */
   @Getter
@@ -257,10 +259,12 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     // anvil can rename on any tool change
     if (lazyResult == null || (tile.getInputCount() <= 4 && this.getMenu().getSlot(TINKER_SLOT).hasItem())) {
       textField.setEditable(false);
+      textFieldEditable = false;
       textField.setValue("");
       textField.visible = false;
-    } else if (!textField.isEditable()) {
+    } else if (!textFieldEditable) {
       textField.setEditable(true);
+      textFieldEditable = true;
       textField.setValue("");
       textField.visible = true;
     } else {
@@ -470,16 +474,16 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   }
 
   @Override
-  public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+  public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, scrollY)) {
       return false;
     }
 
-    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, scrollY)) {
       return false;
     }
 
-    return super.mouseScrolled(mouseX, mouseY, delta);
+    return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
   }
 
   @Override
@@ -635,7 +639,6 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   @Override
   public void containerTick() {
     super.containerTick();
-    this.textField.tick();
   }
 
   @Override

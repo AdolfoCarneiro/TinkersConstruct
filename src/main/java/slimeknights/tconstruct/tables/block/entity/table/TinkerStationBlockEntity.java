@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block.entity.table;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -57,10 +56,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   private static final Component NAME = TConstruct.makeTranslation("gui", "tinker_station");
 
   /** Last crafted crafting recipe */
-  @Nullable @Getter
+  @Nullable
   private ITinkerStationRecipe lastRecipe;
   /** Result inventory, lazy loads results */
-  @Getter
   private final LazyResultContainer craftingResult;
   /** Crafting inventory for the recipe calls */
   private final TinkerStationContainerWrapper inventoryWrapper;
@@ -70,15 +68,39 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   private LazyToolStack result = null;
   /** Error from the last recipe */
   @Nullable
-  @Getter
   private Component currentError = null;
   /** Current text in the text field */
-  @Getter
   private String itemName = "";
 
   /** Material variant texture, alterantive to {@link #getTexture()} in the model. */
-  @Getter
   private MaterialVariantId material = IMaterial.UNKNOWN_ID;
+
+  /** Gets the last crafted recipe, if any */
+  @Nullable
+  public ITinkerStationRecipe getLastRecipe() {
+    return lastRecipe;
+  }
+
+  /** Gets the lazy result inventory */
+  public LazyResultContainer getCraftingResult() {
+    return craftingResult;
+  }
+
+  /** Gets the error from the last recipe, if any */
+  @Nullable
+  public Component getCurrentError() {
+    return currentError;
+  }
+
+  /** Gets the current text in the text field */
+  public String getItemName() {
+    return itemName;
+  }
+
+  /** Gets the material variant texture */
+  public MaterialVariantId getMaterial() {
+    return material;
+  }
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state) {
     // if the block is the right type, use it for slot count

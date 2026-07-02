@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,12 +21,16 @@ import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntit
 import javax.annotation.Nullable;
 
 public class TinkerStationBlock extends RetexturedTableBlock {
-  @Getter
   private final int slotCount;
 
   public TinkerStationBlock(Properties builder, int slotCount) {
     super(builder);
     this.slotCount = slotCount;
+  }
+
+  /** Gets the number of slots on this station */
+  public int getSlotCount() {
+    return slotCount;
   }
 
   @Nullable
