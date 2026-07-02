@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.menu;
 
-import lombok.Getter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -53,33 +53,34 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   public static final int REPEAT_BACKGROUND_START = UI_START + TITLE_SIZE;
 
   /** Stack containing the tool being rendered */
-  @Getter
   private final ItemStack stack;
   /** Tool hosting this tank */
-  @Getter
   private final IToolStackView tool;
   /** Item handler being rendered */
-  @Getter
   private final IItemHandler itemHandler;
   /** Tank in the tool */
-  @Getter
   private final SimpleFluidTank tank;
-  @Getter
   private final Player player;
-  @Getter
   private final int slotIndex;
-  @Getter
   private final boolean showOffhand;
   @Nullable
   private final CraftingContainer craftingContainer;
   @Nullable
   private final ResultContainer resultContainer;
   /** Start index of the tool slots */
-  @Getter
   private final int toolInventoryStart;
   /** Index of the first player inventory slot */
-  @Getter
   private final int playerInventoryStart;
+
+  public ItemStack getStack() { return stack; }
+  public IToolStackView getTool() { return tool; }
+  public IItemHandler getItemHandler() { return itemHandler; }
+  public SimpleFluidTank getTank() { return tank; }
+  public Player getPlayer() { return player; }
+  public int getSlotIndex() { return slotIndex; }
+  public boolean isShowOffhand() { return showOffhand; }
+  public int getToolInventoryStart() { return toolInventoryStart; }
+  public int getPlayerInventoryStart() { return playerInventoryStart; }
 
   public ToolContainerMenu(int id, Inventory playerInventory, ItemStack stack, IItemHandler itemHandler, int slotIndex) {
     this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotIndex);
@@ -97,7 +98,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     // when syncing the full stack, overwrite the spot in the inventory
     ItemStack stack;
     if (syncType == ToolSyncType.FULL_STACK) {
-      stack = buffer.readItem();
+      stack = ItemStack.STREAM_CODEC.decode(buffer);
       inventory.setItem(slotIndex, stack);
     } else {
       stack = inventory.getItem(slotIndex);
@@ -274,7 +275,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   public void slotsChanged(Container pContainer) {
     super.slotsChanged(pContainer);
     if (craftingContainer != null && resultContainer != null) {
-      CraftingMenu.slotChangedCraftingGrid(this, player.level(), player, craftingContainer, resultContainer);
+      CraftingMenu.slotChangedCraftingGrid(this, player.level(), player, craftingContainer, resultContainer, null);
     }
   }
 
@@ -345,8 +346,8 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     public void updateFluid(FluidStack updated, int change) {
       if (change != 0) {
         setFluid(updated);
-        if (player != null) {
-          TinkerNetwork.sendTo(new ToolContainerFluidUpdatePacket(updated), player);
+        if (player instanceof ServerPlayer serverPlayer) {
+          TinkerNetwork.sendTo(new ToolContainerFluidUpdatePacket(updated), serverPlayer);
         }
       }
     }
