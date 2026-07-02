@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.definition.module.material;
 
-import lombok.AllArgsConstructor;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
@@ -23,7 +22,6 @@ import java.util.List;
  * Module to add a single trait to the given tool.
  * Generally it's better to use {@link MaterialStatsModule} as it will add all traits to the tool. This module is used in some special circumstances.
  */
-@AllArgsConstructor
 public final class MaterialTraitsModule implements ToolTraitHook, ToolModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialTraitsModule>defaultHooks(ToolHooks.TOOL_TRAITS);
   private static final MaterialStatsId MISSING = new MaterialStatsId(TConstruct.MOD_ID, "missingno");
@@ -35,6 +33,11 @@ public final class MaterialTraitsModule implements ToolTraitHook, ToolModule {
   @Nullable
   private MaterialStatsId statType;
   private final int materialIndex;
+
+  public MaterialTraitsModule(@Nullable MaterialStatsId statType, int materialIndex) {
+    this.statType = statType;
+    this.materialIndex = materialIndex;
+  }
 
   public MaterialTraitsModule(int materialIndex) {
     this(null, materialIndex);

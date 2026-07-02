@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -18,11 +17,17 @@ import java.util.List;
 /**
  * Builder for a tool definition data
  */
-@NoArgsConstructor(staticName = "builder")
 @Accessors(fluent = true)
 public class ToolDefinitionDataBuilder {
   private final StatsNBT.Builder bonuses = StatsNBT.builder();
   private final ImmutableList.Builder<WithHooks<ToolModule>> modules = ImmutableList.builder();
+
+  private ToolDefinitionDataBuilder() {}
+
+  /** Creates a new builder instance */
+  public static ToolDefinitionDataBuilder builder() {
+    return new ToolDefinitionDataBuilder();
+  }
 
 
   /* Stats */

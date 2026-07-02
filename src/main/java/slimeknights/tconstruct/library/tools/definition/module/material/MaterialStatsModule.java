@@ -5,8 +5,6 @@ import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -178,8 +176,13 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
   public static class Builder {
     private final ImmutableList.Builder<MaterialStatsId> stats = ImmutableList.builder();
     private final ImmutableList.Builder<Float> scales = ImmutableList.builder();
-    @Setter @Accessors(fluent = true)
     private int primaryPart = 0;
+
+    /** Sets the primary part index */
+    public Builder primaryPart(int primaryPart) {
+      this.primaryPart = primaryPart;
+      return this;
+    }
 
     /** Adds a stat type */
     public Builder stat(MaterialStatsId stat, float scale) {

@@ -2,9 +2,6 @@ package slimeknights.tconstruct.library.tools.definition.module.aoe;
 
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableList;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -247,13 +244,22 @@ public record BoxAOEIterator(BoxSize base, List<BoxSize> expansions, IBoxExpansi
   }
 
   /** Builder to create a rectangle AOE iterator */
-  @RequiredArgsConstructor
   public static class Builder {
     private final BoxSize base;
     /** Direction to expand the AOE */
-    @Nonnull @Setter @Accessors(fluent = true)
+    @Nonnull
     private IBoxExpansion direction = IBoxExpansion.SIDE_HIT;
     private final ImmutableList.Builder<BoxSize> expansions = ImmutableList.builder();
+
+    private Builder(BoxSize base) {
+      this.base = base;
+    }
+
+    /** Sets the direction to expand the AOE */
+    public Builder direction(IBoxExpansion direction) {
+      this.direction = direction;
+      return this;
+    }
 
     /** Adds an expansion to the AOE logic */
     public Builder addExpansion(int width, int height, int depth) {
