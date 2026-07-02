@@ -2,6 +2,9 @@ package slimeknights.tconstruct.library.json.predicate.tool;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.ItemSubPredicate;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +21,17 @@ import slimeknights.tconstruct.library.utils.JsonUtils;
 /** Predicate for matching Tinker tools; implements ItemSubPredicate for inventory criteria */
 public class ToolStackItemPredicate implements ItemSubPredicate {
   public static final ResourceLocation ID = TConstruct.getResource("tool_stack");
+  /** Codec bridging this predicate's Gson-based serialization into the {@link ItemSubPredicate.Type} registry */
+  public static final Codec<ToolStackItemPredicate> CODEC = Codec.PASSTHROUGH.comapFlatMap(
+    dynamic -> {
+      JsonElement json = dynamic.convert(JsonOps.INSTANCE).getValue();
+      if (json instanceof JsonObject object) {
+        return DataResult.success(deserialize(object));
+      }
+      return DataResult.error(() -> "Expected a JsonObject, got " + json);
+    },
+    predicate -> new com.mojang.serialization.Dynamic<>(JsonOps.INSTANCE, predicate.serializeToJson())
+  );
 
   private final IJsonPredicate<IToolStackView> predicate;
 

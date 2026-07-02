@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import lombok.Getter;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ArrowItem;
@@ -45,7 +47,6 @@ import java.util.List;
 /** Modifiable item that is usable as arrows in a bow */
 public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay {
   /** Tool definition for the given tool */
-  @Getter
   private final ToolDefinition toolDefinition;
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
@@ -55,19 +56,32 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
     this.toolDefinition = toolDefinition;
   }
 
+  @Override
+  public ToolDefinition getToolDefinition() {
+    return toolDefinition;
+  }
+
 
   /* Arrowing */
 
   @Override
-  public AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter) {
+  public AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter, @Nullable ItemStack weapon) {
     ModifiableArrow arrow = new ModifiableArrow(level, shooter);
     arrow.onCreate(stack, shooter);
     return arrow;
   }
 
   @Override
-  public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
+  public boolean isInfinite(ItemStack stack, ItemStack bow, LivingEntity livingEntity) {
     return false;
+  }
+
+  @Override
+  public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
+    ModifiableArrow arrow = new ModifiableArrow(level, pos.x(), pos.y(), pos.z());
+    arrow.onCreate(stack, null);
+    arrow.pickup = AbstractArrow.Pickup.ALLOWED;
+    return arrow;
   }
 
 
