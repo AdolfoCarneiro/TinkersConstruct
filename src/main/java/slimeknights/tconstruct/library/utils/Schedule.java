@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.utils;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 
@@ -14,8 +11,10 @@ import java.util.List;
  * Represents a serializable list of tasks scheduled on creation of an object. Reduces the amount of work run each tick.
  * See {@link slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook} for an example of usage.
  */
-@RequiredArgsConstructor
 public class Schedule {
+  public Schedule(ScheduleEntry[] entries) {
+    this.entries = entries;
+  }
   public static final Schedule EMPTY = new Schedule(new ScheduleEntry[0]);
 
   private final ScheduleEntry[] entries;
@@ -124,12 +123,17 @@ public class Schedule {
   }
 
   /** Handles delegating a schedule to a list, ensuring no conflicts between the list entries. */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class ListScheduler implements Scheduler {
     private final Scheduler parent;
     private final int size;
-    @Setter
     private int index;
+
+    private ListScheduler(Scheduler parent, int size) {
+      this.parent = parent;
+      this.size = size;
+    }
+
+    public void setIndex(int index) { this.index = index; }
 
     @Override
     public Scheduler add(int task, int time) {

@@ -1,15 +1,13 @@
 package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
 import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
@@ -70,14 +68,8 @@ public class Config {
         .worldRestart()
         .define("shouldSpawnWithTinkersBook", true);
 
-      ImmutableList.Builder<ConfigurableAction> actions = ImmutableList.builder();
-      actions.add(new ConfigurableAction(builder, "extendFireProtectionSlots", true,
-                                         "If true, extends the applicable slots for the fire protection enchantment to work better with shields. Will not impact gameplay with the vanilla enchantment.\nIf false, fire protection on a shield will not reduce fire tick time.",
-                                         () -> Enchantments.FIRE_PROTECTION.slots = EquipmentSlot.values()));
-      actions.add(new ConfigurableAction(builder, "extendBlastProtectionSlots", true,
-                                         "If true, extends the applicable slots for the blast protection enchantment to work better with shields. Will not impact gameplay with the vanilla enchantment.\nIf false, blast protection on a shield will not reduce explosion knockback.",
-                                         () -> Enchantments.BLAST_PROTECTION.slots = EquipmentSlot.values()));
-      toolTweaks = actions.build();
+      // Enchantment slot extension was Forge-specific and removed in 1.21.1 (enchantments are data-driven)
+      toolTweaks = ImmutableList.of();
 
       this.syncKnockbackResistance = builder
         .comment("If true, makes the knockback resistance attribute sync its value to client side. This allows modifiers such as springing and flinging to work properly.",
@@ -408,9 +400,9 @@ public class Config {
   }
 
   /** Registers any relevant listeners for config */
-  public static void init() {
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+  public static void init(ModContainer modContainer) {
+    modContainer.registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+    modContainer.registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
   }
 
   /** Method of syncing the tool inventory on open to prevent desyncs down the line. */

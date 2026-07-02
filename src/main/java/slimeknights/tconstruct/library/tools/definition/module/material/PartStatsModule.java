@@ -3,8 +3,6 @@ package slimeknights.tconstruct.library.tools.definition.module.material;
 import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -67,8 +65,9 @@ public class PartStatsModule extends MaterialStatsModule implements ToolPartsHoo
   public static class Builder {
     private final ImmutableList.Builder<IToolPart> parts = ImmutableList.builder();
     private final ImmutableList.Builder<Float> scales = ImmutableList.builder();
-    @Setter @Accessors(fluent = true)
     private int primaryPart = 0;
+
+    public Builder primaryPart(int index) { this.primaryPart = index; return this; }
 
     /** Adds a part to the builder */
     public Builder part(IToolPart part, float scale) {

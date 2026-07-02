@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.modifiers.hook.interaction;
 
-import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -35,12 +34,13 @@ public enum InteractionSource {
   private static final String INTERACT_FORMAT = TConstruct.makeTranslationKey("modifier", "interact_toggled");
 
   /** Persistent data key for toggling modifiers */
-  @Getter
   private final ResourceLocation key;
 
   InteractionSource(String key) {
     this.key = TConstruct.getResource(key);
   }
+
+  public ResourceLocation getKey() { return key; }
 
   /** Translates the context to a slot for the sake of breaking animations */
   public EquipmentSlot getSlot(InteractionHand hand) {
@@ -60,10 +60,9 @@ public enum InteractionSource {
    * @return  Proper interaction source
    */
   public static InteractionSource fromEquipmentSlot(EquipmentSlot slot) {
-    return switch (slot.getType()) {
-      case ARMOR -> ARMOR;
-      case HAND -> RIGHT_CLICK;
-    };
+    EquipmentSlot.Type type = slot.getType();
+    if (type == EquipmentSlot.Type.ARMOR) return ARMOR;
+    return RIGHT_CLICK;
   }
 
   /** Adds the format string to the modifier name */

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.experimental.Accessors;
 import net.minecraft.Util;
@@ -28,13 +28,13 @@ import java.util.Optional;
 
 /** Base logic for all island variants */
 public class IslandStructure extends Structure {
-  public static final Codec<IslandStructure> CODEC = RecordCodecBuilder.create(inst ->
-    inst.group(settingsCodec(inst)).and(inst.group(
+  public static final MapCodec<IslandStructure> CODEC = RecordCodecBuilder.mapCodec(inst ->
+    inst.group(settingsCodec(inst),
           IslandPlacement.CODEC.fieldOf("placement").forGetter(s -> s.placement),
           SimpleWeightedRandomList.wrappedCodec(ResourceLocation.CODEC).fieldOf("templates").forGetter(s -> s.templates),
           SimpleWeightedRandomList.wrappedCodec(ConfiguredFeature.CODEC).fieldOf("trees").forGetter(s -> s.trees),
           BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("vines").forGetter(s -> s.vines),
-          SimpleWeightedRandomList.wrappedCodec(BuiltInRegistries.BLOCK.byNameCodec()).fieldOf("grasses").forGetter(s -> s.grasses)))
+          SimpleWeightedRandomList.wrappedCodec(BuiltInRegistries.BLOCK.byNameCodec()).fieldOf("grasses").forGetter(s -> s.grasses))
         .apply(inst, IslandStructure::new));
 
   private final IslandPlacement placement;

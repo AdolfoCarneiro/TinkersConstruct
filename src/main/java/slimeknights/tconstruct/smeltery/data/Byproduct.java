@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.data;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -12,8 +10,6 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateT
 import java.util.Locale;
 
 /** Standard ore byproducts for smeltery ores, this enum exists to simplify our builders to allow passing 3 args in varargs */
-@RequiredArgsConstructor
-@Getter
 public enum Byproduct implements IByproduct {
   // base metals
   COPPER    (true, TinkerFluids.moltenCopper),
@@ -45,6 +41,15 @@ public enum Byproduct implements IByproduct {
   private final int damageUnit;
   private final OreRateType oreRate;
 
+  Byproduct(String name, boolean alwaysPresent, FluidObject<?> fluid, int amount, int damageUnit, OreRateType oreRate) {
+    this.name = name;
+    this.alwaysPresent = alwaysPresent;
+    this.fluid = fluid;
+    this.amount = amount;
+    this.damageUnit = damageUnit;
+    this.oreRate = oreRate;
+  }
+
   Byproduct(boolean alwaysPresent, FluidObject<?> fluid, int amount, int damageUnit, OreRateType oreRate) {
     this.name = name().toLowerCase(Locale.ROOT);
     this.alwaysPresent = alwaysPresent;
@@ -57,6 +62,13 @@ public enum Byproduct implements IByproduct {
   Byproduct(boolean alwaysPresent, FluidObject<?> fluid) {
     this(alwaysPresent, fluid, FluidValues.INGOT, FluidValues.NUGGET, OreRateType.METAL);
   }
+
+  public String getName() { return name; }
+  public boolean isAlwaysPresent() { return alwaysPresent; }
+  public FluidObject<?> getFluidObject() { return fluid; }
+  public int getAmount() { return amount; }
+  public int getDamageUnit() { return damageUnit; }
+  public OreRateType getOreRate() { return oreRate; }
 
   @Override
   public FluidOutput getFluid(float scale) {

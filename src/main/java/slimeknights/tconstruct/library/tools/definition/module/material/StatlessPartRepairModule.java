@@ -49,10 +49,11 @@ public record StatlessPartRepairModule(int partIndex, int repairAmount) implemen
   }
 
   /** Builder logic */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class ArmorBuilder implements ArmorModuleBuilder<StatlessPartRepairModule> {
     private final int partIndex;
     private final int[] durability = new int[4];
+
+    private ArmorBuilder(int partIndex) { this.partIndex = partIndex; }
 
     /** Sets the durability for the piece based on the given factor */
     public ArmorBuilder durabilityFactor(float maxDamageFactor) {
