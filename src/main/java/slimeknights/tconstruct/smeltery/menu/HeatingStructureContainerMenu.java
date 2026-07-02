@@ -31,12 +31,13 @@ import java.util.function.Consumer;
 public class HeatingStructureContainerMenu extends TriggeringMultiModuleContainerMenu<HeatingStructureBlockEntity> implements TransferDirectionSupplier {
   /** List of directions to consider. Not using values() as we want to ensure future potential reverse direction is not used. */
   private static final TransferDirection[] TRANSFER_DIRECTIONS = { TransferDirection.AUTO, TransferDirection.EMPTY_ITEM, TransferDirection.FILL_ITEM };
-  @Getter
   private final SideInventoryContainer<HeatingStructureBlockEntity> sideInventory;
-  @Getter
   private final Container bucketContainer;
-  @Getter
   private TransferDirection transferDirection = TransferDirection.AUTO;
+
+  public SideInventoryContainer<HeatingStructureBlockEntity> getSideInventory() { return sideInventory; }
+  public Container getBucketContainer() { return bucketContainer; }
+  public TransferDirection getTransferDirection() { return transferDirection; }
   private final Slot bucketResultSlot;
   public HeatingStructureContainerMenu(int id, @Nullable Inventory inv, @Nullable HeatingStructureBlockEntity structure) {
     super(TinkerSmeltery.smelteryContainer.get(), id, inv, structure);

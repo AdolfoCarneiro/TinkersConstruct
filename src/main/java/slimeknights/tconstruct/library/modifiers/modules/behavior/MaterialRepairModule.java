@@ -43,6 +43,12 @@ public sealed class MaterialRepairModule implements ModifierModule, MaterialRepa
   /** Conditions to apply this module */
   private final ModifierCondition<IToolStackView> condition;
 
+  private MaterialRepairModule(MaterialId material, int repairAmount, ModifierCondition<IToolStackView> condition) {
+    this.material = material;
+    this.repairAmount = repairAmount;
+    this.condition = condition;
+  }
+
   @Override
   public ModifierCondition<IToolStackView> condition() { return condition; }
 
@@ -105,9 +111,12 @@ public sealed class MaterialRepairModule implements ModifierModule, MaterialRepa
     return new Builder(material);
   }
 
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder extends ModuleBuilder.Stack<Builder> {
     private final MaterialId material;
+
+    private Builder(MaterialId material) {
+      this.material = material;
+    }
 
     /** Creates a module with a constant repair amount */
     public MaterialRepairModule constant(int repairAmount) {

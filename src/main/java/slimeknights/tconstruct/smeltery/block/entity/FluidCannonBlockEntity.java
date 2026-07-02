@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.HolderLookup;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -45,8 +46,12 @@ import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 /** Tank block entity which also shoots a fluid */
 public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInventoryBlockEntity {
   private final IFluidCannon block;
-  @Getter
   private final FluidCannonItemHandler itemHandler = new FluidCannonItemHandler();
+
+  @Override
+  public IItemHandler getItemHandler() {
+    return itemHandler;
+  }
 
   public FluidCannonBlockEntity(BlockPos pos, BlockState state) {
     this(pos, state, state.getBlock() instanceof IFluidCannon tank
@@ -124,7 +129,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
             tank.setFluid(fluid);
             tank.onContentsChanged();
             itemHandler.setStack(stack);
-            level.levelEvent(LevelEvent.PARTICLES_SHOOT, worldPosition, facing.get3DDataValue());
+            level.levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, worldPosition, facing.get3DDataValue());
             return;
           }
         }
@@ -146,7 +151,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
           fluid.shrink(amount);
           tank.setFluid(fluid);
           tank.onContentsChanged();
-          level.levelEvent(LevelEvent.PARTICLES_SHOOT, worldPosition, facing.get3DDataValue());
+          level.levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, worldPosition, facing.get3DDataValue());
           return;
         }
       }
@@ -167,18 +172,18 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    tank.readFromNBT(tag.getCompound(NBTTags.TANK));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    super.loadAdditional(tag, registries);
+    tank.readFromNBT(registries, tag.getCompound(NBTTags.TANK));
     if (tag.contains(TAG_ITEM, Tag.TAG_COMPOUND)) {
-      itemHandler.readFromNBT(tag.getCompound(TAG_ITEM));
+      itemHandler.readFromNBT(registries, tag.getCompound(TAG_ITEM));
     }
   }
 
   @Override
-  public void saveSynced(CompoundTag tag) {
-    super.saveSynced(tag);
-    tag.put(TAG_ITEM, itemHandler.writeToNBT());
+  public void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveSynced(tag, registries);
+    tag.put(TAG_ITEM, itemHandler.writeToNBT(registries));
   }
 
 

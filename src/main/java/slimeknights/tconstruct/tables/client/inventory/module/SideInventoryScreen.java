@@ -42,8 +42,9 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
   protected BorderWidget border = new BorderWidget();
 
   protected int columns;
-  @Getter
   protected int slotCount;
+
+  public int getSlotCount() { return slotCount; }
 
   protected int firstSlotId;
   protected int lastSlotId;

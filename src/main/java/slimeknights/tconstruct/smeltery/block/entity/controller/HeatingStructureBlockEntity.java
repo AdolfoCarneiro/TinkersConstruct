@@ -87,8 +87,11 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
 
   /* Saved data, written to Tag */
   /** Current structure contents */
-  @Nullable @Getter
+  @Nullable
   protected StructureData structure;
+
+  @Nullable
+  public StructureData getStructure() { return structure; }
   /** Tank instance for this smeltery */
   protected final SmelteryTank<HeatingStructureBlockEntity> tank = new SmelteryTank<>(this);
 
@@ -98,12 +101,14 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   }
 
   /** Inventory handling melting items */
-  @Getter
   protected final MeltingModuleInventory meltingInventory = createMeltingInventory();
 
+  public MeltingModuleInventory getMeltingInventory() { return meltingInventory; }
+
   /** Fuel module */
-  @Getter
   protected final MultitankFuelModule fuelModule = new MultitankFuelModule(this, () -> structure != null ? structure.getTanks() : Collections.emptyList());
+
+  public MultitankFuelModule getFuelModule() { return fuelModule; }
   /** Current fuel consumption rate */
   protected int fuelRate = 1;
 

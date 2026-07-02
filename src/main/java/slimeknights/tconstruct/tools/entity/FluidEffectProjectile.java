@@ -7,7 +7,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtUtils;
+import slimeknights.tconstruct.TConstruct;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -59,13 +61,20 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
 
 
   /** Projectile power determining how much fluid is used at most */
-  @Getter
   private float power = 1;
   /** Amount of knockback for the projectile to cause, scaled like arrow knockback */
   private float knockback = 1;
   /** Position of the cannon that fired this projectile */
   @Nullable
   private BlockPos cannon;
+
+  @Override
+  public float getPower() { return power; }
+
+  @Override
+  public void setPower(float power) { this.power = power; }
+
+  public void setCannon(BlockPos cannon) { this.cannon = cannon; }
 
   public FluidEffectProjectile(EntityType<? extends FluidEffectProjectile> type, Level level) {
     super(type, level);
@@ -193,9 +202,9 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
         EntityDimensions dimensions = getType().getDimensions();
         float factor = 0.01f;
         if (((BlockHitResult)hitResult).getDirection().getAxis() == Axis.Y) {
-          factor += dimensions.height;
+          factor += dimensions.height();
         } else {
-          factor += dimensions.width / 2;
+          factor += dimensions.width() / 2;
         }
         newLocation = hitResult.getLocation().add(velocity.normalize().scale(factor));
       } else {
@@ -344,7 +353,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
-      nbt.put(KEY_FLUID, fluid.writeToNBT(new CompoundTag()));
+      nbt.put(KEY_FLUID, fluid.save(TConstruct.STATIC_PROVIDER));
     }
   }
 
@@ -354,11 +363,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     this.power = nbt.getFloat(KEY_POWER);
     this.knockback = nbt.getFloat(KEY_KNOCKBACK);
     this.entityData.set(WATER_INERTIA, nbt.getFloat(KEY_WATER_INERTIA));
-    if (nbt.contains(KEY_CANNON)) {
-      this.cannon = NbtUtils.readBlockPos(nbt.getCompound(KEY_CANNON));
-    } else {
-      this.cannon = null;
-    }
-    setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(KEY_FLUID)));
+    this.cannon = NbtUtils.readBlockPos(nbt, KEY_CANNON).orElse(null);
+    setFluid(FluidStack.parseOptional(TConstruct.STATIC_PROVIDER, nbt.getCompound(KEY_FLUID)));
   }
 }

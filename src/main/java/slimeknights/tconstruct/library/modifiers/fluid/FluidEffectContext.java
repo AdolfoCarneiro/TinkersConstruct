@@ -254,6 +254,10 @@ public abstract class FluidEffectContext {
     @Setter
     private Vec3 location = null;
 
+    public Builder projectile(@Nullable Projectile projectile) { this.projectile = projectile; return this; }
+    public Builder stack(ItemStack stack) { this.stack = stack; return this; }
+    public Builder location(@Nullable Vec3 location) { this.location = location; return this; }
+
     /** Set the entity and player using the fluid */
     public Builder user(@Nullable LivingEntity entity, @Nullable Player player) {
       this.entity = entity;

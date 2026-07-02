@@ -39,8 +39,14 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
   /** Material used for repairing */
   protected final MaterialId material;
   /** Amount to repair */
-  @Getter(AccessLevel.PROTECTED)
   protected int repairAmount;
+
+  private MaterialRepairModule(MaterialId material, int repairAmount) {
+    this.material = material;
+    this.repairAmount = repairAmount;
+  }
+
+  protected int getRepairAmount() { return repairAmount; }
 
   /** Creates a new module using a constant durability */
   public static MaterialRepairModule of(MaterialId material, int repairAmount) {
@@ -137,10 +143,13 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
 
 
   /** Builder logic */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class ArmorBuilder implements ArmorModuleBuilder<MaterialRepairModule> {
     private final MaterialId material;
     private final int[] durability = new int[4];
+
+    private ArmorBuilder(MaterialId material) {
+      this.material = material;
+    }
 
     /** Sets the durability for the piece based on the given factor */
     public ArmorBuilder durabilityFactor(float maxDamageFactor) {

@@ -72,8 +72,13 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   /** Volatile flag for an item to act as an enderman mask, stopping them from getting angry. */
   public static final ResourceLocation ENDERMASK = TConstruct.getResource("endermask");
 
-  @Getter
   private final ToolDefinition toolDefinition;
+
+  @Override
+  public ToolDefinition getToolDefinition() {
+    return toolDefinition;
+  }
+
   /** Cache of the tool built for rendering */
   private ItemStack toolForRendering = null;
   public ModifiableArmorItem(Holder<ArmorMaterial> materialIn, ArmorItem.Type type, Properties builderIn, ToolDefinition toolDefinition) {
@@ -201,7 +206,6 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     return false;
   }
 
-  @Override
   public boolean canBeDepleted() {
     return true;
   }
@@ -276,15 +280,15 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       StatsNBT statsNBT = tool.getStats();
       float armor = statsNBT.get(ToolStats.ARMOR);
       if (armor > 0) {
-        builder.put(Attributes.ARMOR, new AttributeModifier(TConstruct.getResource("armor.armor"), armor, AttributeModifier.Operation.ADD_VALUE));
+        builder.put(Attributes.ARMOR.value(), new AttributeModifier(TConstruct.getResource("armor.armor"), armor, AttributeModifier.Operation.ADD_VALUE));
       }
       float toughness = statsNBT.get(ToolStats.ARMOR_TOUGHNESS);
       if (toughness > 0) {
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(TConstruct.getResource("armor.toughness"), toughness, AttributeModifier.Operation.ADD_VALUE));
+        builder.put(Attributes.ARMOR_TOUGHNESS.value(), new AttributeModifier(TConstruct.getResource("armor.toughness"), toughness, AttributeModifier.Operation.ADD_VALUE));
       }
       double knockbackResistance = statsNBT.get(ToolStats.KNOCKBACK_RESISTANCE);
       if (knockbackResistance > 0) {
-        builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(TConstruct.getResource("armor.knockback_resistance"), knockbackResistance, AttributeModifier.Operation.ADD_VALUE));
+        builder.put(Attributes.KNOCKBACK_RESISTANCE.value(), new AttributeModifier(TConstruct.getResource("armor.knockback_resistance"), knockbackResistance, AttributeModifier.Operation.ADD_VALUE));
       }
       // grab attributes from modifiers
       BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
