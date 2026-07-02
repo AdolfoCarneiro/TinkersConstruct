@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.fluid.block;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -7,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -32,12 +34,12 @@ public record PotionCloudFluidEffect(float scale, TagPredicate predicate) implem
 
   @Override
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Block context, FluidAction action) {
-    CompoundTag tag = fluid.getTag();
+    CompoundTag tag = fluid.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     if (predicate.test(tag) && context.isOffsetReplaceable()) {
-      CompoundTag fluidTag = fluid.getTag();
-      Potion potion = fluidTag != null && fluidTag.contains("Potion")
-        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.EMPTY::value)
-        : Potions.EMPTY.value();
+      CompoundTag fluidTag = tag;
+      Potion potion = fluidTag.contains("Potion")
+        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.WATER::value)
+        : Potions.WATER.value();
       List<MobEffectInstance> effects = potion.getEffects();
       if (!effects.isEmpty()) {
         float scale = level.value();
@@ -48,7 +50,7 @@ public record PotionCloudFluidEffect(float scale, TagPredicate predicate) implem
           // keep track of how many effects are actually added
           boolean used = false;
           for (MobEffectInstance instance : effects) {
-            if (instance.getEffect().isInstantenous()) {
+            if (instance.getEffect().value().isInstantenous()) {
               // only thing we have to scale on instant effects is the amplifier, though clouds automatically half instant effects for us
               int amplifier = (int)((instance.getAmplifier() + 1) * effectScale * 2) - 1;
               if (amplifier >= 0) {

@@ -82,6 +82,11 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
   @Getter
   private final SolidFuelModule fuelModule;
 
+  /** Gets the fuel handling logic */
+  public SolidFuelModule getFuelModule() {
+    return fuelModule;
+  }
+
   /** Main constructor */
   public MelterBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.melter.get(), pos, state);

@@ -138,6 +138,15 @@ public abstract class FluidEffectContext {
       return location;
     }
 
+    public net.minecraft.world.entity.Entity getTarget() {
+      return target;
+    }
+
+    @Nullable
+    public LivingEntity getLivingTarget() {
+      return livingTarget;
+    }
+
     /** @deprecated use {@link #builder(Level)} */
     @Deprecated(forRemoval = true)
     public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {

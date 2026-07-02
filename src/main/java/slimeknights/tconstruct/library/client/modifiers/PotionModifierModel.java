@@ -84,7 +84,7 @@ public class PotionModifierModel implements SimpleModifierModel {
         ResourceLocation id = ResourceLocation.tryParse(toolData.getString(key));
         if (id != null) {
           BuiltInRegistries.POTION.getHolder(id).ifPresent(potionHolder -> {
-            if (potionHolder != Potions.EMPTY && !potionHolder.value().getEffects().isEmpty()) {
+            if (potionHolder.value() != Potions.WATER.value() && !potionHolder.value().getEffects().isEmpty()) {
               quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(0xFF000000 | PotionContents.getColor(potionHolder), -1, spriteGetter.apply(texture), transforms, 0, pixels));
             }
           });

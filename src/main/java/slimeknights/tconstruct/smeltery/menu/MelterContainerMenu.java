@@ -37,6 +37,12 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
   private final Slot[] inputs;
   @Getter
   private boolean hasFuelSlot = false;
+
+  /** Whether this menu has a fuel slot */
+  public boolean isHasFuelSlot() {
+    return hasFuelSlot;
+  }
+
   public MelterContainerMenu(int id, @Nullable Inventory inv, @Nullable MelterBlockEntity melter) {
     super(TinkerSmeltery.melterContainer.get(), id, inv, melter);
 

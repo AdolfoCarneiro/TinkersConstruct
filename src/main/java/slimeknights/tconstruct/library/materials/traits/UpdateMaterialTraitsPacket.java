@@ -22,6 +22,15 @@ public class UpdateMaterialTraitsPacket implements CustomPacketPayload {
 
   protected final Map<MaterialId,MaterialTraits> materialToTraits;
 
+  public UpdateMaterialTraitsPacket(Map<MaterialId,MaterialTraits> materialToTraits) {
+    this.materialToTraits = materialToTraits;
+  }
+
+  /** Gets the map of material ID to traits */
+  public Map<MaterialId,MaterialTraits> getMaterialToTraits() {
+    return materialToTraits;
+  }
+
   public UpdateMaterialTraitsPacket(RegistryFriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
     materialToTraits = new HashMap<>(materialCount);

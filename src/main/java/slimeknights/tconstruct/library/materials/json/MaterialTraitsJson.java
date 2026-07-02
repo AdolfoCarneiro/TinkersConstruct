@@ -23,6 +23,17 @@ public class MaterialTraitsJson {
   @Nullable
   private final Map<ResourceLocation, List<ModifierEntry>> perStat;
 
+  public MaterialTraitsJson(@Nullable List<ModifierEntry> defaultTraits, @Nullable Map<ResourceLocation, List<ModifierEntry>> perStat) {
+    this.defaultTraits = defaultTraits;
+    this.perStat = perStat;
+  }
+
+  /** Gets the default traits list from the JSON */
+  @Nullable
+  public List<ModifierEntry> getDefaultTraits() {
+    return defaultTraits;
+  }
+
   public Map<MaterialStatsId,List<ModifierEntry>> getPerStat() {
     if (perStat == null) {
       return Collections.emptyMap();

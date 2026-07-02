@@ -28,6 +28,21 @@ public class MaterialTraits {
   @Getter(AccessLevel.PROTECTED)
   private final Map<MaterialStatsId,List<ModifierEntry>> traitsPerStats;
 
+  public MaterialTraits(List<ModifierEntry> defaultTraits, Map<MaterialStatsId,List<ModifierEntry>> traitsPerStats) {
+    this.defaultTraits = defaultTraits;
+    this.traitsPerStats = traitsPerStats;
+  }
+
+  /** Gets the default traits for this material */
+  public List<ModifierEntry> getDefaultTraits() {
+    return defaultTraits;
+  }
+
+  /** Gets the map of stat type to trait list */
+  protected Map<MaterialStatsId,List<ModifierEntry>> getTraitsPerStats() {
+    return traitsPerStats;
+  }
+
   /**
    * Checks if the stats ID has unique traits
    * @param statsId  Stats ID
@@ -109,6 +124,17 @@ public class MaterialTraits {
     private List<ModifierEntry> defaultTraits = null;
     @Getter(AccessLevel.PROTECTED)
     private final Map<MaterialStatsId,List<ModifierEntry>> traitsPerStats = new HashMap<>();
+
+    /** Gets the default traits set on this builder */
+    @Nullable
+    public List<ModifierEntry> getDefaultTraits() {
+      return defaultTraits;
+    }
+
+    /** Gets the map of stat type to trait list set on this builder */
+    protected Map<MaterialStatsId,List<ModifierEntry>> getTraitsPerStats() {
+      return traitsPerStats;
+    }
 
     /**
      * Sets the default traits

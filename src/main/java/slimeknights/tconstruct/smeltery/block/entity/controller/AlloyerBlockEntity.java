@@ -68,6 +68,16 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
   /** Internal tick counter */
   private int tick;
 
+  /** Gets the logic for mixer alloying */
+  public MixerAlloyTank getAlloyTank() {
+    return alloyTank;
+  }
+
+  /** Gets the fuel handling logic */
+  public SolidFuelModule getFuelModule() {
+    return fuelModule;
+  }
+
   @Override
   public int getLastStrength() {
     return lastStrength;

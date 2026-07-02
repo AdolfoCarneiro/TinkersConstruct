@@ -601,7 +601,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
     super.loadAdditional(nbt, registries);
     if (nbt.contains(TAG_TANK, Tag.TAG_COMPOUND)) {
-      tank.read(nbt.getCompound(TAG_TANK));
+      tank.read(registries, nbt.getCompound(TAG_TANK));
       FluidStack first = tank.getFluidInTank(0);
       if (!first.isEmpty()) {
         updateDisplayFluid(first);
@@ -638,7 +638,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   public void saveSynced(CompoundTag compound, HolderLookup.Provider registries) {
     // Tag that writes to disk and syncs to client
     super.saveSynced(compound, registries);
-    compound.put(TAG_TANK, tank.write(new CompoundTag()));
+    compound.put(TAG_TANK, tank.write(registries, new CompoundTag()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToTag());
     if (texture != Blocks.AIR) {
       compound.putString(TAG_TEXTURE, getTextureName());

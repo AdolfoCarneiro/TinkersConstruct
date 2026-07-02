@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LanternBlock;
@@ -37,6 +38,11 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
     super(properties);
     this.capacity = capacity;
     registerDefaultState(defaultBlockState().setValue(LIGHT, 0));
+  }
+
+  /** Gets the fluid capacity of this lantern */
+  public int getCapacity() {
+    return capacity;
   }
 
   @Override
@@ -84,7 +90,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
     ItemStack stack = new ItemStack(this);
     BlockEntityHelper.get(TankBlockEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;

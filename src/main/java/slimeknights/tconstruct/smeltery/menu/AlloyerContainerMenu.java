@@ -35,6 +35,12 @@ public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerBlo
 
   @Getter
   private boolean hasFuelSlot = false;
+
+  /** Whether this menu has a fuel slot */
+  public boolean isHasFuelSlot() {
+    return hasFuelSlot;
+  }
+
   public AlloyerContainerMenu(int id, @Nullable Inventory inv, @Nullable AlloyerBlockEntity alloyer) {
     super(TinkerSmeltery.alloyerContainer.get(), id, inv, alloyer);
 

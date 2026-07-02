@@ -53,12 +53,12 @@ public class PotionBucketItem extends PotionItem {
       java.util.Optional<Holder.Reference<Potion>> holder = BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(tag.getString("Potion")));
       if (holder.isPresent()) return holder.get();
     }
-    return Potions.EMPTY;
+    return Potions.WATER;
   }
 
   @Override
   public String getDescriptionId(ItemStack stack) {
-    String bucketKey = getPotionFromTag(stack).value().getName(getDescriptionId() + ".effect.");
+    String bucketKey = Potion.getName(java.util.Optional.of(getPotionFromTag(stack)), getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return bucketKey;
     }
@@ -68,13 +68,12 @@ public class PotionBucketItem extends PotionItem {
   @Override
   public Component getName(ItemStack stack) {
     Holder<Potion> potionHolder = getPotionFromTag(stack);
-    Potion potion = potionHolder.value();
-    String bucketKey = potion.getName(getDescriptionId() + ".effect.");
+    String bucketKey = Potion.getName(java.util.Optional.of(potionHolder), getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return Component.translatable(bucketKey);
     }
     // default to filling with the contents
-    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(potion.getName("item.minecraft.potion.effect.")));
+    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(Potion.getName(java.util.Optional.of(potionHolder), "item.minecraft.potion.effect.")));
   }
 
   @Override
@@ -146,8 +145,12 @@ public class PotionBucketItem extends PotionItem {
     @Nonnull
     @Override
     public FluidStack getFluid() {
-      return new FluidStack(((PotionBucketItem)container.getItem()).getFluid(),
-                            FluidType.BUCKET_VOLUME, container.getTag());
+      FluidStack stack = new FluidStack(((PotionBucketItem)container.getItem()).getFluid(), FluidType.BUCKET_VOLUME);
+      CustomData data = container.get(DataComponents.CUSTOM_DATA);
+      if (data != null) {
+        stack.set(DataComponents.CUSTOM_DATA, data);
+      }
+      return stack;
     }
   }
 }

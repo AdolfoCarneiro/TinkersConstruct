@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -35,12 +38,12 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
   @Override
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Entity context, FluidAction action) {
     LivingEntity target = context.getLivingTarget();
+    CompoundTag fluidTag = fluid.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     // must match the tag predicate
-    if (target != null && predicate.test(fluid.getTag())) {
-      CompoundTag fluidTag = fluid.getTag();
-      Potion potion = fluidTag != null && fluidTag.contains("Potion")
-        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.EMPTY::value)
-        : Potions.EMPTY.value();
+    if (target != null && predicate.test(fluidTag)) {
+      Potion potion = fluidTag.contains("Potion")
+        ? BuiltInRegistries.POTION.getHolder(ResourceLocation.parse(fluidTag.getString("Potion"))).map(net.minecraft.core.Holder::value).orElseGet(Potions.WATER::value)
+        : Potions.WATER.value();
       List<MobEffectInstance> effects = potion.getEffects();
       if (!effects.isEmpty()) {
         LivingEntity attacker = context.getEntity();
@@ -51,7 +54,8 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
         // report whichever effect used the most
         float used = 0;
         for (MobEffectInstance instance : effects) {
-          MobEffect effect = instance.getEffect().value();
+          Holder<MobEffect> effectHolder = instance.getEffect();
+          MobEffect effect = effectHolder.value();
           if (effect.isInstantenous()) {
             // instant effects just apply full value always
             used = level.value();
@@ -61,7 +65,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
             }
           } else {
             // if the potion already exists, we scale up the existing time
-            MobEffectInstance existingEffect = target.getEffect(effect);
+            MobEffectInstance existingEffect = target.getEffect(effectHolder);
             int duration;
             if (existingEffect != null && existingEffect.getAmplifier() >= instance.getAmplifier()) {
               // if the existing level is larger, just skip, would be a cheese to increase said level
@@ -84,7 +88,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
               duration = (int) (instance.getDuration() * scale * used);
             }
             if (action.execute()) {
-              target.addEffect(new MobEffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()), effectSource);
+              target.addEffect(new MobEffectInstance(effectHolder, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()), effectSource);
             }
           }
         }

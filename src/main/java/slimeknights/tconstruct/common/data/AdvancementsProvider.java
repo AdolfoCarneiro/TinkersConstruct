@@ -17,11 +17,14 @@ import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.PlayerInteractTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -33,6 +36,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
@@ -79,7 +83,7 @@ import slimeknights.tconstruct.world.block.FoliageType;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -89,9 +93,12 @@ public class AdvancementsProvider extends GenericDataProvider {
 
   /** Advancement consumer instance */
   protected Consumer<AdvancementHolder> advancementConsumer;
+  /** Future for registry access, needed to look up datapack registries such as structures */
+  private final CompletableFuture<HolderLookup.Provider> registries;
 
-  public AdvancementsProvider(PackOutput output) {
+  public AdvancementsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
     super(output, Target.DATA_PACK, "advancements");
+    this.registries = registries;
   }
 
   @Override
@@ -100,7 +107,7 @@ public class AdvancementsProvider extends GenericDataProvider {
   }
 
   /** Generates the advancements */
-  protected void generate() {
+  protected void generate(HolderLookup.Provider registries) {
     // tinkering path
     AdvancementHolder materialsAndYou = builder(TinkerCommons.materialsAndYou, resource("tools/materials_and_you"), resource("textures/gui/advancement_background.png"), AdvancementType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.materialsAndYou)));
@@ -391,15 +398,15 @@ public class AdvancementsProvider extends GenericDataProvider {
     AdvancementHolder tinkersGadgetry = builder(TinkerCommons.tinkersGadgetry, resource("world/tinkers_gadgetry"), materialsAndYou, AdvancementType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
     builder(TinkerWorld.slimeSapling.get(FoliageType.EARTH), resource("world/earth_island"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.earthSlimeIsland)))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TinkerStructures.earthSlimeIsland)))));
     AdvancementHolder skyslimeIsland = builder(TinkerWorld.slimeSapling.get(FoliageType.SKY), resource("world/sky_island"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.skySlimeIsland)))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TinkerStructures.skySlimeIsland)))));
     builder(TinkerWorld.slimeSapling.get(FoliageType.BLOOD), resource("world/blood_island"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.bloodIsland)))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TinkerStructures.bloodIsland)))));
     builder(TinkerWorld.slimeSapling.get(FoliageType.ENDER), resource("world/ender_island"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.endSlimeIsland)))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TinkerStructures.endSlimeIsland)))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.clayIsland)))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TinkerStructures.clayIsland)))));
     builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, AdvancementType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
         builder.addCriterion(type.getSerializedName(), hasTag(type.getSlimeballTag()));
@@ -407,7 +414,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("magma_cream", hasItem(Items.MAGMA_CREAM));
     });
     builder(TinkerGadgets.piggyBackpack, resource("world/piggybackpack"), tinkersGadgetry, AdvancementType.GOAL, builder ->
-      builder.addCriterion("used_pack", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build()))));
+      builder.addCriterion("used_pack", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(), ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build())))));
     AdvancementHolder slimesuit = builder(new MaterialIdNBT(List.of(MaterialIds.bone, MaterialIds.skyslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))), resource("world/slimesuit"), skyslimeIsland, AdvancementType.GOAL, builder ->
       TinkerTools.slimesuit.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getName(), hasItem(armor))));
     builder(new MaterialIdNBT(List.of(MaterialIds.glass, MaterialIds.enderslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))),
@@ -453,7 +460,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     // internal advancements
     hiddenBuilder(resource("internal/starting_book"), ConfigEnabledCondition.SPAWN_WITH_BOOK, builder -> {
       builder.addCriterion("tick", PlayerTrigger.TriggerInstance.tick());
-      builder.rewards(AdvancementRewards.Builder.loot(TConstruct.getResource("gameplay/starting_book")));
+      builder.rewards(AdvancementRewards.Builder.loot(ResourceKey.create(Registries.LOOT_TABLE, TConstruct.getResource("gameplay/starting_book"))));
     });
   }
 
@@ -476,20 +483,22 @@ public class AdvancementsProvider extends GenericDataProvider {
 
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
-    Set<ResourceLocation> set = Sets.newHashSet();
-    List<AdvancementHolder> advancements = new ArrayList<>();
-    this.advancementConsumer = holder -> {
-      if (!set.add(holder.id())) {
-        throw new IllegalStateException("Duplicate advancement " + holder.id());
-      } else {
-        advancements.add(holder);
-      }
-    };
-    generate();
-    return allOf(
-      advancements.stream().map(holder -> saveJson(cache, holder.id(),
-        Advancement.CODEC.encodeStart(JsonOps.INSTANCE, holder.value()).getOrThrow(IllegalStateException::new)))
-    );
+    return this.registries.thenCompose(registries -> {
+      Set<ResourceLocation> set = Sets.newHashSet();
+      List<AdvancementHolder> advancements = new ArrayList<>();
+      this.advancementConsumer = holder -> {
+        if (!set.add(holder.id())) {
+          throw new IllegalStateException("Duplicate advancement " + holder.id());
+        } else {
+          advancements.add(holder);
+        }
+      };
+      generate(registries);
+      return allOf(
+        advancements.stream().map(holder -> saveJson(cache, holder.id(),
+          Advancement.CODEC.encodeStart(JsonOps.INSTANCE, holder.value()).getOrThrow(IllegalStateException::new)))
+      );
+    });
   }
 
 
