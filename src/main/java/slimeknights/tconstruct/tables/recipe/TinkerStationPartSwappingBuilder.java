@@ -1,9 +1,5 @@
 package slimeknights.tconstruct.tables.recipe;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -19,19 +15,30 @@ import java.util.List;
 
 
 /** Builder for {@link TinkerStationPartSwapping} and {@link ToolMaterialSwappingRecipe} */
-@RequiredArgsConstructor(staticName = "tools")
 public class TinkerStationPartSwappingBuilder extends AbstractRecipeBuilder<TinkerStationPartSwappingBuilder> {
   private final Ingredient tools;
   private boolean fromTool = false;
-  @Setter
-  @Accessors(fluent = true)
   private int maxStackSize = 16;
   /** Additional requirements beyond the "part" */
   private final List<SizedIngredient> extraRequirements = new ArrayList<>();
 
+  private TinkerStationPartSwappingBuilder(Ingredient tools) {
+    this.tools = tools;
+  }
+
+  public static TinkerStationPartSwappingBuilder tools(Ingredient tools) {
+    return new TinkerStationPartSwappingBuilder(tools);
+  }
+
   /** Sets the swapping to be from a tool instead of from a part */
   public TinkerStationPartSwappingBuilder fromTool() {
     this.fromTool = true;
+    return this;
+  }
+
+  /** Sets the max stack size for the swapping recipe */
+  public TinkerStationPartSwappingBuilder maxStackSize(int maxStackSize) {
+    this.maxStackSize = maxStackSize;
     return this;
   }
 

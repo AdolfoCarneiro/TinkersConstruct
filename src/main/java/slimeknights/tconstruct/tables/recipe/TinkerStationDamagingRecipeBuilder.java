@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.recipe;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.minecraft.advancements.AdvancementHolder;
@@ -13,11 +12,19 @@ import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 
 
 /** Builder for tinker station damaging recipes */
-@RequiredArgsConstructor(staticName = "damage")
 public class TinkerStationDamagingRecipeBuilder extends AbstractRecipeBuilder<TinkerStationDamagingRecipeBuilder> {
 
   private final Ingredient ingredient;
   private final int damageAmount;
+
+  private TinkerStationDamagingRecipeBuilder(Ingredient ingredient, int damageAmount) {
+    this.ingredient = ingredient;
+    this.damageAmount = damageAmount;
+  }
+
+  public static TinkerStationDamagingRecipeBuilder damage(Ingredient ingredient, int damageAmount) {
+    return new TinkerStationDamagingRecipeBuilder(ingredient, damageAmount);
+  }
 
   @Override
   public void save(RecipeOutput consumer) {

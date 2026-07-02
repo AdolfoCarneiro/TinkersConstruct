@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.partbuilder.recycle;
 
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -25,13 +24,21 @@ import java.util.Map;
  * Builder for custom part builder tool recycling recipes for general damageable items.
  * Note {@link PartBuilderToolRecycleBuilder} is generally better for tools with parts, this is for tools that recycle into standard items.
  */
-@RequiredArgsConstructor(staticName = "tool")
 @Accessors(fluent = true)
 public class PartBuilderRecycleBuilder extends AbstractRecipeBuilder<PartBuilderRecycleBuilder> {
   private final Ingredient tool;
   @Setter
   private Ingredient pattern = Ingredient.of(TinkerFluids.venomBottle);
   private final Map<Pattern, ItemOutput> results = new HashMap<>();
+
+  private PartBuilderRecycleBuilder(Ingredient tool) {
+    this.tool = tool;
+  }
+
+  /** Creates a builder for the given tool */
+  public static PartBuilderRecycleBuilder tool(Ingredient tool) {
+    return new PartBuilderRecycleBuilder(tool);
+  }
 
   /** Creates a builder for the given tool */
   public static PartBuilderRecycleBuilder tool(ItemLike... tools) {

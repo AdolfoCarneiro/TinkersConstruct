@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.recipe;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -21,7 +20,6 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-@RequiredArgsConstructor
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<TinkerStationDamagingRecipe> LOADER = RecordLoadable.create(
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", (TinkerStationDamagingRecipe r) -> r.ingredient),
@@ -31,6 +29,11 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
 
   private final Ingredient ingredient;
   private final int damageAmount;
+
+  public TinkerStationDamagingRecipe(Ingredient ingredient, int damageAmount) {
+    this.ingredient = ingredient;
+    this.damageAmount = damageAmount;
+  }
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
