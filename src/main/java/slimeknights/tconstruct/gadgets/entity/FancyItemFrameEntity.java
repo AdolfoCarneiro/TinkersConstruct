@@ -241,6 +241,14 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityWithComple
     super.readAdditionalSaveData(compound);
     int frameId = compound.getInt(TAG_VARIANT);
     this.entityData.set(VARIANT, frameId);
+    // super.readAdditionalSaveData() above already called vanilla ItemFrame's own private setRotation(int,boolean)
+    // (now unreachable for us to override, it went from protected to private in 1.21.1), which only applies a
+    // flat "% 8" clamp. That silently truncates the 16-way rotation used by diamond/manyullyn/netherite frames on
+    // world/chunk load. Now that frameId is known, re-derive the rotation from the raw saved byte and re-apply
+    // our own clamp (mirrors vanilla's own gate: only touch rotation if there's an item to rotate).
+    if (!this.getItem().isEmpty()) {
+      setRotation(compound.getByte("ItemRotation"), false);
+    }
     if (doesRotate(frameId)) {
       rotationTimer = compound.getInt(TAG_ROTATION_TIMER);
     }
