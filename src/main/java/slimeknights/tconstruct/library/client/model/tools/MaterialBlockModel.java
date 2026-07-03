@@ -95,6 +95,12 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
   /** Type of model to create. */
   private final ModelType type;
 
+  public MaterialBlockModel(SimpleBlockModel model, List<Set<String>> parts, ModelType type) {
+    this.model = model;
+    this.parts = parts;
+    this.type = type;
+  }
+
   /** Loads a material block model from JSON */
   public static MaterialBlockModel deserialize(JsonObject json, JsonDeserializationContext context) {
     SimpleBlockModel model = SimpleBlockModel.deserialize(json, context);

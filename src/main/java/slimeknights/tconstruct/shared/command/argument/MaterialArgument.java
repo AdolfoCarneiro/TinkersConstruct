@@ -26,6 +26,13 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
   static final Collection<String> EXAMPLES = Arrays.asList("tconstruct:wood", "tconstruct:iron");
   private static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "material.not_found", name));
 
+  private MaterialArgument() {}
+
+  /** Creates a material argument */
+  public static MaterialArgument material() {
+    return new MaterialArgument();
+  }
+
   /** Gets the tool stat from the context */
   public static IMaterial getMaterial(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, IMaterial.class);

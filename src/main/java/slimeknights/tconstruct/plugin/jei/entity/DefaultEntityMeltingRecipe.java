@@ -43,7 +43,7 @@ public class DefaultEntityMeltingRecipe extends EntityMeltingRecipe {
 
   private final Lazy<EntityIngredient> entities;
   public DefaultEntityMeltingRecipe(List<EntityMeltingRecipe> recipes) {
-    super(TConstruct.getResource("__default"), EntityIngredient.EMPTY, FluidOutput.fromStack(EntityMeltingModule.getDefaultFluid()), 2);
+    super(EntityIngredient.EMPTY, FluidOutput.fromStack(EntityMeltingModule.getDefaultFluid()), 2);
     entities = Lazy.of(() -> getEntityList(recipes));
   }
 

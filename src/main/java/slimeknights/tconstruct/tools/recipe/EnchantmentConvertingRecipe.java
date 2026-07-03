@@ -81,6 +81,11 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     this.modifierPredicate = modifierPredicate;
   }
 
+  @Override
+  public Component getTitle() {
+    return title;
+  }
+
   /** Gets the enchantment map from the given stack */
   private ItemEnchantments getEnchantments(ItemStack stack) {
     ItemEnchantments enc = stack.get(matchBook ? DataComponents.STORED_ENCHANTMENTS : DataComponents.ENCHANTMENTS);
@@ -195,26 +200,26 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
       // worth noting, its possible multiple match, if thats the case we just extract the first we find
       ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(getEnchantments(current));
       Holder<Enchantment> toRemove = null;
-      for (Object2IntMap.Entry<Holder<Enchantment>> entry : mutable.entrySet()) {
-        Modifier enchantmentModifier = ModifierManager.INSTANCE.get(entry.getKey());
+      for (Holder<Enchantment> key : mutable.keySet()) {
+        Modifier enchantmentModifier = ModifierManager.INSTANCE.get(key);
         if (enchantmentModifier != null && enchantmentModifier.getId().equals(modifier)) {
-          toRemove = entry.getKey();
-          int newLevel = entry.getIntValue() - 1;
+          toRemove = key;
+          int newLevel = mutable.getLevel(key) - 1;
           if (newLevel > 0) { mutable.set(toRemove, newLevel); toRemove = null; }
           break;
         }
       }
       if (toRemove != null) { mutable.set(toRemove, 0); }
-      ItemEnchantments result = mutable.toImmutable();
+      ItemEnchantments newEnchantments = mutable.toImmutable();
       ItemStack unenchanted;
-      if (matchBook && result.isEmpty()) {
+      if (matchBook && newEnchantments.isEmpty()) {
         unenchanted = new ItemStack(Items.BOOK);
-        if (current.hasCustomHoverName()) {
-          unenchanted.setHoverName(current.getHoverName());
+        if (current.has(DataComponents.CUSTOM_NAME)) {
+          unenchanted.set(DataComponents.CUSTOM_NAME, current.get(DataComponents.CUSTOM_NAME));
         }
       } else {
         unenchanted = current.copy();
-        unenchanted.set(matchBook ? DataComponents.STORED_ENCHANTMENTS : DataComponents.ENCHANTMENTS, result);
+        unenchanted.set(matchBook ? DataComponents.STORED_ENCHANTMENTS : DataComponents.ENCHANTMENTS, newEnchantments);
       }
       inv.giveItem(unenchanted);
     }

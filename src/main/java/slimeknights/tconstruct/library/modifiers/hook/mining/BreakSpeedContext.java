@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -12,6 +13,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import org.jetbrains.annotations.ApiStatus.Internal;
@@ -74,7 +76,7 @@ public sealed interface BreakSpeedContext {
       }
     }
     // water
-    if (entity.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+    if (entity.isEyeInFluid(FluidTags.WATER) && EnchantmentHelper.getEnchantmentLevel(entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.AQUA_AFFINITY), entity) <= 0) {
       modifier /= 5.0F;
     }
     if (!entity.onGround()) {
@@ -123,6 +125,52 @@ public sealed interface BreakSpeedContext {
     private final float originalSpeed;
     private final float miningSpeedMultiplier;
     private BreakSpeed event;
+
+    public Direct(Player player, BlockState state, @Nullable BlockPos pos, Direction sideHit, boolean isEffective, float originalSpeed, float miningSpeedMultiplier) {
+      this.player = player;
+      this.state = state;
+      this.pos = pos;
+      this.sideHit = sideHit;
+      this.isEffective = isEffective;
+      this.originalSpeed = originalSpeed;
+      this.miningSpeedMultiplier = miningSpeedMultiplier;
+    }
+
+    @Override
+    public Player player() {
+      return player;
+    }
+
+    @Override
+    public BlockState state() {
+      return state;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos pos() {
+      return pos;
+    }
+
+    @Override
+    public Direction sideHit() {
+      return sideHit;
+    }
+
+    @Override
+    public boolean isEffective() {
+      return isEffective;
+    }
+
+    @Override
+    public float originalSpeed() {
+      return originalSpeed;
+    }
+
+    @Override
+    public float miningSpeedMultiplier() {
+      return miningSpeedMultiplier;
+    }
 
     @Override
     public BreakSpeed event() {

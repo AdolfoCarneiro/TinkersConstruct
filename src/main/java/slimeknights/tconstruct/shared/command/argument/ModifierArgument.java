@@ -25,6 +25,13 @@ public class ModifierArgument implements ArgumentType<Modifier> {
   private static final Collection<String> EXAMPLES = Arrays.asList("tconstruct:haste", "tconstruct:luck");
   private static final DynamicCommandExceptionType MODIFIER_NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "modifier.not_found", name));
 
+  private ModifierArgument() {}
+
+  /** Creates a modifier argument */
+  public static ModifierArgument modifier() {
+    return new ModifierArgument();
+  }
+
   @Override
   public Modifier parse(StringReader reader) throws CommandSyntaxException {
     ModifierId loc = new ModifierId(IdParser.read(TConstruct.MOD_ID, reader));

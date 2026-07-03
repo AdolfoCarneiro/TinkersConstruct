@@ -222,12 +222,15 @@ public class StatsCommand {
     return size;
   }
 
-  @RequiredArgsConstructor
   private enum Type {
     BONUS("stat_type"),
     MULTIPLY("float_stat");
     private final String key = name().toLowerCase(Locale.US);
     private final String stat;
+
+    Type(String stat) {
+      this.stat = stat;
+    }
   }
   private enum Operation {
     MODIFY, SET;

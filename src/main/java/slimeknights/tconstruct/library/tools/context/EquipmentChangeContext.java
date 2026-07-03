@@ -34,6 +34,23 @@ public class EquipmentChangeContext extends EquipmentContext {
     fetchedTool[replacementIndex] = true;
   }
 
+  public EquipmentSlot getChangedSlot() {
+    return changedSlot;
+  }
+
+  public ItemStack getOriginal() {
+    return original;
+  }
+
+  public ItemStack getReplacement() {
+    return replacement;
+  }
+
+  @Nullable
+  public IToolStackView getOriginalTool() {
+    return originalTool;
+  }
+
   /** Alias for {@link #getChangedSlot()} */
   public EquipmentSlot getSlot() {
     return changedSlot;

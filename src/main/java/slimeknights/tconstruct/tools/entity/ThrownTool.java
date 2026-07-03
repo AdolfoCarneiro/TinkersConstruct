@@ -77,9 +77,13 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   private float multiplier = 1;
   private boolean noDespawn = false;
   private int magnet = 0;
-  @Setter
   private int originalSlot = -1;
   private boolean hitBlock = false;
+
+  /** Sets the original slot the tool was thrown from */
+  public void setOriginalSlot(int originalSlot) {
+    this.originalSlot = originalSlot;
+  }
   /** Tasks queued by modifiers */
   private Schedule tasks = Schedule.EMPTY;
 
@@ -129,7 +133,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     return entityData.get(WATER_INERTIA);
   }
 
-  @Override
+  // Note: AbstractArrow#isChanneling() was removed entirely in 1.21.1 with no replacement hook; this is now a plain helper, no longer an override.
   public boolean isChanneling() {
     return !tridentItem.isEmpty() && getTool().getModifiers().getLevel(ModifierIds.channeling) > 0;
   }
@@ -358,7 +362,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
       if (current.isEmpty()) {
         inventory.setItem(originalSlot, pickup);
         return true;
-      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameTags(current, pickup)) {
+      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameComponents(current, pickup)) {
         current.grow(1);
         return true;
       }

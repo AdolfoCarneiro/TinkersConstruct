@@ -29,6 +29,15 @@ public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
   /** If true, slotless is allowed, producing null for a filter */
   private final boolean allowSlotless;
 
+  private SlotTypeArgument(boolean allowSlotless) {
+    this.allowSlotless = allowSlotless;
+  }
+
+  /** Creates a slot type argument with the given slotless behavior */
+  public static SlotTypeArgument slotType(boolean allowSlotless) {
+    return new SlotTypeArgument(allowSlotless);
+  }
+
   /** Makes a slot type argument for no types */
   public static SlotTypeArgument slotType() {
     return slotType(true);

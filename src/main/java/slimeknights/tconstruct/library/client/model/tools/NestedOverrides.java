@@ -17,6 +17,10 @@ public class NestedOverrides extends ItemOverrides {
   /** If true, ignores calling further nesting on these overrides */
   private boolean ignoreNested = false;
 
+  public NestedOverrides(ItemOverrides nested) {
+    this.nested = nested;
+  }
+
   @Override
   @Nullable
   public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {

@@ -7,12 +7,10 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TickEvent.Phase;
-import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.loading.FMLEnvironment;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
@@ -60,10 +58,11 @@ public class EquipmentChangeWatcher {
   }
 
   /** Client side modifier hooks */
-  private static void onPlayerTick(PlayerTickEvent event) {
+  private static void onPlayerTick(PlayerTickEvent.Post event) {
     // only run for client side players every 5 ticks
-    if (event.phase == Phase.END && event.side == LogicalSide.CLIENT) {
-      event.player.getData(ATTACHMENT).update();
+    Player player = event.getEntity();
+    if (player.level().isClientSide()) {
+      player.getData(ATTACHMENT).update();
     }
   }
 

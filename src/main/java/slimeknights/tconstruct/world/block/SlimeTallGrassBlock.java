@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.IShearable;
-import net.neoforged.neoforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -43,15 +42,10 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
   }
 
   /* Forge/MC callbacks */
+  // Note: Forge's IPlantable/PlantType cross-mod plant-growth API was removed entirely in NeoForge 1.21.1 with no replacement.
   @Nonnull
   @Override
-  public PlantType getPlantType(BlockGetter world, BlockPos pos) {
-    return TinkerWorld.SLIME_PLANT_TYPE;
-  }
-
-  @Nonnull
-  @Override
-  public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level world, BlockPos pos, int fortune) {
+  public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level world, BlockPos pos) {
     return Lists.newArrayList(new ItemStack(this, 1));
   }
 

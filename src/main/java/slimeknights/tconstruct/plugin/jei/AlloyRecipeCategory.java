@@ -60,7 +60,6 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
 
   @Getter
   private final IDrawable background;
-  @Getter
   private final IDrawable icon;
   private final IDrawable arrow;
   private final IDrawable tank;
@@ -70,6 +69,11 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.smelteryController));
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 172, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
+  }
+
+  @Override
+  public IDrawable getIcon() {
+    return icon;
   }
 
   @Override
@@ -162,8 +166,4 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
            .addIngredients(NeoForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 
-  @Override
-  public ResourceLocation getRegistryName(AlloyRecipe recipe) {
-    return recipe.getId();
-  }
 }

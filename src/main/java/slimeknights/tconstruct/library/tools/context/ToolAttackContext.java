@@ -76,6 +76,22 @@ public class ToolAttackContext {
   /** Sound to play for this attack */
   private final SoundEvent sound;
 
+  private ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, EquipmentSlot slotType, @Nullable Projectile projectile, Entity target, @Nullable LivingEntity livingTarget, float baseDamage, float baseKnockback, float cooldown, float criticalModifier, boolean isExtraAttack, SoundEvent sound) {
+    this.attacker = attacker;
+    this.playerAttacker = playerAttacker;
+    this.hand = hand;
+    this.slotType = slotType;
+    this.projectile = projectile;
+    this.target = target;
+    this.livingTarget = livingTarget;
+    this.baseDamage = baseDamage;
+    this.baseKnockback = baseKnockback;
+    this.cooldown = cooldown;
+    this.criticalModifier = criticalModifier;
+    this.isExtraAttack = isExtraAttack;
+    this.sound = sound;
+  }
+
   /** @deprecated use {@link Builder */
   @Deprecated(forRemoval = true)
   public ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, EquipmentSlot slotType, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
@@ -186,13 +202,17 @@ public class ToolAttackContext {
     @Nullable
     private final Player playerAttacker;
 
+    private Builder(LivingEntity attacker, @Nullable Player playerAttacker) {
+      this.attacker = attacker;
+      this.playerAttacker = playerAttacker;
+    }
+
     /** Hand containing the tool */
     private InteractionHand hand = InteractionHand.MAIN_HAND;
     /** Slot containing the tool */
     private EquipmentSlot slot = EquipmentSlot.MAINHAND;
     /** The projectile causing this damage. See {@link slimeknights.tconstruct.tools.entity.ThrownTool} */
     @Nullable
-    @Setter
     private Projectile projectile;
 
     /** Originally targeted entity, may be different from {@link #getTarget()} for multipart entities */
@@ -202,10 +222,8 @@ public class ToolAttackContext {
     private LivingEntity targetLiving;
 
     /** Damage to be dealt, before modifiers apply. */
-    @Setter
     private float baseDamage = 0;
     /** Knockback to be dealt, before modifiers apply. */
-    @Setter
     private float baseKnockback = 0;
     /** Current attack cooldown */
     private float cooldown = 1.0f;
@@ -214,8 +232,31 @@ public class ToolAttackContext {
     private boolean extraAttack = false;
     /** Sound to play for this attack */
     @Nullable
-    @Setter
     private SoundEvent sound = null;
+
+    /** Sets the projectile causing this damage */
+    public Builder projectile(@Nullable Projectile projectile) {
+      this.projectile = projectile;
+      return this;
+    }
+
+    /** Sets the base damage, before modifiers apply */
+    public Builder baseDamage(float baseDamage) {
+      this.baseDamage = baseDamage;
+      return this;
+    }
+
+    /** Sets the base knockback, before modifiers apply */
+    public Builder baseKnockback(float baseKnockback) {
+      this.baseKnockback = baseKnockback;
+      return this;
+    }
+
+    /** Sets the sound to play for this attack */
+    public Builder sound(@Nullable SoundEvent sound) {
+      this.sound = sound;
+      return this;
+    }
 
 
     /* Entities */

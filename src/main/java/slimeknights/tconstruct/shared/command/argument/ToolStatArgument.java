@@ -31,6 +31,15 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
   /** Filter to limit types of tool stats supported */
   private final Class<T> filter;
 
+  private ToolStatArgument(Class<T> filter) {
+    this.filter = filter;
+  }
+
+  /** Creates a stat type argument for the given filter */
+  public static <T extends IToolStat> ToolStatArgument<T> stat(Class<T> filter) {
+    return new ToolStatArgument<>(filter);
+  }
+
   /** Creates a stat type argument for any tool stat */
   public static ToolStatArgument<IToolStat> stat() {
     return stat(IToolStat.class);

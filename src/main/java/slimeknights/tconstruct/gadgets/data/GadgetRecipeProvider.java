@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.gadgets.data;
 
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
+
+import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -131,24 +134,24 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
   /**
    * Adds a recipe to the campfire, furnace, and smoker
-   * @param output    Recipe output
-   * @param input       Recipe input
    * @param output      Recipe output
+   * @param input       Recipe input
+   * @param result      Item result
    * @param experience  Experience for the recipe
    * @param folder      Folder to store the recipe
    */
-  private void foodCooking(RecipeOutput output, ItemLike input, ItemLike output, float experience, String folder) {
-    SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, experience, 600)
+  private void foodCooking(RecipeOutput output, ItemLike input, ItemLike result, float experience, String folder) {
+    SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, result, experience, 600)
                               .unlockedBy("has_item", has(input))
-                              .save(output, wrap(id(output), folder, "_campfire"));
+                              .save(output, wrap(id(result), folder, "_campfire"));
     // furnace is 200 ticks
-    ResourceLocation outputId = id(output);
-    InventoryChangeTrigger.TriggerInstance criteria = has(input);
-    SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, experience, 200)
+    ResourceLocation outputId = id(result);
+    Criterion<InventoryChangeTrigger.TriggerInstance> criteria = has(input);
+    SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, result, experience, 200)
                               .unlockedBy("has_item", criteria)
                               .save(output, wrap(outputId, folder, "_furnace"));
     // smoker 100 ticks
-    SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, experience, 100)
+    SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, result, experience, 100)
                               .unlockedBy("has_item", criteria)
                               .save(output, wrap(outputId, folder, "_smoker"));
   }

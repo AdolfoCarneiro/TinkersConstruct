@@ -52,6 +52,10 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.banner);
   }
 
+  public ResourceLocation getId() {
+    return id;
+  }
+
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     // ensure this modifier can be applied
@@ -104,10 +108,10 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
     }
 
     // get the banner data
-    CompoundTag bannerData = BlockItem.getBlockEntityData(banner);
+    net.minecraft.world.item.component.CustomData bannerData = banner.get(net.minecraft.core.component.DataComponents.BLOCK_ENTITY_DATA);
     ListTag patterns = new ListTag();
     if (bannerData != null) {
-      patterns = bannerData.getList("Patterns", Tag.TAG_COMPOUND);
+      patterns = bannerData.copyTag().getList("Patterns", Tag.TAG_COMPOUND);
     }
 
     // apply the pattern
@@ -161,16 +165,12 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
   /** Display recipe instance */
   private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
-    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.banner, 1);
+    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.banner.get(), 1);
 
-    @Getter
     private final ResourceLocation recipeId;
     private final List<ItemStack> banner;
-    @Getter
     private final List<ItemStack> toolWithoutModifier;
-    @Getter
     private final List<ItemStack> toolWithModifier;
-    @Getter
     private final Component variant;
     public DisplayRecipe(ResourceLocation recipeId, List<ItemStack> tools, BannerItem banner) {
       this.recipeId = recipeId;
@@ -183,6 +183,28 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
       ListTag patterns = new ListTag();
       List<ModifierEntry> results = List.of(RESULT);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, DEFAULT_TOOL_STACK_SIZE, results, data -> BannerModule.copyPatterns(data, key, dye, patterns))).toList();
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRecipeId() {
+      return recipeId;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier() {
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier() {
+      return toolWithModifier;
+    }
+
+    @Nullable
+    @Override
+    public Component getVariant() {
+      return variant;
     }
 
     @Override

@@ -25,6 +25,22 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
   private MaterialId materialId = IMaterial.UNKNOWN_ID;
   private int cost = 0;
 
+  private ItemPartRecipeBuilder(ResourceLocation pattern, ItemOutput result) {
+    this.pattern = pattern;
+    this.result = result;
+  }
+
+  /** Creates a new builder instance */
+  public static ItemPartRecipeBuilder item(ResourceLocation pattern, ItemOutput result) {
+    return new ItemPartRecipeBuilder(pattern, result);
+  }
+
+  /** Sets the pattern item ingredient */
+  public ItemPartRecipeBuilder setPatternItem(Ingredient patternItem) {
+    this.patternItem = patternItem;
+    return this;
+  }
+
   /** Sets the material Id and cost */
   public ItemPartRecipeBuilder material(MaterialId material, int cost) {
     this.materialId = material;

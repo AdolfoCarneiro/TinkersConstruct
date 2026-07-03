@@ -55,6 +55,10 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.trim);
   }
 
+  public ResourceLocation getId() {
+    return id;
+  }
+
   /** Match for the trim item finding method */
   private record TrimItems(ItemStack template, ItemStack material) {}
 
@@ -168,25 +172,21 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
 
   private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
-    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.trim, 1);
+    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.trim.get(), 1);
 
-    @Getter
     private final ResourceLocation recipeId;
-    @Getter
     private final List<ItemStack> toolWithoutModifier;
-    @Getter
     private final List<ItemStack> toolWithModifier;
     private final List<ItemStack> trim;
     private final List<ItemStack> material;
-    @Getter
     private final Component variant;
 
     public DisplayRecipe(ResourceLocation id, List<ItemStack> tools, List<ItemStack> trim, Reference<TrimMaterial> holder) {
       this.recipeId = id;
-      TrimMaterial material = holder.get();
+      TrimMaterial material = holder.value();
       toolWithoutModifier = tools;
       this.trim = trim;
-      this.material = List.of(new ItemStack(material.ingredient().get()));
+      this.material = List.of(new ItemStack(material.ingredient().value()));
       this.variant = material.description().plainCopy();
 
       String materialName = holder.key().location().toString();
@@ -194,6 +194,28 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
       ResourceLocation key = TrimModule.materialKey(TinkerModifiers.trim.getId());
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(key, materialName))).toList();
 
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRecipeId() {
+      return recipeId;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier() {
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier() {
+      return toolWithModifier;
+    }
+
+    @Nullable
+    @Override
+    public Component getVariant() {
+      return variant;
     }
 
     @Override

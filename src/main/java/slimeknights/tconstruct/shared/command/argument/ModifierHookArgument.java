@@ -25,6 +25,13 @@ public class ModifierHookArgument implements ArgumentType<ModuleHook<?>> {
   private static final Collection<String> EXAMPLES = Arrays.asList("tconstruct:tool_stats", "tconstruct:tooltip");
   private static final DynamicCommandExceptionType HOOK_NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "modifier_hook.not_found", name));
 
+  private ModifierHookArgument() {}
+
+  /** Creates a modifier hook argument */
+  public static ModifierHookArgument modifierHook() {
+    return new ModifierHookArgument();
+  }
+
   @Override
   public ModuleHook<?> parse(StringReader reader) throws CommandSyntaxException {
     ResourceLocation loc = IdParser.read(TConstruct.MOD_ID, reader);

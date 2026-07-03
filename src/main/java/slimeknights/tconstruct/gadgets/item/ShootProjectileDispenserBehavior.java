@@ -23,13 +23,19 @@ public class ShootProjectileDispenserBehavior extends DefaultDispenseItemBehavio
     this(entity, 1.1f, 6.0f);
   }
 
+  ShootProjectileDispenserBehavior(EntityType<? extends ThrowableItemProjectile> entity, float power, float inaccuracy) {
+    this.entity = entity;
+    this.power = power;
+    this.inaccuracy = inaccuracy;
+  }
+
   @Override
   public ItemStack execute(BlockSource source, ItemStack stack) {
-    Level level = source.getLevel();
+    Level level = source.level();
     ThrowableItemProjectile projectile = entity.create(level);
     if (projectile != null) {
       Position position = DispenserBlock.getDispensePosition(source);
-      Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+      Direction direction = source.state().getValue(DispenserBlock.FACING);
       projectile.setPos(position.x(), position.y(), position.z());
       projectile.setItem(stack);
       projectile.shoot(direction.getStepX(), ((float)direction.getStepY() + 0.1F), direction.getStepZ(), power, inaccuracy);
@@ -41,6 +47,6 @@ public class ShootProjectileDispenserBehavior extends DefaultDispenseItemBehavio
 
   @Override
   protected void playSound(BlockSource pSource) {
-    pSource.getLevel().levelEvent(LevelEvent.SOUND_DISPENSER_PROJECTILE_LAUNCH, pSource.getPos(), 0);
+    pSource.level().levelEvent(LevelEvent.SOUND_DISPENSER_PROJECTILE_LAUNCH, pSource.pos(), 0);
   }
 }

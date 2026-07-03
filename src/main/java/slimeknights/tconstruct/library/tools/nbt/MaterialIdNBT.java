@@ -41,6 +41,11 @@ public class MaterialIdNBT {
     this.materials = ImmutableList.copyOf(materials);
   }
 
+  /** Gets the list of materials contained in this NBT */
+  public List<MaterialVariantId> getMaterials() {
+    return materials;
+  }
+
   /**
    * Gets the material at the given index
    * @param index  Index

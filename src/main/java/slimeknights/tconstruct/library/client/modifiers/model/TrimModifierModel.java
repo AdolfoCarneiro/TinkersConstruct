@@ -129,6 +129,11 @@ public interface TrimModifierModel extends ModifierModel {
       cache = new HashMap<>();
     }
 
+    /** Gets the base root texture for this armor slot, regardless of large/small tool state */
+    public ResourceLocation getRoot() {
+      return root;
+    }
+
     @Override
     public RecordLoadable<Armor> getLoader() {
       return LOADER;

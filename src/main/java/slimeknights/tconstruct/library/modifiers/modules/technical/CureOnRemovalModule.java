@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.technical;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.EffectCures;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
@@ -25,6 +25,10 @@ public enum CureOnRemovalModule implements HookProvider, EquipmentChangeModifier
 
   private final EquipmentSlot slot;
 
+  CureOnRemovalModule(EquipmentSlot slot) {
+    this.slot = slot;
+  }
+
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
@@ -35,8 +39,8 @@ public enum CureOnRemovalModule implements HookProvider, EquipmentChangeModifier
     if (context.getSlot() == slot) {
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(modifier.getModifier()) == 0 || replacement.getItem() != tool.getItem()) {
-        // cure effects using the helmet
-        context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
+        // cure effects using the helmet; ItemStack#curePotionEffects was replaced by the EffectCure system in 1.21.1, MILK is the closest match to the old "cures any curable effect" default
+        context.getEntity().removeEffectsCuredBy(EffectCures.MILK);
       }
     }
   }

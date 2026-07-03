@@ -36,6 +36,20 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer>
   @Getter
   private final int damage;
 
+  public EntityMeltingRecipe(EntityIngredient ingredient, FluidOutput output, int damage) {
+    this.ingredient = ingredient;
+    this.output = output;
+    this.damage = damage;
+  }
+
+  public EntityIngredient getIngredient() {
+    return ingredient;
+  }
+
+  public int getDamage() {
+    return damage;
+  }
+
   /**
    * Checks if the recipe matches the given type
    * @param type  Type

@@ -48,7 +48,6 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
 
   @Getter
   private final IDrawable background;
-  @Getter
   private final IDrawable icon;
   private final IDrawable arrow;
   private final IDrawable tank;
@@ -58,6 +57,11 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     this.icon = helper.createDrawable(BACKGROUND_LOC, 174, 41, 16, 16);
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 150, 74, 16, 16);
+  }
+
+  @Override
+  public IDrawable getIcon() {
+    return icon;
   }
 
   @Override
@@ -104,11 +108,6 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
            .setOverlay(tank, 0, 0)
            .addTooltipCallback(FluidTooltipCallback.NO_AMOUNT)
            .addIngredients(NeoForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(1));
-  }
-
-  @Override
-  public ResourceLocation getRegistryName(EntityMeltingRecipe recipe) {
-    return recipe.getId();
   }
 
   /** Tooltip for relevant damage on the fluid */

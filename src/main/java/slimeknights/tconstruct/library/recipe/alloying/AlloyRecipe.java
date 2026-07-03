@@ -43,6 +43,20 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Getter
   private final int temperature;
 
+  public AlloyRecipe(List<AlloyIngredient> inputs, FluidOutput output, int temperature) {
+    this.inputs = inputs;
+    this.output = output;
+    this.temperature = temperature;
+  }
+
+  public List<AlloyIngredient> getInputs() {
+    return inputs;
+  }
+
+  public int getTemperature() {
+    return temperature;
+  }
+
   /** Gets the result of this recipe */
   public FluidStack getOutput() {
     return output.get();
@@ -175,7 +189,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           drained = inv.drain(i, toDrain);
           // ensure the right amount of fluid was drained and skip to next ingredient
           if (drained.getAmount() != toDrain.getAmount()) {
-            TConstruct.LOG.error("Wrong amount of fluid {} drained for recipe {}", drained.getFluid(), id);
+            TConstruct.LOG.error("Wrong amount of fluid {} drained for alloy recipe", drained.getFluid());
           }
         }
       }
@@ -183,7 +197,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       // add the output
       int filled = inv.fill(output.copy());
       if (filled != output.getAmount()) {
-        TConstruct.LOG.error("Filled only {} for recipe {}", filled, id);
+        TConstruct.LOG.error("Filled only {} for alloy recipe", filled);
       }
     }
   }

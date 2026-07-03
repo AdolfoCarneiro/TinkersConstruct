@@ -85,6 +85,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     this.toolDefinition = toolDefinition;
   }
 
+  @Override
+  public ToolDefinition getToolDefinition() {
+    return toolDefinition;
+  }
+
 
   /* Basic properties */
 

@@ -49,6 +49,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.dyed);
   }
 
+  public ResourceLocation getId() {
+    return id;
+  }
+
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     // ensure this modifier can be applied
@@ -98,10 +102,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       if (!stack.isEmpty()) {
         DyeColor dye = DyeColor.getColor(stack);
         if (dye != null) {
-          float[] color = dye.getTextureDiffuseColors();
-          int r = (int)(color[0] * 255);
-          int g = (int)(color[1] * 255);
-          int b = (int)(color[2] * 255);
+          int packedColor = dye.getTextureDiffuseColor();
+          int r = net.minecraft.util.FastColor.ARGB32.red(packedColor);
+          int g = net.minecraft.util.FastColor.ARGB32.green(packedColor);
+          int b = net.minecraft.util.FastColor.ARGB32.blue(packedColor);
           brightness += Math.max(r, Math.max(g, b));
           nr += r;
           ng += g;
@@ -169,16 +173,12 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
 
   private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
-    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed, 1);
+    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed.get(), 1);
 
-    @Getter
     private final ResourceLocation recipeId;
     private final List<ItemStack> dyes;
-    @Getter
     private final List<ItemStack> toolWithoutModifier;
-    @Getter
     private final List<ItemStack> toolWithModifier;
-    @Getter
     private final Component variant;
     public DisplayRecipe(ResourceLocation recipeId, List<ItemStack> tools, DyeColor color) {
       this.recipeId = recipeId;
@@ -190,6 +190,28 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       int tintColor = Util.getColor(color);
       List<ModifierEntry> results = List.of(RESULT);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, DEFAULT_TOOL_STACK_SIZE, results, data -> data.putInt(modID, tintColor))).toList();
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRecipeId() {
+      return recipeId;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier() {
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier() {
+      return toolWithModifier;
+    }
+
+    @Nullable
+    @Override
+    public Component getVariant() {
+      return variant;
     }
 
     @Override

@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -25,11 +24,7 @@ public class SlimeSaplingBlock extends SaplingBlock {
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
 
-  @Nonnull
-  @Override
-  public PlantType getPlantType(BlockGetter world, BlockPos pos) {
-    return TinkerWorld.SLIME_PLANT_TYPE;
-  }
+  // Note: Forge's IPlantable/PlantType cross-mod plant-growth API was removed entirely in NeoForge 1.21.1 with no replacement.
 
   @SuppressWarnings("deprecation")
   @Override

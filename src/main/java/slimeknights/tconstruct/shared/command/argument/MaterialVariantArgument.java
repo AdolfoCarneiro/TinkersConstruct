@@ -25,6 +25,13 @@ public class MaterialVariantArgument implements ArgumentType<MaterialVariantId> 
   /** Error called on invalid argument */
   private static final SimpleCommandExceptionType ERROR_INVALID = new SimpleCommandExceptionType(Component.translatable("argument.id.invalid"));
 
+  private MaterialVariantArgument() {}
+
+  /** Creates a material variant argument */
+  public static MaterialVariantArgument material() {
+    return new MaterialVariantArgument();
+  }
+
   /** Gets the tool stat from the context */
   public static MaterialVariantId getMaterial(CommandContext<CommandSourceStack> context, String name) {
     return context.getArgument(name, MaterialVariantId.class);

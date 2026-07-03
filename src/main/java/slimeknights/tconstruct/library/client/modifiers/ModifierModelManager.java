@@ -41,6 +41,8 @@ import java.util.function.Predicate;
 @Log4j2
 @Deprecated
 public class ModifierModelManager implements IEarlySafeManagerReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ModifierModelManager.class);
+
   /** Modifier file to load, has merging behavior but forge prevents multiple mods from loading the same file */
   private static final String VISIBLE_MODIFIERS = "tinkering/modifiers.json";
   /** Instance of this manager */
@@ -91,7 +93,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   public void onReloadSafe(ResourceManager manager) {
     // fire an event so people can register loaders, was the easiest way to do so after modifiers are registered but before models load
     if (!eventFired) {
-      ModLoader.get().postEvent(new ModifierModelRegistrationEvent());
+      ModLoader.postEvent(new ModifierModelRegistrationEvent());
       eventFired = true;
     }
 
