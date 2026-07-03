@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.data;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -82,7 +83,9 @@ import slimeknights.tconstruct.world.block.FoliageType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -93,6 +96,8 @@ public class AdvancementsProvider extends GenericDataProvider {
 
   /** Advancement consumer instance */
   protected Consumer<AdvancementHolder> advancementConsumer;
+  /** Conditions gating specific advancements, keyed by advancement ID, populated by {@link #hiddenBuilder(ResourceLocation, ICondition, Consumer)} */
+  private final Map<ResourceLocation, List<ICondition>> conditions = new HashMap<>();
   /** Future for registry access, needed to look up datapack registries such as structures */
   private final CompletableFuture<HolderLookup.Provider> registries;
 
@@ -486,6 +491,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     return this.registries.thenCompose(registries -> {
       Set<ResourceLocation> set = Sets.newHashSet();
       List<AdvancementHolder> advancements = new ArrayList<>();
+      this.conditions.clear();
       this.advancementConsumer = holder -> {
         if (!set.add(holder.id())) {
           throw new IllegalStateException("Duplicate advancement " + holder.id());
@@ -495,8 +501,16 @@ public class AdvancementsProvider extends GenericDataProvider {
       };
       generate(registries);
       return allOf(
-        advancements.stream().map(holder -> saveJson(cache, holder.id(),
-          Advancement.CODEC.encodeStart(JsonOps.INSTANCE, holder.value()).getOrThrow(IllegalStateException::new)))
+        advancements.stream().map(holder -> {
+          JsonElement json = Advancement.CODEC.encodeStart(JsonOps.INSTANCE, holder.value()).getOrThrow(IllegalStateException::new);
+          List<ICondition> holderConditions = this.conditions.get(holder.id());
+          if (holderConditions != null && !holderConditions.isEmpty()) {
+            JsonObject jsonObject = json.getAsJsonObject();
+            ICondition.writeConditions(JsonOps.INSTANCE, jsonObject, holderConditions);
+            json = jsonObject;
+          }
+          return saveJson(cache, holder.id(), json);
+        })
       );
     });
   }
@@ -572,14 +586,16 @@ public class AdvancementsProvider extends GenericDataProvider {
   }
 
   /**
-   * Helper for making a hidden advancement with a condition
+   * Helper for making a hidden advancement gated behind an {@link ICondition}, written into the
+   * advancement JSON via {@link ICondition#writeConditions(com.mojang.serialization.DynamicOps, JsonObject, List)}
    * @param name         Advancement name
-   * @param condition    Condition (currently stored but not applied to the JSON for compile-clean phase)
+   * @param condition    Condition gating whether the advancement is loaded
    */
   @SuppressWarnings("SameParameterValue")
   protected void hiddenBuilder(ResourceLocation name, ICondition condition, Consumer<Advancement.Builder> consumer) {
     Advancement.Builder builder = Advancement.Builder.advancement();
     consumer.accept(builder);
+    this.conditions.put(name, List.of(condition));
     builder.save(advancementConsumer, name.toString());
   }
 }
