@@ -22,7 +22,6 @@ import java.util.List;
 /**
  * Base class for alloying recipes
  */
-@RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static final RecordLoadable<AlloyRecipe> LOADER = RecordLoadable.create(
     AlloyIngredient.LOADABLE.list(2).requiredField("inputs", (AlloyRecipe r) -> r.inputs),

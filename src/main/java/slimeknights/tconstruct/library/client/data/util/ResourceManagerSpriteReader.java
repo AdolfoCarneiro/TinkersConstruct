@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 /** Sprite reader pulling from a datapack resource manager */
-@RequiredArgsConstructor
 public class ResourceManagerSpriteReader extends AbstractSpriteReader {
   private final ResourceManager manager;
   private final String folder;

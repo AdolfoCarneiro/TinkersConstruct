@@ -18,7 +18,6 @@ import java.util.NoSuchElementException;
  * Logic to read sprites from existing images and return native images which can later be modified
  */
 @Log4j2
-@RequiredArgsConstructor
 public class DataGenSpriteReader extends AbstractSpriteReader {
   private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(DataGenSpriteReader.class);
   private final ExistingFileHelper existingFileHelper;

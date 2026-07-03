@@ -41,17 +41,17 @@ public class FoodCakeBlock extends CakeBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> tooltip, TooltipFlag pFlag) {
+  public void appendHoverText(ItemStack pStack, net.minecraft.world.item.Item.TooltipContext pLevel, List<Component> tooltip, TooltipFlag pFlag) {
     ContainerFoodItem.addEffectTooltip(food, tooltip);
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+  protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
     InteractionResult result = this.eatSlice(world, pos, state, player);
     if (result.consumesAction()) {
       return result;
     }
-    if (world.isClientSide() && player.getItemInHand(handIn).isEmpty()) {
+    if (world.isClientSide() && player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
       return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;

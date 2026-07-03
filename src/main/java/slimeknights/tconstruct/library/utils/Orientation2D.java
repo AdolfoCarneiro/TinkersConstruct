@@ -8,7 +8,6 @@ import static slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D.
 import static slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D.START;
 
 /** Enum representation one of the 8 cardinal directions */
-@RequiredArgsConstructor @Getter
 public enum Orientation2D {
   TOP_LEFT    (START, START),
   TOP         (MIDDLE, START),

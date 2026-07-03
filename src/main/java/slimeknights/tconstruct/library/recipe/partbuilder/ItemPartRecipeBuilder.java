@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 
 
-@RequiredArgsConstructor(staticName = "item")
 public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeBuilder> {
   private final ResourceLocation pattern;
   private final ItemOutput result;

@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
  * NBT object containing all current modifiers
  */
 @EqualsAndHashCode
-@RequiredArgsConstructor
 public class ModifierNBT implements Iterable<ModifierEntry> {
 
   /** Instance containing no modifiers */

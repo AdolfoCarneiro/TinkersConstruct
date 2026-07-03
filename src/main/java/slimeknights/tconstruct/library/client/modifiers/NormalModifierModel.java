@@ -29,7 +29,6 @@ import java.util.function.Function;
  */
 @Getter
 @Accessors(fluent = true)
-@RequiredArgsConstructor
 public class NormalModifierModel implements SimpleModifierModel {
   protected static final LoadableField<Integer, NormalModifierModel> COLOR_FIELD = ColorLoadable.ALPHA.defaultField("color", false, (NormalModifierModel m) -> m.color);
   protected static final LoadableField<Integer, NormalModifierModel> LUMINOSITY_FIELD = IntLoadable.range(0, 15).defaultField("luminosity", 0, false, (NormalModifierModel m) -> m.luminosity);

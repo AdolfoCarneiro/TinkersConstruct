@@ -31,9 +31,8 @@ public class RevengeModifier extends NoLevelsModifier implements EquipmentChange
     Entity trueSource = source.getEntity();
     LivingEntity living = context.getEntity();
     if (trueSource != null && trueSource != living) { // no making yourself mad with slurping or self-destruct or alike
+      // TODO 1.21: curative items removed; effect no longer restricted to specific item cure
       MobEffectInstance effect = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300);
-      effect.getCurativeItems().clear();
-      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(slotType).getItem()));
       living.addEffect(effect);
     }
   }
@@ -44,7 +43,8 @@ public class RevengeModifier extends NoLevelsModifier implements EquipmentChange
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
         // cure effects using the helmet
-        context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
+        // TODO 1.21: curePotionEffects removed; remove DAMAGE_BOOST effect directly
+        context.getEntity().removeEffect(MobEffects.DAMAGE_BOOST);
       }
     }
   }

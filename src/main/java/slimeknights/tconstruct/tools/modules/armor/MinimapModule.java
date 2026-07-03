@@ -101,9 +101,9 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
           map.inventoryTick(world, holder, Inventory.SLOT_OFFHAND, true);
           holder.setItemInHand(InteractionHand.OFF_HAND, held);
           if (holder instanceof ServerPlayer player) {
-            MapItemSavedData mapData = MapItem.getSavedData(map, world);
-            Integer id = MapItem.getMapId(map);
-            if (mapData != null && id != null) {
+            net.minecraft.world.level.saveddata.maps.MapId id = map.get(net.minecraft.core.component.DataComponents.MAP_ID);
+            MapItemSavedData mapData = id != null ? world.getMapData(id) : null;
+            if (mapData != null) {
               Packet<?> packet = mapData.getUpdatePacket(id, player);
               if (packet != null) {
                 player.connection.send(packet);
@@ -122,7 +122,8 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
 
   @Override
   public void onInventorySelect(IToolStackView tool, ModifierEntry modifier, Player player, int newIndex, ItemStack stack) {
-    player.displayClientMessage(Component.translatable(SELECTED, stack.getHoverName(), MapItem.getMapId(stack), newIndex + 1), true);
+    net.minecraft.world.level.saveddata.maps.MapId mapId = stack.get(net.minecraft.core.component.DataComponents.MAP_ID);
+    player.displayClientMessage(Component.translatable(SELECTED, stack.getHoverName(), mapId != null ? mapId.id() : -1, newIndex + 1), true);
   }
 
   @Override

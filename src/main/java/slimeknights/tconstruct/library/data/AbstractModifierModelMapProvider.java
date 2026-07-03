@@ -132,7 +132,6 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
   }
 
   /** Builder for adding modifier models */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   protected class Builder {
     private final Map<String, ModifierModel> constant = new LinkedHashMap<>();
     private final Map<ModifierId, ModifierModel> modifiers = new LinkedHashMap<>();

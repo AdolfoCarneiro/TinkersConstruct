@@ -19,8 +19,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.function.Consumer;
 
 /** Effect for rendering the charge up when you start using a helmet */
@@ -29,10 +28,7 @@ public class HelmetChargingEffect extends MobEffect {
     super(MobEffectCategory.NEUTRAL, -1);
   }
 
-  @Override
-  public List<ItemStack> getCurativeItems() {
-    return new ArrayList<>();
-  }
+  // getCurativeItems removed in 1.21.1 — curative items handled via EffectCures
 
   @Override
   public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
@@ -61,16 +57,16 @@ public class HelmetChargingEffect extends MobEffect {
             int drawtime = ModifierUtil.getPersistentInt(helmet, GeneralInteractionModifierHook.KEY_DRAWTIME, 0);
             int dd = drawtime + 20;
             if (drawtime > 0 && duration < dd) {
-              sprite = textures.getSprite(BAR_KEY);
+              sprite = mc.getModelManager().getAtlas(net.minecraft.resources.ResourceLocation.withDefaultNamespace("textures/atlas/mob_effects.png")).getSprite(BAR_KEY);
               int height;
               if (duration < 20) {
                 height = 18;
               } else {
                 height = (dd - duration) * 18 / drawtime;
               }
-              float v0 = sprite.getV0(), v1 = sprite.getV1();
               int yOffset = (18 - height);
-              graphics.innerBlit(sprite.atlasLocation(), x + 3, x + 21, y + 3 + yOffset, y + 21, 0, sprite.getU0(), sprite.getU1(), v0 + (v1 - v0) * yOffset / 18f, v1);
+              // render the partial bar at the bottom of the icon area
+              graphics.blit(x + 3, y + 3 + yOffset, 0, height, 18, sprite);
             }
           }
         }

@@ -453,7 +453,6 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /* Events */
 
   /** Event for registering modifiers */
-  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public class ModifierRegistrationEvent extends Event implements IModBusEvent {
     /** Container receiving this event */
     private final ModContainer container;

@@ -22,7 +22,6 @@ import java.util.function.Predicate;
 /**
  * This class represents a single item slot that can melt into a liquid
  */
-@RequiredArgsConstructor
 public class MeltingModule implements IMeltingContainer, ContainerData {
   public static final int NO_SPACE = -1;
 

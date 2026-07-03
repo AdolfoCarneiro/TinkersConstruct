@@ -89,7 +89,6 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
     return isFlat ? 1 : level.value();
   }
 
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)
   @Setter
   @CanIgnoreReturnValue

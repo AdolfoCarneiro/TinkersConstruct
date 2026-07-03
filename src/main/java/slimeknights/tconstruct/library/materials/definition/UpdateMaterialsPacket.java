@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@AllArgsConstructor
 public class UpdateMaterialsPacket implements CustomPacketPayload {
   public static final Type<UpdateMaterialsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_materials"));
   public static final StreamCodec<RegistryFriendlyByteBuf, UpdateMaterialsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateMaterialsPacket::new);

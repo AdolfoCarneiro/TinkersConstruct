@@ -12,7 +12,6 @@ import java.util.function.BiFunction;
 /**
  * Wrapper around a compound tag to restrict access
  */
-@RequiredArgsConstructor
 public class RestrictedCompoundTag {
   /** Base NBT compound */
   private final CompoundTag tag;

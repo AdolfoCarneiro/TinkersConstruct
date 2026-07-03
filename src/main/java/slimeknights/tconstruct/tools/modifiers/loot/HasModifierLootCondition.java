@@ -15,7 +15,6 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Condition to check if a held tool has the given modifier */
-@RequiredArgsConstructor
 public class HasModifierLootCondition implements LootItemCondition {
   public static final MapCodec<HasModifierLootCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
     instance.group(ResourceLocation.CODEC.xmap(ModifierId::new, rl -> rl).fieldOf("modifier").forGetter(c -> c.modifier))

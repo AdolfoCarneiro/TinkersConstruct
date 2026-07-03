@@ -22,7 +22,6 @@ import java.util.Collection;
 /**
  * Recipe to melt an entity into a fluid
  */
-@RequiredArgsConstructor
 public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   public static final RecordLoadable<EntityMeltingRecipe> LOADER = RecordLoadable.create(
     EntityIngredient.LOADABLE.requiredField("entity", (EntityMeltingRecipe r) -> r.ingredient),

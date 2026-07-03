@@ -17,7 +17,6 @@ import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 /** Builder for {@link ToggleInteractionWorktableRecipe} */
 @Accessors(fluent = true)
 @Setter
-@NoArgsConstructor(staticName = "builder")
 public class ToggleInteractionWorktableRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ToggleInteractionWorktableRecipeBuilder> {
   private Ingredient tools = AbstractWorktableRecipe.DEFAULT_TOOLS;
 

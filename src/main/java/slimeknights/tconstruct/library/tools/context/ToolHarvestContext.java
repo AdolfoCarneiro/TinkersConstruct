@@ -16,7 +16,6 @@ import javax.annotation.Nullable;
 
 /** Context for harvest related modifier hooks */
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ToolHarvestContext {
   /** World containing the harvested block */
   private final ServerLevel world;

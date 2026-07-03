@@ -40,7 +40,6 @@ import java.util.function.ToIntFunction;
 /**
  * Supports including sprites as "part of the palette"
  */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   public static final ResourceLocation NAME = TConstruct.getResource("grey_to_sprite");
   public static final Deserializer<GreyToSpriteTransformer> DESERIALIZER = new Deserializer<>((builder, json) -> builder.build());
@@ -220,7 +219,6 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   /* Data classes */
 
   /** Mapping from greyscale to color */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   static class SpriteMapping {
     @Getter
     private final int grey;

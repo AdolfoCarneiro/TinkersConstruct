@@ -115,7 +115,6 @@ public sealed interface BreakSpeedContext {
   /** Implementation for non-event usages of the hook, such as {@link slimeknights.tconstruct.tools.entity.ThrownTool} */
   @Getter
   @Accessors(fluent = true)
-  @RequiredArgsConstructor
   final class Direct implements BreakSpeedContext {
     private final Player player;
     private final BlockState state;

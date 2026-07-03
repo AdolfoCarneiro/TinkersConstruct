@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.data;
 
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
 

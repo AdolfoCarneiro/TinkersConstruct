@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 /**
  * Data class holding a modifier with a level
  */
-@RequiredArgsConstructor
 public class ModifierEntry implements Comparable<ModifierEntry> {
   /** Key for modifier IDs in NBT and JSON */
   public static final String TAG_MODIFIER = "name";

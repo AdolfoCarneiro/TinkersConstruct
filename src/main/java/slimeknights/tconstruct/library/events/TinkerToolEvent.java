@@ -19,11 +19,16 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 
-@AllArgsConstructor
 @Getter
 public abstract class TinkerToolEvent extends Event {
   private final ItemStack stack;
   private final IToolStackView tool;
+
+  public TinkerToolEvent(ItemStack stack, IToolStackView tool) {
+    this.stack = stack;
+    this.tool = tool;
+  }
+
   public TinkerToolEvent(ItemStack stack) {
     this.stack = stack;
     this.tool = ToolStack.from(stack);

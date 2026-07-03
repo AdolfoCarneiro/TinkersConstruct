@@ -28,7 +28,6 @@ public interface ModifierTraitHook {
   void addTraits(IToolContext context, ModifierEntry modifier, TraitBuilder builder, boolean firstEncounter);
 
   /** Builder that handles adding traits that can themselves contain traits */
-  @RequiredArgsConstructor
   class TraitBuilder implements ModifierBuilder {
     /** Set of all modifiers that have been encountered during this rebuild */
     private final Set<Modifier> seenModifiers = new HashSet<>();

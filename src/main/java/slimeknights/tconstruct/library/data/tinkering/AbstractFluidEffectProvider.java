@@ -197,7 +197,6 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   }
 
   /** Builder class */
-  @RequiredArgsConstructor
   @CanIgnoreReturnValue
   protected static class Builder {
     private final List<ICondition> conditions = new ArrayList<>();

@@ -14,7 +14,6 @@ import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 
 
 /** Builder for entity melting recipes */
-@RequiredArgsConstructor(staticName = "melting")
 public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMeltingRecipeBuilder> {
   private final EntityIngredient ingredient;
   private final FluidOutput output;

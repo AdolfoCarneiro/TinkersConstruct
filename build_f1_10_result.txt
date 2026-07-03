@@ -1,0 +1,975 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/adolf/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :generateEffectiveLombokConfig UP-TO-DATE
+
+> Task :compileJava
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ConditionalStatModule.java:100: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\worktable\ModifierSetWorktableRecipe.java:59: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\materials\MaterialRenderInfoLoader.java:41: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\alloying\AlloyRecipe.java:37: warning: Not generating getInputs(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\alloying\AlloyRecipe.java:42: warning: Not generating getTemperature(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipe.java:63: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\util\DataGenSpriteReader.java:20: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\controller\AlloyerBlockEntity.java:57: warning: Not generating getAlloyTank(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\controller\AlloyerBlockEntity.java:62: warning: Not generating getFuelModule(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\modifiers\model\TrimModifierModel.java:124: warning: Not generating getRoot(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:138: warning: Not generating getTotalGold(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\casting\material\AbstractMaterialCastingRecipe.java:27: warning: Not generating getSerializer(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\nbt\MaterialIdNBT.java:36: warning: Not generating getMaterials(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\casting\PotionCastingRecipeBuilder.java:36: warning: Not generating setCoolingTime(): A method with that name already exists
+  private int coolingTime = 5;
+              ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\json\MaterialTraitsJson.java:19: warning: Not generating getDefaultTraits(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\ArmorTrimRecipe.java:46: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\material\MaterialRecipe.java:53: warning: Not generating getValue(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\worktable\ModifierSetWorktableRecipeBuilder.java:22: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:123: warning: Not generating blocks(): A method with that name already exists
+    private IJsonPredicate<BlockState> blocks = BlockPredicate.ANY;
+                                       ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:125: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\BannerModifierRecipe.java:43: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\fluid\FluidTankAnimated.java:8: warning: Not generating getRenderOffset(): A method with that name already exists
+  @Getter @Setter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\fluid\FluidTankAnimated.java:9: warning: Not generating setRenderOffset(): A method with that name already exists
+  private float renderOffset;
+                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\book\content\ContentTool.java:297: warning: Not generating getRenderTool(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\nbt\ModifierNBT.java:39: warning: Not generating getModifiers(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\data\SmelteryCompat.java:65: warning: Not generating getName(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\data\SmelteryCompat.java:68: warning: Not generating getType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\RandomMaterial.java:355: warning: Not generating material(): A method with that name already exists
+    private IJsonPredicate<MaterialVariantId> material = MaterialPredicate.ANY;
+                                              ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\ranged\ModifiableLauncherItem.java:77: warning: Not generating getToolDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\module\ModuleHook.java:15: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\module\ModuleHook.java:23: warning: Not generating getDefaultInstance(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\LootToCapacityModule.java:111: warning: Not generating amount(): A method with that name already exists
+    private int amount;
+                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\menu\ModifierWorktableContainerMenu.java:25: warning: Not generating getInputSlots(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\menu\ModifierWorktableContainerMenu.java:27: warning: Not generating getOutputSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\definition\MaterialManager.java:52: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:67: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:90: warning: Not generating getDefaultValue(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:95: warning: Not generating isModifiersRegistered(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:117: warning: Not generating isDynamicModifiersLoaded(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:50: warning: Not generating getPattern(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:54: warning: Not generating getCost(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:57: warning: Not generating allowUncraftable(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:53: warning: Not generating getCurrentTime(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:56: warning: Not generating getRequiredTime(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:59: warning: Not generating getRequiredTemp(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:66: warning: Not generating getStack(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\menu\TinkerStationContainerMenu.java:27: warning: Not generating getInputSlots(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\modifiers\adding\SwappableModifierRecipeBuilder.java:17: warning: Not generating variantFormatter(): A method with that name already exists
+  private VariantFormatter variantFormatter = VariantFormatter.DEFAULT;
+                           ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\entity\chest\TinkersChestBlockEntity.java:32: warning: Not generating getColor(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\entity\chest\TinkersChestBlockEntity.java:35: warning: Not generating hasColor(): A method with that name already exists
+  @Getter @Accessors(fluent = true)
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\menu\AlloyerContainerMenu.java:36: warning: Not generating isHasFuelSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:92: warning: Not generating getTexture(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:95: warning: Not generating getFallbacks(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:138: warning: Not generating transformer(): A method with that name already exists
+    private ISpriteTransformer transformer;
+                               ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:140: warning: Not generating variant(): A method with that name already exists
+    private boolean variant = false;
+                    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\spritetransformer\RecolorSpriteTransformer.java:23: warning: Not generating getColorMapping(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\ModifierRemovalRecipeBuilder.java:31: warning: Not generating setName(): A method with that name already exists
+  private String name = "modifiers";
+                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\ModifierRemovalRecipeBuilder.java:35: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\worldgen\trees\config\SlimeTreeConfig.java:58: warning: Not generating baseHeight(): A method with that name already exists
+    private int baseHeight = 5;
+                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\worldgen\trees\config\SlimeTreeConfig.java:60: warning: Not generating randomHeight(): A method with that name already exists
+    private int randomHeight = 4;
+                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:82: warning: Not generating getItem(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:85: warning: Not generating getDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:90: warning: Not generating getNbt(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\ModifiableItem.java:79: warning: Not generating getToolDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\client\screen\module\GuiTankModule.java:34: warning: Not generating getX(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\client\screen\module\GuiTankModule.java:34: warning: Not generating getY(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\client\screen\module\GuiTankModule.java:34: warning: Not generating getWidth(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\client\screen\module\GuiTankModule.java:34: warning: Not generating getHeight(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\entity\inventory\ModifierWorktableContainerWrapper.java:18: warning: Not generating setPlayer(): A method with that name already exists
+  private Player player;
+                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinition.java:22: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinition.java:25: warning: Not generating getData(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\common\TinkerTags.java:36: warning: Not generating isTagsLoaded(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\materials\MaterialGeneratorInfo.java:39: warning: Not generating getTransformer(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\materials\MaterialGeneratorInfo.java:46: warning: Not generating isVariant(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipeBuilder.java:25: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\SearedLanternBlock.java:35: warning: Not generating getCapacity(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\client\ClientGeneratePartTexturesCommand.java:60: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\context\ToolRebuildContext.java:29: warning: Not generating withModifiers(): A method with that name already exists
+  private final ModifierNBT modifiers;
+                            ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\definition\UpdateToolDefinitionDataPacket.java:22: warning: Not generating getDataMap(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:26: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:31: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:229: warning: Not generating tooltipStyle(): A method with that name already exists
+    private TooltipStyle tooltipStyle = TooltipStyle.ATTRIBUTE;
+                         ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\utils\BlockSideHitListener.java:25: warning: Not generating getClientSideHit(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\entity\inventory\ScalingChestItemHandler.java:17: warning: Not generating getVisualSize(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\entity\inventory\ScalingChestItemHandler.java:21: warning: Not generating setParent(): A method with that name already exists
+  private MantleBlockEntity parent;
+                            ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierEntry.java:62: warning: Not generating getLevel(): A method with that name already exists
+  @Getter @With
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierEntry.java:63: warning: Not generating withLevel(): A method with that name already exists
+  protected final int level;
+                      ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\recipe\SmelteryRecipeBuilder.java:79: warning: Not generating temperature(): A method with that name already exists
+  private int temperature;
+              ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\recipe\SmelteryRecipeBuilder.java:82: warning: Not generating optional(): A method with that name already exists
+  private boolean optional = false;
+                  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\data\spritetransformer\GreyToSpriteTransformer.java:223: warning: Not generating getGrey(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\ArmorDyeingRecipe.java:40: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:27: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:30: warning: Not generating getRepairMaterial(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:33: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:25: warning: Not generating getDefaultTraits(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:27: warning: Not generating getTraitsPerStats(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:122: warning: Not generating getDefaultTraits(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:124: warning: Not generating getTraitsPerStats(): A method with that name already exists
+    @Getter(AccessLevel.PROTECTED)
+    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\transfer\TinkerStationTransferInfo.java:30: warning: Not generating getRecipeType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\Modifier.java:64: warning: Not generating getHooks(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidEffect.java:77: error: cannot find symbol
+        copper.applyChangeOverTime(state, world, context.getBlockPos(), world.getRandom());
+              ^
+  symbol:   method applyChangeOverTime(BlockState,ServerLevel,BlockPos,RandomSource)
+  location: variable copper of type WeatheringCopper
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\materials\definition\MaterialVariantId.java:31: error: cannot find symbol
+  EntityDataSerializer<MaterialVariantId> DATA_ACCESSOR = EntityDataSerializer.simple((buffer, material) -> material.toNetwork(buffer), MaterialVariantId::fromNetwork);
+                                                                              ^
+  symbol:   method simple((buffer,ma[...]ffer),MaterialVa[...]twork)
+  location: interface EntityDataSerializer
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\impl\BasicModifier.java:77: error: constructor Builder in class Builder cannot be applied to given types;
+    public static Builder builder(ModuleHookMap hookMap) { return new Builder(hookMap); }
+                                                                  ^
+  required: no arguments
+  found:    ModuleHookMap
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\common\data\StructureUpdater.java:64: error: no suitable method found for readCompressed(InputStream)
+      CompoundTag inputNBT = NbtIo.readCompressed(resource.open());
+                                  ^
+    method NbtIo.readCompressed(Path,NbtAccounter) is not applicable
+      (actual and formal argument lists differ in length)
+    method NbtIo.readCompressed(InputStream,NbtAccounter) is not applicable
+      (actual and formal argument lists differ in length)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\fluids\block\MobEffectLiquidBlock.java:27: error: cannot find symbol
+    if (entity.getFluidTypeHeight(getFluid().getFluidType()) > 0 && entity instanceof LivingEntity living) {
+                                  ^
+  symbol:   method getFluid()
+  location: class MobEffectLiquidBlock
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\fluids\data\FluidBucketModelProvider.java:28: error: cannot find symbol
+    json.addProperty("flip_gas", bucket.getFluid().getFluidType().isLighterThanAir());
+                                       ^
+  symbol:   method getFluid()
+  location: variable bucket of type BucketItem
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\fluids\data\FluidBucketModelProvider.java:29: error: cannot find symbol
+    json.addProperty("fluid", BuiltInRegistries.FLUID.getKey(bucket.getFluid()).toString());
+                                                                   ^
+  symbol:   method getFluid()
+  location: variable bucket of type BucketItem
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\fluids\item\EmptyPotionTransfer.java:39: error: no suitable constructor found for FluidStack(Fluid,int,_tag.isEmp[...] _tag)
+    return new FluidStack(fluid.get().getFluid(), fluid.getAmount(), _tag.isEmpty() ? null : _tag);
+           ^
+    constructor FluidStack.FluidStack(Holder<Fluid>,int,DataComponentPatch) is not applicable
+      (argument mismatch; Fluid cannot be converted to Holder<Fluid>)
+    constructor FluidStack.FluidStack(Fluid,int,PatchedDataComponentMap) is not applicable
+      (argument mismatch; bad type in conditional expression
+          CompoundTag cannot be converted to PatchedDataComponentMap)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\fluids\item\MagmaBottleItem.java:39: error: method formatTickDuration in class StringUtil cannot be applied to given types;
+      StringUtil.formatTickDuration(fireTime * 20)
+                ^
+  required: int,float
+  found:    int
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\gadgets\item\FancyItemFrameItem.java:47: error: incompatible types: CompoundTag cannot be converted to CustomData
+      EntityType.updateCustomEntityTag(world, player, frame, tag);
+                                                             ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\book\TinkerBook.java:65: error: Serializer() has private access in Serializer
+    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer());
+                                                        ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\model\TinkerItemProperties.java:80: error: method getUseDuration in class ItemStack cannot be applied to given types;
+    return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
+                                             ^
+  required: LivingEntity
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\model\tools\ToolModel.java:828: error: cannot find symbol
+        ammo = ItemStack.of(persistentData.getCompound(ammoKey));
+                        ^
+  symbol:   method of(CompoundTag)
+  location: class ItemStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\modifiers\model\BannerModifierModel.java:49: error: incompatible types: ResourceLocation cannot be converted to ResourceKey<BannerPattern>
+      for (ResourceKey<BannerPattern> key : Sheets.SHIELD_MATERIALS.keySet()) {
+                                                                          ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\modifiers\model\BannerModifierModel.java:80: error: cannot find symbol
+          Holder<BannerPattern> pattern = BannerPattern.byHash(tag.getString(BannerModule.KEY_PATTERN));
+                                                       ^
+  symbol:   method byHash(String)
+  location: class BannerPattern
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\modifiers\model\TankModifierModel.java:76: error: cannot find symbol
+      return new CacheKey(fluid.getFluid(), fluid.getTag(), fluid.getAmount() + tolerance < helper.getCapacity(tool));
+                                                 ^
+  symbol:   method getTag()
+  location: variable fluid of type FluidStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\client\modifiers\ModifierModelMapManager.java:58: error: cannot find symbol
+      if (ModLoader.isLoadingStateValid()) {
+                   ^
+  symbol:   method isLoadingStateValid()
+  location: class ModLoader
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\AbstractStructureRepalleter.java:71: error: no suitable method found for readCompressed(InputStream)
+        CompoundTag inputNBT = NbtIo.readCompressed(io);
+                                    ^
+    method NbtIo.readCompressed(Path,NbtAccounter) is not applicable
+      (actual and formal argument lists differ in length)
+    method NbtIo.readCompressed(InputStream,NbtAccounter) is not applicable
+      (actual and formal argument lists differ in length)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\data\material\AbstractMaterialTraitDataProvider.java:146: error: no suitable constructor found for ModifierEntry(LazyModifier,int)
+        list.add(new ModifierEntry(trait, 1));
+                 ^
+    constructor ModifierEntry.ModifierEntry(LazyModifier,int) is not applicable
+      (ModifierEntry(LazyModifier,int) has protected access in ModifierEntry)
+    constructor ModifierEntry.ModifierEntry(ModifierId,int) is not applicable
+      (argument mismatch; LazyModifier cannot be converted to ModifierId)
+    constructor ModifierEntry.ModifierEntry(Modifier,int) is not applicable
+      (argument mismatch; LazyModifier cannot be converted to Modifier)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidMobEffect.java:60: error: cannot find symbol
+      instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
+              ^
+  symbol:   method setCurativeItems(List<ItemStack>)
+  location: variable instance of type MobEffectInstance
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\EnderSlimeEntity.java:29: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\entity\EnderSlimeEntity.java:31: error: cannot find symbol
+    super.doEnchantDamageEffects(slime, target);
+         ^
+  symbol: method doEnchantDamageEffects(LivingEntity,Entity)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\interaction\InteractionSource.java:64: error: cannot find symbol
+    if (type == EquipmentSlot.Type.ARMOR) return ARMOR;
+                                  ^
+  symbol:   variable ARMOR
+  location: class Type
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\loot\HasLootContextSetCondition.java:22: error: cannot find symbol
+    instance.group(ResourceLocation.CODEC.fieldOf("set").forGetter(c -> Objects.requireNonNull(LootContextParamSets.getKey(c.set), "Unregistered LootContextParamSets")))
+                                                                                                                   ^
+  symbol:   method getKey(LootContextParamSet)
+  location: class LootContextParamSets
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\loot\HasLootContextSetCondition.java:24: error: cannot find symbol
+        LootContextParamSet set = LootContextParamSets.get(key);
+                                                      ^
+  symbol:   method get(ResourceLocation)
+  location: class LootContextParamSets
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\entity\EntityVariable.java:48: error: getTemperature(BlockPos) has private access in Biome
+    return entity.level().getBiome(pos).value().getTemperature(pos);
+                                               ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\entity\EntityVariable.java:52: error: wasEyeInWater has protected access in Entity
+    if (entity.isInWater() || entity.wasEyeInWater) {
+                                    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\TinkerLoadables.java:82: error: cannot find symbol
+  public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = new GsonLoadable<>(LootModifierManager.GSON_INSTANCE, LootPoolEntryContainer.class);
+                                                                                                          ^
+  symbol:   variable GSON_INSTANCE
+  location: class LootModifierManager
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\mining\BlockTemperatureVariable.java:32: error: getTemperature(BlockPos) has private access in Biome
+      return player.level().getBiome(pos).value().getTemperature(pos);
+                                                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\json\variable\mining\BlockTemperatureVariable.java:48: error: getTemperature(BlockPos) has private access in Biome
+      return player.level().getBiome(pos).value().getTemperature(pos);
+                                                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\entity\CureEffectsFluidEffect.java:33: error: cannot find symbol
+        return target.getActiveEffects().stream().anyMatch(effect -> effect.isCurativeItem(stack)) ? 1 : 0;
+                                                                           ^
+  symbol:   method isCurativeItem(ItemStack)
+  location: variable effect of type MobEffectInstance
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\entity\CureEffectsFluidEffect.java:35: error: cannot find symbol
+      return target.curePotionEffects(stack) ? 1 : 0;
+                   ^
+  symbol:   method curePotionEffects(ItemStack)
+  location: variable target of type LivingEntity
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\entity\RemoveEffectFluidEffect.java:30: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+        return living.hasEffect(effect) ? 1 : 0;
+                                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\entity\RemoveEffectFluidEffect.java:32: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+      return living.removeEffect(effect) ? 1 : 0;
+                                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\armor\OnAttackedModifierHook.java:47: error: cannot find symbol
+    return source.getEntity() != null && !source.isIndirect() && !source.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS);
+                                                ^
+  symbol:   method isIndirect()
+  location: variable source of type DamageSource
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\armor\ProtectionModifierHook.java:40: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
+    return Math.min(living.getAttributeValue(TinkerAttributes.PROTECTION_CAP.get()) * 25f + data.get(TinkerDataKeys.PROTECTION_CAP, 0f), 25 * 0.95f);
+                                                                                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\EnchantmentModifierHook.java:59: error: incompatible types: Enchantment cannot be converted to Holder<Enchantment>
+    int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
+                                                         ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\behavior\EnchantmentModifierHook.java:74: error: cannot find symbol
+    Map<Enchantment,Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
+                                                             ^
+  symbol:   method getEnchantments(ItemStack)
+  location: class EnchantmentHelper
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\display\DurabilityDisplayModifierHook.java:49: error: cannot find symbol
+    if (!stack.getItem().canBeDepleted() || !stack.is(TinkerTags.Items.DURABILITY)) {
+                        ^
+  symbol:   method canBeDepleted()
+  location: class Item
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\hook\display\DurabilityDisplayModifierHook.java:61: error: cannot find symbol
+    return tool.getItem().canBeDepleted() && tool.getDamage() > 0;
+                         ^
+  symbol:   method canBeDepleted()
+  location: class Item
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\BlockTransformModule.java:77: error: cannot find symbol
+          player.broadcastBreakEvent(slotType);
+                ^
+  symbol:   method broadcastBreakEvent(EquipmentSlot)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\BlockTransformModule.java:113: error: cannot find symbol
+                player.broadcastBreakEvent(context.getHand());
+                      ^
+  symbol:   method broadcastBreakEvent(InteractionHand)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\EdibleModule.java:110: error: cannot find symbol
+        player.broadcastBreakEvent(player.getUsedItemHand());
+              ^
+  symbol:   method broadcastBreakEvent(InteractionHand)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\EdibleModule.java:122: error: spawnItemParticles(ItemStack,int) has private access in LivingEntity
+    entity.spawnItemParticles(representativeItem, amount);
+          ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\entitymelting\EntityMeltingRecipeBuilder.java:24: error: constructor EntityMeltingRecipeBuilder in class EntityMeltingRecipeBuilder cannot be applied to given types;
+    return new EntityMeltingRecipeBuilder(ingredient, output, damage);
+           ^
+  required: no arguments
+  found:    EntityIngredient,FluidOutput,int
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\material\ShapedMaterialRecipe.java:55: error: incompatible types: Ingredient cannot be converted to MaterialValueIngredient
+        if (ingredient instanceof MaterialValueIngredient materialValue) {
+            ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\material\ShapedMaterialRecipe.java:80: error: method getMaterial in class MaterialValueIngredient cannot be applied to given types;
+        MaterialVariantId matchedMaterial = material.getMaterial(stack);
+                                                    ^
+  required: no arguments
+  found:    ItemStack
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\recipe\melting\MaterialMeltingRecipeBuilder.java:87: error: cannot find symbol
+    consumer.accept(id, new MaterialMeltingRecipe(inputId, temperature, result, byproducts), advancementID);
+                                                                                             ^
+  symbol:   variable advancementID
+  location: class MaterialMeltingRecipeBuilder
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\inventory\InventoryModule.java:297: error: cannot find symbol
+            ItemStack stack = ItemStack.of(compound);
+                                       ^
+  symbol:   method of(CompoundTag)
+  location: class ItemStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\capability\inventory\InventoryModule.java:325: error: cannot find symbol
+            parsed[slot] = ItemStack.of(compound);
+                                    ^
+  symbol:   method of(CompoundTag)
+  location: class ItemStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ArmorUtil.java:95: error: method getDamageAfterAbsorb in class CombatRules cannot be applied to given types;
+      damage = getDamageAfterAbsorb(damage, armor, toughness);
+               ^
+  required: LivingEntity,float,DamageSource,float,float
+  found:    float,float,float
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:329: error: cannot find symbol
+      EnchantmentHelper.doPostHurtEffects(targetLiving, attackerLiving);
+                       ^
+  symbol:   method doPostHurtEffects(LivingEntity,LivingEntity)
+  location: class EnchantmentHelper
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\helper\ToolAttackUtil.java:409: error: incompatible types: AttributeModifier cannot be converted to ResourceLocation
+      if (instance != null && !instance.hasModifier(ANTI_KNOCKBACK_MODIFIER)) {
+                                                    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\IndestructibleItemEntity.java:40: error: pickupDelay has private access in ItemEntity
+      this.setPickUpDelay(itemEntity.pickupDelay);
+                                    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\item\armor\MultilayerArmorItem.java:42: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\tools\part\block\MaterialBlock.java:45: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\utils\GsonLoadable.java:29: error: cannot find symbol
+    CompoundTag tag = buffer.readAnySizeNbt();
+                            ^
+  symbol:   method readAnySizeNbt()
+  location: variable buffer of type RegistryFriendlyByteBuf
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\library\utils\HarvestTiers.java:59: error: invalid method reference
+      .sorted(Comparator.comparingInt(Tiers::getLevel))
+                                      ^
+  cannot find symbol
+    symbol:   method getLevel()
+    location: class Tiers
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\entity\SeveringCategory.java:64: error: cannot find symbol
+    return recipe.getId();
+                 ^
+  symbol:   method getId()
+  location: variable recipe of type SeveringRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\modifiers\ModifierWorktableCategory.java:99: error: cannot find symbol
+    return recipe.getId();
+                 ^
+  symbol:   method getId()
+  location: variable recipe of type IModifierWorktableRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\MoldingRecipeCategory.java:105: error: cannot find symbol
+    return recipe.getId();
+                 ^
+  symbol:   method getId()
+  location: variable recipe of type MoldingRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\partbuilder\PartBuilderCategory.java:93: error: cannot find symbol
+    return recipe.getId();
+                 ^
+  symbol:   method getId()
+  location: variable recipe of type IDisplayPartBuilderRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\plugin\jei\ToolBuildingCategory.java:156: error: cannot find symbol
+    return recipe.getId();
+                 ^
+  symbol:   method getId()
+  location: variable recipe of type ToolBuildingRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\block\ClearStainedGlassPaneBlock.java:22: error: getBeaconColorMultiplier(BlockState,LevelReader,BlockPos,BlockPos) in ClearStainedGlassPaneBlock cannot implement getBeaconColorMultiplier(BlockState,LevelReader,BlockPos,BlockPos) in IBlockExtension
+  public float[] getBeaconColorMultiplier(BlockState state, LevelReader world, BlockPos pos, BlockPos beaconPos) {
+                 ^
+  return type float[] is not compatible with Integer
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\block\ClearStainedGlassPaneBlock.java:21: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\block\SlimesteelBlock.java:50: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\command\subcommand\GenerateHiddenFluidsCommand.java:52: error: cannot find symbol
+    Path tagPath = pack.resolve(PackType.SERVER_DATA.getDirectory() + '/' + tag.getNamespace() + '/' + TagManager.getTagDir(Registries.FLUID) + '/' + tag.getPath() + ".json");
+                                                                                                                 ^
+  symbol:   method getTagDir(ResourceKey<Registry<Fluid>>)
+  location: class TagManager
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\AntigravityEffect.java:118: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\AntigravityEffect.java:120: error: incompatible types: LivingEntity cannot be converted to AttributeMap
+    super.removeAttributeModifiers(living);
+                                   ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\shared\effect\ReturningEffect.java:23: error: incompatible types: cannot infer type-variable(s) T
+    NeoForge.EVENT_BUS.addListener(this::onEffectAdded);
+                                  ^
+    (argument mismatch; invalid method reference
+      incompatible types: Event cannot be converted to Added)
+  where T is a type-variable:
+    T extends Event declared in method <T>addListener(Consumer<T>)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\effect\NoMilkEffect.java:19: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\component\RetexturedOrientableSmelteryBlock.java:25: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\component\SearedDrainBlock.java:21: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\component\SearedDuctBlock.java:61: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\component\SearedSoulGlassBlock.java:20: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\component\SearedStairsBlock.java:20: error: incompatible types: Supplier<BlockState> cannot be converted to BlockState
+    super(state, properties);
+          ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\controller\TinyMultiblockControllerBlock.java:60: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\controller\TinyMultiblockControllerBlock.java:65: error: cannot find symbol
+    return super.use(state, world, pos, player, hand, hit);
+                ^
+  symbol: method use(BlockState,Level,BlockPos,Player,InteractionHand,BlockHitResult)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\CastingBlockEntity.java:596: error: cannot find symbol
+      tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
+                                              ^
+  symbol:   method getId()
+  location: variable currentRecipe of type ICastingRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\inventory\CastingContainerWrapper.java:45: error: cannot find symbol
+    return fluid.getTag();
+                ^
+  symbol:   method getTag()
+  location: variable fluid of type FluidStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\component\DrainBlockEntity.java:55: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\component\DrainBlockEntity.java:57: error: method getUpdateTag in class MantleBlockEntity cannot be applied to given types;
+    CompoundTag nbt = super.getUpdateTag();
+                           ^
+  required: Provider
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\multiblock\MultiblockCuboid.java:461: error: method readBlockPos in class NbtUtils cannot be applied to given types;
+      BlockPos pos = NbtUtils.readBlockPos(list.getCompound(i));
+                             ^
+  required: CompoundTag,String
+  found:    CompoundTag
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\multiblock\MultiblockStructureData.java:103: error: incompatible types: BlockPos cannot be converted to Vec3
+    bounds = new AABB(minInside, maxInside.offset(1, 1, 1));
+                      ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\entity\inventory\HeaterItemHandler.java:20: error: cannot find symbol
+    return CommonHooks.getItemBurnTime(stack, 0, TinkerRecipeTypes.FUEL.get()) > 3;
+                      ^
+  symbol:   method getItemBurnTime(ItemStack,int,RecipeType<MeltingFuel>)
+  location: class CommonHooks
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\FluidCannonBlock.java:61: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\block\ProxyTankBlock.java:79: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\client\render\HeatingStructureBlockEntityRenderer.java:65: error: renderShape(PoseStack,VertexConsumer,VoxelShape,double,double,double,float,float,float,float) has private access in LevelRenderer
+          LevelRenderer.renderShape(matrices, vertexBuilder, Shapes.block(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
+                       ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\smeltery\data\FluidContainerTransferProvider.java:53: error: no suitable constructor found for EmptyFluidContainerTransfer(ItemNameIngredient,ItemOutput,FluidOutput)
+    addTransfer(domain + '_' + name, new EmptyFluidContainerTransfer(ItemNameIngredient.from(id), ItemOutput.EMPTY, fluid), new ItemExistsCondition(id));
+                                     ^
+    constructor EmptyFluidContainerTransfer.EmptyFluidContainerTransfer(Ingredient,ItemOutput,FluidStack) is not applicable
+      (argument mismatch; ItemNameIngredient cannot be converted to Ingredient)
+    constructor EmptyFluidContainerTransfer.EmptyFluidContainerTransfer(Ingredient,ItemOutput,FluidOutput) is not applicable
+      (argument mismatch; ItemNameIngredient cannot be converted to Ingredient)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\block\RetexturedTableBlock.java:23: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\client\inventory\widget\SlotButtonItem.java:43: error: render(GuiGraphics,int,int,float) in SlotButtonItem cannot override render(GuiGraphics,int,int,float) in AbstractWidget
+  public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+              ^
+  overridden method is final
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\menu\slot\ArmorSlot.java:44: error: cannot find symbol
+    return stack.isEmpty() || player.isCreative() || !EnchantmentHelper.hasBindingCurse(stack);
+                                                                       ^
+  symbol:   method hasBindingCurse(ItemStack)
+  location: class EnchantmentHelper
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tables\network\UpdateTinkerStationRecipePacket.java:32: error: cannot find symbol
+    this.recipe = recipe.getId();
+                        ^
+  symbol:   method getId()
+  location: variable recipe of type ITinkerStationRecipe
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\client\material\CombatFishingHookRenderer.java:158: error: stringVertex(float,float,float,VertexConsumer,Pose,float,float) has private access in FishingHookRenderer
+        FishingHookRenderer.stringVertex(hookXOff, hookYOff, hookZOff, consumer, lastPose, i / 16f, (i + 1) / 16f);
+                           ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\client\material\CombatFishingHookRenderer.java:193: error: cannot find symbol
+      consumer.vertex(pose, pX - 0.5f, pY - 0.5f, 0f)
+              ^
+  symbol:   method vertex(Matrix4f,float,float,float)
+  location: variable consumer of type VertexConsumer
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\client\SlimeskullArmorModel.java:116: error: method getArmorFoilBuffer in class ItemRenderer cannot be applied to given types;
+        VertexConsumer heaadBuffer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
+                                                 ^
+  required: MultiBufferSource,RenderType,boolean
+  found:    MultiBufferSource,RenderType,boolean,boolean
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\ModifierProvider.java:469: error: cannot find symbol
+          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(BuiltInRegistries.ENCHANTMENT.getValue(Enchantments.AQUA_AFFINITY.location())), 8, 40),
+                                                                                           ^
+  symbol:   variable ENCHANTMENT
+  location: class BuiltInRegistries
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\data\sprite\TinkerPartSpriteProvider.java:26: error: constructor AbstractPartSpriteProvider in class AbstractPartSpriteProvider cannot be applied to given types;
+    super(TConstruct.MOD_ID);
+    ^
+  required: no arguments
+  found:    String
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\item\DragonScaleItem.java:13: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\item\SlimeskullItem.java:40: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\DoubleJumpHandler.java:31: error: cannot find symbol
+    if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(NeoForgeMod.ENTITY_GRAVITY.get()) < 0)) {
+                                                                                                                                ^
+  symbol:   variable ENTITY_GRAVITY
+  location: class NeoForgeMod
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\DoubleJumpHandler.java:51: error: incompatible types: Attribute cannot be converted to Holder<Attribute>
+      int extraJumps = Mth.floor(entity.getAttributeValue(TinkerAttributes.JUMP_COUNT.get())) - 1;
+                                                                                         ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ModifiableShurikenDispenserBehavior.java:22: error: cannot find symbol
+    Level level = source.getLevel();
+                        ^
+  symbol:   method getLevel()
+  location: variable source of type BlockSource
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\logic\ModifiableShurikenDispenserBehavior.java:24: error: cannot find symbol
+    Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+                                ^
+  symbol:   method getBlockState()
+  location: variable source of type BlockSource
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\sling\SlingLeapModule.java:104: error: method startAutoSpinAttack in class Player cannot be applied to given types;
+            player.startAutoSpinAttack(20);
+                  ^
+  required: int,float,ItemStack
+  found:    int
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\DamageSpeedTradeModifier.java:81: error: constructor AttributeModifier in record AttributeModifier cannot be applied to given types;
+        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.ADD_MULTIPLIED_TOTAL));
+                                                  ^
+  required: ResourceLocation,double,Operation
+  found:    UUID,String,double,Operation
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\general\TastyModifier.java:45: error: cannot find symbol
+      int looting = context.getLootingModifier();
+                           ^
+  symbol:   method getLootingModifier()
+  location: variable context of type LootContext
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\harvest\TemperateModifier.java:72: error: getTemperature(BlockPos) has private access in Biome
+    return (living.level().getBiome(pos).value().getTemperature(pos) - BASELINE_TEMPERATURE);
+                                                ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\melee\InvariantModifier.java:44: error: getTemperature(BlockPos) has private access in Biome
+    return (MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level().getBiome(pos).value().getTemperature(pos)));
+                                                                                                  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\EnderdodgingModifier.java:33: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
+    if (!self.hasEffect(TinkerEffects.enderference.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
+                                                      ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\FrosttouchModifier.java:32: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
+      boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
+                                                                                             ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:73: error: cannot find symbol
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
+                                                                   ^
+  symbol:   variable ARMOR
+  location: class Type
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\GoldGuardModifier.java:87: error: cannot find symbol
+          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
+                                                                                    ^
+  symbol:   method getAmount()
+  location: variable modifier of type AttributeModifier
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\PlagueModifier.java:29: error: cannot find symbol
+        if (!effect.getEffect().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
+                               ^
+  symbol:   method isBeneficial()
+  location: interface Holder<MobEffect>
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\PlagueModifier.java:29: error: cannot find symbol
+        if (!effect.getEffect().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
+                                                         ^
+  symbol:   method getCurativeItems()
+  location: variable effect of type MobEffectInstance
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\WitheredModifier.java:32: error: incompatible types: TinkerEffect cannot be converted to Holder<MobEffect>
+      boolean isCalcified = attacker.hasEffect(TinkerModifiers.calcifiedEffect.get());
+                                                                                  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\CounterModule.java:131: error: method getUseDuration in class ItemStack cannot be applied to given types;
+      && holder.getItemBySlot(slotType).getUseDuration() - holder.getUseItemRemainingTicks() >= 5;
+                                       ^
+  required: LivingEntity
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\RecurrentProtectionModule.java:75: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+          entity.addEffect(new MobEffectInstance(effect, duration.compute(level), reduction - 1, false, false, true));
+                                                 ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\SoulSpeedModule.java:51: error: incomparable types: Enchantment and ResourceKey<Enchantment>
+    if (enchantment == Enchantments.SOUL_SPEED && condition.matches(tool, modifier)) {
+                    ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\armor\SoulSpeedModule.java:60: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Enchantment
+      EnchantmentModifierHook.addEnchantment(map, Enchantments.SOUL_SPEED, this.level.compute(modifier));
+                                                              ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ClearEffectOnUnequipModule.java:42: error: incompatible types: MobEffect cannot be converted to Holder<MobEffect>
+      entity.removeEffect(effect);
+                          ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\ChannelingModule.java:74: error: no suitable method found for playSound(<null>,BlockPos,Holder<SoundEvent>,SoundSource,int,int)
+          level.playSound(null, target, SoundEvents.TRIDENT_THUNDER, SoundSource.NEUTRAL, 5, 1);
+               ^
+    method Level.playSound(Entity,BlockPos,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; Holder<SoundEvent> cannot be converted to SoundEvent)
+    method Level.playSound(Player,BlockPos,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; Holder<SoundEvent> cannot be converted to SoundEvent)
+    method Level.playSound(Player,double,double,double,SoundEvent,SoundSource) is not applicable
+      (argument mismatch; BlockPos cannot be converted to double)
+    method Level.playSound(Player,Entity,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; BlockPos cannot be converted to Entity)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SeveringModule.java:53: error: cannot find symbol
+      if (generatedLoot.stream().noneMatch(stack -> stack.is(Tags.Items.HEADS))) {
+                                                                       ^
+  symbol:   variable HEADS
+  location: class Items
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\combat\SeveringModule.java:59: error: cannot find symbol
+          float looting = context.getLootingModifier();
+                                 ^
+  symbol:   method getLootingModifier()
+  location: variable context of type LootContext
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\BrushModule.java:69: error: cannot find symbol
+    return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(NeoForgeMod.BLOCK_REACH.get()));
+                                                                                                                                                       ^
+  symbol:   variable BLOCK_REACH
+  location: class NeoForgeMod
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\BrushModule.java:99: error: spawnDustParticles(Level,BlockHitResult,BlockState,Vec3,HumanoidArm) has private access in BrushItem
+      brush.spawnDustParticles(level, blockHit, state, player.getViewVector(0.0F), arm);
+           ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\HarvestModule.java:270: error: cannot find symbol
+            player.broadcastBreakEvent(context.getHand());
+                  ^
+  symbol:   method broadcastBreakEvent(InteractionHand)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\PlaceFireModule.java:168: error: cannot find symbol
+          player.broadcastBreakEvent(slotType);
+                ^
+  symbol:   method broadcastBreakEvent(EquipmentSlot)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\PlaceFireModule.java:179: error: cannot find symbol
+            player.broadcastBreakEvent(slotType);
+                  ^
+  symbol:   method broadcastBreakEvent(EquipmentSlot)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\PlaceGlowModule.java:58: error: cannot find symbol
+            player.broadcastBreakEvent(source.getSlot(context.getHand()));
+                  ^
+  symbol:   method broadcastBreakEvent(EquipmentSlot)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\SplashingModule.java:198: error: cannot find symbol
+                player.broadcastBreakEvent(source.getSlot(context.getHand()));
+                      ^
+  symbol:   method broadcastBreakEvent(EquipmentSlot)
+  location: variable player of type Player
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\interaction\ThrowingModule.java:111: error: no suitable method found for playSound(<null>,ThrownTool,Holder<SoundEvent>,SoundSource,int,int)
+        level.playSound(null, thrown, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1, 1);
+             ^
+    method Level.playSound(Entity,BlockPos,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; ThrownTool cannot be converted to BlockPos)
+    method Level.playSound(Player,BlockPos,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; ThrownTool cannot be converted to BlockPos)
+    method Level.playSound(Player,double,double,double,SoundEvent,SoundSource) is not applicable
+      (argument mismatch; ThrownTool cannot be converted to double)
+    method Level.playSound(Player,Entity,SoundEvent,SoundSource,float,float) is not applicable
+      (argument mismatch; Holder<SoundEvent> cannot be converted to SoundEvent)
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\SmashingModule.java:182: error: cannot find symbol
+      CompoundTag tag = resource.getTag();
+                                ^
+  symbol:   method getTag()
+  location: variable resource of type FluidStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\SmashingModule.java:228: error: cannot find symbol
+          if (Objects.equals(storedTag, resource.getTag())) {
+                                                ^
+  symbol:   method getTag()
+  location: variable resource of type FluidStack
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\TippedModule.java:145: error: incompatible types: Optional<Reference<Potion>> cannot be converted to Optional<Holder<Potion>>
+            Component.translatable(Potion.getName(potionOpt, "item.minecraft.potion.effect."))
+                                                  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ReduceEffectOnUnequipModule.java:50: error: cannot find symbol
+          if (!instance.isInfiniteDuration() && instance.getEffect().getCategory() == this.category && !instance.getCurativeItems().isEmpty()) {
+                                                                    ^
+  symbol:   method getCategory()
+  location: interface Holder<MobEffect>
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\modules\ReduceEffectOnUnequipModule.java:50: error: cannot find symbol
+          if (!instance.isInfiniteDuration() && instance.getEffect().getCategory() == this.category && !instance.getCurativeItems().isEmpty()) {
+                                                                                                                ^
+  symbol:   method getCurativeItems()
+  location: variable instance of type MobEffectInstance
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipeBuilder.java:28: error: constructor EnchantmentConvertingRecipeBuilder in class EnchantmentConvertingRecipeBuilder cannot be applied to given types;
+    return new EnchantmentConvertingRecipeBuilder(name, matchBook);
+           ^
+  required: no arguments
+  found:    String,boolean
+  reason: actual and formal argument lists differ in length
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\tools\recipe\severing\PlayerBeheadingRecipe.java:38: error: cannot find symbol
+      _nbt.put("SkullOwner", NbtUtils.writeGameProfile(new CompoundTag(), gameprofile));
+                                     ^
+  symbol:   method writeGameProfile(CompoundTag,GameProfile)
+  location: class NbtUtils
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\block\CongealedSlimeBlock.java:34: error: method does not override or implement a method from a supertype
+  @Override
+  ^
+C:\Users\adolf\source\repos\TinkersConstruct\src\main\java\slimeknights\tconstruct\world\client\SlimeColorReloadListener.java:30: error: cannot find symbol
+    if (!ModLoader.isLoadingStateValid()) {
+                  ^
+  symbol:   method isLoadingStateValid()
+  location: class ModLoader
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files additionally use or override a deprecated API that is marked for removal.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+141 errors
+100 warnings
+
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+BUILD FAILED in 33s
+3 actionable tasks: 1 executed, 2 up-to-date

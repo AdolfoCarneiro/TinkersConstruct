@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientR
 
 
 /** Builder for an enchantment converting recipe */
-@RequiredArgsConstructor(staticName = "converting")
 public class EnchantmentConvertingRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<EnchantmentConvertingRecipeBuilder> {
   private final String name;
   private final boolean matchBook;

@@ -283,7 +283,6 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
   }
 
   /** Enum describing the function of the cast in this recipe */
-  @RequiredArgsConstructor
   public enum CastPurpose {
     /**
      * Based on the material definition stat count, cast is either the first material or has no material purpose.

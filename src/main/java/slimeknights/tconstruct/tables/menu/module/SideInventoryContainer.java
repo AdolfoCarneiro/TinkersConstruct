@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.EmptyHandler;
+import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 
@@ -36,7 +36,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     this.itemHandler = level == null ? null : level.getCapability(Capabilities.ItemHandler.BLOCK, tile.getBlockPos(), inventoryDirection);
 
     // slot properties
-    IItemHandler handler = itemHandler != null ? itemHandler : EmptyHandler.INSTANCE;
+    IItemHandler handler = itemHandler != null ? itemHandler : EmptyItemHandler.INSTANCE;
     this.slotCount = handler.getSlots();
     this.columns = columns;
     int rows = this.slotCount / columns;

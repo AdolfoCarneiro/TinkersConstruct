@@ -64,7 +64,6 @@ public class BasicModifier extends Modifier {
    */
   @Accessors(fluent = true)
   @Setter
-  @RequiredArgsConstructor(staticName = "builder")
   public static class Builder {
     private final ModuleHookMap hookMap;
 

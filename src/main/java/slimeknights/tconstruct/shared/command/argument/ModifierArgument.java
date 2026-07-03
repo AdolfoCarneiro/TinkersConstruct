@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /** Argument type for a modifier */
-@NoArgsConstructor(staticName = "modifier")
 public class ModifierArgument implements ArgumentType<Modifier> {
   private static final Collection<String> EXAMPLES = Arrays.asList("tconstruct:haste", "tconstruct:luck");
   private static final DynamicCommandExceptionType MODIFIER_NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "modifier.not_found", name));

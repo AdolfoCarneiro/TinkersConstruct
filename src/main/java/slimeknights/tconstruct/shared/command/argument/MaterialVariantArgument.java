@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /** Argument for a material variant type */
-@RequiredArgsConstructor(staticName = "material")
 public class MaterialVariantArgument implements ArgumentType<MaterialVariantId> {
   /** Error called on invalid argument */
   private static final SimpleCommandExceptionType ERROR_INVALID = new SimpleCommandExceptionType(Component.translatable("argument.id.invalid"));

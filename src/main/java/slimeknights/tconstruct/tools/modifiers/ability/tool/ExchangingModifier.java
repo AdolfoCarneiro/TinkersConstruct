@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -80,7 +80,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
-    if (entity instanceof Player player && !player.mayBuild() && !fakeStack.hasAdventureModePlaceTagForBlock(BuiltInRegistries.BLOCK, new BlockInWorld(world, pos, false))) {
+    if (entity instanceof Player player && !player.mayBuild()) {
       return null;
     }
 
@@ -106,8 +106,9 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // generate placing context
     // use opposite side for hit as that produces better slab placement
-    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, fakeStack, Util.createTraceResult(pos, context.getSideHit().getOpposite(), true));
-    blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
+    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, fakeStack, Util.createTraceResult(pos, context.getSideHit().getOpposite(), true)) {
+      { replaceClicked = true; } // force replacement, even if the position is not replacable (as it most always will be)
+    };
 
     // swap the block, it never goes to air so things like torches will remain
     InteractionResult success = blockItem.place(blockUseContext);
@@ -118,8 +119,8 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     }
 
     if (success.consumesAction()) {
-      if (!context.isAOE() && player != null) {
-        TinkerNetwork.sendTo(new UpdateNeighborsPacket(state, pos), player);
+      if (!context.isAOE() && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+        TinkerNetwork.sendTo(new UpdateNeighborsPacket(state, pos), serverPlayer);
       }
       context.getLiving().swing(InteractionHand.OFF_HAND, false);
       return true;

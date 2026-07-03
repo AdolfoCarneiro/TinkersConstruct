@@ -31,7 +31,6 @@ import java.util.function.Supplier;
 /**
  * Module to handle fetching items from the bounds and interacting with entities in the structure
  */
-@RequiredArgsConstructor
 public class EntityMeltingModule {
   // TODO: migrate to whatever mojang is doing
   private final MantleBlockEntity parent;

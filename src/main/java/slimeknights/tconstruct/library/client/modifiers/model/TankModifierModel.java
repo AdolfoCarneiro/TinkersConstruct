@@ -21,7 +21,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /** Model for a tank showing its fluid on the tool */
-@RequiredArgsConstructor
 public class TankModifierModel implements ModifierModel {
   public static final RecordLoadable<TankModifierModel> LOADER = RecordLoadable.create(
     ModifierModel.MATERIAL_LOADABLE.nullableField("partial", (TankModifierModel m) -> m.smallPartial),

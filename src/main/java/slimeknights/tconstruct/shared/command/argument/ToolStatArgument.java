@@ -22,7 +22,6 @@ import java.util.concurrent.CompletableFuture;
 
 /** Argument for a tool stat type */
 @SuppressWarnings("rawtypes")
-@RequiredArgsConstructor(staticName = "stat")
 public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
   private static final Collection<String> EXAMPLES = Arrays.asList("tconstruct:mining_speed", "tconstruct:durability");
   private static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(name -> TConstruct.makeTranslation("command", "stat_type.not_found", name));

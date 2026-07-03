@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.function.Function;
 
 /** Class implementing a modifier hook, used as a key for {@link ModuleHookMap )} */
-@RequiredArgsConstructor
 public class ModuleHook<T> implements IdAwareObject {
   /** Unique name of this hook, used for serialization */
   @Getter

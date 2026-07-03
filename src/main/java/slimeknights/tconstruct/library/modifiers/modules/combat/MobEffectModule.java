@@ -124,13 +124,15 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
   }
 
   /** Builder for this modifier in datagen */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)
-  @Setter
   class Builder extends ModuleBuilder.Stack<Builder> {
     // general fields
     /** Effect to apply. */
     private final MobEffect effect;
+
+    private Builder(MobEffect effect) {
+      this.effect = effect;
+    }
     /** Entity getting the effect. */
     private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
     /** Entity using the weapon. Unused for non-combat effects. */
@@ -294,9 +296,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       if (duration > 0) {
         net.minecraft.core.Holder<MobEffect> holder = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect);
         MobEffectInstance instance = new MobEffectInstance(holder, (int)duration, level);
-        if (curativeItems != null) {
-          instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
-        }
+        // TODO 1.21: setCurativeItems removed; curative items handled via EffectCures in 1.21.1
         target.addEffect(new MobEffectInstance(holder, (int)duration, level), cause);
       }
     }

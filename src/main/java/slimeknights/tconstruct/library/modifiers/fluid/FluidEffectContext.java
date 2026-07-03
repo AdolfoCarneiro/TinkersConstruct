@@ -27,7 +27,6 @@ import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asPlayer
 
 /** Context for calling fluid effects */
 @Getter
-@RequiredArgsConstructor
 public abstract class FluidEffectContext {
   protected final Level level;
   /** Entity using the fluid */

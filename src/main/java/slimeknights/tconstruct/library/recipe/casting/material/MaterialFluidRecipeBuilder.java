@@ -20,7 +20,6 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
  * Builder to make parts and composites castable
  */
 @Accessors(chain = true)
-@RequiredArgsConstructor(staticName = "material")
 public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFluidRecipeBuilder> {
   /** Output material ID */
   private final MaterialVariantId outputId;

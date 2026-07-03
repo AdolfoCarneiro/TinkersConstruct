@@ -66,8 +66,12 @@ public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook
   /** Loader instance */
   public static final RecordLoadable<ZoomModule> LOADER = new SimpleRecordLoadable<>(new EnumLoadable<>(ZoomModule.class), "style", null, false);
 
-  @Getter
   private final List<ModuleHook<?>> defaultHooks;
+
+  @Override
+  public List<ModuleHook<?>> getDefaultHooks() {
+    return defaultHooks;
+  }
 
   @SafeVarargs
   ZoomModule(ModuleHook<? super ZoomModule>... hooks) {

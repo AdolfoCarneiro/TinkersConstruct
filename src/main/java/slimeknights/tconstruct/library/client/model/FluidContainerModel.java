@@ -143,7 +143,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
     if (baseSprite != null) {
       modelBuilder.addQuads(renderTypes, UnbakedGeometryHelper.bakeElements(
         UnbakedGeometryHelper.createUnbakedItemElements(0, baseSprite),
-        $ -> baseSprite, modelState, modelLocation
+        $ -> baseSprite, modelState
       ));
     }
 
@@ -152,8 +152,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
       List<BakedQuad> quads = UnbakedGeometryHelper.bakeElements(
         UnbakedGeometryHelper.createUnbakedItemMaskElements(1, spriteGetter.apply(context.getMaterial("fluid"))),
         $ -> fluidSprite,
-        new SimpleModelState(modelState.getRotation().compose(FLUID_TRANSFORM), modelState.isUvLocked()),
-        modelLocation
+        new SimpleModelState(modelState.getRotation().compose(FLUID_TRANSFORM), modelState.isUvLocked())
       );
 
       // apply light
@@ -186,7 +185,6 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
   }
 
   /** Handles swapping the model based on the contained fluid */
-  @RequiredArgsConstructor
   private static final class ContainedFluidOverrideHandler extends ItemOverrides {
     private static final ResourceLocation BAKE_LOCATION = TConstruct.getResource("copper_can_dynamic");
 
@@ -196,6 +194,13 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
     private final ItemOverrides nested;
     private final ModelState modelState;
     private final boolean flipGas;
+
+    private ContainedFluidOverrideHandler(IGeometryBakingContext context, ItemOverrides nested, ModelState modelState, boolean flipGas) {
+      this.context = context;
+      this.nested = nested;
+      this.modelState = modelState;
+      this.flipGas = flipGas;
+    }
 
 
     /** Gets the model directly, for creating the cached models */

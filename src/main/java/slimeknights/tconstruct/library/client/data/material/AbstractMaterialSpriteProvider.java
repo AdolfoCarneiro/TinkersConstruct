@@ -124,7 +124,6 @@ public abstract class AbstractMaterialSpriteProvider {
   }
 
   /** Builder for material sprite info */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @CanIgnoreReturnValue
   @Accessors(fluent = true)
   protected static class MaterialSpriteInfoBuilder {

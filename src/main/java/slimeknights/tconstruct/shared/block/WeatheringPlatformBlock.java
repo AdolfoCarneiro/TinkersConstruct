@@ -26,11 +26,15 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class WeatheringPlatformBlock extends PlatformBlock implements WeatheringCopper {
-  @Getter
   private final WeatherState age;
   public WeatheringPlatformBlock(WeatherState age, Properties props) {
     super(props);
     this.age = age;
+  }
+
+  @Override
+  public WeatherState getAge() {
+    return age;
   }
 
   @Override
@@ -40,7 +44,7 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
 
   @Override
   public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-    this.onRandomTick(pState, pLevel, pPos, pRandom);
+    this.changeOverTime(pState, pLevel, pPos, pRandom);
   }
 
   /** Gets the next state for weathering */
@@ -89,7 +93,8 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+  public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+    InteractionHand hand = InteractionHand.MAIN_HAND;
     ItemStack stack = player.getItemInHand(hand);
     if (stack.getItem() == Items.HONEYCOMB) {
       if (player instanceof ServerPlayer serverPlayer) {

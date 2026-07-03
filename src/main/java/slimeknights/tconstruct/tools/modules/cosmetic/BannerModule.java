@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modules.cosmetic;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -77,12 +77,13 @@ public enum BannerModule implements ModifierModule, DisplayNameModifierHook, Too
         for (int i = 0; i < patterns.size(); i++) {
           CompoundTag tag = patterns.getCompound(i);
           DyeColor dye = DyeColor.byId(tag.getInt(KEY_DYE));
-          Holder<BannerPattern> holder = BannerPattern.byHash(tag.getString(KEY_PATTERN));
-          if (holder != null) {
-            // note that Forge is dumb in BannerItem with their patch - mojang already adds the mod ID to the tooltip key
-            holder.unwrapKey().ifPresent(key ->
-              tooltip.add(Component.translatable("block.minecraft.banner." + key.location().toShortLanguageKey() + '.' + dye.getName()).withStyle(ChatFormatting.GRAY)));
-
+          // TODO 1.21: BannerPattern.byHash removed — patterns now identified by ResourceLocation, not hash
+          String patternId = tag.getString(KEY_PATTERN);
+          if (!patternId.isEmpty()) {
+            ResourceLocation loc = ResourceLocation.tryParse(patternId);
+            if (loc != null) {
+              tooltip.add(Component.translatable("block.minecraft.banner." + loc.toShortLanguageKey() + '.' + dye.getName()).withStyle(ChatFormatting.GRAY));
+            }
           }
         }
       } else {
@@ -106,11 +107,11 @@ public enum BannerModule implements ModifierModule, DisplayNameModifierHook, Too
     int baseColor = Util.getColor(dye);
     ListTag patterns = new ListTag();
 
-    // add in the base pattern, it only exists on shields and we copy from banners
-    BannerPattern base = BuiltInRegistries.BANNER_PATTERN.get(BannerPatterns.BASE);
-    if (base != null) {
+    // TODO 1.21: BuiltInRegistries.BANNER_PATTERN and getHashname removed — patterns fully data-driven
+    // The base pattern (shield base) must now be looked up via HolderLookup.Provider at runtime
+    {
       CompoundTag basePattern = new CompoundTag();
-      basePattern.putString(KEY_PATTERN, base.getHashname());
+      basePattern.putString(KEY_PATTERN, BannerPatterns.BASE.location().toString());
       basePattern.putInt(KEY_DYE, dye.getId());
       basePattern.putInt(KEY_COLOR, baseColor);
       patterns.add(basePattern);

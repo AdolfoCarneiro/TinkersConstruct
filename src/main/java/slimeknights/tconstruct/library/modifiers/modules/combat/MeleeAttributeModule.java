@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeUniqueField;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
@@ -113,14 +114,27 @@ public record MeleeAttributeModule(String unique, Attribute attribute, ResourceL
     return new Builder(attribute, operation);
   }
 
-  @Setter
   @Accessors(fluent = true)
-  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public static class Builder extends ModuleBuilder.Stack<Builder> implements LevelingValue.Builder<MeleeAttributeModule>  {
     protected final Attribute attribute;
     protected final Operation operation;
     protected String unique = "";
     protected IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
+
+    protected Builder(Attribute attribute, Operation operation) {
+      this.attribute = attribute;
+      this.operation = operation;
+    }
+
+    public Builder unique(String unique) {
+      this.unique = unique;
+      return this;
+    }
+
+    public Builder target(IJsonPredicate<LivingEntity> target) {
+      this.target = target;
+      return this;
+    }
 
     /**
      * Sets the unique string using a resource location

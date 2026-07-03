@@ -86,10 +86,13 @@ public record TrimArmorTextureSupplier(ModifierId modifier, ResourceLocation pat
   }
 
   /** Implementation of an armor texture for armor trims */
-  @RequiredArgsConstructor
   public static class TrimArmorTexture implements ArmorTexture {
     private static TextureAtlas armorTrimAtlas = null;
     private final TextureAtlasSprite trimSprite;
+
+    public TrimArmorTexture(TextureAtlasSprite trimSprite) {
+      this.trimSprite = trimSprite;
+    }
 
     /** Gets the texture atlas for trim */
     private static TextureAtlas getTrimAtlas() {
@@ -120,8 +123,9 @@ public record TrimArmorTextureSupplier(ModifierId modifier, ResourceLocation pat
     @Override
     public void renderTexture(Model model, PoseStack matrices, MultiBufferSource bufferSource, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, boolean hasGlint) {
       // ignoring glint as odds are very low trim texture is the first one
-      VertexConsumer buffer = trimSprite.wrap(bufferSource.getBuffer(Sheets.armorTrimsSheet()));
-      model.renderToBuffer(matrices, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+      VertexConsumer buffer = trimSprite.wrap(bufferSource.getBuffer(Sheets.armorTrimsSheet(false)));
+      int argb = net.minecraft.util.FastColor.ARGB32.color((int)(alpha*255), (int)(red*255), (int)(green*255), (int)(blue*255));
+      model.renderToBuffer(matrices, buffer, packedLight, packedOverlay, argb);
     }
   }
 }

@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Hook to cure effects using the worn item when its unequipped. Not enabled for composable simply because there is no benefit in JSON even if serialization is trivial. */
-@RequiredArgsConstructor
 public enum CureOnRemovalModule implements HookProvider, EquipmentChangeModifierHook {
   HELMET(EquipmentSlot.HEAD),
   CHESTPLATE(EquipmentSlot.CHEST),

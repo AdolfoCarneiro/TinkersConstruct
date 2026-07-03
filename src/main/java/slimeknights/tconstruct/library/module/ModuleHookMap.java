@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 
 /** Logic for handling modifier and tool hooks, automatically fetching the default instance as needed. */
 @SuppressWarnings({"ClassCanBeRecord", "unused"}) // no record as we don't want the map to be public
-@RequiredArgsConstructor
 public class ModuleHookMap {
   /** Instance with no modifiers */
   public static final ModuleHookMap EMPTY = new ModuleHookMap(Collections.emptyMap());

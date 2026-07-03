@@ -33,7 +33,6 @@ import static java.awt.Color.HSBtoRGB;
 
 /** Builder for tool stats */
 @SuppressWarnings("UnusedReturnValue")
-@RequiredArgsConstructor
 public class TooltipBuilder {
   private static final TextColor MAX = valueToColor(1, 1);
   private static final UnaryOperator<Style> APPLY_MAX = style -> style.withColor(MAX);

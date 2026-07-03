@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 /** Helper class for delegating to nested overrides while also doing item specific NBT overrides. */
-@RequiredArgsConstructor
 public class NestedOverrides extends ItemOverrides {
   /** Nested overrides instance */
   private final ItemOverrides nested;

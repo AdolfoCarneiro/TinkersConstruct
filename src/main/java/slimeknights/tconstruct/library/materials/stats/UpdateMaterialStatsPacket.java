@@ -30,6 +30,10 @@ public class UpdateMaterialStatsPacket implements CustomPacketPayload {
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
+  public Map<MaterialId, Collection<IMaterialStats>> getMaterialToStats() {
+    return materialToStats;
+  }
+
   public UpdateMaterialStatsPacket(RegistryFriendlyByteBuf buffer) {
     this(buffer, MaterialRegistry.getInstance().getStatTypeLoader());
   }

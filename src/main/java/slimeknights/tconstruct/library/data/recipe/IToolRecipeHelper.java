@@ -99,7 +99,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
     // Material Casting
     partCasting(consumer, part, cast, cost, partFolder);
     // Cast Casting
-    castCreation(consumer, MaterialIngredient.of(part), cast, castFolder, id(part).getPath());
+    castCreation(consumer, MaterialIngredient.of(part).toVanilla(), cast, castFolder, id(part).getPath());
   }
 
   /**
@@ -136,7 +136,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
     // Material Casting
     partCasting(consumer, part, cast, cost, partFolder);
     // Cast Casting
-    castCreation(consumer, CompoundIngredient.of(Ingredient.of(dummyPart), MaterialIngredient.of(part)), cast, castFolder, id(part).getPath());
+    castCreation(consumer, CompoundIngredient.of(Ingredient.of(dummyPart), MaterialIngredient.of(part).toVanilla()), cast, castFolder, id(part).getPath());
     // dummy part builder recipe
     ItemPartRecipeBuilder.item(cast.getName(), ItemOutput.fromItem(dummyPart))
                          .material(MaterialIds.rock, cost)

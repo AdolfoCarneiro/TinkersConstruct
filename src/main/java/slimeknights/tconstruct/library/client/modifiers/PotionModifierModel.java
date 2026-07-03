@@ -34,7 +34,6 @@ import java.util.function.Function;
  */
 @Getter
 @Accessors(fluent = true)
-@RequiredArgsConstructor
 public class PotionModifierModel implements SimpleModifierModel {
   public static final RecordLoadable<PotionModifierModel> LOADER = SimpleModifierModel.loader(PotionModifierModel::new);
   /** @deprecated legacy system, use {@link #LOADER} */

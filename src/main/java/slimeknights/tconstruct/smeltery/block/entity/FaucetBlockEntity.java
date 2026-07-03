@@ -46,8 +46,11 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   /** Current fluid in the faucet */
   private FluidStack drained = FluidStack.EMPTY;
   /** Fluid for rendering, used to reduce the number of packets. There is a brief moment where {@link this#drained} is empty but we should be rendering something */
-  @Getter
   private FluidStack renderFluid = FluidStack.EMPTY;
+
+  public FluidStack getRenderFluid() {
+    return renderFluid;
+  }
   /** Used for pulse detection */
   private boolean lastRedstoneState = false;
 

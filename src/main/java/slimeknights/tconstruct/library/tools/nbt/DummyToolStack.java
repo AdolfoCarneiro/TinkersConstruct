@@ -7,7 +7,6 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 
 /** Tool stack instance in a context that does not have a proper tool, used for projectils */
 @SuppressWarnings("ClassCanBeRecord")
-@RequiredArgsConstructor
 public class DummyToolStack implements IToolStackView {
   private final Item item;
   private final ModifierNBT modifiers;

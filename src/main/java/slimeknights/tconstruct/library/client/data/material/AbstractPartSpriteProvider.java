@@ -35,7 +35,6 @@ import java.util.Set;
 
 /** Base class for listing sprites to generate */
 @SuppressWarnings("SameParameterValue")
-@RequiredArgsConstructor
 @CanIgnoreReturnValue
 public abstract class AbstractPartSpriteProvider {
 
@@ -139,7 +138,6 @@ public abstract class AbstractPartSpriteProvider {
   }
 
   /** Data class containing a sprite path, and different bases */
-  @RequiredArgsConstructor
   public static class PartSpriteInfo {
     /** Loadable instance */
     public static final RecordLoadable<PartSpriteInfo> LOADABLE = RecordLoadable.create(
@@ -238,7 +236,6 @@ public abstract class AbstractPartSpriteProvider {
   }
 
   @SuppressWarnings("UnusedReturnValue")
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   protected class ToolSpriteBuilder {
     private final ResourceLocation name;
     private final Map<String, MaterialStatsId[]> parts = new LinkedHashMap<>();

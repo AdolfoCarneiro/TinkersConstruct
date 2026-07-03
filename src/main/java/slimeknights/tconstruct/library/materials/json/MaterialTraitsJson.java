@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 /** Json for serializing and deserializing material traits */
-@RequiredArgsConstructor
 public class MaterialTraitsJson {
   @SerializedName("default")
   @Getter

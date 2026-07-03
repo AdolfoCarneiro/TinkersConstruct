@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -16,7 +15,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -155,10 +154,9 @@ public class PiggyBackPackItem extends TooltipItem {
     }
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-    return ImmutableMultimap.of(); // no attributes, the potion effect handles them
+  public net.minecraft.world.item.component.ItemAttributeModifiers getDefaultAttributeModifiers() {
+    return net.minecraft.world.item.component.ItemAttributeModifiers.EMPTY; // no attributes, the potion effect handles them
   }
 
   public static class CarryPotionEffect extends TinkerEffect {
@@ -169,7 +167,7 @@ public class PiggyBackPackItem extends TooltipItem {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
       return true; // check every tick
     }
 
@@ -203,7 +201,7 @@ public class PiggyBackPackItem extends TooltipItem {
           if (amplifier > 2) {
             amplifier = 2;
           }
-          graphics.blit(x, y, 0, 18, 18, mc.getMobEffectTextures().getSprite(ICONS[amplifier]));
+          graphics.blit(x, y, 0, 18, 18, mc.getModelManager().getAtlas(net.minecraft.resources.ResourceLocation.withDefaultNamespace("textures/atlas/mob_effects.png")).getSprite(ICONS[amplifier]));
         }
 
         @Override

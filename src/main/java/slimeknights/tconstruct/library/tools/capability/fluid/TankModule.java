@@ -38,7 +38,6 @@ import java.util.List;
  * Unregistered as modifiers have no way to register new tool stats.
  */
 @SuppressWarnings("ClassCanBeRecord")  // Want to leave extendable
-@RequiredArgsConstructor
 public class TankModule implements HookProvider, FluidModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, SlotStackModifierHook, DisplayNameModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<TankModule>defaultHooks(ToolFluidCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK, ModifierHooks.DISPLAY_NAME);
 

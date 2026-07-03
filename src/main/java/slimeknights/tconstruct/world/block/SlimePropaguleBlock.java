@@ -24,13 +24,21 @@ import slimeknights.tconstruct.common.TinkerTags;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import net.minecraft.world.phys.shapes.Shapes;
 import static net.minecraft.world.level.block.MangrovePropaguleBlock.AGE;
-import static net.minecraft.world.level.block.MangrovePropaguleBlock.SHAPE_PER_AGE;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 /** Recreation of {@link net.minecraft.world.level.block.MangrovePropaguleBlock} to swap out the tree grower. */
 public class SlimePropaguleBlock extends SlimeSaplingBlock {
+  // Copied from MangrovePropaguleBlock since it's private in 1.21.1
+  private static final VoxelShape[] SHAPE_PER_AGE = new VoxelShape[]{
+    Shapes.box(0.25, 0.4375, 0.25, 0.75, 1.0, 0.75),
+    Shapes.box(0.25, 0.25, 0.25, 0.75, 1.0, 0.75),
+    Shapes.box(0.125, 0.0, 0.125, 0.875, 1.0, 0.875),
+    Shapes.box(0.125, 0.0, 0.125, 0.875, 1.0, 0.875),
+    Shapes.box(0.125, 0.0, 0.125, 0.875, 1.0, 0.875)
+  };
   public SlimePropaguleBlock(TreeGrower treeIn, FoliageType foliageType, Properties properties) {
     super(treeIn, foliageType, properties);
     this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(WATERLOGGED, false).setValue(HANGING, false));

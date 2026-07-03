@@ -15,7 +15,6 @@ import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
 /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule} */
 @Deprecated(forRemoval = true)
-@RequiredArgsConstructor(staticName = "repair")
 public class ModifierMaterialRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierMaterialRepairRecipeBuilder> {
   private final ModifierId modifier;
   private final MaterialId material;

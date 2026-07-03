@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 /**
  * Data object holding a list of traits and a map of stat type to trait
  */
-@AllArgsConstructor
 public class MaterialTraits {
   @Getter
   private final List<ModifierEntry> defaultTraits;

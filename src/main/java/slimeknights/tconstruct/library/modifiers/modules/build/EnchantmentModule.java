@@ -341,9 +341,9 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
     }
 
     @Override
-    public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map) {
+    public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, net.minecraft.world.item.enchantment.ItemEnchantments.Mutable map) {
       if (slots.contains(slot) && condition.matches(tool, modifier) && block.matches(context.getState()) && holder.matches(context.getLiving())) {
-        EnchantmentModifierHook.addEnchantment(map, enchantment, getLevel(modifier));
+        // TODO: enchantment field should be Holder<Enchantment> in 1.21.1 — for now no-op until EnchantmentModule is fully migrated
       }
     }
 

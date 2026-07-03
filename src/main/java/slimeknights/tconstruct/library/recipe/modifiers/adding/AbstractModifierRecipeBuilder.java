@@ -25,7 +25,6 @@ import static slimeknights.tconstruct.library.modifiers.ModifierEntry.VALID_LEVE
 
 /** Shared logic between normal and incremental modifier recipe builders */
 @SuppressWarnings("unchecked")
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   // shared
   protected final ModifierId result;

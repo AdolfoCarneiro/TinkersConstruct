@@ -17,9 +17,7 @@ import slimeknights.tconstruct.library.client.armor.AbstractArmorModel;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier.ArmorTexture;
 
 /** Armor texture which tints the texture */
-@AllArgsConstructor
 @Accessors(fluent = true)
-@RequiredArgsConstructor
 @Setter
 public class TintedArmorTexture implements ArmorTexture {
   private static final int MAX_LIGHT = LightTexture.pack(15, 15);

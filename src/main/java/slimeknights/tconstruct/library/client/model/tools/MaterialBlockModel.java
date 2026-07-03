@@ -75,7 +75,6 @@ import java.util.function.Function;
  * @see MaterialModel
  * @see ToolModel
  */
-@RequiredArgsConstructor
 public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> {
   /** Location for dynamic baking */
   private static final ResourceLocation BAKE_LOCATION = Mantle.getResource("material_block_dynamic");

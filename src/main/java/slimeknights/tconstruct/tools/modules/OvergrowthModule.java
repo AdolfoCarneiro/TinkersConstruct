@@ -29,9 +29,7 @@ import java.util.List;
  * TODO 1.21: consider merging into {@link slimeknights.tconstruct.library.modifiers.modules.capacity.TimeToCapacityModule}..
  * TODO 1.21: otherwise move to {@link slimeknights.tconstruct.tools.modules.durability}
  */
-@Getter
 @Accessors(fluent = true)
-@RequiredArgsConstructor
 public class OvergrowthModule implements ModifierModule, InventoryTickModifierHook, ConditionalModule<IToolStackView> {
   public static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<OvergrowthModule>defaultHooks(ModifierHooks.INVENTORY_TICK);
   protected static final LoadableField<LevelingValue,OvergrowthModule> CHANCE_FIELD = LevelingValue.LOADABLE.requiredField("chance", (OvergrowthModule m) -> m.chance());
@@ -39,6 +37,15 @@ public class OvergrowthModule implements ModifierModule, InventoryTickModifierHo
 
   private final LevelingValue chance;
   private final ModifierCondition<IToolStackView> condition;
+
+  public OvergrowthModule(LevelingValue chance, ModifierCondition<IToolStackView> condition) {
+    this.chance = chance;
+    this.condition = condition;
+  }
+
+  public LevelingValue chance() {
+    return chance;
+  }
 
   @Override
   public ModifierCondition<IToolStackView> condition() {

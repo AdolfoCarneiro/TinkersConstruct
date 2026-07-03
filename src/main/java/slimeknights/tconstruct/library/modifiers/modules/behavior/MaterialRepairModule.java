@@ -28,7 +28,6 @@ import java.util.List;
 import static slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule.getDurability;
 
 /** Collection of modules for different repair options */
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public sealed class MaterialRepairModule implements ModifierModule, MaterialRepairModifierHook, ConditionalModule<IToolStackView>, IAmLoadable.Record permits MaterialRepairModule.StatType {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialRepairModule>defaultHooks(ModifierHooks.MATERIAL_REPAIR);
   private static final LoadableField<MaterialId, MaterialRepairModule> MATERIAL_FIELD = MaterialId.PARSER.requiredField("material", (MaterialRepairModule m) -> m.material);

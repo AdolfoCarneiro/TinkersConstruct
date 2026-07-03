@@ -21,7 +21,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 /** Argument of a modifier slot type */
-@RequiredArgsConstructor(staticName = "slotType")
 public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
   private static final Collection<String> EXAMPLES = Arrays.asList("upgrades", "abilities");
   private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> Component.translatable("command.tconstruct.slot_type.not_found", name));

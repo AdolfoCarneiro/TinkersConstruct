@@ -42,12 +42,12 @@ public class EFLNEntity extends ThrowableItemProjectile implements IEntityWithCo
 
   @Override
   public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-    buffer.writeItem(this.getItemRaw());
+    net.minecraft.world.item.ItemStack.STREAM_CODEC.encode(buffer, this.getItem());
   }
 
   @Override
   public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
-    this.setItem(additionalData.readItem());
+    this.setItem(net.minecraft.world.item.ItemStack.STREAM_CODEC.decode(additionalData));
   }
 
 }

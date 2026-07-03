@@ -40,7 +40,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /** Capability for a tool with an inventory */
-@RequiredArgsConstructor
 public class ToolInventoryCapability extends InventoryModifierHookIterator<ModifierEntry> implements IItemHandlerModifiable {
   /** Boolean key to set in volatile mod data for the total slot count across all modifiers */
   public static final ResourceLocation TOTAL_SLOTS = TConstruct.getResource("total_item_slots");
@@ -91,6 +90,10 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
   private final Supplier<? extends IToolStackView> tool;
   /** Cache of all stacks that have been parsed thus far */
   private ItemStack[] cachedStacks;
+
+  public ToolInventoryCapability(Supplier<? extends IToolStackView> tool) {
+    this.tool = tool;
+  }
 
   /** Cached slot count */
   private int slots = -1;
@@ -381,9 +384,12 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
   }
 
   /** Merger for inventory modifier hooks */
-  @RequiredArgsConstructor
   private static class InventoryModifierHookMerger extends InventoryModifierHookIterator<InventoryModifierHook> implements InventoryModifierHook {
     private final Collection<InventoryModifierHook> modules;
+
+    private InventoryModifierHookMerger(Collection<InventoryModifierHook> modules) {
+      this.modules = modules;
+    }
 
     @Override
     protected Iterator<InventoryModifierHook> getIterator(IToolStackView tool) {
@@ -529,7 +535,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
           ToolSyncType syncType = Config.COMMON.toolInventorySync.get();
           buf.writeEnum(syncType);
           if (syncType == ToolSyncType.FULL_STACK) {
-            buf.writeItem(stack);
+            ItemStack.STREAM_CODEC.encode(buf, stack);
           } else if (syncType == ToolSyncType.MINIMAL) {
             buf.writeVarInt(ModifierUtil.getVolatileInt(stack, TOTAL_SLOTS));
             buf.writeEnum(CraftingType.fromStack(stack));

@@ -35,7 +35,6 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 /** Object for common context for weapon attack hooks */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ToolAttackContext {
   /* Attacker */
   /** Entity doing the attacking */
@@ -194,7 +193,6 @@ public class ToolAttackContext {
   /** Builder for creating a tool attack context */
   @Accessors(fluent = true)
   @CanIgnoreReturnValue
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     /** Entity doing the attacking */
     private final LivingEntity attacker;

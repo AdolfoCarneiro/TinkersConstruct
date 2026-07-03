@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module for repairing a tool using a non-tool part material */
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule, IAmLoadable.Record {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialRepairModule>defaultHooks(ToolHooks.MATERIAL_REPAIR);
   private static final LoadableField<MaterialId,MaterialRepairModule> MATERIAL_FIELD = MaterialId.PARSER.requiredField("material", m -> m.material);

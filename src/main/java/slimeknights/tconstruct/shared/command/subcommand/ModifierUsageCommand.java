@@ -166,7 +166,6 @@ public class ModifierUsageCommand {
   }
 
   /** Valid options for the modifier type argument */
-  @RequiredArgsConstructor
   private enum ModifierUsages {
     UNUSED("Unused modifiers:"),
     RECIPE("Recipe modifiers:"),

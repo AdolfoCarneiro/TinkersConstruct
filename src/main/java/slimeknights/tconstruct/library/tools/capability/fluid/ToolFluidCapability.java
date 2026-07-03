@@ -24,7 +24,6 @@ import java.util.function.Supplier;
 /**
  * Logic to make a tool a fluid handler
  */
-@RequiredArgsConstructor
 public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry> implements IFluidHandlerItem {
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation TOTAL_TANKS = TConstruct.getResource("total_tanks");
@@ -57,9 +56,18 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
     }
   });
 
-  @Getter
   private final ItemStack container;
   private final Supplier<? extends IToolStackView> tool;
+
+  public ToolFluidCapability(ItemStack container, Supplier<? extends IToolStackView> tool) {
+    this.container = container;
+    this.tool = tool;
+  }
+
+  @Override
+  public ItemStack getContainer() {
+    return container;
+  }
 
   /* Basic inventory */
 
@@ -237,9 +245,12 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
   }
 
   /** Logic to merge multiple fluid hooks */
-  @RequiredArgsConstructor
   private static class FluidModifierHookMerger extends FluidModifierHookIterator<FluidModifierHook> implements FluidModifierHook {
     private final Collection<FluidModifierHook> modules;
+
+    private FluidModifierHookMerger(Collection<FluidModifierHook> modules) {
+      this.modules = modules;
+    }
 
     @Override
     protected Iterator<FluidModifierHook> getIterator(IToolStackView tool) {

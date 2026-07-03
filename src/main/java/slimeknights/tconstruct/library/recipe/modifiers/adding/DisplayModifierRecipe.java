@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 /** Recipe instance to return in JEI from recipes that contain multiple display recipes */
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   @Getter
   @Nullable
@@ -102,7 +101,6 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   /** Builder for creating a display recipe */
   @Setter
   @Accessors(fluent = true)
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     private ModifierEntry result = ModifierEntry.EMPTY;
     @Nullable

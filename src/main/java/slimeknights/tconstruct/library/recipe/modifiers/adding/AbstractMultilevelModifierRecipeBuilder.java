@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractMultilevelModifierRecipeBuilder<T extends AbstractMultilevelModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected final ModifierId result;
 

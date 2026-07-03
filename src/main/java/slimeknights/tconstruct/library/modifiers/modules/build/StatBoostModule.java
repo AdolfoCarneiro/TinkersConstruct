@@ -118,7 +118,6 @@ public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation,
     public abstract void apply(ModifierStatsBuilder builder, INumericToolStat<?> stat, float value);
   }
 
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder extends ModuleBuilder.Context<Builder> implements LevelingValue.Builder<StatBoostModule> {
     private final INumericToolStat<?> stat;
     private final StatOperation operation;

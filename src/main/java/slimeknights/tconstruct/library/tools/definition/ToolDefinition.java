@@ -15,7 +15,6 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
  * This class serves primarily as a container where the datapack tool data will be injected on datapack load
  * @see #create(ResourceLocation)
  */
-@RequiredArgsConstructor
 public class ToolDefinition implements IdAwareObject {
   /** Empty tool definition instance to prevent the need for null for a fallback */
   public static final ToolDefinition EMPTY = new ToolDefinition(TConstruct.getResource("empty"));

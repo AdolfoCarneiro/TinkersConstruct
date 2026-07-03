@@ -15,7 +15,6 @@ import slimeknights.tconstruct.TConstruct;
 import java.lang.reflect.Type;
 
 /** Sprite transformer that applies the given color mapping to recolor each pixel */
-@RequiredArgsConstructor
 public class RecolorSpriteTransformer implements IRecolorSpriteTransformer {
   public static final ResourceLocation NAME = TConstruct.getResource("recolor_sprite");
   public static final Deserializer DESERIALIZER = new Deserializer();

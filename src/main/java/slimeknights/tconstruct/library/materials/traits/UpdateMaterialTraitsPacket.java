@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-@AllArgsConstructor
 public class UpdateMaterialTraitsPacket implements CustomPacketPayload {
   public static final Type<UpdateMaterialTraitsPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_material_traits"));
   public static final StreamCodec<RegistryFriendlyByteBuf, UpdateMaterialTraitsPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateMaterialTraitsPacket::new);

@@ -115,7 +115,7 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
             // select fluid from tag
             Fluid fluid = BuiltInRegistries.FLUID.getTag(this.fluid)
               .flatMap(tag -> tag.getRandomElement(random))
-              .map(Holder::get)
+              .map(Holder::value)
               .orElse(Fluids.EMPTY);
             if (fluid != Fluids.EMPTY) {
               ToolTankHelper.TANK_HELPER.setFluid(tool, new FluidStack(fluid, amount));
@@ -146,8 +146,6 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
     }
 
     @Accessors(fluent = true)
-    @Setter
-    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public class SlotBuilder {
       /** Slot for the tool */
       private final EquipmentSlot slot;
@@ -164,6 +162,30 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
       private float chance = 0.05f;
       /** Order this entry applies if multiple entries are on the same target. Higher numbers run earlier. */
       private int priority = 100;
+
+      private SlotBuilder(EquipmentSlot slot) {
+        this.slot = slot;
+      }
+
+      public SlotBuilder match(IJsonPredicate<Item> match) {
+        this.match = match;
+        return this;
+      }
+
+      public SlotBuilder fluid(TagKey<Fluid> fluid) {
+        this.fluid = fluid;
+        return this;
+      }
+
+      public SlotBuilder chance(float chance) {
+        this.chance = chance;
+        return this;
+      }
+
+      public SlotBuilder priority(int priority) {
+        this.priority = priority;
+        return this;
+      }
 
       /** Sets the tool item */
       public SlotBuilder tool(ItemOutput tool) {

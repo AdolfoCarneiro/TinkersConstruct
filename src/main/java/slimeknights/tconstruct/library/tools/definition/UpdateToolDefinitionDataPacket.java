@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /** Packet to sync tool definitions to the client */
-@RequiredArgsConstructor
 public class UpdateToolDefinitionDataPacket implements CustomPacketPayload {
   public static final Type<UpdateToolDefinitionDataPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "update_tool_definition_data"));
   public static final StreamCodec<RegistryFriendlyByteBuf, UpdateToolDefinitionDataPacket> STREAM_CODEC = StreamCodec.of((buf, p) -> p.encode(buf), UpdateToolDefinitionDataPacket::new);

@@ -81,8 +81,11 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   /** Map from modifier to tags on the modifier */
   private Map<MaterialId,Set<TagKey<IMaterial>>> reverseTags = Collections.emptyMap();
   /** Context for conditions */
-  @Setter
   private IContext conditionContext = IContext.EMPTY;
+
+  public void setConditionContext(IContext conditionContext) {
+    this.conditionContext = conditionContext;
+  }
 
   public MaterialManager(Runnable onLoaded) {
     super(GSON, FOLDER);

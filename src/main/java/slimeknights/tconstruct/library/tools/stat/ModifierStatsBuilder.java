@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.tools.stat;
 
-import lombok.NoArgsConstructor;
+
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
@@ -12,7 +12,6 @@ import java.util.function.Consumer;
 /**
  * Stat builder for modifiers, allows more fine control over just setting the value
  */
-@NoArgsConstructor(staticName = "builder")
 public class ModifierStatsBuilder {
   private ModifierStatsBuilder() {}
   public static ModifierStatsBuilder builder() { return new ModifierStatsBuilder(); }

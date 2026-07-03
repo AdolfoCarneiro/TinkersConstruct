@@ -19,15 +19,33 @@ import javax.annotation.Nullable;
 
 /** Builder for a composite part recipe, should exist for each part */
 @Accessors(fluent = true)
-@RequiredArgsConstructor(staticName = "composite")
 public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<CompositeCastingRecipeBuilder> {
   private final IMaterialItem result;
   private final int itemCost;
-  @Setter @Nullable
+  @Nullable
   private MaterialStatsId castingStatConflict = null;
   private final TypeAwareRecipeSerializer<? extends CompositeCastingRecipe> serializer;
-  @Setter
   private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
+
+  private CompositeCastingRecipeBuilder(IMaterialItem result, int itemCost, TypeAwareRecipeSerializer<? extends CompositeCastingRecipe> serializer) {
+    this.result = result;
+    this.itemCost = itemCost;
+    this.serializer = serializer;
+  }
+
+  public static CompositeCastingRecipeBuilder composite(IMaterialItem result, int itemCost, TypeAwareRecipeSerializer<? extends CompositeCastingRecipe> serializer) {
+    return new CompositeCastingRecipeBuilder(result, itemCost, serializer);
+  }
+
+  public CompositeCastingRecipeBuilder castingStatConflict(@Nullable MaterialStatsId castingStatConflict) {
+    this.castingStatConflict = castingStatConflict;
+    return this;
+  }
+
+  public CompositeCastingRecipeBuilder allowedMaterials(IJsonPredicate<MaterialVariantId> allowedMaterials) {
+    this.allowedMaterials = allowedMaterials;
+    return this;
+  }
 
   public static CompositeCastingRecipeBuilder basin(IMaterialItem result, int itemCost) {
     return composite(result, itemCost, TinkerSmeltery.basinCompositeSerializer.get());

@@ -6,12 +6,19 @@ import lombok.RequiredArgsConstructor;
 /**
  * Vertex builder wrapper that tints all quads passed in
  */
-@RequiredArgsConstructor
 public class TintedVertexBuilder implements VertexConsumer {
   /** Base vertex builder */
   private final VertexConsumer inner;
   /** Tint color from 0-255 */
   private final int tintRed, tintGreen, tintBlue, tintAlpha;
+
+  public TintedVertexBuilder(VertexConsumer inner, int tintRed, int tintGreen, int tintBlue, int tintAlpha) {
+    this.inner = inner;
+    this.tintRed = tintRed;
+    this.tintGreen = tintGreen;
+    this.tintBlue = tintBlue;
+    this.tintAlpha = tintAlpha;
+  }
 
   @Override
   public VertexConsumer addVertex(float x, float y, float z) {

@@ -20,7 +20,6 @@ import java.util.Set;
 /**
  * Component of {@link MaterialRenderInfo} used during datagen and the generate part textures command to describe how to generate the material
  */
-@RequiredArgsConstructor
 public class MaterialGeneratorInfo {
   /** GSON adapter for generator deserializing. TODO: migrate ISpriteTransformer to loadables? */
   private static final Gson GSON = (new GsonBuilder())

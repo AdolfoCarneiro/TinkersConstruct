@@ -100,7 +100,6 @@ public class FixedArmorTextureSupplier implements ArmorTextureSupplier {
 
   @Accessors(fluent = true)
   @Setter
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     private final ResourceLocation name;
     @Nullable

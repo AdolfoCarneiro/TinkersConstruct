@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.LevelEvent;
 
 /** Entity type based projectile shooting dispenser behavior */
-@RequiredArgsConstructor
 public class ShootProjectileDispenserBehavior extends DefaultDispenseItemBehavior {
   private final EntityType<? extends ThrowableItemProjectile> entity;
   private final float power;

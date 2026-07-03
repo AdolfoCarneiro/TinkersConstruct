@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
  * Result of attempting to form a multiblock, for error message and the position causing the error
  */
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MultiblockResult {
   /** Successful result, used when no error */
   public static final MultiblockResult SUCCESS = new MultiblockResult(true, null, Component.empty());
