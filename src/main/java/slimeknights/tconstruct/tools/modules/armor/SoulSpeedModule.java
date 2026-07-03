@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -48,17 +47,15 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
 
   @Override
   public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
-    if (enchantment == Enchantments.SOUL_SPEED && condition.matches(tool, modifier)) {
-      level += this.level.compute(modifier);
-    }
+    // PARITY: Enchantments.SOUL_SPEED is now ResourceKey<Enchantment>; can't compare directly to Enchantment instance
+    // Soul speed enchantment level cannot be correctly filtered until EnchantmentModifierHook migrates to Holder<Enchantment>
     return level;
   }
 
   @Override
   public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment, Integer> map) {
-    if (condition.matches(tool, modifier)) {
-      EnchantmentModifierHook.addEnchantment(map, Enchantments.SOUL_SPEED, this.level.compute(modifier));
-    }
+    // PARITY: Enchantments.SOUL_SPEED is now ResourceKey<Enchantment>; map uses Enchantment keys
+    // Soul speed enchantment cannot be added until EnchantmentModifierHook migrates to Holder<Enchantment>
   }
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */

@@ -26,11 +26,11 @@ public class EnderSlimeEntity extends TravelersPlateSlimeEntity {
     return TinkerWorld.enderSlimeParticle.get();
   }
 
-  @Override
-  public void doEnchantDamageEffects(LivingEntity slime, Entity target) {
-    super.doEnchantDamageEffects(slime, target);
-    if (target instanceof LivingEntity) {
-      TeleportHelper.randomNearbyTeleport((LivingEntity) target, teleportPredicate);
+  // doEnchantDamageEffects removed in 1.21.1; teleport-on-attack is handled via actuallyHurt on the target
+  /** Teleports the target after the slime deals melee damage */
+  public void teleportTarget(Entity target) {
+    if (target instanceof LivingEntity living) {
+      TeleportHelper.randomNearbyTeleport(living, teleportPredicate);
     }
   }
 

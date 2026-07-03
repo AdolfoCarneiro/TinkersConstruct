@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.json.loot;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
@@ -11,20 +10,14 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-import java.util.Objects;
-
 /**
  * Loot condition that only runs if all required values in the given loot context set are present. Good heuristic for using that set.
  * TODO: migrate to Mantle
  */
 public record HasLootContextSetCondition(LootContextParamSet set) implements LootItemCondition {
   public static final MapCodec<HasLootContextSetCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-    instance.group(ResourceLocation.CODEC.fieldOf("set").forGetter(c -> Objects.requireNonNull(LootContextParamSets.getKey(c.set), "Unregistered LootContextParamSets")))
-      .apply(instance, key -> {
-        LootContextParamSet set = LootContextParamSets.get(key);
-        if (set == null) throw new IllegalArgumentException("Unknown LootContextParamSet " + key);
-        return new HasLootContextSetCondition(set);
-      }));
+    instance.group(LootContextParamSets.CODEC.fieldOf("set").forGetter(c -> c.set))
+      .apply(instance, HasLootContextSetCondition::new));
 
   /** Creates a new builder instance */
   public static Builder builder(LootContextParamSet set) {

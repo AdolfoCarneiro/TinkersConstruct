@@ -164,9 +164,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
     if (!targetingFire) {
       didIgnite = ignite(world, pos, state, sideHit, horizontalFacing, player);
       if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
-        if (player != null) {
-          player.broadcastBreakEvent(slotType);
-        }
+        // broadcastBreakEvent removed in 1.21.1; ToolDamageUtil.damage handles break notification
         return InteractionResult.sidedSuccess(world.isClientSide);
       }
     }
@@ -175,9 +173,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
       if (ignite(world, target, world.getBlockState(target), sideHit, horizontalFacing, player)) {
         didIgnite = true;
         if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
-          if (player != null) {
-            player.broadcastBreakEvent(slotType);
-          }
+          // broadcastBreakEvent removed in 1.21.1; ToolDamageUtil.damage handles break notification
           break;
         }
       }

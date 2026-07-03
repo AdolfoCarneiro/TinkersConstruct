@@ -179,9 +179,9 @@ public enum SmashingModule implements ModifierModule, FluidModifierHook, Project
       data.putString(KEY_FLUID, Loadables.FLUID.getString(resource.getFluid()));
       // we want to store a fixed size, but its possible part swapping changes our capacity, so keep track of our capacity at the time of storing
       data.putFloat(KEY_VALIDATE, getValidationAmount(tool, modifier));
-      CompoundTag tag = resource.getTag();
-      if (tag != null) {
-        data.put(KEY_FLUID_TAG, tag.copy());
+      CustomData customData = resource.get(DataComponents.CUSTOM_DATA);
+      if (customData != null) {
+        data.put(KEY_FLUID_TAG, customData.copyTag());
       }
     }
     return amount;
@@ -225,7 +225,9 @@ public enum SmashingModule implements ModifierModule, FluidModifierHook, Project
         } else if (amount <= resource.getAmount()) {
           // ensure the tag matches
           CompoundTag storedTag = getFluidTag(data);
-          if (Objects.equals(storedTag, resource.getTag())) {
+          CustomData resourceData = resource.get(DataComponents.CUSTOM_DATA);
+          CompoundTag resourceTag = resourceData != null ? resourceData.copyTag() : null;
+          if (Objects.equals(storedTag, resourceTag)) {
             FluidStack result = stackWithTag(fluid, amount, storedTag);
             if (action.execute()) {
               clearFluid(data);

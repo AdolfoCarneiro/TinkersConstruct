@@ -70,7 +70,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
   public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getSlot();
-    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.HUMANOID_ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living);
@@ -84,7 +84,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
       if (instance != null) {
         AttributeModifier modifier = instance.getModifier(GOLD_GUARD_ID);
         if (modifier != null) {
-          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
+          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.amount()) + " ")
                                    .append(Component.translatable(getTranslationKey() + "." + "health"))));
         }
       }

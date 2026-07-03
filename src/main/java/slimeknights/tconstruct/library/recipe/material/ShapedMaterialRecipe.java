@@ -52,7 +52,8 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   public MaterialValueIngredient getMaterial() {
     if (material == null) {
       for (Ingredient ingredient : getIngredients()) {
-        if (ingredient instanceof MaterialValueIngredient materialValue) {
+        MaterialValueIngredient materialValue = ingredient.getCustomIngredient() instanceof MaterialValueIngredient mvi ? mvi : null;
+        if (materialValue != null) {
           if (material == null) {
             material = materialValue;
           } else {
@@ -77,7 +78,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
     for (int i = 0; i < inventory.size(); i++) {
       ItemStack stack = inventory.getItem(i);
       if (!stack.isEmpty()) {
-        MaterialVariantId matchedMaterial = material.getMaterial(stack);
+        MaterialVariantId matchedMaterial = material.getMaterialForStack(stack);
         if (matchedMaterial != null) {
           if (firstMaterial == null) {
             firstMaterial = matchedMaterial;
