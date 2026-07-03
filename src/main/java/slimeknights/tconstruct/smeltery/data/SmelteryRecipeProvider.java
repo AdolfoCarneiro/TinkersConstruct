@@ -37,6 +37,7 @@ import net.neoforged.neoforge.common.conditions.AndCondition;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.OrCondition;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -196,7 +197,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     Consumer<RecipeOutput> fastGrout = c ->
       SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerSmeltery.grout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.searedBrick, 0.3f, 100)
                           .unlockedBy("has_item", has(TinkerSmeltery.grout)).save(c);
-    fastGrout.accept(output);
+    // F2.6: 1.20.1 retyped this recipe to "ceramics:kiln" when the Ceramics mod was loaded (a Forge ConditionalRecipe
+    // JSON "type" override not representable in NeoForge's typed Recipe/RecipeOutput system - see F2.6 report).
+    // Restoring the mutual exclusion we *can* keep: don't hand out the fast vanilla-blast-furnace recipe when
+    // Ceramics's own Kiln recipe would otherwise cover the same niche.
+    fastGrout.accept(withCondition(output, new NotCondition(new ModLoadedCondition("ceramics"))));
 
 
     // block from bricks
@@ -641,7 +646,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     Consumer<RecipeOutput> fastGrout = c ->
       SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerSmeltery.netherGrout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.scorchedBrick, 0.3f, 100)
                                 .unlockedBy("has_item", has(TinkerSmeltery.netherGrout)).save(c);
-    fastGrout.accept(output);
+    // F2.6: see the seared-grout kiln comment above - the "ceramics:kiln" retype branch cannot be restored 1:1,
+    // but we keep the mutual exclusion so Ceramics's Kiln recipe isn't duplicated by this fast blasting recipe.
+    fastGrout.accept(withCondition(output, new NotCondition(new ModLoadedCondition("ceramics"))));
 
     // block from bricks
     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.scorchedBricks)
@@ -1924,10 +1931,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(output, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
+    // F2.6: restores the CHEAPER_NETHERITE_ALLOY config branch dropped in A32a. NeoForge has no single-file
+    // multi-candidate recipe anymore (Recipe.CONDITIONAL_CODEC gates a whole file, not branches within one), so the
+    // two variants are saved to distinct, mutually exclusive locations instead of one ConditionalRecipe.
+    ResourceLocation netheriteAlloyId = prefix(TinkerFluids.moltenNetherite, folder);
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite, FluidValues.NUGGET)
+                      .addInput(TinkerFluids.moltenDebris.ingredient(FluidValues.NUGGET * 4))
+                      .addInput(TinkerFluids.moltenGold.ingredient(FluidValues.NUGGET * 2))
+                      .save(withCondition(output, ConfigEnabledCondition.CHEAPER_NETHERITE_ALLOY), suffix(netheriteAlloyId, "_cheap"));
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite, FluidValues.NUGGET)
                       .addInput(TinkerFluids.moltenDebris.ingredient(FluidValues.NUGGET * 4))
                       .addInput(TinkerFluids.moltenGold.ingredient(FluidValues.NUGGET * 4))
-                      .save(output, prefix(TinkerFluids.moltenNetherite, folder));
+                      .save(withCondition(output, new NotCondition(ConfigEnabledCondition.CHEAPER_NETHERITE_ALLOY)), netheriteAlloyId);
 
     // knightslime: 1 cobalt + 1 enderslime + 1 obsidian = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenKnightslime, FluidValues.INGOT * 2)
@@ -1976,12 +1991,30 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenConstantan, folder));
 
     // pewter
+    // F2.6: restores the 3-branch substitution ladder dropped in A32a (Metalborn/Allomancy ratio when both tin and
+    // lead are present, otherwise substitute iron for whichever is missing). NeoForge has no single-file
+    // multi-candidate recipe (see the netherite comment above), so each candidate is saved to its own location with
+    // explicit NOT-conditions to keep the branches mutually exclusive, matching the old first-match-wins ordering.
     ICondition lead = tagCondition("ingots/lead");
     ICondition tin = tagCondition("ingots/tin");
+    ICondition pewterGate = new OrCondition(List.of(ConfigEnabledCondition.ALLOW_INGOTLESS_ALLOYS, tagCondition("ingots/pewter")));
+    ResourceLocation pewterAlloyId = prefix(TinkerFluids.moltenPewter, folder);
+    // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter, FluidValues.INGOT * 4)
                       .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 3))
                       .addInput(TinkerFluids.moltenLead.ingredient(FluidValues.INGOT))
-                      .save(withCondition(output, new OrCondition(List.of(ConfigEnabledCondition.ALLOW_INGOTLESS_ALLOYS, tagCondition("ingots/pewter"))), lead, tin), prefix(TinkerFluids.moltenPewter, folder));
+                      .save(withCondition(output, pewterGate, lead, tin), pewterAlloyId);
+    // otherwise, substitute iron for the missing part
+    // metalborn does pewter without lead
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter, FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 3))
+                      .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
+                      .save(withCondition(output, pewterGate, tin, new NotCondition(lead)), suffix(pewterAlloyId, "_no_lead"));
+    // Edilon does pewter without tin
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter, FluidValues.INGOT * 2)
+                      .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
+                      .addInput(TinkerFluids.moltenLead.ingredient(FluidValues.INGOT))
+                      .save(withCondition(output, pewterGate, lead, new NotCondition(tin)), suffix(pewterAlloyId, "_no_tin"));
 
     // thermal alloys
     Function<String,ICondition> fluidTagLoaded = name -> new TagFilledCondition<>(Registries.FLUID, commonResource(name));
@@ -2017,11 +2050,37 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
 
     // nicrosil
+    // F2.6: restores the 4-branch substitution ladder dropped in A32a (chromium+nickel is the proper recipe; missing
+    // chromium subs emerald per Metalborn; missing nickel subs iron+more chromium per Allomancy; missing both subs
+    // tin+emerald per Metalborn). Same NOT-condition mutual-exclusion approach as the netherite/pewter fixes above,
+    // since NeoForge has no single-file multi-candidate recipe replacement for the old ConditionalRecipe branches.
+    ICondition chromium = tagCondition("ingots/chromium");
+    ICondition nickel = tagCondition("ingots/nickel");
+    ResourceLocation nicrosilAlloyId = prefix(TinkerFluids.moltenNicrosil, folder);
+    // if we have both chromium and nickel, can do the proper recipe
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
                       .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
                       .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT))
                       .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
-                      .save(withCondition(output, tagCondition("ingots/chromium"), tagCondition("ingots/nickel")), prefix(TinkerFluids.moltenNicrosil, folder));
+                      .save(withCondition(output, chromium, nickel), nicrosilAlloyId);
+    // if chromium is missing, sub in emerald (trace chromium) per metalborn
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
+                      .addInput(TinkerFluids.moltenEmerald.ingredient(FluidValues.GEM))
+                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
+                      .save(withCondition(output, nickel, new NotCondition(chromium)), suffix(nicrosilAlloyId, "_no_chromium"));
+    // nickel missing? use more chromium and sub in a bit of iron per allomancy
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT * 2))
+                      .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
+                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
+                      .save(withCondition(output, chromium, new NotCondition(nickel)), suffix(nicrosilAlloyId, "_no_nickel"));
+    // no nickel or chromium? just use tin and emerald per metalborn
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+                      .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 2))
+                      .addInput(TinkerFluids.moltenEmerald.ingredient(FluidValues.GEM))
+                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
+                      .save(withCondition(output, tagCondition("ingots/tin"), new NotCondition(chromium), new NotCondition(nickel)), suffix(nicrosilAlloyId, "_tin_substitute"));
 
     // duralumin
     wrapped = withCondition(output, tagCondition("ingots/duralumin"), tagCondition("ingots/aluminum"));
