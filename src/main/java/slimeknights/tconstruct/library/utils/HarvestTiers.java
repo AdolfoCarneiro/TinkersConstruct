@@ -12,8 +12,6 @@ import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,11 +51,29 @@ public class HarvestTiers {
     return null;
   }
 
+  /**
+   * Vanilla tiers sorted by actual harvest strength (ascending). This is NOT the same as
+   * {@link Tiers#ordinal()}: the enum declares WOOD, STONE, IRON, DIAMOND, GOLD, NETHERITE in
+   * that order, but GOLD's real harvest level ties with WOOD (weakest), not "above DIAMOND".
+   * <p>
+   * 1.20.1 Forge computed this cross-mod via {@code TierSortingRegistry.getSortedTiers()}
+   * (topological sort over "incorrect_for" tag containment, with mod-declared tie-breaks).
+   * NeoForge 1.21.1 removed {@code TierSortingRegistry} outright with no cross-mod replacement
+   * (verified: absent from neoforge-21.1.234-sources.jar; vanilla {@code Tier} only exposes
+   * {@link Tier#getIncorrectBlocksForDrops()}, no ordering). Since this mod only ever resolves
+   * vanilla tier ids through {@link #byName}, we hardcode the known-correct vanilla order here
+   * rather than re-deriving it. Mirrors the equivalent table already reintroduced for datagen in
+   * {@code BlockTagProvider#harvestLevel(Tiers)}.
+   * <p>
+   * Tiers not in this table (only possible if {@link #byName} is ever extended to resolve modded
+   * tiers) are absent from the list; {@link #max}/{@link #min} already treat list-absent tiers as
+   * weakest via {@code indexOf() == -1}, matching the original 1.20.1 fallback idiom.
+   */
+  private static final List<Tier> VANILLA_TIER_ORDER = List.of(Tiers.WOOD, Tiers.GOLD, Tiers.STONE, Tiers.IRON, Tiers.DIAMOND, Tiers.NETHERITE);
+
   /** Returns vanilla tiers sorted by level (ascending) */
   public static List<Tier> getSortedTiers() {
-    return Arrays.stream(Tiers.values())
-      .sorted(Comparator.comparingInt(Tiers::ordinal)) // F2: Tier#getLevel removed in 1.21, enum order proxy
-      .collect(java.util.stream.Collectors.toList());
+    return VANILLA_TIER_ORDER;
   }
 
   /** Makes a translation key for the given name */
