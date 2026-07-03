@@ -58,8 +58,10 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
   private static final EntityDataAccessor<MaterialVariantId> MATERIAL = SynchedEntityData.defineId(CombatFishingHook.class, MaterialVariantId.DATA_ACCESSOR);
 
   /** Damage dealt by the fishing hook */
-  @Getter @Setter
   private float power = 0;
+
+  @Override public float getPower() { return power; }
+  @Override public void setPower(float power) { this.power = power; }
   /** Extra power for pulling entities towards ourself */
   private float knockback = 0;
   /** Velocity at the time the projectile hit the entity, used for damage calculations */
@@ -73,8 +75,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
 
   // set velocity to 0.6 for vanilla behavior
   public CombatFishingHook(Player player, Level level, int luck, int lure, float velocity, float inaccuracy) {
-    super(TinkerTools.fishingHook.get(), level, luck, lure);
-    this.setOwner(player);
+    super(player, level, luck, lure);
     float xRot = player.getXRot();
     float yRot = player.getYRot();
     float yAngle = (-yRot * PI / 180f) - PI;
@@ -237,9 +238,9 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
         // actually hurt the entity
         float oldHealth = targetLiving != null ? targetLiving.getHealth() : 0;
         if (target.hurt(source, damage)) {
-          if (!this.level().isClientSide && owner instanceof LivingEntity ownerLiving) {
+          if (!this.level().isClientSide && owner instanceof LivingEntity ownerLiving && this.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
             if (targetLiving != null) {
-              EnchantmentHelper.doPostHurtEffects(targetLiving, owner);
+              EnchantmentHelper.doPostAttackEffects(serverLevel, targetLiving, source);
             }
 
             // run modifier hook
@@ -297,7 +298,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
     knockback = knockback.scale(GRAPPLE_STRENGTH * Math.pow(knockback.lengthSqr(), -0.25f));
     owner.push(knockback.x, knockback.y, knockback.z);
     if (isDrill() && owner instanceof Player player) {
-      player.startAutoSpinAttack(20);
+      player.startAutoSpinAttack(20, 0f, player.getMainHandItem());
     }
     if (owner instanceof ServerPlayer player) {
       player.connection.send(new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement()));

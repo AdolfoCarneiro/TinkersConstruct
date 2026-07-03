@@ -290,8 +290,9 @@ public final class TinkerFluids extends TinkerModule {
   @SubscribeEvent
   void registerBrewingRecipes(final RegisterBrewingRecipesEvent event) {
     // brew bottles into each other, bit weird but feels better than shapeless
-    event.getBuilder().addRecipe(new BottleBrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Items.POTION, Items.SPLASH_POTION, new ItemStack(splashBottle)));
-    event.getBuilder().addRecipe(new BottleBrewingRecipe(Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Items.SPLASH_POTION, Items.LINGERING_POTION, new ItemStack(lingeringBottle)));
+    // vanilla: Potion->SplashPotion uses gunpowder, SplashPotion->LingeringPotion uses dragon's breath
+    event.getBuilder().addRecipe(new BottleBrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(Items.GUNPOWDER), new ItemStack(splashBottle)));
+    event.getBuilder().addRecipe(new BottleBrewingRecipe(Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Ingredient.of(Items.DRAGON_BREATH), new ItemStack(lingeringBottle)));
     // brew congealed slime into bottles to get slime bottles, easy melting
     for (SlimeType slime : SlimeType.values()) {
       event.getBuilder().addRecipe(new BrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(TinkerWorld.congealedSlime.get(slime)), new ItemStack(TinkerFluids.slimeBottle.get(slime))));

@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.Result;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -41,6 +42,15 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     return loader;
   }
 
+  /** Converts a NeoForge TriState to our internal Result enum */
+  private static Result triStateToResult(TriState state) {
+    return switch (state) {
+      case TRUE -> Result.ALLOW;
+      case FALSE -> Result.DENY;
+      default -> Result.DEFAULT;
+    };
+  }
+
   /** Damages the stack in the context if needed */
   private static void damageIfNeeded(UseOnContext context) {
     ItemStack stack = context.getItemInHand();
@@ -49,8 +59,8 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     // we expect modded items will have the same bug, so just go ahead and damage them. On the chance it works, they get 2 damage, no big deal
     // our tools we know work so ignore them
     if (!level.isClientSide && context.getPlayer() == null && stack.isDamageableItem() && !stack.is(TinkerTags.Items.MODIFIABLE)) {
-      // unable to call Forge damageItem as that needs entity access, but its just vanilla broken anyways, right?
-      stack.hurt(1, level.getRandom(), null);
+      // unable to call vanilla damageItem as that needs entity access; directly set damage value instead
+      stack.setDamageValue(stack.getDamageValue() + 1);
       // calling methods again instead of using return as return may be incorrect for custom broken stacks
       if (stack.getDamageValue() >= stack.getMaxDamage()) {
         // but that won't happen, right? will need to consider another workaround in that case.
@@ -119,8 +129,8 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
           }
           return 0;
         }
-        useItem = event.getUseItem();
-        useBlock = event.getUseBlock();
+        useItem = triStateToResult(event.getUseItem());
+        useBlock = triStateToResult(event.getUseBlock());
       }
       // skipped: never spectator mode if we made it this far
 
@@ -143,7 +153,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
       // click the block
       ItemStack original = heldItem.copy();
       if (player != null && (useBlock == Result.ALLOW || (useItem == Result.DEFAULT && !skipBlock))) {
-        InteractionResult result = state.use(world, player, hand, hitResult);
+        InteractionResult result = state.useWithoutItem(world, player, hitResult);
         if (result.consumesAction()) {
           if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, original);

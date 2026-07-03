@@ -151,12 +151,9 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
 
 
         // prepare projectile
-        Vec3 lookVec = entity.getLookAngle().scale(2);
+        Vec3 lookVec = entity.getLookAngle().scale(2 * velocity);
         RandomSource random = entity.getRandom();
         CustomFireball projectile = new CustomFireball(level, entity, lookVec.x + random.nextGaussian() * inaccuracy, lookVec.y, lookVec.z + random.nextGaussian() * inaccuracy);
-        projectile.xPower *= velocity;
-        projectile.yPower *= velocity;
-        projectile.zPower *= velocity;
         projectile.setPower(power);
         projectile.setPos(projectile.getX(), entity.getY(0.5D) + 0.5D, projectile.getZ());
 
@@ -291,9 +288,12 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
 
     @Setter
     @Accessors(fluent = true)
-    @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
     public class Fireball {
       private final Ingredient match;
+
+      protected Fireball(Ingredient match) {
+        this.match = match;
+      }
       private final List<ModifierEntry> ammoModifiers = new ArrayList<>();
       @Nullable
       private DamageTypePair damageType;

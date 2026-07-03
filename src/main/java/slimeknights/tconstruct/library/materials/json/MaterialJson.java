@@ -24,6 +24,15 @@ public class MaterialJson {
   @Nullable
   private final JsonRedirect[] redirect;
 
+  public MaterialJson(@Nullable ICondition condition, @Nullable Boolean craftable, @Nullable Integer tier, @Nullable Integer sortOrder, @Nullable Boolean hidden, @Nullable JsonRedirect[] redirect) {
+    this.condition = condition;
+    this.craftable = craftable;
+    this.tier = tier;
+    this.sortOrder = sortOrder;
+    this.hidden = hidden;
+    this.redirect = redirect;
+  }
+
   @Nullable
   public ICondition getCondition() { return condition; }
   @Nullable

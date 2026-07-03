@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -164,7 +165,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
       // or we have the matching alloy ingot
       tagExistsCondition("ingots/" + location.getPath()),
       // or we allow ingotless alloys and have all alloy components
-      new AndCondition(Util.prepend(alloyConditions, ConfigEnabledCondition.ALLOW_INGOTLESS_ALLOYS))
+      new AndCondition(Arrays.asList(Util.prepend(alloyConditions, ConfigEnabledCondition.ALLOW_INGOTLESS_ALLOYS)))
     ));
     addMaterial(location, tier, order, false, false, condition);
   }

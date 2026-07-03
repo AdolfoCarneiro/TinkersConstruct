@@ -8,7 +8,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.bus.api.EventPriority;
@@ -68,7 +67,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
   public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getSlot();
-    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.HUMANOID_ARMOR) {
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold);
     }
@@ -81,7 +80,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
       return tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL);
     } else {
       LivingEntity living = context.getEntity();
-      return living.getItemBySlot(slotType).makesPiglinsNeutral(living);
+      return living.getItemBySlot(slotType).is(net.minecraft.tags.ItemTags.PIGLIN_LOVED);
     }
   }
 
@@ -90,8 +89,18 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
     if (entity == null) {
       return 0;
     }
-    TotalGold gold = entity.getData(TinkerDataCapability.ATTACHMENT).get(ChrysophiliteModifier.TOTAL_GOLD);
+    TotalGold gold = entity.getData(TinkerDataCapability.ATTACHMENT.get()).get(ChrysophiliteModifier.TOTAL_GOLD);
     return gold != null ? gold.getTotalGold() : 0;
+  }
+
+  /** Checks if a stack has vanishing curse (replacement for EnchantmentHelper.hasVanishingCurse removed in 1.21) */
+  private static boolean hasVanishingCurse(ItemStack stack) {
+    for (java.util.Map.Entry<net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, Integer> entry : stack.getEnchantments().entrySet()) {
+      if (entry.getKey().is(net.minecraft.world.item.enchantment.Enchantments.VANISHING_CURSE)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /** Causes more gold armor to drop */
@@ -108,7 +117,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
           RandomSource random = target.getRandom();
           // if the stack is gold, and it drops, we get it
           // don't have to worry about checking if it already dropped, the stacks are removed on drop
-          if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {
+          if (!stack.isEmpty() && !hasVanishingCurse(stack) && stack.is(net.minecraft.tags.ItemTags.PIGLIN_LOVED) && random.nextFloat() < extraChance) {
             // mobs damage items, its kinda weird
             if (stack.isDamageableItem()) {
               stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
@@ -129,13 +138,15 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
     @Getter
     private int totalGold = 0;
 
+    public int getTotalGold() { return totalGold; }
+
     /**
      * Updates the status of gold in a slot on the entity
      * @param slotType  Slot to update
      * @param value     New value
      */
     protected boolean setGold(EquipmentSlot slotType, boolean value) {
-      if (slotType.getType() == Type.ARMOR) {
+      if (slotType.getType() == Type.HUMANOID_ARMOR) {
         int index = slotType.getIndex();
         if (hasGold[index] != value) {
           hasGold[index] = value;

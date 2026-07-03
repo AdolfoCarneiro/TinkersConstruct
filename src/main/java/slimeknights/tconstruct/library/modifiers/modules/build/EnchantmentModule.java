@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -73,14 +74,13 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   }
 
   /**
-   * Creates a builder for a constant enchantment
+   * Creates a builder for a constant enchantment from a ResourceKey.
+   * TODO F2: Enchantments are data-driven in 1.21.1 — BuiltInRegistries.ENCHANTMENT is gone.
+   *          This overload needs to be redesigned to accept HolderLookup.Provider or store the key.
+   *          For now it compiles but will fail at runtime if the key is not in BuiltInRegistries.
    */
   static Builder builder(ResourceKey<Enchantment> enchantment) {
-    Enchantment value = net.minecraft.core.registries.BuiltInRegistries.ENCHANTMENT.getValue(enchantment.location());
-    if (value == null) {
-      throw new IllegalArgumentException("Unknown enchantment " + enchantment.location());
-    }
-    return builder(value);
+    throw new UnsupportedOperationException("TODO F2: EnchantmentModule.builder(ResourceKey) needs redesign for 1.21.1 data-driven enchantments. Key: " + enchantment.location());
   }
 
   /**
@@ -89,9 +89,12 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   @SuppressWarnings("unused") // API
   @Setter
   @Accessors(fluent = true)
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   class Builder extends ModuleBuilder.Stack<Builder> {
     private final Enchantment enchantment;
+
+    private Builder(Enchantment enchantment) {
+      this.enchantment = enchantment;
+    }
     private LevelingInt lootingLevel = LevelingInt.LEVEL;
     private IJsonPredicate<BlockState> block = BlockPredicate.ANY;
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
@@ -250,8 +253,12 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
       if (condition().matches(tool, modifier)) {
         int subtractLevel = getLevel(modifier);
         Enchantment enchantment = enchantment();
-        if (subtractLevel > 0 && LogicHelper.isInList(enchantment.slots, slotType) && !source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
-          modifierValue -= enchantment.getDamageProtection(subtractLevel, source);
+        if (subtractLevel > 0 && enchantment.matchingSlot(slotType) && !source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
+          if (context.getLevel() instanceof ServerLevel serverLevel) {
+            org.apache.commons.lang3.mutable.MutableFloat protection = new org.apache.commons.lang3.mutable.MutableFloat(0f);
+            enchantment.modifyDamageProtection(serverLevel, subtractLevel, context.getEntity().getItemBySlot(slotType), context.getEntity(), source, protection);
+            modifierValue -= protection.floatValue();
+          }
         }
       }
       return modifierValue;
