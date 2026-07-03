@@ -822,10 +822,12 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       }
 
       // fetch ammo info from the stack
-      ItemStack ammo;
+      // ItemStack.parseOptional needs a HolderLookup.Provider; the client level may be null (title screen, item render before world load)
       ModDataNBT persistentData = tool.getPersistentData();
-      if (ammoKey != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
-        ammo = ItemStack.parseOptional(net.minecraft.client.Minecraft.getInstance().level.registryAccess(), persistentData.getCompound(ammoKey));
+      net.minecraft.world.level.Level level = net.minecraft.client.Minecraft.getInstance().level;
+      final ItemStack ammo;
+      if (ammoKey != null && level != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
+        ammo = ItemStack.parseOptional(level.registryAccess(), persistentData.getCompound(ammoKey));
         builder.add(ammo.getItem());
         if (ammo.has(DataComponents.CUSTOM_DATA)) {
           builder.add(ammo.get(DataComponents.CUSTOM_DATA).copyTag());
