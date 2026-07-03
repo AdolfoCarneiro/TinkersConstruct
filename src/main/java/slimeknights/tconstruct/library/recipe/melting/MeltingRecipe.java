@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
-import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -35,15 +34,11 @@ public class MeltingRecipe implements IMeltingRecipe {
   /** Loader instance */
   public static final RecordLoadable<MeltingRecipe> LOADER = RecordLoadable.create(LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS, MeltingRecipe::new);
 
-  @Getter
   protected final String group;
-  @Getter
   protected final Ingredient input;
   protected final FluidOutput output;
-  @Getter
   protected final int temperature;
   /** Number of "steps" needed to melt this, by default lava increases steps by 1 every 4 ticks (5 a second) */
-  @Getter
   protected final int time;
   protected final List<FluidOutput> byproducts;
   protected List<List<FluidStack>> outputWithByproducts;
@@ -63,6 +58,27 @@ public class MeltingRecipe implements IMeltingRecipe {
     if (addLookup) {
       MeltingRecipeLookup.addMeltingFluid(input, output, temperature);
     }
+  }
+
+  /** Gets the recipe group */
+  @Override
+  public String getGroup() {
+    return group;
+  }
+
+  /** Gets the input ingredient of this recipe */
+  public Ingredient getInput() {
+    return input;
+  }
+
+  /** Gets the temperature required to melt this recipe */
+  public int getTemperature() {
+    return temperature;
+  }
+
+  /** Gets the number of "steps" needed to melt this recipe */
+  public int getTime() {
+    return time;
   }
 
   @Override

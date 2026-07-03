@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.menu;
 
-import lombok.Getter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,12 +17,24 @@ import javax.annotation.Nullable;
 
 public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlockEntity> {
   // slots
-  @Getter
   private final Slot patternSlot;
-  @Getter
   private final Slot inputSlot;
-  @Getter
   private final LazyResultSlot outputSlot;
+
+  /** Gets the slot holding the pattern item */
+  public Slot getPatternSlot() {
+    return patternSlot;
+  }
+
+  /** Gets the slot holding the input material */
+  public Slot getInputSlot() {
+    return inputSlot;
+  }
+
+  /** Gets the slot holding the crafting output */
+  public LazyResultSlot getOutputSlot() {
+    return outputSlot;
+  }
 
   public PartBuilderContainerMenu(int windowIdIn, Inventory playerInventoryIn, @Nullable PartBuilderBlockEntity partBuilderTileEntity) {
     super(TinkerTables.partBuilderContainer.get(), windowIdIn, playerInventoryIn, partBuilderTileEntity);

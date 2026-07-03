@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Setter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -63,8 +62,13 @@ public class InfoPanelScreen<P extends MultiModuleScreen<?>, C extends AbstractC
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
-  @Setter
   protected float textScale = 1.0f;
+
+  /** Sets the scale text is rendered at in this panel */
+  public void setTextScale(float textScale) {
+    this.textScale = textScale;
+  }
+
   public InfoPanelScreen(P parent, C container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, true, false);
 
@@ -409,11 +413,11 @@ public class InfoPanelScreen<P extends MultiModuleScreen<?>, C extends AbstractC
   }
 
   @Override
-  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
+  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
     if (!this.slider.isEnabled() || !this.isMouseInModule((int) mouseX, (int) mouseY) || this.isMouseOverFullSlot(mouseX, mouseY)) {
       return false;
     }
 
-    return this.slider.mouseScrolled(scrollData, true);
+    return this.slider.mouseScrolled(scrollY, true);
   }
 }

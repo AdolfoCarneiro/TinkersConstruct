@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block.entity.table;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -43,11 +42,19 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
   private static final Component NAME = TConstruct.makeTranslation("gui", "part_builder");
 
   /** Result inventory, lazy loads results */
-  @Getter
   private final LazyResultContainer craftingResult;
   /** Crafting inventory for the recipe calls */
-  @Getter
   private final PartBuilderContainerWrapper inventoryWrapper;
+
+  /** Gets the result inventory, lazy loads results */
+  public LazyResultContainer getCraftingResult() {
+    return craftingResult;
+  }
+
+  /** Gets the crafting inventory for the recipe calls */
+  public PartBuilderContainerWrapper getInventoryWrapper() {
+    return inventoryWrapper;
+  }
 
   /* Current buttons to display */
   @Nullable
@@ -227,7 +234,7 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
     super.setItem(slot, stack);
     if (slot == MATERIAL_SLOT) {
       // if item or NBT changed, update
-      if (!ItemStack.isSameItemSameTags(original, stack)) {
+      if (!ItemStack.isSameItemSameComponents(original, stack)) {
         this.inventoryWrapper.refreshMaterial();
         refresh(true);
         // if size changed, we are still the same material but might no longer have enough

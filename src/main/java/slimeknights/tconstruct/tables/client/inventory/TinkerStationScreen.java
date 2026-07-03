@@ -475,11 +475,11 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, scrollY)) {
+    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, scrollX, scrollY)) {
       return false;
     }
 
-    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, scrollY)) {
+    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, scrollX, scrollY)) {
       return false;
     }
 

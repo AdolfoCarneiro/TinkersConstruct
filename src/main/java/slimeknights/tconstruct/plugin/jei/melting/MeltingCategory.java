@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -49,7 +47,6 @@ public class MeltingCategory extends AbstractMeltingCategory {
   private static final IRecipeSlotTooltipCallback METAL_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.METAL);
   private static final IRecipeSlotTooltipCallback GEM_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.GEM);
 
-  @Getter
   private final IDrawable icon;
   private final IDrawableStatic solidFuel;
 
@@ -57,6 +54,11 @@ public class MeltingCategory extends AbstractMeltingCategory {
     super(helper);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.searedMelter));
     this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 18, 20).build();
+  }
+
+  @Override
+  public IDrawable getIcon() {
+    return icon;
   }
 
   @Override
@@ -119,10 +121,17 @@ public class MeltingCategory extends AbstractMeltingCategory {
   }
 
   /** Adds amounts to outputs and temperatures to fuels */
-  @RequiredArgsConstructor
   private static class MeltingFluidCallback extends AbstractMeltingCategory.MeltingFluidCallback {
-    @Getter
     private final OreRateType oreType;
+
+    private MeltingFluidCallback(OreRateType oreType) {
+      this.oreType = oreType;
+    }
+
+    /** Gets the ore rate type for this callback */
+    public OreRateType getOreType() {
+      return oreType;
+    }
 
     @Override
     protected boolean appendMaterial(FluidStack stack, List<Component> list) {

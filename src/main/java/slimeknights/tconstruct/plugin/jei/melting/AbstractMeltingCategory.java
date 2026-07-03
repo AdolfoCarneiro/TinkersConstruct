@@ -121,9 +121,4 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
       }
     }
   }
-
-  @Override
-  public ResourceLocation getRegistryName(MeltingRecipe recipe) {
-    return recipe.getId();
-  }
 }
