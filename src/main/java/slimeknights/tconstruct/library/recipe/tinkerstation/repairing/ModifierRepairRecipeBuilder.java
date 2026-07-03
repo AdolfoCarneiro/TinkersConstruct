@@ -13,11 +13,17 @@ import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
 
 /** Builds a recipe to repair a tool using a modifier */
-@RequiredArgsConstructor(staticName = "repair")
+@RequiredArgsConstructor
 public class ModifierRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierRepairRecipeBuilder> {
   private final ModifierId modifier;
   private final Ingredient ingredient;
   private final int repairAmount;
+
+  private ModifierRepairRecipeBuilder(ModifierId modifier, Ingredient ingredient, int repairAmount) {
+    this.modifier = modifier;
+    this.ingredient = ingredient;
+    this.repairAmount = repairAmount;
+  }
 
   public static ModifierRepairRecipeBuilder repair(ModifierId modifier, Ingredient ingredient, int repairAmount) {
     return new ModifierRepairRecipeBuilder(modifier, ingredient, repairAmount);

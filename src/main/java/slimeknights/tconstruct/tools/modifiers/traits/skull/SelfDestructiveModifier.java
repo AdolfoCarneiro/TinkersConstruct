@@ -33,7 +33,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (player.isShiftKeyDown()) {
-      TinkerEffects.selfDestructing.apply(player, 30, 2, true);
+      TinkerEffects.selfDestructing.get().apply(player, 30, 2, true);
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
       return true;
     }
@@ -59,12 +59,12 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
       return duration == 1;
     }
 
     @Override
-    public void applyEffectTick(LivingEntity living, int amplifier) {
+    public boolean applyEffectTick(LivingEntity living, int amplifier) {
       // effect level is the explosion radius
       Level level = living.level();
       if (!level.isClientSide) {
@@ -72,6 +72,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
         level.explode(living, living.getX(), living.getY(), living.getZ(), amplifier + 1, ExplosionInteraction.MOB);
         living.hurt(TinkerDamageTypes.source(level.registryAccess(), TinkerDamageTypes.SELF_DESTRUCT), 99999);
       }
+      return true;
     }
   }
 }

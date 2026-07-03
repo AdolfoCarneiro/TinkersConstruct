@@ -54,7 +54,9 @@ public class MaterialBlockItem extends BlockItem implements IMaterialItem {
   }
 
   @Override
-  public void verifyTagAfterLoad(CompoundTag tag) {
-    MaterialItem.verifyTag(tag);
+  public void verifyComponentsAfterLoad(ItemStack stack) {
+    CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    MaterialItem.verifyTag(nbt);
+    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
   }
 }

@@ -15,6 +15,10 @@ public class SimpleCache<K,V> implements Function<K,V> {
   private final Map<K,V> cache = new ConcurrentHashMap<>();
   private final Function<K,V> ifAbsent;
 
+  public SimpleCache(Function<K,V> ifAbsent) {
+    this.ifAbsent = ifAbsent;
+  }
+
   @Override
   public V apply(K key) {
     return cache.computeIfAbsent(key, ifAbsent);

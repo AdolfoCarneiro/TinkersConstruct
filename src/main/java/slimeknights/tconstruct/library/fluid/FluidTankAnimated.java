@@ -11,4 +11,12 @@ public class FluidTankAnimated extends FluidTankBase<MantleBlockEntity> {
   public FluidTankAnimated(int capacity, MantleBlockEntity parent) {
     super(capacity, parent);
   }
+
+  public float getRenderOffset() {
+    return renderOffset;
+  }
+
+  public void setRenderOffset(float renderOffset) {
+    this.renderOffset = renderOffset;
+  }
 }

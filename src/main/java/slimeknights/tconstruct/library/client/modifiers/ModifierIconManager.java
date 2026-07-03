@@ -34,6 +34,7 @@ import java.util.Map.Entry;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Log4j2
 public class ModifierIconManager implements IEarlySafeManagerReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ModifierIconManager.class);
   /** Icon file to load, has merging behavior but forge prevents multiple mods from loading the same file */
   private static final String ICONS = "tinkering/modifier_icons.json";
   /** First layer of the default icon, will be tinted */

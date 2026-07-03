@@ -39,6 +39,11 @@ public class TinkerStationTransferInfo<T> implements IRecipeTransferInfo<TinkerS
   }
 
   @Override
+  public RecipeType<T> getRecipeType() {
+    return recipeType;
+  }
+
+  @Override
   public Class<TinkerStationContainerMenu> getContainerClass() {
     return TinkerStationContainerMenu.class;
   }

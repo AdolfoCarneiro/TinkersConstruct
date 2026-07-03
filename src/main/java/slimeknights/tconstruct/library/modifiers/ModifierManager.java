@@ -25,14 +25,15 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ICondition.IContext;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoader;
+import net.neoforged.fml.event.IModBusEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -135,7 +136,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
 
   /** Fires the modifier registry event */
   private void fireRegistryEvent() {
-    ModLoader.get().runEventGenerator(ModifierRegistrationEvent::new);
+    ModLoader.runEventGenerator(ModifierRegistrationEvent::new);
     modifiersRegistered = true;
   }
 
@@ -292,7 +293,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // conditions
-      if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
+      if (json.has("condition") && !ICondition.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, GsonHelper.getAsJsonObject(json, "condition")).getOrThrow().test(conditionContext)) {
         return null;
       }
 
@@ -456,6 +457,10 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   public class ModifierRegistrationEvent extends Event implements IModBusEvent {
     /** Container receiving this event */
     private final ModContainer container;
+
+    protected ModifierRegistrationEvent(ModContainer container) {
+      this.container = container;
+    }
 
     /** Validates the namespace of the container registering */
     private void checkModNamespace(ResourceLocation name) {

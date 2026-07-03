@@ -21,6 +21,16 @@ public class ModifierMaterialRepairRecipeBuilder extends AbstractRecipeBuilder<M
   private final MaterialId material;
   private final MaterialStatsId statType;
 
+  private ModifierMaterialRepairRecipeBuilder(ModifierId modifier, MaterialId material, MaterialStatsId statType) {
+    this.modifier = modifier;
+    this.material = material;
+    this.statType = statType;
+  }
+
+  public static ModifierMaterialRepairRecipeBuilder repair(ModifierId modifier, MaterialId material, MaterialStatsId statType) {
+    return new ModifierMaterialRepairRecipeBuilder(modifier, material, statType);
+  }
+
   public static ModifierMaterialRepairRecipeBuilder repair(LazyModifier modifier, MaterialId material, MaterialStatsId statType) {
     return repair(modifier.getId(), material, statType);
   }

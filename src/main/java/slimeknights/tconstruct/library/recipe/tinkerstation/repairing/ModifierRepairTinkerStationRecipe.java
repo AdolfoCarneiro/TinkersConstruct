@@ -33,6 +33,27 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   @Getter
   private final int repairAmount;
 
+  public ModifierRepairTinkerStationRecipe(ModifierId modifier, Ingredient ingredient, int repairAmount) {
+    this.modifier = modifier;
+    this.ingredient = ingredient;
+    this.repairAmount = repairAmount;
+  }
+
+  @Override
+  public ModifierId getModifier() {
+    return modifier;
+  }
+
+  @Override
+  public Ingredient getIngredient() {
+    return ingredient;
+  }
+
+  @Override
+  public int getRepairAmount() {
+    return repairAmount;
+  }
+
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();

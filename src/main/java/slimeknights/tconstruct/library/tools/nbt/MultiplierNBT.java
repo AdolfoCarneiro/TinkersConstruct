@@ -33,6 +33,10 @@ public class MultiplierNBT {
   /** All currently contained multipliers */
   private final Map<INumericToolStat<?>, Float> stats;
 
+  MultiplierNBT(Map<INumericToolStat<?>, Float> stats) {
+    this.stats = stats;
+  }
+
   /** Creates a new builder */
   public static Builder builder() {
     return new Builder();

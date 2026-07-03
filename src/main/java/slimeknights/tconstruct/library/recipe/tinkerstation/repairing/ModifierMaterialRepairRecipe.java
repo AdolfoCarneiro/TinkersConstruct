@@ -42,6 +42,14 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
     return repairMaterial.getId();
   }
 
+  public ModifierId getModifier() {
+    return modifier;
+  }
+
+  public MaterialStatsId getStatType() {
+    return statType;
+  }
+
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     if (repairMaterial.isUnknown()) {

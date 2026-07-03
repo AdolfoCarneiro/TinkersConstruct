@@ -153,7 +153,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
       for (int i = 0; i < list.size(); i++) {
         CompoundTag compound = list.getCompound(i);
         if (compound.getInt(TAG_SLOT) == slot) {
-          return ItemStack.of(compound);
+          return ItemStack.parseOptional(TConstruct.STATIC_PROVIDER, compound);
         }
       }
     }
@@ -274,7 +274,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
    * @return Tag written to, same as {@code compound}.
    */
   public static CompoundTag writeStack(ItemStack stack, int slot, CompoundTag compound) {
-    stack.save(compound);
+    compound.merge((CompoundTag) stack.save(TConstruct.STATIC_PROVIDER));
     compound.putInt(TAG_SLOT, slot);
     return compound;
   }

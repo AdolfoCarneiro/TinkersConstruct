@@ -2,12 +2,12 @@ package slimeknights.tconstruct.smeltery.block.entity.module;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -26,6 +26,7 @@ import java.util.function.Predicate;
 public class MeltingModule implements IMeltingContainer, ContainerData {
   public static final int NO_SPACE = -1;
 
+  private static final String TAG_STACK = "stack";
   private static final String TAG_CURRENT_TIME = "time";
   private static final String TAG_REQUIRED_TIME = "required";
   private static final String TAG_REQUIRED_TEMP = "temp";
@@ -41,6 +42,13 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   private final IOreRate oreRate;
   /** Slot index for updates */
   private final int slotIndex;
+
+  public MeltingModule(MantleBlockEntity parent, Predicate<IMeltingRecipe> outputFunction, IOreRate oreRate, int slotIndex) {
+    this.parent = parent;
+    this.outputFunction = outputFunction;
+    this.oreRate = oreRate;
+    this.slotIndex = slotIndex;
+  }
 
   /** Current time of the item in the slot */
   @Getter
@@ -62,6 +70,23 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   @Override
   public IOreRate getOreRate() {
     return oreRate;
+  }
+
+  @Override
+  public ItemStack getStack() {
+    return stack;
+  }
+
+  public int getCurrentTime() {
+    return currentTime;
+  }
+
+  public int getRequiredTime() {
+    return requiredTime;
+  }
+
+  public int getRequiredTemp() {
+    return requiredTemp;
   }
 
   /**
@@ -87,7 +112,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     // clear progress if setting to empty or the items do not match
     if (newStack.isEmpty()) {
       resetRecipe();
-    } else if (this.stack.isEmpty() || !ItemHandlerHelper.canItemStacksStack(this.stack, newStack)) {
+    } else if (this.stack.isEmpty() || !ItemStack.isSameItemSameComponents(this.stack, newStack)) {
       currentTime = 0;
     }
 
@@ -209,10 +234,10 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
    * Writes this module to NBT
    * @return  Module in NBT
    */
-  public CompoundTag writeToTag() {
+  public CompoundTag writeToTag(HolderLookup.Provider provider) {
     CompoundTag nbt = new CompoundTag();
     if (!stack.isEmpty()) {
-      stack.save(nbt);
+      nbt.put(TAG_STACK, stack.save(provider));
       nbt.putInt(TAG_CURRENT_TIME, currentTime);
       nbt.putInt(TAG_REQUIRED_TIME, requiredTime);
       nbt.putInt(TAG_REQUIRED_TEMP, requiredTemp);
@@ -224,8 +249,8 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
    * Reads this module from NBT
    * @param nbt  NBT
    */
-  public void readFromTag(CompoundTag nbt) {
-    stack = ItemStack.of(nbt);
+  public void readFromTag(HolderLookup.Provider provider, CompoundTag nbt) {
+    stack = ItemStack.parseOptional(provider, nbt.getCompound(TAG_STACK));
     if (!stack.isEmpty()) {
       currentTime = nbt.getInt(TAG_CURRENT_TIME);
       requiredTime = nbt.getInt(TAG_REQUIRED_TIME);

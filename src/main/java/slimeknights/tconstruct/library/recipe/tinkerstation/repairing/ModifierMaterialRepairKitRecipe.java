@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.Getter;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -39,13 +39,25 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
     this.statType = statType;
   }
 
+  public ModifierId getModifier() {
+    return modifier;
+  }
+
+  public MaterialId getRepairMaterial() {
+    return repairMaterial;
+  }
+
+  public MaterialStatsId getStatType() {
+    return statType;
+  }
+
   @Override
   protected boolean toolMatches(ItemStack stack) {
     return stack.is(TinkerTags.Items.DURABILITY) && ModifierUtil.getModifierLevel(stack, modifier) > 0;
   }
 
   @Override
-  public boolean matches(CraftingContainer inv, Level worldIn) {
+  public boolean matches(CraftingInput inv, Level worldIn) {
     ToolRepair inputs = getRelevantInputs(inv);
     if (inputs == null || !repairMaterial.equals(IMaterialItem.getMaterialFromStack(inputs.repairKit()).getId())) {
       return false;

@@ -255,6 +255,29 @@ public class Util {
     return true;
   }
 
+  /**
+   * Reads a list of conditions from the given key in the JSON object and tests them against the given context.
+   * Replacement for the removed {@code CraftingHelper.processConditions(JsonObject,String,IContext)}.
+   * @return  false if the member is present and any condition fails, true otherwise (including if the member is absent)
+   */
+  public static boolean processConditions(com.google.gson.JsonObject json, String memberName, ICondition.IContext context) {
+    if (!json.has(memberName)) {
+      return true;
+    }
+    java.util.List<ICondition> conditions = ICondition.LIST_CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, json.get(memberName)).getOrThrow();
+    for (ICondition condition : conditions) {
+      if (!condition.test(context)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /** Serializes a list of conditions to a JSON array, for use with {@link #processConditions(com.google.gson.JsonObject, String, ICondition.IContext)}. */
+  public static com.google.gson.JsonElement serializeConditions(java.util.List<ICondition> conditions) {
+    return ICondition.LIST_CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, conditions).getOrThrow();
+  }
+
   /** Creates a new client block entity data packet with better generics than the vanilla method */
   public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
     return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));

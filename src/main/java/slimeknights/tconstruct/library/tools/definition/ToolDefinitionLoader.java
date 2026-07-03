@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 /** JSON loader that loads tool definitions from JSON */
 @Log4j2
 public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ToolDefinitionLoader.class);
   public static final String FOLDER = "tinkering/tool_definitions";
   private static final ToolDefinitionLoader INSTANCE = new ToolDefinitionLoader();
 

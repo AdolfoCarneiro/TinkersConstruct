@@ -185,6 +185,12 @@ public class StationSlotLayout {
 
     private Builder() {}
 
+    /** Sets the translation key of this layout */
+    public Builder translationKey(String translationKey) {
+      this.translationKey = translationKey;
+      return this;
+    }
+
     /** Sets the sort index of this layout, unused for non-main layouts */
     public Builder sortIndex(int index) {
       sortIndex = index;

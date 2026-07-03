@@ -71,6 +71,14 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
     this(id, inv, getTileEntityFromBuf(buf, ModifierWorktableBlockEntity.class));
   }
 
+  public List<Slot> getInputSlots() {
+    return inputSlots;
+  }
+
+  public LazyResultSlot getOutputSlot() {
+    return outputSlot;
+  }
+
   @Override
   protected int getInventoryYOffset() {
     return 102;

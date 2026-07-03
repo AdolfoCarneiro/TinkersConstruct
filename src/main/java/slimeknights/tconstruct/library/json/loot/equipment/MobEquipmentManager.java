@@ -13,7 +13,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.common.conditions.ICondition.IContext;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
@@ -71,7 +70,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
       try {
         JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), key.toString());
         // skip if conditions fail
-        if (!CraftingHelper.processConditions(json, "conditions", context)) {
+        if (!slimeknights.tconstruct.library.utils.Util.processConditions(json, "conditions", context)) {
           continue;
         }
         // parse the object
@@ -87,7 +86,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
             // need to use the condition context to fetch tag values as they are not yet in the mananger
             TagKey<EntityType<?>> tag = Loadables.ENTITY_TYPE_TAG.parseString(type.substring(1), "entity");
             for (Holder<EntityType<?>> holder : context.getTag(tag)) {
-              parsed.computeIfAbsent(holder.get(), ifAbsent).addAll(equipment);
+              parsed.computeIfAbsent(holder.value(), ifAbsent).addAll(equipment);
             }
           } else {
             parsed.computeIfAbsent(Loadables.ENTITY_TYPE.parseString(type, "entity"), ifAbsent).addAll(equipment);

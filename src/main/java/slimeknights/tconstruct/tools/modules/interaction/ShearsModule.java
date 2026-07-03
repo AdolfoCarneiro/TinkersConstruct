@@ -96,9 +96,10 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
       return result == Result.ALLOW;
     }
     // fallback to forge shearable
-    if (entity instanceof IShearable target && target.isShearable(itemStack, world, entity.blockPosition())) {
+    // note: IShearable#onSheared dropped its "fortune" parameter in 1.21.1; fortune is no longer forwarded to the shear itself
+    if (entity instanceof IShearable target && target.isShearable(player, itemStack, world, entity.blockPosition())) {
       if (!world.isClientSide) {
-        target.onSheared(player, itemStack, world, entity.blockPosition(), fortune)
+        target.onSheared(player, itemStack, world, entity.blockPosition())
           .forEach(stack -> ModifierUtil.dropItem(entity, stack));
       }
       return true;
@@ -117,7 +118,7 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
     LootingContext context = new LootingContext(player, target, null, Util.getSlotType(hand));
-    int looting = LootingModifierHook.getLooting(tool, context, player.getItemInHand(hand).getEnchantmentLevel(Enchantments.LOOTING));
+    int looting = LootingModifierHook.getLooting(tool, context, player.getItemInHand(hand).getEnchantmentLevel(player.level().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.LOOTING)));
     looting = ArmorLootingModifierHook.getLooting(tool, context, looting);
     Level world = player.getCommandSenderWorld();
     if (shearEntity(stack, tool, world, player, target, looting)) {

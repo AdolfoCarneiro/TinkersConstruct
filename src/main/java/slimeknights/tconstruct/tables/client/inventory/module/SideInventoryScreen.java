@@ -106,9 +106,11 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
     return this.firstSlotId <= slot.getSlotIndex() && this.lastSlotId > slot.getSlotIndex();
   }
 
-  @Override
+  // Note: AbstractContainerScreen#isHovering(Slot,double,double) is private in 1.21.1, so this can no
+  // longer actually override vanilla's internal hover checks (matches the A32v "private, no longer
+  // overridable" pattern). Kept as a plain helper replicating the old logic in case callers use it directly.
   public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
-    return super.isHovering(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
+    return super.isHovering(slotIn.x, slotIn.y, 16, 16, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
   }
 
   public void updateSlotCount(int newSlotCount) {
@@ -325,11 +327,11 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
   }
 
   @Override
-  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
+  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
     if (!this.slider.isEnabled()) {
-      return super.handleMouseScrolled(mouseX, mouseY, scrollData);
+      return super.handleMouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
-    return this.slider.mouseScrolled(scrollData, !this.isMouseOverFullSlot(mouseX, mouseY) && this.isMouseInModule((int) mouseX, (int) mouseY));
+    return this.slider.mouseScrolled(scrollY, !this.isMouseOverFullSlot(mouseX, mouseY) && this.isMouseInModule((int) mouseX, (int) mouseY));
   }
 }

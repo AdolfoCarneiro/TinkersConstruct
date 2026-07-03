@@ -81,6 +81,10 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
     this(id, inv, getTileEntityFromBuf(buf, TinkerStationBlockEntity.class));
   }
 
+  public List<Slot> getInputSlots() {
+    return inputSlots;
+  }
+
   @Override
   protected int getInventoryYOffset() {
     return 102;

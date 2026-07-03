@@ -32,6 +32,16 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
   public abstract boolean isItemValid(int slot, ItemStack stack);
 
   @Override
+  public void setParent(@Nullable MantleBlockEntity parent) {
+    this.parent = parent;
+  }
+
+  @Override
+  public int getVisualSize() {
+    return visualSize;
+  }
+
+  @Override
   protected void onLoad() {
     int newLimit = getSlots();
     if (newLimit > 1 && this.getStackInSlot(newLimit - 1).isEmpty()) {

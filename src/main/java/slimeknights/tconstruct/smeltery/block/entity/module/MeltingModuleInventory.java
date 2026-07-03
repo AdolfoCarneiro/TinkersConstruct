@@ -311,12 +311,12 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * Writes this module to Tag
    * @return  Module in Tag
    */
-  public CompoundTag writeToTag() {
+  public CompoundTag writeToTag(net.minecraft.core.HolderLookup.Provider provider) {
     CompoundTag nbt = new CompoundTag();
     ListTag list = new ListTag();
     for (int i = 0; i < modules.length; i++) {
       if (modules[i] != null && !modules[i].getStack().isEmpty()) {
-        CompoundTag moduleTag = modules[i].writeToTag();
+        CompoundTag moduleTag = modules[i].writeToTag(provider);
         moduleTag.putByte(TAG_SLOT, (byte)i);
         list.add(moduleTag);
       }
@@ -332,7 +332,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * Reads this inventory from Tag
    * @param nbt  Tag compound
    */
-  public void readFromTag(CompoundTag nbt) {
+  public void readFromTag(net.minecraft.core.HolderLookup.Provider provider, CompoundTag nbt) {
     if (!strictSize) {
       int newSize = nbt.getByte(TAG_SIZE) & 255;
       if (newSize != modules.length) {
@@ -352,7 +352,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       if (item.contains(TAG_SLOT, Tag.TAG_BYTE)) {
         int slot = item.getByte(TAG_SLOT) & 255;
         if (validSlot(slot)) {
-          getModule(slot).readFromTag(item);
+          getModule(slot).readFromTag(provider, item);
         }
       }
     }

@@ -22,6 +22,14 @@ public class ModifierWorktableContainerWrapper implements ITinkerableContainer.M
   @Nullable
   private ToolStack tool;
 
+  public ModifierWorktableContainerWrapper(ModifierWorktableBlockEntity worktable) {
+    this.worktable = worktable;
+  }
+
+  public void setPlayer(@Nullable Player player) {
+    this.player = player;
+  }
+
   /**
    * Clears the cached inputs
    */

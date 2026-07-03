@@ -40,6 +40,7 @@ import java.util.Set;
  */
 @Log4j2
 public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener {
+  private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(MaterialRenderInfoLoader.class);
   public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
 
   /** Folder to scan for material render info JSONS */
@@ -53,7 +54,8 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // we do this as we need to guarantee we run before models are baked, which happens in the first stage of listeners in the bakery constructor
     // the other option would be to wait until the atlas stitch event, though that would make it more difficult to know which sprites we need
     TConstruct.getModEventBus().addListener(EventPriority.NORMAL, false, ModelEvent.RegisterAdditional.class, event -> {
-      if(ModLoader.isLoadingStateValid()) {
+      // ModLoader.isLoadingStateValid() has no direct replacement in 1.21.1; hasErrors() is the closest equivalent guard
+      if(!ModLoader.hasErrors()) {
         INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
       }
     });

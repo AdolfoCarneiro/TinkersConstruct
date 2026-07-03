@@ -65,7 +65,7 @@ public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation,
 
   /** Creates a builder for adding stats */
   public static Builder multiplyBase(INumericToolStat<?> stat) {
-    return new Builder(stat, StatOperation.ADD_MULTIPLIED_BASE);
+    return new Builder(stat, StatOperation.MULTIPLY_BASE);
   }
 
   /** Creates a builder for adding stats */
@@ -122,6 +122,11 @@ public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation,
   public static class Builder extends ModuleBuilder.Context<Builder> implements LevelingValue.Builder<StatBoostModule> {
     private final INumericToolStat<?> stat;
     private final StatOperation operation;
+
+    private Builder(INumericToolStat<?> stat, StatOperation operation) {
+      this.stat = stat;
+      this.operation = operation;
+    }
 
     @Override
     public StatBoostModule amount(float flat, float eachLevel) {

@@ -74,6 +74,23 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     this.craftingResult = new LazyResultContainer(this);
   }
 
+  public LazyResultContainer getCraftingResult() {
+    return craftingResult;
+  }
+
+  public ModifierWorktableContainerWrapper getInventoryWrapper() {
+    return inventoryWrapper;
+  }
+
+  @Nullable
+  public LazyToolStack getResult() {
+    return result;
+  }
+
+  public Component getCurrentMessage() {
+    return currentMessage;
+  }
+
   /** Capability factory, registered for this block entity type by {@code TinkerTables.registerCapabilities} */
   public static IItemHandler createItemHandler(ModifierWorktableBlockEntity be, @Nullable Direction side) {
     return be.itemHandler;
@@ -184,7 +201,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     ItemStack original = getItem(slot);
     super.setItem(slot, stack);
     // if the stack changed, clear everything
-    if (original.getCount() != stack.getCount() || !ItemStack.isSameItemSameTags(original, stack)) {
+    if (original.getCount() != stack.getCount() || !ItemStack.isSameItemSameComponents(original, stack)) {
       onSlotChanged(slot);
     }
   }

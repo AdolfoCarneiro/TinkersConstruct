@@ -23,6 +23,14 @@ public class UpdateToolDefinitionDataPacket implements CustomPacketPayload {
   @Getter(AccessLevel.PROTECTED)
   private final Map<ResourceLocation, ToolDefinitionData> dataMap;
 
+  public UpdateToolDefinitionDataPacket(Map<ResourceLocation, ToolDefinitionData> dataMap) {
+    this.dataMap = dataMap;
+  }
+
+  protected Map<ResourceLocation, ToolDefinitionData> getDataMap() {
+    return dataMap;
+  }
+
   public UpdateToolDefinitionDataPacket(RegistryFriendlyByteBuf buffer) {
     int size = buffer.readVarInt();
     ImmutableMap.Builder<ResourceLocation, ToolDefinitionData> builder = ImmutableMap.builder();
