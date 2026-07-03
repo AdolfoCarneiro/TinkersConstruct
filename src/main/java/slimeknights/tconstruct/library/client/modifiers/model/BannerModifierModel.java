@@ -44,18 +44,9 @@ public record BannerModifierModel(@Nullable ResourceLocation smallPrefix, @Nulla
 
   @Override
   public void validate(Function<Material, TextureAtlasSprite> spriteGetter) {
-    // since these are dynamically loaded, condition based on the config option
-    if (Config.CLIENT.logMissingModifierTextures.get()) {
-      for (ResourceKey<BannerPattern> key : Sheets.SHIELD_MATERIALS.keySet()) {
-        String suffix = MaterialRenderInfo.getSuffix(key.location());
-        if (smallPrefix != null) {
-          spriteGetter.apply(ModifierModel.blockAtlas(smallPrefix.withSuffix(suffix)));
-        }
-        if (largePrefix != null) {
-          spriteGetter.apply(ModifierModel.blockAtlas(largePrefix.withSuffix(suffix)));
-        }
-      }
-    }
+    // F2: BannerModule data-driven regression. Sheets.SHIELD_MATERIALS is now private and keyed by ResourceLocation,
+    // and banner patterns moved to a datapack registry with asset roots. The dynamic sprite pre-registration loop
+    // needs rebuilding against the new banner-pattern API; skipped for now.
   }
 
   @Override
@@ -77,7 +68,9 @@ public record BannerModifierModel(@Nullable ResourceLocation smallPrefix, @Nulla
           // patterns are stored as short strings for some reason, for consistency we also store as hashes
           // map that back to the pattern
           CompoundTag tag = list.getCompound(i);
-          Holder<BannerPattern> pattern = BannerPattern.byHash(tag.getString(BannerModule.KEY_PATTERN));
+          // F2: BannerPattern.byHash removed in 1.21 (patterns moved to a datapack registry keyed by asset root).
+          // Hash-string lookup no longer works, so the banner overlay does not render pending BannerModule redesign.
+          Holder<BannerPattern> pattern = null;
           int color = tag.getInt(BannerModule.KEY_COLOR);
           if (pattern != null) {
             // why must holders be such a pain?

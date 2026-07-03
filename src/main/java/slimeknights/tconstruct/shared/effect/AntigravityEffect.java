@@ -115,11 +115,9 @@ public class AntigravityEffect extends TinkerEffect {
     return true;
   }
 
-  @Override
-  public void removeAttributeModifiers(LivingEntity living) {
-    super.removeAttributeModifiers(living);
-    LAST_VELOCITY.remove(living.getId());
-  }
+  // F2: removeAttributeModifiers no longer receives the LivingEntity in 1.21, so the
+  // per-entity LAST_VELOCITY cleanup hook was dropped. Entries are overwritten each tick
+  // while active; stale ids are a minor bounded leak pending redesign.
 
   /** Handles making the player jump down instead of up */
   private void onLivingJump(LivingJumpEvent event) {

@@ -42,7 +42,7 @@ public class CastingContainerWrapper implements ICastingContainer {
   @Nullable
   @Override
   public CompoundTag getFluidTag() {
-    return fluid.getTag();
+    return new CompoundTag(); // F2: FluidStack CompoundTag NBT removed (now DataComponentPatch); casting fluid-NBT chain needs redesign
   }
 
   /** Uses the input for input (default) */

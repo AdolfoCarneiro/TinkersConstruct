@@ -62,7 +62,8 @@ public class TinkerBook extends BookData {
    * Initializes the books
    */
   public static void initBook() {
-    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer());
+    // F2: Component Gson adapter now needs a HolderLookup.Provider; using vanilla built-in lookup (book text has no dynamic registry refs)
+    BookLoader.registerGsonTypeAdapter(Component.class, new Component.SerializerAdapter(net.minecraft.data.registries.VanillaRegistries.createLookup()));
 
     // register page types
     BookLoader.registerPageType(MeleeHarvestMaterialContent.ID, MeleeHarvestMaterialContent.class);

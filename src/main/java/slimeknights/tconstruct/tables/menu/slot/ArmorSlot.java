@@ -41,6 +41,6 @@ public class ArmorSlot extends Slot {
   @Override
   public boolean mayPickup(Player player) {
     ItemStack stack = this.getItem();
-    return stack.isEmpty() || player.isCreative() || !EnchantmentHelper.hasBindingCurse(stack);
+    return stack.isEmpty() || player.isCreative() || !EnchantmentHelper.has(stack, net.minecraft.world.item.enchantment.EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE);
   }
 }

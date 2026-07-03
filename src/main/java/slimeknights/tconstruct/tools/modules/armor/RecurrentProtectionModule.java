@@ -72,7 +72,7 @@ public record RecurrentProtectionModule(LevelingValue percent, LevelingInt durat
         // step 2: apply momentum based on damage taken
         int reduction = (int)(percent.compute(level) * amount);
         if (reduction > 0) {
-          entity.addEffect(new MobEffectInstance(effect, duration.compute(level), reduction - 1, false, false, true));
+          entity.addEffect(new MobEffectInstance(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), duration.compute(level), reduction - 1, false, false, true));
         }
       }
     }

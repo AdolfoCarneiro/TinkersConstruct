@@ -56,7 +56,7 @@ public class HarvestTiers {
   /** Returns vanilla tiers sorted by level (ascending) */
   public static List<Tier> getSortedTiers() {
     return Arrays.stream(Tiers.values())
-      .sorted(Comparator.comparingInt(Tiers::getLevel))
+      .sorted(Comparator.comparingInt(Tiers::ordinal)) // F2: Tier#getLevel removed in 1.21, enum order proxy
       .collect(java.util.stream.Collectors.toList());
   }
 

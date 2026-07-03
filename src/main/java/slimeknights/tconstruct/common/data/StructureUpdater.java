@@ -61,7 +61,7 @@ public class StructureUpdater extends GenericNBTProvider {
   @Nullable
   private CompletableFuture<?> process(ResourceLocation location, Resource resource, CachedOutput cache) {
     try {
-      CompoundTag inputNBT = NbtIo.readCompressed(resource.open());
+      CompoundTag inputNBT = NbtIo.readCompressed(resource.open(), net.minecraft.nbt.NbtAccounter.unlimitedHeap());
       CompoundTag converted = updateNBT(inputNBT);
       if (!converted.equals(inputNBT)) {
         Class<? extends DataFixer> fixerClass = DataFixers.getDataFixer().getClass();

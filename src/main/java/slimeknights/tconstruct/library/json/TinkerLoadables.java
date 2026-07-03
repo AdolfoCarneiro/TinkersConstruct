@@ -78,8 +78,13 @@ public class TinkerLoadables {
   });
 
   /* Loot tables */
-  /** Loadable for a loot entry instance */
-  public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = new GsonLoadable<>(LootModifierManager.GSON_INSTANCE, LootPoolEntryContainer.class);
+  /**
+   * Loadable for a loot entry instance.
+   * F2: NeoForge's LootModifierManager.GSON_INSTANCE is now private and loot (de)serialization moved from Gson type
+   * adapters to Codecs in 1.21. This plain Gson will not correctly deserialize LootPoolEntryContainer; the loadable
+   * needs to be rebuilt on the loot Codec pipeline.
+   */
+  public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = new GsonLoadable<>(new com.google.gson.GsonBuilder().create(), LootPoolEntryContainer.class);
 
   /** Loadble requiring the argument to be an instance of the passed class */
   @SuppressWarnings("unchecked")  // The type works when deserializing, so it works when serializing

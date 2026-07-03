@@ -142,7 +142,7 @@ public enum TippedModule implements ModifierModule, ProjectileLaunchModifierHook
           var potionHolder = potionOpt.get();
           return Component.translatable(FORMAT,
             RomanNumeralHelper.getNumeral(entry.getLevel()),
-            Component.translatable(Potion.getName(potionOpt, "item.minecraft.potion.effect."))
+            Component.translatable(Potion.getName(potionOpt.map(h -> (net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>) h), "item.minecraft.potion.effect."))
           ).withStyle(style -> style.withColor(PotionContents.getColor(potionHolder)));
         }
       }

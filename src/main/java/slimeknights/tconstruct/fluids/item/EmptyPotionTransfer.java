@@ -35,8 +35,8 @@ public class EmptyPotionTransfer extends EmptyFluidWithNBTTransfer {
     if (contents.is(Potions.WATER)) {
       return new FluidStack(Fluids.WATER, fluid.getAmount());
     }
-    CompoundTag _tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-    return new FluidStack(fluid.get().getFluid(), fluid.getAmount(), _tag.isEmpty() ? null : _tag);
+    // F2: FluidStack no longer carries a CompoundTag (migrated to DataComponentPatch); potion NBT is dropped pending redesign
+    return new FluidStack(fluid.get().getFluid(), fluid.getAmount());
   }
 
   @Override

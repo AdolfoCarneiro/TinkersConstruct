@@ -19,6 +19,12 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
   private final FluidOutput output;
   private final int damage;
 
+  private EntityMeltingRecipeBuilder(EntityIngredient ingredient, FluidOutput output, int damage) {
+    this.ingredient = ingredient;
+    this.output = output;
+    this.damage = damage;
+  }
+
   /** Creates a new builder (Lombok @RequiredArgsConstructor staticName gap) */
   public static EntityMeltingRecipeBuilder melting(EntityIngredient ingredient, FluidOutput output, int damage) {
     return new EntityMeltingRecipeBuilder(ingredient, output, damage);

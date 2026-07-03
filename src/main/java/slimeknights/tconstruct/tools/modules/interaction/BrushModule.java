@@ -66,7 +66,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
 
   /** Runs an entity raytrace for brushing. See same method on {@link BrushItem} */
   private static HitResult calculateHitResult(LivingEntity living) {
-    return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(NeoForgeMod.BLOCK_REACH.get()));
+    return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.BLOCK_INTERACTION_RANGE));
   }
 
   @Override

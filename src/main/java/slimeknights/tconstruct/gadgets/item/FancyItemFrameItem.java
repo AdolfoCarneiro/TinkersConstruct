@@ -44,7 +44,7 @@ public class FancyItemFrameItem extends Item {
     HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
     CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     if (!tag.isEmpty()) {
-      EntityType.updateCustomEntityTag(world, player, frame, tag);
+      EntityType.updateCustomEntityTag(world, player, frame, net.minecraft.world.item.component.CustomData.of(tag));
     }
 
     if (frame.survives()) {

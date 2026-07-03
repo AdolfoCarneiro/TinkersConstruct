@@ -11,7 +11,7 @@ public class DragonScaleItem extends TooltipItem {
   }
 
   @Override
-  public boolean canBeHurtBy(DamageSource damageSource) {
+  public boolean canBeHurtBy(net.minecraft.world.item.ItemStack stack, DamageSource damageSource) {
     return !damageSource.is(DamageTypeTags.IS_EXPLOSION);
   }
 }

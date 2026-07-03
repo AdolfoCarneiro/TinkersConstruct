@@ -143,7 +143,7 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
     /** Adds the given traits to the list */
     private static void addAll(List<ModifierEntry> list, LazyModifier[] traits) {
       for (LazyModifier trait : traits) {
-        list.add(new ModifierEntry(trait, 1));
+        list.add(new ModifierEntry(trait.getId(), 1));
       }
     }
 

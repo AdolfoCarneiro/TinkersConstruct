@@ -65,7 +65,7 @@ public class TankModifierModel implements ModifierModel {
     if (largeFull != null) spriteGetter.apply(largeFull);
   }
 
-  private record CacheKey(Fluid fluid, @Nullable CompoundTag tag, boolean partial) {}
+  private record CacheKey(Fluid fluid, net.minecraft.core.component.DataComponentPatch tag, boolean partial) {}
 
   @Nullable
   @Override
@@ -73,7 +73,7 @@ public class TankModifierModel implements ModifierModel {
     ToolTankHelper helper = tankHelper();
     FluidStack fluid = helper.getFluid(tool);
     if (!fluid.isEmpty()) {
-      return new CacheKey(fluid.getFluid(), fluid.getTag(), fluid.getAmount() + tolerance < helper.getCapacity(tool));
+      return new CacheKey(fluid.getFluid(), fluid.getComponentsPatch(), fluid.getAmount() + tolerance < helper.getCapacity(tool));
     }
     return null;
   }

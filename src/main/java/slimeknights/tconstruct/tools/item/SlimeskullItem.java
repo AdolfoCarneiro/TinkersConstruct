@@ -36,11 +36,7 @@ public class SlimeskullItem extends ModifiableArmorItem {
     this(material, material.getId(), properties);
   }
 
-  @Nullable
-  @Override
-  public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-    return ArmorUtil.getDummyArmorTexture(slot);
-  }
+  // F2: Item#getArmorTexture removed in 1.21 (armor textures now driven by ArmorMaterial/equipment data). Needs redesign.
 
   @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {

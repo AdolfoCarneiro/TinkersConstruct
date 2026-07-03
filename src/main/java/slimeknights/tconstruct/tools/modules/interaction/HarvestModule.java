@@ -267,7 +267,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
             player.sweepAttack();
           }
           if (broken) {
-            player.broadcastBreakEvent(context.getHand());
+            // broadcastBreakEvent removed in 1.21
           }
         }
       }

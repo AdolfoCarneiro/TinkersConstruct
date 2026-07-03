@@ -61,7 +61,7 @@ public enum InteractionSource {
    */
   public static InteractionSource fromEquipmentSlot(EquipmentSlot slot) {
     EquipmentSlot.Type type = slot.getType();
-    if (type == EquipmentSlot.Type.ARMOR) return ARMOR;
+    if (type == EquipmentSlot.Type.HUMANOID_ARMOR || type == EquipmentSlot.Type.ANIMAL_ARMOR) return ARMOR;
     return RIGHT_CLICK;
   }
 

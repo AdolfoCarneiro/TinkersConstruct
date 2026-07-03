@@ -92,7 +92,11 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
         JsonObject fluidObject = fluidElement.getAsJsonObject();
         fluid = Loadables.FLUID.getIfPresent(fluidObject, "name");
         if (fluidObject.has("nbt")) {
-          tag = net.minecraft.nbt.TagParser.parseTag(fluidObject.get("nbt").getAsString());
+          try {
+            tag = net.minecraft.nbt.TagParser.parseTag(fluidObject.get("nbt").getAsString());
+          } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            throw new com.google.gson.JsonSyntaxException("Invalid NBT entry: " + e);
+          }
         }
       } else {
         fluid = Loadables.FLUID.convert(fluidElement, "fluid");

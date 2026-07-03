@@ -464,9 +464,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .build());
     buildModifier(ModifierIds.hydraulic).addModule(
       ConditionalMiningSpeedModule.builder()
+        // F2: enchantments moved to the datapack registry in 1.21; BuiltInRegistries.ENCHANTMENT no longer exists and
+        // the AQUA_AFFINITY value cannot be resolved here without HolderLookup.Provider access. The aqua-affinity sub-branch
+        // (fast mining when the enchant is present) is stubbed out to the in-water value pending the enchantment migration.
         .customVariable("bonus", new EntityConditionalStatVariable(new ConditionalEntityVariable(
           LivingEntityPredicate.EYES_IN_WATER,
-          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(BuiltInRegistries.ENCHANTMENT.getValue(Enchantments.AQUA_AFFINITY.location())), 8, 40),
+          new ConditionalEntityVariable(LivingEntityPredicate.EYES_IN_WATER, 8, 40),
           new ConditionalEntityVariable(LivingEntityPredicate.RAINING, 4, 0)
         ), 8)).formula()
         .variable(MULTIPLIER).customVariable("bonus").multiply()

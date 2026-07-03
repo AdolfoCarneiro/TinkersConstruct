@@ -20,14 +20,14 @@ public class ReturningEffect extends TinkerEffect {
   private static final ResourceLocation KEY = TConstruct.getResource("returning");
   public ReturningEffect() {
     super(MobEffectCategory.NEUTRAL, 0xa92dff, true);
-    NeoForge.EVENT_BUS.addListener(this::onEffectAdded);
+    NeoForge.EVENT_BUS.addListener(MobEffectEvent.Added.class, this::onEffectAdded);
   }
 
   /** Called to set the return position when the effect is added */
   private void onEffectAdded(MobEffectEvent.Added event) {
     // store entity's current position when the effect is added
     LivingEntity entity = event.getEntity();
-    if (!entity.level().isClientSide() && event.getOldEffectInstance() == null && event.getEffectInstance().getEffect() == this) {
+    if (!entity.level().isClientSide() && event.getOldEffectInstance() == null && event.getEffectInstance().getEffect().value() == this) {
       ModDataNBT data = PersistentDataCapability.getOrWarn(entity);
       CompoundTag compound = new CompoundTag();
       compound.put("pos", NbtUtils.writeBlockPos(entity.blockPosition()));

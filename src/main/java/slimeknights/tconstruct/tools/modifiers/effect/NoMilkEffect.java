@@ -1,11 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.effect;
 
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.common.TinkerEffect;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Effect that cannot be cured with milk
@@ -16,8 +13,5 @@ public class NoMilkEffect extends TinkerEffect {
     super(typeIn, color, show);
   }
 
-  @Override
-  public List<ItemStack> getCurativeItems() {
-    return new ArrayList<>();
-  }
+  // F2: getCurativeItems removed in 1.21 (curative items are now data-driven). "No milk cure" behavior needs redesign.
 }

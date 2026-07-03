@@ -24,7 +24,7 @@ public class MobEffectLiquidBlock extends LiquidBlock {
 
   @Override
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-    if (entity.getFluidTypeHeight(getFluid().getFluidType()) > 0 && entity instanceof LivingEntity living) {
+    if (entity.getFluidTypeHeight(this.fluid.getFluidType()) > 0 && entity instanceof LivingEntity living) {
       MobEffectInstance effect = this.effect.get();
       living.addEffect(effect);
     }

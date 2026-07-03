@@ -36,7 +36,7 @@ public class MagmaBottleItem extends Item {
     tooltip.add(Component.translatable(
       "potion.withDuration",
       Blocks.FIRE.getName(),
-      StringUtil.formatTickDuration(fireTime * 20)
+      StringUtil.formatTickDuration(fireTime * 20, 20.0F)
     ).withStyle(MobEffectCategory.HARMFUL.getTooltipFormatting()));
   }
 

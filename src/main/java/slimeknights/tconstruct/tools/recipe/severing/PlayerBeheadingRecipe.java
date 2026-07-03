@@ -34,9 +34,7 @@ public class PlayerBeheadingRecipe extends SeveringRecipe {
     ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
     if (entity instanceof Player) {
       GameProfile gameprofile = ((Player)entity).getGameProfile();
-      CompoundTag _nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-      _nbt.put("SkullOwner", NbtUtils.writeGameProfile(new CompoundTag(), gameprofile));
-      stack.set(DataComponents.CUSTOM_DATA, CustomData.of(_nbt));
+      stack.set(DataComponents.PROFILE, new net.minecraft.world.item.component.ResolvableProfile(gameprofile));
     }
     return stack;
   }

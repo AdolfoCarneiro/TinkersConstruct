@@ -37,7 +37,7 @@ public interface ProtectionModifierHook {
 
   /** Gets the maximum protection amount on the given entity */
   static double getProtectionCap(LivingEntity living, TinkerDataCapability.Holder data) {
-    return Math.min(living.getAttributeValue(TinkerAttributes.PROTECTION_CAP.get()) * 25f + data.get(TinkerDataKeys.PROTECTION_CAP, 0f), 25 * 0.95f);
+    return Math.min(living.getAttributeValue(TinkerAttributes.PROTECTION_CAP) * 25f + data.get(TinkerDataKeys.PROTECTION_CAP, 0f), 25 * 0.95f);
   }
 
   /** Gets the maximum protection amount on the given entity */

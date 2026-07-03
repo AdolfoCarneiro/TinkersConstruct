@@ -46,6 +46,10 @@ public abstract class AbstractPartSpriteProvider {
   /** Default mod ID for helper functions */
   private final String modID;
 
+  protected AbstractPartSpriteProvider(String modID) {
+    this.modID = modID;
+  }
+
   /** Gets the name of these part sprites */
   @CheckReturnValue
   public abstract String getName();

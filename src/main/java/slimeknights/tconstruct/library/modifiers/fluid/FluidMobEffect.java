@@ -56,9 +56,7 @@ public record FluidMobEffect(MobEffect effect, int time, int level, @Nullable Li
   /** Creates the final effect */
   public MobEffectInstance effectWithTime(int time) {
     MobEffectInstance instance = new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), time, this.level - 1);
-    if (curativeItems != null) {
-      instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
-    }
+    // F2: MobEffectInstance#setCurativeItems removed in 1.21 (curative items are now data-driven). curativeItems ignored pending redesign.
     return instance;
   }
 

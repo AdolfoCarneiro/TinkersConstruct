@@ -771,6 +771,8 @@ public class ItemTagProvider extends ItemTagsProvider {
       case LEGGINGS -> LEGGINGS;
       case CHESTPLATE -> CHESTPLATES;
       case HELMET -> HELMETS;
+      // BODY (animal armor) added in 1.21; TC has no body armor, fall back to chestplate tag
+      default -> CHESTPLATES;
     };
   }
 
@@ -780,6 +782,8 @@ public class ItemTagProvider extends ItemTagsProvider {
       case LEGGINGS -> ItemTags.LEG_ARMOR;
       case CHESTPLATE -> ItemTags.CHEST_ARMOR;
       case HELMET -> ItemTags.HEAD_ARMOR;
+      // BODY (animal armor) added in 1.21; TC has no body armor, fall back to chest armor tag
+      default -> ItemTags.CHEST_ARMOR;
     };
   }
 

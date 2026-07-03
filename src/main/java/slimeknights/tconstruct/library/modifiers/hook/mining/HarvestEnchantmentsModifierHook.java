@@ -80,7 +80,8 @@ public interface HarvestEnchantmentsModifierHook {
       // if the enchantments is null, no hooks ran so the enchantments are unchanged
       if (enchantments != null) {
         // we allow 0 values for enchantments in the hook — remove them
-        enchantments.keySet().removeIf(h -> enchantments.getLevel(h) <= 0);
+        var finalEnchantments = enchantments;
+        finalEnchantments.keySet().removeIf(h -> finalEnchantments.getLevel(h) <= 0);
         EnchantmentHelper.setEnchantments(stack, enchantments.toImmutable());
         return originalEnchants;
       }
