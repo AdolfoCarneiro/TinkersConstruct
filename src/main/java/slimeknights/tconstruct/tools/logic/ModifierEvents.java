@@ -50,7 +50,7 @@ import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
-import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -209,12 +209,19 @@ public class ModifierEvents {
 
   @SuppressWarnings("removal")
   @SubscribeEvent
-  static void beforeBlockBreak(BreakEvent event) {
-    Player player = event.getPlayer();
-    // directly use modifier for held to ensure the correct hand applies
-    // TODO: can we make that datapack configurable?
-    // TODO 1.21.1: BlockEvent.BreakEvent no longer has getExpToDrop()/setExpToDrop() in NeoForge 1.21.1
-    // XP multiplier from experienced modifier disabled until NeoForge exposes XP drop hook again
+  static void beforeBlockBreak(BlockDropsEvent event) {
+    // BlockEvent.BreakEvent lost getExpToDrop()/setExpToDrop() in NeoForge 1.21.1; BlockDropsEvent
+    // (fired later, after drops are determined but before they enter the world) is the replacement
+    // for reading/writing the block's dropped experience, via getDroppedExperience()/setDroppedExperience(int)
+    if (event.getBreaker() instanceof Player player) {
+      // directly use modifier for held to ensure the correct hand applies
+      // TODO: can we make that datapack configurable?
+      double bonus = player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER)
+                   + ModifierUtil.getModifierLevel(player.getMainHandItem(), ModifierIds.experienced) * 0.5f
+                   + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
+      // BlockDropsEvent#setDroppedExperience requires a non-negative value, unlike the old Forge setter
+      event.setDroppedExperience(Math.max(0, (int)(event.getDroppedExperience() * bonus)));
+    }
   }
 
   @SuppressWarnings("removal")
