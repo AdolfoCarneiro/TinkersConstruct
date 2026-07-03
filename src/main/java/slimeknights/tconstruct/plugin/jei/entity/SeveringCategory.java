@@ -59,8 +59,4 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
     builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 11).addItemStack(recipe.getOutput());
   }
 
-  @Override
-  public ResourceLocation getRegistryName(SeveringRecipe recipe) {
-    return recipe.getId();
-  }
 }

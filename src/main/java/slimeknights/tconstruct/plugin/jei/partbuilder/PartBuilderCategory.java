@@ -88,8 +88,4 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
     }
   }
 
-  @Override
-  public ResourceLocation getRegistryName(IDisplayPartBuilderRecipe recipe) {
-    return recipe.getId();
-  }
 }

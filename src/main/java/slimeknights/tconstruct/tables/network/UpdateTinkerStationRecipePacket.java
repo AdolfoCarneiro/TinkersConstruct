@@ -27,9 +27,9 @@ public class UpdateTinkerStationRecipePacket implements CustomPacketPayload {
   private final BlockPos pos;
   private final ResourceLocation recipe;
 
-  public UpdateTinkerStationRecipePacket(BlockPos pos, ITinkerStationRecipe recipe) {
+  public UpdateTinkerStationRecipePacket(BlockPos pos, ResourceLocation recipeId) {
     this.pos = pos;
-    this.recipe = recipe.getId();
+    this.recipe = recipeId;
   }
 
   public UpdateTinkerStationRecipePacket(RegistryFriendlyByteBuf buffer) {

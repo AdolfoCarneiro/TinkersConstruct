@@ -91,6 +91,9 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   private int coolingTime = -1;
   /** Current in progress recipe */
   private ICastingRecipe currentRecipe;
+  /** ID of the current recipe, tracked separately since Recipe.getId() was removed in 1.21 */
+  @Nullable
+  private ResourceLocation currentRecipeId;
   /** Name of the current recipe, fetched from Tag. Used since Tag is read before recipe manager access */
   private ResourceLocation recipeName;
   /** Cache recipe to reduce time during recipe lookups. Not saved to Tag */
@@ -354,11 +357,12 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     if (this.lastCastingRecipe != null && this.lastCastingRecipe.matches(castingInventory, level)) {
       return this.lastCastingRecipe;
     }
-    ICastingRecipe castingRecipe = level.getRecipeManager().getRecipeFor(this.castingType, castingInventory, level).map(RecipeHolder::value).orElse(null);
-    if (castingRecipe != null) {
-      this.lastCastingRecipe = castingRecipe;
+    RecipeHolder<ICastingRecipe> holder = level.getRecipeManager().getRecipeFor(this.castingType, castingInventory, level).orElse(null);
+    if (holder != null) {
+      this.lastCastingRecipe = holder.value();
+      this.currentRecipeId = holder.id();
     }
-    return castingRecipe;
+    return holder != null ? holder.value() : null;
   }
 
 
@@ -443,6 +447,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   public void reset() {
     timer = 0;
     currentRecipe = null;
+    currentRecipeId = null;
     recipeName = null;
     lastOutput = null;
     castingInventory.setFluid(FluidStack.EMPTY);
@@ -560,6 +565,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       // fetch recipe by name
       RecipeHelper.getRecipe(level.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
         this.currentRecipe = recipe;
+        this.currentRecipeId = name;
         castingInventory.setFluid(fluid);
         tank.setCapacity(recipe.getFluidAmount(castingInventory));
         if (fluid.getAmount() >= tank.getCapacity()) {
@@ -593,7 +599,8 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       tags.putInt(TAG_TIMER, timer);
     }
     if (currentRecipe != null) {
-      tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
+      ResourceLocation saveId = currentRecipeId != null ? currentRecipeId : recipeName;
+      if (saveId != null) { tags.putString(TAG_RECIPE, saveId.toString()); }
     } else if (recipeName != null) {
       tags.putString(TAG_RECIPE, recipeName.toString());
     }
