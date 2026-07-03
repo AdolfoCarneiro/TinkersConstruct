@@ -26,6 +26,11 @@ public class BlockSideHitListener {
   private static Direction clientSideHit = Direction.UP;
   private static boolean init = false;
 
+  /** Gets the side of the block last hit on the client */
+  public static Direction getClientSideHit() {
+    return clientSideHit;
+  }
+
   /** Initializes this listener */
   public static void init() {
     if (init) {

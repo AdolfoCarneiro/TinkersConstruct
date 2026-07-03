@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tables.block.entity.chest;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -49,22 +49,26 @@ public class TinkersChestBlockEntity extends AbstractChestBlockEntity {
     return color;
   }
 
+  public boolean hasColor() {
+    return hasColor;
+  }
+
   @Override
   public boolean canInsert(Player player, ItemStack heldItem) {
     return false;
   }
 
   @Override
-  public void saveSynced(CompoundTag tags) {
-    super.saveSynced(tags);
+  public void saveSynced(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveSynced(tags, registries);
     if (hasColor) {
       tags.putInt(TAG_CHEST_COLOR, color);
     }
   }
 
   @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
+  protected void loadAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.loadAdditional(tags, registries);
     if (tags.contains(TAG_CHEST_COLOR, Tag.TAG_ANY_NUMERIC)) {
       setColor(tags.getInt(TAG_CHEST_COLOR));
     }
@@ -72,10 +76,15 @@ public class TinkersChestBlockEntity extends AbstractChestBlockEntity {
 
   /** Item handler for tinkers chests */
   public static class TinkersChestItemHandler extends ItemStackHandler implements IChestItemHandler {
-    @Setter @Nullable
+    @Nullable
     private MantleBlockEntity parent;
     public TinkersChestItemHandler() {
       super(64);
+    }
+
+    @Override
+    public void setParent(MantleBlockEntity parent) {
+      this.parent = parent;
     }
 
     @Override

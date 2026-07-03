@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.entity;
 
-import lombok.Getter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,9 +15,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -59,9 +54,13 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   private ItemStack stack = ItemStack.EMPTY;
   private IToolStackView tool = null;
   private boolean reclaim = false;
-  @Getter
   private float power = 4;
   private float knockback = 0;
+
+  @Override
+  public float getPower() {
+    return power;
+  }
   /** Tasks queued by modifiers */
   private Schedule tasks = Schedule.EMPTY;
 
@@ -154,24 +153,12 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   public void tick() {
     super.tick();
 
+    // nether portal / end gateway entry is handled automatically by Entity#baseTick -> handlePortal() via super.tick() above,
+    // no manual per-block-type teleport dispatch needed in 1.21.1 (Portal interface + Entity#setAsInsidePortal)
     HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-    boolean teleported = false;
-    if (hit.getType() == HitResult.Type.BLOCK) {
-      BlockPos pos = ((BlockHitResult)hit).getBlockPos();
-      BlockState state = this.level().getBlockState(pos);
-      if (state.is(Blocks.NETHER_PORTAL)) {
-        this.handleInsidePortal(pos);
-        teleported = true;
-      } else if (state.is(Blocks.END_GATEWAY)) {
-        if (this.level().getBlockEntity(pos) instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-          TheEndGatewayBlockEntity.teleportEntity(this.level(), pos, state, this, gateway);
-        }
-        teleported = true;
-      }
-    }
 
     HitResult.Type type = hit.getType();
-    if (type != HitResult.Type.MISS && !teleported) {
+    if (type != HitResult.Type.MISS) {
       if (!stack.isEmpty() && type == HitResult.Type.ENTITY && ModifierUtil.canPerformAction(getTool(), TinkerToolActions.SHIELD_DISABLE)) {
         ModifierUtil.disableShield(((EntityHitResult)hit).getEntity());
       }
@@ -309,7 +296,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
+    tag.put(KEY_STACK, this.stack.save(this.registryAccess(), new CompoundTag()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     if (!this.tasks.isEmpty()) {
       tag.put(KEY_TASKS, this.tasks.serialize());
@@ -320,7 +307,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     if (tag.contains(KEY_STACK, CompoundTag.TAG_COMPOUND)) {
-      setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
+      setStack(ItemStack.parseOptional(this.registryAccess(), tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
     if (tag.contains(KEY_TASKS, CompoundTag.TAG_LIST)) {

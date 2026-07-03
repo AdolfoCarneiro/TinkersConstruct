@@ -43,6 +43,13 @@ public class EntityMeltingModule {
   /** Function that returns the bounds to check for entities */
   private final Supplier<AABB> bounds;
 
+  public EntityMeltingModule(MantleBlockEntity parent, IFluidHandler tank, BooleanSupplier canMeltEntities, Function<ItemStack,ItemStack> insertFunction, Supplier<AABB> bounds) {
+    this.parent = parent;
+    this.tank = tank;
+    this.canMeltEntities = canMeltEntities;
+    this.insertFunction = insertFunction;
+    this.bounds = bounds;
+  }
 
   @Nullable
   private EntityMeltingRecipe lastRecipe;

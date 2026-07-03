@@ -32,7 +32,7 @@ public class ToolDamageUtil {
    * @param stack  Tool stack
    */
   public static void breakTool(ItemStack stack) {
-    stack.getOrCreateTag().putBoolean(ToolStack.TAG_BROKEN, true);
+    CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putBoolean(ToolStack.TAG_BROKEN, true));
   }
 
   /**
@@ -51,7 +51,7 @@ public class ToolDamageUtil {
    * For normal tool usages, see {@link ToolStack#getStats()} with {@link ToolStats#DURABILITY}.
    */
   public static int getFakeMaxDamage(ItemStack stack) {
-    if (!stack.getItem().canBeDepleted()) {
+    if (!stack.isDamageableItem()) {
       return 0;
     }
     ToolStack tool = ToolStack.from(stack);
@@ -151,8 +151,9 @@ public class ToolDamageUtil {
    * @return true if the tool broke.
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, EquipmentSlot slot, ModifierId cause) {
-    if (damage(tool, amount, entity, entity.getItemBySlot(slot), cause)) {
-      entity.broadcastBreakEvent(slot);
+    ItemStack stack = entity.getItemBySlot(slot);
+    if (damage(tool, amount, entity, stack, cause)) {
+      entity.onEquippedItemBroken(stack.getItem(), slot);
       return true;
     }
     return false;
@@ -181,8 +182,9 @@ public class ToolDamageUtil {
    * @return true if the tool broke when damaging
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, InteractionHand hand, ModifierId cause) {
-    if (damage(tool, amount, entity, entity.getItemInHand(hand), cause)) {
-      entity.broadcastBreakEvent(hand);
+    ItemStack stack = entity.getItemInHand(hand);
+    if (damage(tool, amount, entity, stack, cause)) {
+      entity.onEquippedItemBroken(stack.getItem(), LivingEntity.getSlotForHand(hand));
       // TODO: why don't we fire EventHooks.onPlayerDestroyItem here?
       return true;
     }
@@ -216,7 +218,7 @@ public class ToolDamageUtil {
         ItemStack stack = entity.getItemBySlot(slot);
         if (tool.isSameStack(stack)) {
           if (damage(tool, amount, entity, stack, cause)) {
-            entity.broadcastBreakEvent(slot);
+            entity.onEquippedItemBroken(stack.getItem(), slot);
             return true;
           }
           return false;
@@ -259,7 +261,7 @@ public class ToolDamageUtil {
   public static <T extends LivingEntity> void handleDamageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
     // If we don't tools ignore our damage logic
-    if (stack.getItem().canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
+    if (stack.isDamageableItem() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
       onBroken.accept(damager);
     }
   }

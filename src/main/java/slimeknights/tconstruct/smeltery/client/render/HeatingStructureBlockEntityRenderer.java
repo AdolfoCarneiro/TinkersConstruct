@@ -18,6 +18,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.joml.Quaternionf;
@@ -33,6 +34,11 @@ public class HeatingStructureBlockEntityRenderer implements BlockEntityRenderer<
   private static final float ITEM_SCALE = 15f/16f;
 
   public HeatingStructureBlockEntityRenderer(Context context) {}
+
+  @Override
+  public AABB getRenderBoundingBox(HeatingStructureBlockEntity blockEntity) {
+    return blockEntity.getRenderBoundingBox();
+  }
 
   @Override
   public void render(HeatingStructureBlockEntity smeltery, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {

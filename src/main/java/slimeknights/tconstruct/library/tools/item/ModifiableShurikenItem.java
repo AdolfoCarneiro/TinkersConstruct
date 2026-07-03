@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -41,7 +40,6 @@ import java.util.List;
 /** Modifiable item that is thrown as a disposable projectile */
 public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
   /** Tool definition for the given tool */
-  @Getter
   private final ToolDefinition toolDefinition;
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
@@ -49,6 +47,11 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
   public ModifiableShurikenItem(Properties props, ToolDefinition toolDefinition) {
     super(props);
     this.toolDefinition = toolDefinition;
+  }
+
+  @Override
+  public ToolDefinition getToolDefinition() {
+    return toolDefinition;
   }
 
 

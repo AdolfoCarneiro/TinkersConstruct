@@ -175,7 +175,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return false;
   }
 
-  @Override
   public boolean canBeDepleted() {
     return true;
   }
