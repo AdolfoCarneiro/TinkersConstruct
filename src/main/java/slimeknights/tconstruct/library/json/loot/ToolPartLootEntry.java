@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.json.loot;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -14,6 +14,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -25,8 +26,11 @@ import java.util.stream.Stream;
 
 /** Entry for a random tool part from a list with a random material */
 public class ToolPartLootEntry extends LootPoolSingletonContainer {
-  public static final MapCodec<ToolPartLootEntry> SERIALIZER = MapCodec.unit(
-    new ToolPartLootEntry(1, 0, List.of(), List.of(), TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("planks")), RandomMaterial.firstWithStat()));
+  public static final MapCodec<ToolPartLootEntry> SERIALIZER = RecordCodecBuilder.mapCodec(instance ->
+    singletonFields(instance).and(instance.group(
+      TagKey.codec(Registries.ITEM).fieldOf("tag").forGetter(entry -> entry.tag),
+      RandomMaterial.LOADER.mapCodec(TypedMap.EMPTY).codec().fieldOf("material").forGetter(entry -> entry.material))
+    ).apply(instance, ToolPartLootEntry::new));
   private final TagKey<Item> tag;
   private final RandomMaterial material;
 

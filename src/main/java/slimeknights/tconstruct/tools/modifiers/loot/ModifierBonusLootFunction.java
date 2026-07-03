@@ -24,17 +24,17 @@ public class ModifierBonusLootFunction extends LootItemConditionalFunction {
   public static final MapCodec<ModifierBonusLootFunction> SERIALIZER = RecordCodecBuilder.mapCodec(instance ->
     commonFields(instance).and(instance.group(
       ResourceLocation.CODEC.xmap(ModifierId::new, id -> id).fieldOf("modifier").forGetter(function -> function.modifier),
-      FormulaType.CODEC.fieldOf("formula").forGetter(function -> function.formula),
+      BonusCountFormula.CODEC.forGetter(function -> function.formula),
       Codec.BOOL.optionalFieldOf("include_base", true).forGetter(function -> function.includeBase))
     ).apply(instance, ModifierBonusLootFunction::new));
   /** Modifier ID to use for multiplier bonus */
   private final ModifierId modifier;
   /** Formula to apply */
-  private final FormulaType formula;
+  private final BonusCountFormula formula;
   /** If true, considers level 1 as bonus, if false considers level 1 as no bonus */
   private final boolean includeBase;
 
-  protected ModifierBonusLootFunction(List<LootItemCondition> conditions, ModifierId modifier, FormulaType formula, boolean includeBase) {
+  protected ModifierBonusLootFunction(List<LootItemCondition> conditions, ModifierId modifier, BonusCountFormula formula, boolean includeBase) {
     super(conditions);
     this.modifier = modifier;
     this.formula = formula;
@@ -42,23 +42,23 @@ public class ModifierBonusLootFunction extends LootItemConditionalFunction {
   }
 
   /** Creates a generic builder */
-  public static Builder<?> builder(ModifierId modifier, FormulaType formula, boolean includeBase) {
+  public static Builder<?> builder(ModifierId modifier, BonusCountFormula formula, boolean includeBase) {
     return simpleBuilder(conditions -> new ModifierBonusLootFunction(conditions, modifier, formula, includeBase));
   }
 
   /** Creates a builder for the binomial with bonus formula */
   public static Builder<?> binomialWithBonusCount(ModifierId modifier, float probability, int extra, boolean includeBase) {
-    return builder(modifier, FormulaType.ORE_DROPS, includeBase);
+    return builder(modifier, new BonusCountFormula.BinomialWithBonusCount(extra, probability), includeBase);
   }
 
   /** Creates a builder for the ore drops formula */
   public static Builder<?> oreDrops(ModifierId modifier, boolean includeBase) {
-    return builder(modifier, FormulaType.ORE_DROPS, includeBase);
+    return builder(modifier, new BonusCountFormula.OreDrops(), includeBase);
   }
 
   /** Creates a builder for the uniform bonus count */
   public static Builder<?> uniformBonusCount(ModifierId modifier, int bonusMultiplier, boolean includeBase) {
-    return builder(modifier, FormulaType.ORE_DROPS, includeBase);
+    return builder(modifier, new BonusCountFormula.UniformBonusCount(bonusMultiplier), includeBase);
   }
 
   @Override
@@ -78,33 +78,8 @@ public class ModifierBonusLootFunction extends LootItemConditionalFunction {
       level--;
     }
     if (level > 0) {
-      stack.setCount(formula.calculate(context, stack.getCount(), level));
+      stack.setCount(formula.calculateNewCount(context.getRandom(), stack.getCount(), level));
     }
     return stack;
-  }
-
-  private enum FormulaType {
-    ORE_DROPS;
-
-    private static final Codec<FormulaType> CODEC = Codec.STRING.xmap(FormulaType::fromName, FormulaType::serializedName);
-
-    private static FormulaType fromName(String name) {
-      return ORE_DROPS;
-    }
-
-    private String serializedName() {
-      return "minecraft:ore_drops";
-    }
-
-    private int calculate(LootContext context, int originalCount, int enchantmentLevel) {
-      if (enchantmentLevel > 0) {
-        int bonus = context.getRandom().nextInt(enchantmentLevel + 2) - 1;
-        if (bonus < 0) {
-          bonus = 0;
-        }
-        return originalCount * (bonus + 1);
-      }
-      return originalCount;
-    }
   }
 }

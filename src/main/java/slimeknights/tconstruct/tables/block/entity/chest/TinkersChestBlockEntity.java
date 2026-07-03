@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
@@ -71,6 +74,19 @@ public class TinkersChestBlockEntity extends AbstractChestBlockEntity {
     super.loadAdditional(tags, registries);
     if (tags.contains(TAG_CHEST_COLOR, Tag.TAG_ANY_NUMERIC)) {
       setColor(tags.getInt(TAG_CHEST_COLOR));
+    }
+  }
+
+  /**
+   * Exposes the chest's color as the vanilla {@link DataComponents#DYED_COLOR} component so breaking the
+   * chest (via {@code CopyComponentsFunction} in the loot table) and picking the block both preserve the
+   * dye, matching {@link slimeknights.tconstruct.tables.item.TinkersChestBlockItem}'s read side.
+   */
+  @Override
+  protected void collectImplicitComponents(DataComponentMap.Builder components) {
+    super.collectImplicitComponents(components);
+    if (hasColor) {
+      components.set(DataComponents.DYED_COLOR, new DyedItemColor(color, true));
     }
   }
 
