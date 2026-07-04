@@ -342,8 +342,11 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
   }
 
   /** Recreation of {@link #createShearsDispatchTable(Block, Builder)} using the tool action instead of the shears item */
-  private static LootTable.Builder droppingSilkOrShears(Block block, LootPoolEntryContainer.Builder<?> alternativeLootEntry) {
-    return createSelfDropDispatchTable(block, CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_DIG), alternativeLootEntry);
+  // F3.3: was hardcoding just the shears ability check here, silently dropping the silk-touch branch that the
+  // precomputed silkTouchOrShears field (shears.or(silkTouch), see constructor) already provides - restored it so
+  // ender slime leaves/saplings still self-drop when harvested with a Silk Touch tool, matching 1.20.1 behavior.
+  private LootTable.Builder droppingSilkOrShears(Block block, LootPoolEntryContainer.Builder<?> alternativeLootEntry) {
+    return createSelfDropDispatchTable(block, this.silkTouchOrShears, alternativeLootEntry);
   }
 
   /** Reimplementation of {@link #createLeavesDrops(Block, Block, float...)} dropping the sticks from the loot table */
