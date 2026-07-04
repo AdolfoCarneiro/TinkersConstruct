@@ -22,7 +22,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -355,6 +354,9 @@ public final class TinkerModifiers extends TinkerModule {
     FluidEffectManager.INSTANCE.init();
     MODIFIERS.register(TConstruct.getModEventBus());
     TinkerDataKeys.init();
+    TinkerDataCapability.register();
+    PersistentDataCapability.register();
+    EntityModifierCapability.register();
   }
 
   /*
@@ -1072,13 +1074,6 @@ public final class TinkerModifiers extends TinkerModule {
       ToolTankHelper.LOADABLE.register(getResource("tank"), ToolTankHelper.TANK_HELPER);
       ToolTankHelper.LOADABLE.register(getResource("smashing"), SmashingModule.TANK_HELPER);
     }
-  }
-
-  @SubscribeEvent
-  void commonSetup(final FMLCommonSetupEvent event) {
-    TinkerDataCapability.register();
-    PersistentDataCapability.register();
-    EntityModifierCapability.register();
   }
 
   @SubscribeEvent
