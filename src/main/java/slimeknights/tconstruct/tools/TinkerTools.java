@@ -165,6 +165,7 @@ public final class TinkerTools extends TinkerModule {
     BlockSideHitListener.init();
     ModifierLootingHandler.init();
     RandomMaterial.init();
+    EquipmentChangeWatcher.register();
   }
 
   /** Creative tab for complete tools */
@@ -291,7 +292,6 @@ public final class TinkerTools extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {
-    EquipmentChangeWatcher.register();
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }

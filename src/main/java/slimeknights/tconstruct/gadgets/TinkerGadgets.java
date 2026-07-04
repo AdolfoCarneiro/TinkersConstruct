@@ -50,6 +50,10 @@ import slimeknights.tconstruct.world.block.FoliageType;
  */
 @SuppressWarnings("unused")
 public final class TinkerGadgets extends TinkerModule {
+  public TinkerGadgets() {
+    PiggybackCapability.register();
+  }
+
   /* Block base properties */
 
   /*
@@ -148,7 +152,6 @@ public final class TinkerGadgets extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    PiggybackCapability.register();
     event.enqueueWork(() -> {
       cake.forEach(block -> ComposterBlock.COMPOSTABLES.put(block, 1.0f));
       ComposterBlock.COMPOSTABLES.put(magmaCake.get(), 1.0f);
