@@ -75,7 +75,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
 
     // plate textures
     addPart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
-    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
+    // humanoid-only (not ArmorItem.Type.values()) - Tinkers has no body-slot plate armor, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+    for (ArmorItem.Type slot : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
       buildTool("armor/plate/" + slot.getName()).disallowAnimated() // the armor model won't be animated, so don't animate the item
         .addBreakablePart("plating", PlatingMaterialStats.TYPES.get(slot.ordinal()).getId())
         .addBreakablePart("maille", StatlessMaterialStats.MAILLE.getIdentifier());

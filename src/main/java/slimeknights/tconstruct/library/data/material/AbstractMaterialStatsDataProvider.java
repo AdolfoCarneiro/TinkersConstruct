@@ -90,7 +90,8 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
    */
   protected void addArmorStats(MaterialId location, ArmorModuleBuilder<? extends IMaterialStats> statBuilder, IMaterialStats... otherStats) {
     IMaterialStats[] stats = new IMaterialStats[4];
-    for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+    // humanoid-only (not ArmorItem.Type.values()) - Tinkers has no body-slot stats, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+    for (ArmorItem.Type slotType : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
       stats[slotType.ordinal()] = statBuilder.build(slotType);
     }
     addMaterialStats(location, stats);

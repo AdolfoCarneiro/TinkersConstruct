@@ -1,0 +1,112 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Adolfo/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :generateEffectiveLombokConfig UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :generateModMetadata UP-TO-DATE
+> Task :processResources
+> Task :classes
+> Task :downloadAssets UP-TO-DATE
+> Task :writeDataLegacyClasspath UP-TO-DATE
+> Task :prepareDataRun UP-TO-DATE
+
+> Task :runData
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[12:27:18] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatadev, --assetIndex, 17, --assetsDir, C:\\Users\\Adolfo\\.gradle\\caches\\neoformruntime\\assets, --gameDir, ., --fml.fmlVersion, 4.0.42, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.234, --fml.neoFormVersion, 20240808.144430, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[12:27:18] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
+[12:27:18] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[12:27:19] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatadev
+[12:27:19] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Adolfo/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23138!/ Service=ModLauncher Env=CLIENT
+[12:27:19] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[12:27:19] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Mantle 1.11 (mantle)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.234 (neoforge)
+		Tinkers' Construct 3.11.2 (tconstruct)
+[12:27:20] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatadev' with arguments [--gameDir, ., --assetsDir, C:\Users\Adolfo\.gradle\caches\neoformruntime\assets, --assetIndex, 17, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[12:27:21] [main/INFO] [ne.ne.ne.da.lo.DatagenModLoader/]: Initializing Data Gatherer for mods [tconstruct]
+[12:27:21] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[12:27:25] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.234, for MC 1.21.1
+[12:27:25] [modloading-worker-0/INFO] [Mantle/]: Mantle Phase 1 Task 7: capabilities layer loaded.
+[12:27:26] [modloading-worker-0/INFO] [TConstruct/]: TConstruct initialized (NeoForge 1.21.1).
+[12:27:29] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/assets/.mcassetsroot' uses unexpected schema
+[12:27:29] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/data/.mcassetsroot' uses unexpected schema
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct model sprite provider
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct model sprite provider finished after 39 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: atlases generator for tconstruct
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: atlases generator for tconstruct finished after 13 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Item Models: tconstruct
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Item Models: tconstruct finished after 55 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Block States: tconstruct
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Block States: tconstruct finished after 253 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render fluid provider
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render fluid provider finished after 14 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render item provider
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render item provider finished after 8 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct mob equipment
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct mob equipment finished after 7 ms
+[12:27:29] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Structure Repaletter
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Structure Repaletter finished after 114 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Modifiers
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Modifiers finished after 175 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Spilling Fluid Provider
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Spilling Fluid Provider finished after 26 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Modifier Tag Provider
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Modifier Tag Provider finished after 12 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Enchantment to Modifier Mapping
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Enchantment to Modifier Mapping finished after 1 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinker's Construct Materials
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinker's Construct Materials finished after 28 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinker's Construct Material Stats
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinker's Construct Material Stats finished after 27 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinker's Construct Material Traits
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinker's Construct Material Traits finished after 26 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Tool Definition Data Generator
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Tool Definition Data Generator finished after 24 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Tinker Station Slot Layouts
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Tinker Station Slot Layouts finished after 17 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Material Tag Provider
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Material Tag Provider finished after 4 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers Construct Tool Item Model Provider
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers Construct Tool Item Model Provider finished after 33 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Material Render Info Provider
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Material Render Info Provider finished after 40 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: tconstruct Command Part Texture JSON Generator
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: tconstruct Command Part Texture JSON Generator finished after 4 ms
+[12:27:30] [main/INFO] [minecraft/DataGenerator]: Starting provider: Material Part Generator - Tinkers' Construct Parts - Tinkers' Construct Materials
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Material Part Generator - Tinkers' Construct Parts - Tinkers' Construct Materials finished after 1352 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: tconstruct Material Palette Debug
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: tconstruct Material Palette Debug finished after 22 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Armor Models
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Armor Models finished after 5 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: tconstruct Material Trim Palette Generator
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: tconstruct Material Trim Palette Generator finished after 5 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Modifier Model Map Provider
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Modifier Model Map Provider finished after 13 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Fluid Container Transfer
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Fluid Container Transfer finished after 4 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Fluid Tooltip Provider
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Fluid Tooltip Provider finished after 5 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Fluid Texture Providers
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Fluid Texture Providers finished after 21 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Fluid texture camera provider
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Fluid texture camera provider finished after 11 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: tconstruct Fluid Bucket Model Provider
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: tconstruct Fluid Bucket Model Provider finished after 17 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: tconstruct Fluid Blockstate Model Provider
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: tconstruct Fluid Blockstate Model Provider finished after 16 ms
+[12:27:31] [main/INFO] [minecraft/DataGenerator]: Starting provider: Recipes
+[12:27:32] [main/INFO] [minecraft/DataGenerator]: Recipes finished after 533 ms
+[12:27:32] [main/INFO] [minecraft/DataGenerator]: All providers took: 2959 ms
+[12:27:32] [main/INFO] [minecraft/HashCache]: Caching: total files: 16406, old count: 0, new count: 16407, removed stale: 0, written: 16406
+
+BUILD SUCCESSFUL in 49s
+9 actionable tasks: 2 executed, 7 up-to-date

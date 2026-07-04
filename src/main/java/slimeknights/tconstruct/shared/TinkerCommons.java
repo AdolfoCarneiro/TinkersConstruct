@@ -222,10 +222,20 @@ public final class TinkerCommons extends TinkerModule {
       LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
       LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("underwater"), LivingEntityPredicate.UNDERWATER.getLoader());
       LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("raining"), LivingEntityPredicate.RAINING.getLoader());
+      // fully-qualified here because TConstruct has its own unrelated classes with the same simple names
+      // (slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate) imported above
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("has_effect"), slimeknights.mantle.data.predicate.entity.HasMobEffectPredicate.LOADER);
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("block_at_entity"), slimeknights.mantle.data.predicate.entity.BlockAtEntityPredicate.LOADER);
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("has_enchantment"), slimeknights.mantle.data.predicate.entity.HasEnchantmentEntityPredicate.LOADER);
+      // NOTE: "mob_type" (MobTypePredicate) is NOT registered here — that class does not exist anywhere in Mantle-neo
+      // (confirmed via search of src/main/java/slimeknights/mantle/data/predicate/entity/), unlike the other three above
+      // which do exist and just lack registration. Adding it would require creating the class in Mantle-neo itself,
+      // which is out of scope for this workaround. See report for details if runData actually needs it.
       ItemPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("has_container"), ItemPredicate.HAS_CONTAINER.getLoader());
       BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
       BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("blocks_motion"), BlockPredicate.BLOCKS_MOTION.getLoader());
       BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("can_be_replaced"), BlockPredicate.CAN_BE_REPLACED.getLoader());
+      BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("block_properties"), slimeknights.mantle.data.predicate.block.BlockPropertiesPredicate.LOADER);
       // entity
       LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("targeting_block"), TinkerPredicate.TARGETING_BLOCK.getLoader());
@@ -246,6 +256,19 @@ public final class TinkerCommons extends TinkerModule {
       BlockPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_BLOCK.getLoader());
       BlockPredicate.LOADER.register(getResource("harvest_tier"), HarvestTierPredicate.LOADER);
       BlockPredicate.LOADER.register(getResource("variable_range"), BlockVariableRangePredicate.LOADER);
+      // FIXME F3: same bug shape as above, but for FluidContainerTransferManager.TRANSFER_LOADERS - these IFluidContainerTransfer
+      // deserializers are declared in Mantle itself but never registered there in the 1.21.1 port, so datagen serialization of
+      // AbstractFluidContainerTransferProvider throws "Unregistered object mantle:fill_item" (and would for the others too).
+      slimeknights.mantle.fluid.transfer.FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(
+        slimeknights.mantle.fluid.transfer.EmptyFluidContainerTransfer.ID, slimeknights.mantle.fluid.transfer.EmptyFluidContainerTransfer.DESERIALIZER);
+      slimeknights.mantle.fluid.transfer.FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(
+        slimeknights.mantle.fluid.transfer.FillFluidContainerTransfer.ID, slimeknights.mantle.fluid.transfer.FillFluidContainerTransfer.DESERIALIZER);
+      slimeknights.mantle.fluid.transfer.FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(
+        slimeknights.mantle.fluid.transfer.EmptyFluidWithNBTTransfer.ID, slimeknights.mantle.fluid.transfer.EmptyFluidWithNBTTransfer.DESERIALIZER);
+      slimeknights.mantle.fluid.transfer.FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(
+        slimeknights.mantle.fluid.transfer.FillFluidWithNBTTransfer.ID, slimeknights.mantle.fluid.transfer.FillFluidWithNBTTransfer.DESERIALIZER);
+      slimeknights.mantle.fluid.transfer.FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(
+        slimeknights.mantle.fluid.transfer.EmptyPotionTransfer.ID, slimeknights.mantle.fluid.transfer.EmptyPotionTransfer.DESERIALIZER);
     }
   }
 

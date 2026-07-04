@@ -100,7 +100,8 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
       this.name = armorMaterial.getId();
       this.builders = new ToolDefinitionDataBuilder[4];
       ImmutableList.Builder<ArmorItem.Type> slotTypes = ImmutableList.builder();
-      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      // humanoid-only (not ArmorItem.Type.values()) - ModifiableArmorMaterial has no body-slot definition, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+      for (ArmorItem.Type slotType : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
         ToolDefinition definition = armorMaterial.getArmorDefinition(slotType);
         if (definition != null) {
           this.builders[slotType.ordinal()] = define(definition);

@@ -25,28 +25,36 @@ import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 
 import java.util.Map;
 
-/** Breaks a block using a fluid */
-public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enchantments) implements FluidEffect<FluidEffectContext.Block> {
+/**
+ * Breaks a block using a fluid.
+ * <p>
+ * Stores {@link Holder}s rather than raw {@link Enchantment} instances and loads them via {@link EnchantmentModule#ENCHANTMENT_HOLDER_LOADABLE}
+ * (not {@code Loadables.ENCHANTMENT}) because enchantments are a fully data-driven registry in 1.21 with no static/built-in backing; see the
+ * javadoc on that field for the full explanation. This requires {@link net.minecraft.core.HolderLookup.Provider} to be threaded into the
+ * loadable context under {@link slimeknights.tconstruct.library.modifiers.ModifierManager#REGISTRIES} by whichever manager parses this
+ * (both {@code ModifierManager} and {@code FluidEffectManager} do this).
+ */
+public record BreakBlockFluidEffect(float hardness, Map<Holder<Enchantment>,Integer> enchantments) implements FluidEffect<FluidEffectContext.Block> {
   public static final RecordLoadable<BreakBlockFluidEffect> LOADER = RecordLoadable.create(
     FloatLoadable.FROM_ZERO.defaultField("hardness", 0f, false, BreakBlockFluidEffect::hardness),
-    Loadables.ENCHANTMENT.mapWithValues(IntLoadable.FROM_ONE, 0).defaultField("enchantments", Map.of(), BreakBlockFluidEffect::enchantments),
+    EnchantmentModule.ENCHANTMENT_HOLDER_LOADABLE.mapWithValues(IntLoadable.FROM_ONE, 0).defaultField("enchantments", Map.of(), BreakBlockFluidEffect::enchantments),
     BreakBlockFluidEffect::new);
 
   public BreakBlockFluidEffect(float hardness) {
     this(hardness, Map.of());
   }
 
-  public BreakBlockFluidEffect(float hardness, Enchantment enchantment, int level) {
+  public BreakBlockFluidEffect(float hardness, Holder<Enchantment> enchantment, int level) {
     this(hardness, Map.of(enchantment, level));
   }
 
@@ -89,7 +97,7 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
         if (!enchantments.isEmpty()) {
           fakeTool = new ItemStack(Items.STICK);
           ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
-          enchantments.forEach((enchantment, enchantLevel) -> mutable.set(Holder.direct(enchantment), enchantLevel));
+          enchantments.forEach(mutable::set);
           EnchantmentHelper.setEnchantments(fakeTool, mutable.toImmutable());
         }
 
@@ -144,7 +152,7 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
     } else {
       translationKey += ".enchanted";
       Component enchantments = enchantments().entrySet().stream().<Component>map(entry -> {
-        Enchantment enchantment = entry.getKey();
+        Enchantment enchantment = entry.getKey().value();
         MutableComponent component = enchantment.description().copy();
         if (enchantment.getMaxLevel() != 1) {
           component.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + entry.getValue()));

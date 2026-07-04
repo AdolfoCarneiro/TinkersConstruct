@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.CheckReturnValue;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
@@ -57,10 +58,14 @@ import static slimeknights.mantle.Mantle.commonResource;
 public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   private final String modId;
   private final Map<ResourceLocation,Builder> entries = new HashMap<>();
+  private final CompletableFuture<HolderLookup.Provider> registriesFuture;
+  /** Resolved registry access, only valid while {@link #addFluids()} is running as part of {@link #run(CachedOutput)}. */
+  protected HolderLookup.Provider registries;
 
-  public AbstractFluidEffectProvider(PackOutput packOutput, String modId) {
+  public AbstractFluidEffectProvider(PackOutput packOutput, String modId, CompletableFuture<HolderLookup.Provider> registries) {
     super(packOutput, Target.DATA_PACK, FluidEffectManager.FOLDER);
     this.modId = modId;
+    this.registriesFuture = registries;
   }
 
   /** Adds the fluids to the map */
@@ -68,8 +73,11 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
 
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
-    addFluids();
-    return allOf(entries.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().build(entry.getKey()))));
+    return registriesFuture.thenCompose(provider -> {
+      this.registries = provider;
+      addFluids();
+      return allOf(entries.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().build(entry.getKey()))));
+    });
   }
 
   /* Helpers */

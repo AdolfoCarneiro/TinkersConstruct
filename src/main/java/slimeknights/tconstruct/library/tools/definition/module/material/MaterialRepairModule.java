@@ -152,7 +152,8 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
 
     /** Sets the durability for the piece based on the given factor */
     public ArmorBuilder durabilityFactor(float maxDamageFactor) {
-      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      // humanoid-only (not ArmorItem.Type.values()) - Tinkers has no body-slot stats, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+      for (ArmorItem.Type slotType : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
         int index = slotType.ordinal();
         durability[index] = (int)(ArmorModuleBuilder.MAX_DAMAGE_ARRAY[index] * maxDamageFactor);
       }

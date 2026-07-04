@@ -30,6 +30,9 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
   @Nullable
   private final ModifierId modifier;
   private final TypeAwareRecipeSerializer<? extends PotionCastingRecipe> recipeSerializer;
+  /** Constructs the concrete recipe instance for the modifier casting variants, null when {@link #modifier} is null */
+  @Nullable
+  private final ModifierCastingFactory modifierFactory;
   private Ingredient bottle = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
@@ -44,17 +47,18 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     return this;
   }
 
-  private PotionCastingRecipeBuilder(Item result, @Nullable ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> recipeSerializer) {
+  private PotionCastingRecipeBuilder(Item result, @Nullable ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> recipeSerializer, @Nullable ModifierCastingFactory modifierFactory) {
     this.result = result;
     this.modifier = modifier;
     this.recipeSerializer = recipeSerializer;
+    this.modifierFactory = modifierFactory;
   }
 
   /* Bottle filling */
 
   /** Creates a new casting recipe for a bottle */
   public static PotionCastingRecipeBuilder castingRecipe(ItemLike result, TypeAwareRecipeSerializer<PotionCastingRecipe> serializer) {
-    return new PotionCastingRecipeBuilder(result.asItem(), null, serializer);
+    return new PotionCastingRecipeBuilder(result.asItem(), null, serializer, null);
   }
 
   /**
@@ -79,8 +83,8 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
   /* Modifier casting */
 
   /** Creates a new casting recipe for a bottle */
-  public static PotionCastingRecipeBuilder tippingRecipe(ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> serializer) {
-    return new PotionCastingRecipeBuilder(Items.AIR, modifier, serializer);
+  public static PotionCastingRecipeBuilder tippingRecipe(ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> serializer, ModifierCastingFactory factory) {
+    return new PotionCastingRecipeBuilder(Items.AIR, modifier, serializer, factory);
   }
 
   /**
@@ -89,7 +93,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @return  Builder instance
    */
   public static PotionCastingRecipeBuilder basinTipping(ModifierId modifier) {
-    return tippingRecipe(modifier, TinkerSmeltery.basinTippingRecipeSerializer.get());
+    return tippingRecipe(modifier, TinkerSmeltery.basinTippingRecipeSerializer.get(), TippingCastingRecipe::new);
   }
 
   /**
@@ -98,7 +102,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @return  Builder instance
    */
   public static PotionCastingRecipeBuilder tableTipping(ModifierId modifier) {
-    return tippingRecipe(modifier, TinkerSmeltery.tableTippingRecipeSerializer.get());
+    return tippingRecipe(modifier, TinkerSmeltery.tableTippingRecipeSerializer.get(), TippingCastingRecipe::new);
   }
 
   /**
@@ -107,7 +111,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @return  Builder instance
    */
   public static PotionCastingRecipeBuilder basinClearing(ModifierId modifier) {
-    return tippingRecipe(modifier, TinkerSmeltery.basinTipClearingRecipeSerializer.get());
+    return tippingRecipe(modifier, TinkerSmeltery.basinTipClearingRecipeSerializer.get(), TipClearingCastingRecipe::new);
   }
 
   /**
@@ -116,7 +120,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @return  Builder instance
    */
   public static PotionCastingRecipeBuilder tableClearing(ModifierId modifier) {
-    return tippingRecipe(modifier, TinkerSmeltery.tableTipClearingRecipeSerializer.get());
+    return tippingRecipe(modifier, TinkerSmeltery.tableTipClearingRecipeSerializer.get(), TipClearingCastingRecipe::new);
   }
 
 
@@ -192,9 +196,20 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     }
     net.minecraft.advancements.AdvancementHolder advancementHolder = this.buildOptionalAdvancement(output, id, "casting");
     if (modifier != null) {
-      output.accept(id, new TippingCastingRecipe(recipeSerializer, group, bottle, fluid, coolingTime, modifier), advancementHolder);
+      output.accept(id, modifierFactory.create(recipeSerializer, group, bottle, fluid, coolingTime, modifier), advancementHolder);
     } else {
       output.accept(id, new PotionCastingRecipe(recipeSerializer, group, bottle, fluid, result, coolingTime), advancementHolder);
     }
+  }
+
+  /**
+   * Factory for constructing the concrete modifier casting recipe (tipping or tip clearing), so the built recipe's
+   * Java type matches the {@link TypeAwareRecipeSerializer} it was constructed with. Each concrete recipe's own
+   * {@link net.minecraft.world.item.crafting.RecipeSerializer} dispatches to a {@code RecordLoadable} keyed by the
+   * recipe's actual class, so passing the wrong concrete type throws a {@link ClassCastException} during datagen.
+   */
+  @FunctionalInterface
+  private interface ModifierCastingFactory {
+    PotionCastingRecipe create(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient tool, FluidIngredient fluid, int coolingTime, ModifierId modifier);
   }
 }

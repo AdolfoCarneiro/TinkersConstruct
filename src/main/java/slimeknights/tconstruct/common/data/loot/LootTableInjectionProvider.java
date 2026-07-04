@@ -156,7 +156,8 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .build());
     // diamond armor shows in bastions, add in some plate with similar weight to enchanted version
     RandomMaterial randomHighTier = RandomMaterial.random().allowHidden().tier(3, 4).material(includeInLoot).build();
-    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
+    // humanoid-only (not ArmorItem.Type.values()) - plateArmor is only ever registered for the 4 humanoid slots, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+    for (ArmorItem.Type slot : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
       bastion.addToPool("main", LootItem.lootTableItem(TinkerTools.plateArmor.get(slot))
                                         .setWeight(6)
                                         .apply(AddToolDataFunction.builder()

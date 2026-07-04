@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
@@ -80,16 +82,21 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.world.block.DirtType;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public class FluidEffectProvider extends AbstractFluidEffectProvider {
-  public FluidEffectProvider(PackOutput packOutput) {
-    super(packOutput, TConstruct.MOD_ID);
+  public FluidEffectProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
+    super(packOutput, TConstruct.MOD_ID, registries);
   }
 
-  /** Resolves a vanilla enchantment {@link ResourceKey} (data-driven in 1.21.1) to the actual {@link Enchantment} instance for the fake-tool datagen fallback below */
-  private static Enchantment vanillaEnchantment(ResourceKey<Enchantment> key) {
-    return TConstruct.STATIC_PROVIDER.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key).value();
+  /**
+   * Resolves a vanilla enchantment {@link ResourceKey} (data-driven in 1.21.1) to the actual {@link Enchantment} instance for the fake-tool datagen fallback below.
+   * Must use the datagen {@link net.minecraft.core.HolderLookup.Provider} (populated with vanilla's datapack registries), not {@link TConstruct#STATIC_PROVIDER}
+   * (registry-of-registries only), since enchantments are a fully data-driven registry in 1.21.1 with no built-in entries.
+   */
+  private Holder<Enchantment> vanillaEnchantment(ResourceKey<Enchantment> key) {
+    return registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
   }
 
   @SuppressWarnings("removal")

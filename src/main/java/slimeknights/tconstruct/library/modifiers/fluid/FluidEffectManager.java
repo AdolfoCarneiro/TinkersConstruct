@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -21,8 +22,10 @@ import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +52,13 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
 
   /** Condition context for recipe loading */
   private IContext conditionContext = IContext.EMPTY;
+  /**
+   * Registry access for the currently active reload, used to resolve dynamic registry objects (e.g. enchantments) while parsing fluid effect JSON.
+   * Null before the first reload. Mirrors the identical field/pattern in {@link ModifierManager}; shares its {@link ModifierManager#REGISTRIES}
+   * context key so loadables like {@code EnchantmentModule.ENCHANTMENT_HOLDER_LOADABLE} work the same regardless of which manager is parsing.
+   */
+  @Nullable
+  private HolderLookup.Provider registryAccess = null;
 
   private FluidEffectManager() {
     super(JsonHelper.DEFAULT_GSON, FOLDER);
@@ -64,6 +74,7 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
     conditionContext = event.getConditionContext();
+    registryAccess = event.getRegistryAccess();
   }
 
   /** Creates context for modifier parsing */
@@ -86,7 +97,7 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
         if (!slimeknights.tconstruct.library.utils.Util.processConditions(json, "conditions", conditionContext)) {
           continue;
         }
-        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build())));
+        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).put(ModifierManager.REGISTRIES, registryAccess).build())));
       } catch (JsonSyntaxException e) {
         TConstruct.LOG.error("Failed to load fluid effect {}", key, e);
       }

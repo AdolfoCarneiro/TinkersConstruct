@@ -264,7 +264,8 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
 
   /** Adds broken and blocking models for the armor set */
   protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
-    armor(name, armor, ArmorItem.Type.values(), textures);
+    // humanoid-only (not ArmorItem.Type.values()) - Tinkers armor EnumObjects are only ever registered for the 4 humanoid slots, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+    armor(name, armor, slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES, textures);
   }
 
   /** Creates models for fishing rods cast and broken */
