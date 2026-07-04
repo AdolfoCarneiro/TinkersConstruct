@@ -486,6 +486,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tag for the part chest items
     this.tag(TinkerTags.Items.CHEST_PARTS).addTag(TinkerTags.Items.TOOL_PARTS).add(TinkerSmeltery.dummyPlating.values().toArray(new Item[0]));
 
+    // NeoForge's bundled c:storage_blocks/* set (unlike Forge's) omits amethyst and quartz; the smeltery
+    // block casting recipes for these two gems rely on that subtag existing, so provide it ourselves
+    this.tag(ItemTags.create(commonResource("storage_blocks/amethyst"))).add(Items.AMETHYST_BLOCK);
+    this.tag(ItemTags.create(commonResource("storage_blocks/quartz"))).add(Items.QUARTZ_BLOCK);
+
     IntrinsicTagAppender<Item> slimySeeds = this.tag(TinkerTags.Items.SLIMY_SEEDS);
     TinkerWorld.slimeGrassSeeds.values().forEach(slimySeeds::add);
 

@@ -158,6 +158,11 @@ public class BlockTagProvider extends BlockTagsProvider {
       }
     }
 
+    // NeoForge's bundled c:storage_blocks/* set (unlike Forge's) omits amethyst and quartz; the smeltery
+    // block casting recipes for these two gems rely on that subtag existing, so provide it ourselves
+    this.tag(BlockTags.create(commonResource("storage_blocks/amethyst"))).add(Blocks.AMETHYST_BLOCK);
+    this.tag(BlockTags.create(commonResource("storage_blocks/quartz"))).add(Blocks.QUARTZ_BLOCK);
+
     // allow using wood variants to make tables
     this.tag(TinkerTags.Blocks.PLANKLIKE)
         .addTag(BlockTags.PLANKS)
