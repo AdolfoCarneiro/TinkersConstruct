@@ -79,10 +79,10 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
   }
 
   /** Drops an item using the same chances as slimeballs */
-  private static LootPoolEntryContainer.Builder<?> slimeball(Item item) {
+  private LootPoolEntryContainer.Builder<?> slimeball(Item item) {
     return LootItem.lootTableItem(item)
       .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-      .apply(EnchantedCountIncreaseFunction.lootingMultiplier(TConstruct.STATIC_PROVIDER, UniformGenerator.between(0.0F, 1.0F)));
+      .apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0.0F, 1.0F)));
   }
 
   /** Drops a frog slimeball */

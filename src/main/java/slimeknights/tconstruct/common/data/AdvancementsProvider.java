@@ -25,6 +25,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -500,9 +501,10 @@ public class AdvancementsProvider extends GenericDataProvider {
         }
       };
       generate(registries);
+      RegistryOps<JsonElement> registryOps = registries.createSerializationContext(JsonOps.INSTANCE);
       return allOf(
         advancements.stream().map(holder -> {
-          JsonElement json = Advancement.CODEC.encodeStart(JsonOps.INSTANCE, holder.value()).getOrThrow(IllegalStateException::new);
+          JsonElement json = Advancement.CODEC.encodeStart(registryOps, holder.value()).getOrThrow(IllegalStateException::new);
           List<ICondition> holderConditions = this.conditions.get(holder.id());
           if (holderConditions != null && !holderConditions.isEmpty()) {
             JsonObject jsonObject = json.getAsJsonObject();

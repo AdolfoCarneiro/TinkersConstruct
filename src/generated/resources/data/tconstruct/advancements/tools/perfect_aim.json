@@ -1,0 +1,34 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "criteria": {
+    "accuracy": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#tconstruct:modifiable"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tconstruct.tools.perfect_aim.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:target"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.perfect_aim.title"
+    }
+  },
+  "requirements": [
+    [
+      "accuracy"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

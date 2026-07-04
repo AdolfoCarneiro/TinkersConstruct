@@ -3,11 +3,14 @@ package slimeknights.tconstruct;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -15,13 +18,30 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
+import slimeknights.tconstruct.common.data.DamageTypeProvider;
 import slimeknights.tconstruct.common.data.RecipeProviderCollector;
+import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
+import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
+import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
+import slimeknights.tconstruct.common.data.tags.BiomeTagProvider;
+import slimeknights.tconstruct.common.data.tags.BlockEntityTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
+import slimeknights.tconstruct.common.data.tags.DamageTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.EnchantmentTagProvider;
+import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
+import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
+import slimeknights.tconstruct.common.data.tags.MenuTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.PotionTagProvider;
 import slimeknights.tconstruct.common.network.TinkerPayloadInit;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -38,10 +58,14 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.material.TrimMaterialProvider;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.data.WorldgenProvider;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
@@ -112,6 +136,53 @@ public class TConstruct {
   void combineRecipeProviders(final GatherDataEvent event) {
     DataProvider combined = RecipeProviderCollector.combineAndClear();
     event.getGenerator().addProvider(true, combined);
+  }
+
+  /**
+   * Registers every non-recipe datagen provider: datapack registries (damage types, worldgen, trim materials),
+   * all tag providers, loot tables/loot modifiers/loot injection, advancements, and misc command configuration.
+   * Ported from the 1.20.1 Forge {@code TConstruct#gatherData}; recipes are handled separately by
+   * {@link #combineRecipeProviders(GatherDataEvent)} via {@link RecipeProviderCollector}.
+   */
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    DataGenerator generator = event.getGenerator();
+    PackOutput packOutput = generator.getPackOutput();
+    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+    boolean server = event.includeServer();
+
+    // datapack registries: damage types, worldgen, trim materials.
+    // Must go through event.createDatapackRegistryObjects(...) rather than constructing a
+    // DatapackBuiltinEntriesProvider by hand and calling generator.addProvider() directly (as the 1.20.1 Forge
+    // code did) - only this event helper patches our registry contents into event.getLookupProvider()'s backing
+    // future. Skip it and every later provider only sees the *unpatched* vanilla lookup, which is missing even
+    // vanilla's own datapack registries (e.g. minecraft:enchantment became one in 1.21), crashing loot table gen.
+    RegistrySetBuilder registrySetBuilder = new RegistrySetBuilder();
+    DamageTypeProvider.register(registrySetBuilder);
+    WorldgenProvider.register(registrySetBuilder);
+    TrimMaterialProvider.register(registrySetBuilder);
+    event.createDatapackRegistryObjects(registrySetBuilder, Set.of(MOD_ID));
+    CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+    // tags
+    BlockTagProvider blockTags = new BlockTagProvider(packOutput, lookupProvider, existingFileHelper);
+    generator.addProvider(server, blockTags);
+    generator.addProvider(server, new ItemTagProvider(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+    generator.addProvider(server, new FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new EntityTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new BlockEntityTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new BiomeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new EnchantmentTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new MenuTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new PotionTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new DamageTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+
+    // other datagen
+    generator.addProvider(server, new TConstructLootTableProvider(packOutput, lookupProvider));
+    generator.addProvider(server, new AdvancementsProvider(packOutput, lookupProvider));
+    generator.addProvider(server, new GlobalLootModifiersProvider(packOutput, lookupProvider));
+    generator.addProvider(server, new LootTableInjectionProvider(packOutput));
+    generator.addProvider(server, new ConfigurationDataProvider(packOutput));
   }
 
   public static ResourceLocation getResource(String name) {
