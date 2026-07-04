@@ -109,7 +109,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.has(DataComponents.CUSTOM_DATA) ? stack.get(DataComponents.CUSTOM_DATA).copyTag() : null;
     if (nbt != null && world.getBlockEntity(pos) instanceof TankBlockEntity tank) {
-      tank.updateTank(nbt.getCompound(NBTTags.TANK));
+      tank.updateTank(world.registryAccess(), nbt.getCompound(NBTTags.TANK));
     }
     super.setPlacedBy(world, pos, state, placer, stack);
   }

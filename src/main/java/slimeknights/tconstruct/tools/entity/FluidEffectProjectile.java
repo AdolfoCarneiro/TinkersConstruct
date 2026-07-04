@@ -7,9 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtUtils;
-import slimeknights.tconstruct.TConstruct;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -353,7 +351,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
-      nbt.put(KEY_FLUID, fluid.save(TConstruct.STATIC_PROVIDER));
+      nbt.put(KEY_FLUID, fluid.save(this.level().registryAccess()));
     }
   }
 
@@ -364,6 +362,6 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     this.knockback = nbt.getFloat(KEY_KNOCKBACK);
     this.entityData.set(WATER_INERTIA, nbt.getFloat(KEY_WATER_INERTIA));
     this.cannon = NbtUtils.readBlockPos(nbt, KEY_CANNON).orElse(null);
-    setFluid(FluidStack.parseOptional(TConstruct.STATIC_PROVIDER, nbt.getCompound(KEY_FLUID)));
+    setFluid(FluidStack.parseOptional(this.level().registryAccess(), nbt.getCompound(KEY_FLUID)));
   }
 }

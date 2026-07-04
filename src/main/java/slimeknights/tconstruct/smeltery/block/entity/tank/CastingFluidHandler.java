@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.tank;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -8,7 +9,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nonnull;
@@ -182,10 +182,10 @@ public class CastingFluidHandler implements IFluidHandler {
   private static final String TAG_CAPACITY = "capacity";
 
   /** Reads the tank from Tag */
-  public void readFromTag(CompoundTag nbt) {
+  public void readFromTag(HolderLookup.Provider registries, CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
     if (nbt.contains(TAG_FLUID, Tag.TAG_COMPOUND)) {
-      setFluid(FluidStack.parseOptional(TConstruct.STATIC_PROVIDER, nbt.getCompound(TAG_FLUID)));
+      setFluid(FluidStack.parseOptional(registries, nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, Tag.TAG_STRING)) {
       Fluid fluid = BuiltInRegistries.FLUID.get(ResourceLocation.parse(nbt.getString(TAG_FILTER)));
@@ -197,10 +197,10 @@ public class CastingFluidHandler implements IFluidHandler {
 
   /** Write the tank from NBT */
   @SuppressWarnings("deprecation")
-  public CompoundTag writeToTag(CompoundTag nbt) {
+  public CompoundTag writeToTag(HolderLookup.Provider registries, CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
-      nbt.put(TAG_FLUID, fluid.save(TConstruct.STATIC_PROVIDER, new CompoundTag()));
+      nbt.put(TAG_FLUID, fluid.save(registries, new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
       nbt.putString(TAG_FILTER, BuiltInRegistries.FLUID.getKey(filter).toString());

@@ -17,7 +17,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.IFluidTank;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -163,13 +162,14 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
 
   /**
    * Updates the tank from an NBT tag, used in the block
-   * @param nbt  tank NBT
+   * @param registries  Registry access, for parsing fluid components
+   * @param nbt         tank NBT
    */
-  public void updateTank(CompoundTag nbt) {
+  public void updateTank(HolderLookup.Provider registries, CompoundTag nbt) {
     if (nbt.isEmpty()) {
       tank.setFluid(FluidStack.EMPTY);
     } else {
-      tank.readFromNBT(TConstruct.STATIC_PROVIDER, nbt);
+      tank.readFromNBT(registries, nbt);
       updateLight(this, tank);
     }
   }
@@ -182,7 +182,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     tank.setCapacity(getCapacity(getBlockState().getBlock()));
-    updateTank(tag.getCompound(NBTTags.TANK));
+    updateTank(registries, tag.getCompound(NBTTags.TANK));
     super.loadAdditional(tag, registries);
   }
 

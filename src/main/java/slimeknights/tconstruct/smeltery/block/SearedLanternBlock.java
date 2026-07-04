@@ -71,7 +71,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     if (!nbt.isEmpty() && world.getBlockEntity(pos) instanceof TankBlockEntity tank) {
-      tank.updateTank(nbt.getCompound(NBTTags.TANK));
+      tank.updateTank(world.registryAccess(), nbt.getCompound(NBTTags.TANK));
     }
   }
 

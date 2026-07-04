@@ -282,13 +282,14 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
   /**
    * Updates the tank from an NBT tag, used in the block
-   * @param nbt  tank NBT
+   * @param registries  Registry access, for parsing fluid components
+   * @param nbt         tank NBT
    */
-  public void updateTank(CompoundTag nbt) {
+  public void updateTank(HolderLookup.Provider registries, CompoundTag nbt) {
     if (nbt.isEmpty()) {
       tank.setFluid(FluidStack.EMPTY);
     } else {
-      tank.readFromNBT(TConstruct.STATIC_PROVIDER, nbt);
+      tank.readFromNBT(registries, nbt);
       TankBlockEntity.updateLight(this, tank);
     }
   }
@@ -296,7 +297,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     tank.setCapacity(getCapacity(getBlockState().getBlock()));
-    updateTank(tag.getCompound(NBTTags.TANK));
+    updateTank(registries, tag.getCompound(NBTTags.TANK));
     lastRedstone = tag.getBoolean(TAG_REDSTONE);
     super.loadAdditional(tag, registries);
   }
