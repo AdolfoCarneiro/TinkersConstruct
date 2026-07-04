@@ -1,0 +1,133 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Adolfo/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :generateModMetadata UP-TO-DATE
+> Task :generateEffectiveLombokConfig
+> Task :processResources
+> Task :downloadAssets UP-TO-DATE
+> Task :writeDataLegacyClasspath UP-TO-DATE
+> Task :prepareDataRun UP-TO-DATE
+
+> Task :compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :classes
+
+> Task :runData
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[00:18:30] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatadev, --assetIndex, 17, --assetsDir, C:\\Users\\Adolfo\\.gradle\\caches\\neoformruntime\\assets, --gameDir, ., --fml.fmlVersion, 4.0.42, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.234, --fml.neoFormVersion, 20240808.144430, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[00:18:30] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
+[00:18:30] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[00:18:30] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatadev
+[00:18:30] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Adolfo/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23138!/ Service=ModLauncher Env=CLIENT
+[00:18:30] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[00:18:30] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Mantle 1.11 (mantle)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.234 (neoforge)
+		Tinkers' Construct 3.11.2 (tconstruct)
+[00:18:35] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatadev' with arguments [--gameDir, ., --assetsDir, C:\Users\Adolfo\.gradle\caches\neoformruntime\assets, --assetIndex, 17, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[00:18:38] [main/INFO] [ne.ne.ne.da.lo.DatagenModLoader/]: Initializing Data Gatherer for mods [tconstruct]
+[00:18:38] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[00:18:55] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.234, for MC 1.21.1
+[00:18:55] [modloading-worker-0/INFO] [Mantle/]: Mantle Phase 1 Task 7: capabilities layer loaded.
+[00:18:58] [modloading-worker-0/INFO] [TConstruct/]: TConstruct initialized (NeoForge 1.21.1).
+[00:19:07] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/assets/.mcassetsroot' uses unexpected schema
+[00:19:07] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/data/.mcassetsroot' uses unexpected schema
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct model sprite provider
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct model sprite provider finished after 87 ms
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Starting provider: atlases generator for tconstruct
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: atlases generator for tconstruct finished after 28 ms
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Starting provider: Item Models: tconstruct
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Item Models: tconstruct finished after 214 ms
+[00:19:08] [main/INFO] [minecraft/DataGenerator]: Starting provider: Block States: tconstruct
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Block States: tconstruct finished after 1216 ms
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render fluid provider
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render fluid provider finished after 53 ms
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render item provider
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render item provider finished after 23 ms
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct mob equipment
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct mob equipment finished after 53 ms
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Structure Repaletter
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Structure Repaletter finished after 554 ms
+[00:19:10] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Modifiers
+Exception in thread "main" java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:32)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23)
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210)
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.neoforged.devlaunch.Main.main(Main.java:57)
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.dataService(CommonLaunchHandler.java:132)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.NeoForgeDataDevLaunchHandler.runService(NeoForgeDataDevLaunchHandler.java:28)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30)
+	... 11 more
+Caused by: java.util.concurrent.CompletionException: java.lang.IllegalStateException: Unregistered holder in ResourceKey[minecraft:root / neoforge:condition_codecs]: Direct{RecordCodec[UnitDecoder[slimeknights.mantle.recipe.condition.TagFilledCondition$$Lambda/0x0000026f2df972f0@1116ea37] * OptionalFieldCodec[registry: String[comapFlatMapped]][xmapped] * Field[tag: String[comapFlatMapped]]]}
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.uniComposeStage(CompletableFuture.java:1194)
+	at java.base/java.util.concurrent.CompletableFuture.thenCompose(CompletableFuture.java:2341)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider.run(AbstractModifierProvider.java:99)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.HashCache.generateUpdate(HashCache.java:96)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.DataGenerator.lambda$run$0(DataGenerator.java:44)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:986)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.DataGenerator.run(DataGenerator.java:37)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.event.GatherDataEvent$DataGeneratorConfig.lambda$runAll$3(GatherDataEvent.java:201)
+	at java.base/java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:833)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.event.GatherDataEvent$DataGeneratorConfig.runAll(GatherDataEvent.java:196)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.loading.DatagenModLoader.begin(DatagenModLoader.java:64)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.Main.main(Main.java:101)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	... 17 more
+Caused by: java.lang.IllegalStateException: Unregistered holder in ResourceKey[minecraft:root / neoforge:condition_codecs]: Direct{RecordCodec[UnitDecoder[slimeknights.mantle.recipe.condition.TagFilledCondition$$Lambda/0x0000026f2df972f0@1116ea37] * OptionalFieldCodec[registry: String[comapFlatMapped]][xmapped] * Field[tag: String[comapFlatMapped]]]}
+	at MC-BOOTSTRAP/datafixerupper@8.0.16/com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at MC-BOOTSTRAP/datafixerupper@8.0.16/com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider$Composable.serialize(AbstractModifierProvider.java:126)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider.lambda$run$0(AbstractModifierProvider.java:102)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.HashMap$EntrySpliterator.forEachRemaining(HashMap.java:1858)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+	at TRANSFORMER/mantle@1.11/slimeknights.mantle.data.GenericDataProvider.allOf(GenericDataProvider.java:95)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider.lambda$run$1(AbstractModifierProvider.java:102)
+	at java.base/java.util.concurrent.CompletableFuture.uniComposeStage(CompletableFuture.java:1187)
+	... 29 more
+
+> Task :runData FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':runData'.
+> Process 'command 'C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin\java.exe'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2m
+9 actionable tasks: 4 executed, 5 up-to-date

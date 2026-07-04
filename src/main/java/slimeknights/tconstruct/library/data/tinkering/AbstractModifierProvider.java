@@ -2,10 +2,12 @@ package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.resources.RegistryOps;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.json.JsonRedirect;
@@ -23,9 +25,13 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("SameParameterValue")
 public abstract class AbstractModifierProvider extends GenericDataProvider {
   private final Map<ModifierId,Composable> composableModifiers = new HashMap<>();
+  private final CompletableFuture<HolderLookup.Provider> registriesFuture;
+  /** Resolved registry access, only valid while {@link #addModifiers()} is running as part of {@link #run(CachedOutput)}. */
+  protected HolderLookup.Provider registries;
 
-  public AbstractModifierProvider(PackOutput packOutput) {
+  public AbstractModifierProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
     super(packOutput, Target.DATA_PACK, ModifierManager.FOLDER, ModifierManager.GSON);
+    this.registriesFuture = registries;
   }
 
   /**
@@ -90,14 +96,17 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
 
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
-    addModifiers();
-    return allOf(composableModifiers.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().serialize())));
+    return registriesFuture.thenCompose(provider -> {
+      this.registries = provider;
+      addModifiers();
+      return allOf(composableModifiers.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().serialize(provider))));
+    });
   }
 
   /** Result for composable too */
   private record Composable(@Nullable ComposableModifier.Builder builder, @Nullable ICondition condition, JsonRedirect[] redirects) {
     /** Writes this result to JSON */
-    public JsonObject serialize() {
+    public JsonObject serialize(HolderLookup.Provider registries) {
       JsonObject json;
       if (builder != null) {
         json = ComposableModifier.LOADER.serialize(builder.build()).getAsJsonObject();
@@ -112,7 +121,9 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
         json.add("redirects", array);
       }
       if (condition != null) {
-        json.add("condition", ICondition.CODEC.encodeStart(JsonOps.INSTANCE, condition).getOrThrow());
+        // FIXME F3: ICondition.CODEC is a registry-dispatch codec (neoforge:condition_codecs); it needs RegistryOps context to resolve
+        // the codec holder, plain JsonOps.INSTANCE throws "Unregistered holder". Mirrors NeoForge's own ICondition.writeConditions(...).
+        json.add("condition", ICondition.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, registries), condition).getOrThrow());
       }
       return json;
     }

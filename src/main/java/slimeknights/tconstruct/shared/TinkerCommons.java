@@ -35,6 +35,9 @@ import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
+import slimeknights.mantle.data.predicate.damage.DamageTypePredicate;
+import slimeknights.mantle.data.predicate.damage.SourceAttackerPredicate;
+import slimeknights.mantle.data.predicate.damage.SourceMessagePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.mantle.item.EdibleItem;
@@ -194,6 +197,35 @@ public final class TinkerCommons extends TinkerModule {
       Registry.register(BuiltInRegistries.TRIGGER_TYPES, TConstruct.getResource("block_container_opened"), CONTAINER_OPENED_TRIGGER);
       // mantle
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());
+      // FIXME F3: these DamageSourcePredicate/LivingEntityPredicate singletons are declared in Mantle itself but never registered there in the
+      // 1.21.1 port (bug), so datagen serialization throws "Unknown Damage Source/Entity Predicate loader" for any modifier using them.
+      // Registering them here under the "mantle" namespace (matching the pre-port generated JSON, e.g. "mantle:can_protect") works around it
+      // without touching Mantle-neo.
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("is_indirect"), DamageSourcePredicate.IS_INDIRECT.getLoader());
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("has_entity"), DamageSourcePredicate.HAS_ENTITY.getLoader());
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("can_protect"), DamageSourcePredicate.CAN_PROTECT.getLoader());
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("damage_type"), DamageTypePredicate.LOADER);
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("message"), SourceMessagePredicate.LOADER);
+      DamageSourcePredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("attacker"), SourceAttackerPredicate.LOADER);
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("can_freeze"), LivingEntityPredicate.CAN_FREEZE.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("is_freezing"), LivingEntityPredicate.IS_FREEZING.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("is_in_powdered_snow"), LivingEntityPredicate.IS_IN_POWDERED_SNOW.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("on_ground"), LivingEntityPredicate.ON_GROUND.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("crouching"), LivingEntityPredicate.CROUCHING.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("sprinting"), LivingEntityPredicate.SPRINTING.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("blocking"), LivingEntityPredicate.BLOCKING.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("elytra_flying"), LivingEntityPredicate.ELYTRA_FLYING.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("eyes_in_water"), LivingEntityPredicate.EYES_IN_WATER.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("underwater"), LivingEntityPredicate.UNDERWATER.getLoader());
+      LivingEntityPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("raining"), LivingEntityPredicate.RAINING.getLoader());
+      ItemPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("has_container"), ItemPredicate.HAS_CONTAINER.getLoader());
+      BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
+      BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("blocks_motion"), BlockPredicate.BLOCKS_MOTION.getLoader());
+      BlockPredicate.LOADER.register(slimeknights.mantle.Mantle.getResource("can_be_replaced"), BlockPredicate.CAN_BE_REPLACED.getLoader());
       // entity
       LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("targeting_block"), TinkerPredicate.TARGETING_BLOCK.getLoader());

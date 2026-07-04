@@ -1,11 +1,16 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -18,15 +23,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.util.LogicHelper;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
@@ -48,13 +56,58 @@ import java.util.Set;
 
 /** Modules that add enchantments to a tool. */
 public interface EnchantmentModule extends ModifierModule, LevelingIntModule, ConditionalModule<IToolStackView> {
+  /**
+   * Loadable resolving a {@link Holder} of an enchantment from its registry name.
+   * <p>
+   * Enchantments are a fully data-driven (world/datapack) registry in 1.21, so unlike most loadables this cannot
+   * resolve via a static registry lookup ({@link Loadables#ENCHANTMENT} does that and fails both ways: it cannot
+   * find the registry to look up a key during read, nor to look up a key for an object during write). Storing the
+   * {@link Holder} instead of the raw {@link Enchantment} lets us sidestep the problem entirely for writing
+   * ({@link Holder#unwrapKey()} carries its own key with no registry access needed), and for reading pulls the
+   * live registry access from {@link ModifierManager#REGISTRIES}, which {@link ModifierManager} threads into the
+   * context when parsing real modifier JSON. This context is not (and does not need to be) populated during
+   * datagen, since datagen only ever serializes (writes) built modules, never parses them back from JSON.
+   */
+  ResourceLocationLoadable<Holder<Enchantment>> ENCHANTMENT_HOLDER_LOADABLE = new ResourceLocationLoadable<>() {
+    @Override
+    public Holder<Enchantment> fromKey(ResourceLocation name, String key, TypedMap context) {
+      HolderLookup.Provider registries = context.get(ModifierManager.REGISTRIES);
+      if (registries == null) {
+        throw new JsonSyntaxException("Unable to parse " + key + " as an enchantment, no registry access available in this context");
+      }
+      return registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, name));
+    }
+
+    @Override
+    public ResourceLocation getKey(Holder<Enchantment> holder) {
+      return holder.unwrapKey().orElseThrow(() -> new RuntimeException("Enchantment holder " + holder + " has no registry key, cannot serialize")).location();
+    }
+
+    @Override
+    public Holder<Enchantment> decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
+      // unlike JSON parsing, RegistryFriendlyByteBuf always carries live registry access, so no context plumbing is needed here
+      ResourceLocation name = buffer.readResourceLocation();
+      return buffer.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, name));
+    }
+
+    @Override
+    public void encode(RegistryFriendlyByteBuf buffer, Holder<Enchantment> value) {
+      buffer.writeResourceLocation(getKey(value));
+    }
+  };
+
   /* Common fields */
-  LoadableField<Enchantment,EnchantmentModule> ENCHANTMENT = Loadables.ENCHANTMENT.requiredField("name", EnchantmentModule::enchantment);
+  LoadableField<Holder<Enchantment>,EnchantmentModule> ENCHANTMENT = ENCHANTMENT_HOLDER_LOADABLE.requiredField("name", EnchantmentModule::enchantmentHolder);
   LoadableField<IJsonPredicate<BlockState>,EnchantmentModule> BLOCK = BlockPredicate.LOADER.defaultField("block", EnchantmentModule::block);
   LoadableField<IJsonPredicate<LivingEntity>,EnchantmentModule> HOLDER = LivingEntityPredicate.LOADER.defaultField("holder", EnchantmentModule::holder);
 
-  /** Gets the enchantment for this module */
-  Enchantment enchantment();
+  /** Gets the enchantment holder for this module */
+  Holder<Enchantment> enchantmentHolder();
+
+  /** Convenience accessor for the raw enchantment instance backing {@link #enchantmentHolder()} */
+  default Enchantment enchantment() {
+    return enchantmentHolder().value();
+  }
 
   /** Gets the block predicate, will be {@link BlockPredicate#ANY} for {@link Constant} */
   default IJsonPredicate<BlockState> block() {
@@ -67,20 +120,22 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   }
 
   /**
-   * Creates a builder for a constant enchantment
+   * Creates a builder for a constant enchantment from a raw {@link Enchantment} instance.
+   * @apiNote The resulting module can only be used programmatically (e.g. registering a static modifier); it cannot
+   *          be serialized to JSON, as a raw enchantment carries no registry key. Prefer
+   *          {@link #builder(ResourceKey, HolderLookup.Provider)} when the module needs to be datagen'd.
    */
   static Builder builder(Enchantment enchantment) {
-    return new Builder(enchantment);
+    return new Builder(Holder.direct(enchantment));
   }
 
   /**
-   * Creates a builder for a constant enchantment from a ResourceKey.
-   * TODO F2: Enchantments are data-driven in 1.21.1 — BuiltInRegistries.ENCHANTMENT is gone.
-   *          This overload needs to be redesigned to accept HolderLookup.Provider or store the key.
-   *          For now it compiles but will fail at runtime if the key is not in BuiltInRegistries.
+   * Creates a builder for a constant enchantment from a ResourceKey, resolving the real {@link Enchantment} holder
+   * via the given registry access. Enchantments are data-driven in 1.21.1, so a {@link HolderLookup.Provider} is
+   * required to look them up (no more {@code BuiltInRegistries.ENCHANTMENT}).
    */
-  static Builder builder(ResourceKey<Enchantment> enchantment) {
-    throw new UnsupportedOperationException("TODO F2: EnchantmentModule.builder(ResourceKey) needs redesign for 1.21.1 data-driven enchantments. Key: " + enchantment.location());
+  static Builder builder(ResourceKey<Enchantment> enchantment, HolderLookup.Provider registries) {
+    return new Builder(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment));
   }
 
   /**
@@ -90,9 +145,9 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   @Setter
   @Accessors(fluent = true)
   class Builder extends ModuleBuilder.Stack<Builder> {
-    private final Enchantment enchantment;
+    private final Holder<Enchantment> enchantment;
 
-    private Builder(Enchantment enchantment) {
+    private Builder(Holder<Enchantment> enchantment) {
       this.enchantment = enchantment;
     }
     private LevelingInt lootingLevel = LevelingInt.LEVEL;
@@ -172,29 +227,29 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   class Constant implements EnchantmentModule, EnchantmentModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Constant>defaultHooks(ModifierHooks.ENCHANTMENTS);
     public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Constant::new);
-    private final Enchantment enchantment;
+    private final Holder<Enchantment> enchantment;
     private final LevelingInt level;
     private final ModifierCondition<IToolStackView> condition;
 
-    protected Constant(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
+    protected Constant(Holder<Enchantment> enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
       this.enchantment = enchantment;
       this.level = level;
       this.condition = condition;
     }
 
-    @Override public Enchantment enchantment() { return enchantment; }
+    @Override public Holder<Enchantment> enchantmentHolder() { return enchantment; }
     @Override public LevelingInt level() { return level; }
     @Override public ModifierCondition<IToolStackView> condition() { return condition; }
 
     /** @deprecated use {@link Builder#constant()} */
     @Deprecated(forRemoval = true)
-    public Constant(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition) {
+    public Constant(Holder<Enchantment> enchantment, int level, ModifierCondition<IToolStackView> condition) {
       this(enchantment, LevelingInt.eachLevel(level), condition);
     }
 
     /** @deprecated use {@link Builder#constant()} */
     @Deprecated(forRemoval = true)
-    public Constant(Enchantment enchantment, int level) {
+    public Constant(Holder<Enchantment> enchantment, int level) {
       this(enchantment, level, ModifierCondition.ANY_TOOL);
     }
 
@@ -228,13 +283,13 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   class Protection extends Constant implements ProtectionModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Protection>defaultHooks(ModifierHooks.ENCHANTMENTS, ModifierHooks.PROTECTION);
     public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Protection::new);
-    protected Protection(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
+    protected Protection(Holder<Enchantment> enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
       super(enchantment, level, condition);
     }
 
     /** @deprecated use {@link Builder#protection()} */
     @Deprecated(forRemoval = true)
-    public Protection(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition) {
+    public Protection(Holder<Enchantment> enchantment, int level, ModifierCondition<IToolStackView> condition) {
       super(enchantment, level, condition);
     }
 
@@ -269,7 +324,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
    * Enchantment module that can condition on the block mined or the entity mining.
    * Exists as {@link HarvestEnchantmentsModifierHook} does not currently run on the main hand. TODO 1.21: update it to run on mainhand.
    */
-  record MainHandHarvest(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
+  record MainHandHarvest(Holder<Enchantment> enchantmentHolder, LevelingInt level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MainHandHarvest>defaultHooks(ModifierHooks.ENCHANTMENTS, ModifierHooks.BLOCK_HARVEST);
     public static final RecordLoadable<MainHandHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Loadables.RESOURCE_LOCATION.requiredField("condition_flag", MainHandHarvest::conditionFlag), BLOCK, HOLDER, MainHandHarvest::new);
 
@@ -279,7 +334,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
 
     /** @deprecated use {@link Builder#mainHandHarvest(ResourceLocation)} */
     @Deprecated(forRemoval = true)
-    public MainHandHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
+    public MainHandHarvest(Holder<Enchantment> enchantment, int level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
       this(enchantment, LevelingInt.eachLevel(level), condition, conditionFlag, block, holder);
     }
 
@@ -326,7 +381,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
    * Enchantment module that can condition on the block mined or the entity mining on armor. Requires the harvesting be done with a tinker tool.
    * TODO 1.21: rename to conditional harvest. The slot filter lets us avoid double applying to a constant enchantment harvest tool.
    */
-  record ArmorHarvest(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
+  record ArmorHarvest(Holder<Enchantment> enchantmentHolder, LevelingInt level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ArmorHarvest>defaultHooks(ModifierHooks.HARVEST_ENCHANTMENTS);
     public static final RecordLoadable<ArmorHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", ArmorHarvest::slots), BLOCK, HOLDER, ArmorHarvest::new);
 
@@ -336,14 +391,14 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
 
     /** @deprecated use {@link Builder#armorHarvest(EquipmentSlot...)} */
     @Deprecated(forRemoval = true)
-    public ArmorHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
+    public ArmorHarvest(Holder<Enchantment> enchantment, int level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
       this(enchantment, LevelingInt.eachLevel(level), condition, slots, block, holder);
     }
 
     @Override
     public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, net.minecraft.world.item.enchantment.ItemEnchantments.Mutable map) {
       if (slots.contains(slot) && condition.matches(tool, modifier) && block.matches(context.getState()) && holder.matches(context.getLiving())) {
-        // TODO: enchantment field should be Holder<Enchantment> in 1.21.1 — for now no-op until EnchantmentModule is fully migrated
+        // TODO: no-op until this hook is fully implemented; enchantmentHolder() is now available (Holder<Enchantment>) whenever this is wired up
       }
     }
 

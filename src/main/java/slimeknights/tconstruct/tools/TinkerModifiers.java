@@ -1086,7 +1086,7 @@ public final class TinkerModifiers extends TinkerModule {
     DataGenerator generator = event.getGenerator();
     PackOutput packOutput = generator.getPackOutput();
     boolean server = event.includeServer();
-    generator.addProvider(server, new ModifierProvider(packOutput));
+    generator.addProvider(server, new ModifierProvider(packOutput, event.getLookupProvider()));
     // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
     if (server) {
       RecipeProviderCollector.add(new ModifierRecipeProvider(packOutput, event.getLookupProvider()));

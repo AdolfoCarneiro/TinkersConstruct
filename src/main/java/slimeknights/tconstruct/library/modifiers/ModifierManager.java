@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -79,6 +80,15 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** GSON instance for loading dynamic modifiers */
   public static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
+  /**
+   * Context key for the registry access available while parsing modifier JSON at real datapack load time.
+   * Enchantments are a fully data-driven (world/datapack) registry in 1.21, so unlike most loadables they cannot
+   * be resolved via a static registry lookup; loadables needing to resolve a {@link Holder} of a dynamic registry
+   * object must pull the {@link HolderLookup.Provider} from this context key instead.
+   * @see #loadModifier(ResourceLocation, JsonElement, Map)
+   */
+  public static final ContextKey<HolderLookup.Provider> REGISTRIES = new ContextKey<>("registries");
+
   /** @deprecated use {@link ModifierId#EMPTY} */
   @Deprecated
   public static final ModifierId EMPTY = ModifierId.EMPTY;
@@ -118,6 +128,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   boolean dynamicModifiersLoaded = false;
   public boolean isDynamicModifiersLoaded() { return dynamicModifiersLoaded; }
   private IContext conditionContext = IContext.EMPTY;
+  /** Registry access for the currently active reload, used to resolve dynamic registry objects (e.g. enchantments) while parsing modifier JSON. Null before the first reload. */
+  @Nullable
+  private HolderLookup.Provider registryAccess = null;
 
   private ModifierManager() {
     super(GSON, FOLDER);
@@ -144,6 +157,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
     conditionContext = event.getConditionContext();
+    registryAccess = event.getRegistryAccess();
   }
 
   @SuppressWarnings("removal")
@@ -298,7 +312,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // fallback to actual modifier
-      Modifier modifier = ComposableModifier.LOADER.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build());
+      Modifier modifier = ComposableModifier.LOADER.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).put(REGISTRIES, registryAccess).build());
       modifier.setId(new ModifierId(key));
       return modifier;
     } catch (JsonSyntaxException e) {
