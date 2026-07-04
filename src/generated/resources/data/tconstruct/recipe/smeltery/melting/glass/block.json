@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "c:glass_blocks"
+    "tag": "c:glass_blocks/cheap"
   },
   "result": {
     "amount": 1000,
