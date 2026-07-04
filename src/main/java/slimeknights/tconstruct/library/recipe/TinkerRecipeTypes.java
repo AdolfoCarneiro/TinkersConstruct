@@ -1,14 +1,17 @@
 package slimeknights.tconstruct.library.recipe;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
@@ -33,6 +36,11 @@ public class TinkerRecipeTypes {
   /** Deferred instance */
   private static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, TConstruct.MOD_ID);
   private static final DeferredRegister<IngredientType<?>> INGREDIENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.INGREDIENT_TYPES, TConstruct.MOD_ID);
+  private static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, TConstruct.MOD_ID);
+
+  static {
+    CONDITION_CODECS.register(ConfigEnabledCondition.ID.getPath(), () -> ConfigEnabledCondition.CODEC);
+  }
 
   public static final DeferredHolder<RecipeType<?>, RecipeType<IPartBuilderRecipe>> PART_BUILDER = register("part_builder");
   public static final DeferredHolder<RecipeType<?>, RecipeType<MaterialRecipe>> MATERIAL = register("material");
@@ -73,6 +81,7 @@ public class TinkerRecipeTypes {
   public static void init(IEventBus bus) {
     TYPES.register(bus);
     INGREDIENT_TYPES.register(bus);
+    CONDITION_CODECS.register(bus);
   }
 
   /**
