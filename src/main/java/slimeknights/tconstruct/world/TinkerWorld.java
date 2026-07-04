@@ -66,6 +66,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -416,7 +417,10 @@ public final class TinkerWorld extends TinkerModule {
     DataGenerator generator = event.getGenerator();
     boolean server = event.includeServer();
     PackOutput packOutput = generator.getPackOutput();
-    generator.addProvider(server, new WorldRecipeProvider(packOutput, event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (server) {
+      RecipeProviderCollector.add(new WorldRecipeProvider(packOutput, event.getLookupProvider()));
+    }
     generator.addProvider(server, new MobEquipmentProvider(packOutput));
   }
 

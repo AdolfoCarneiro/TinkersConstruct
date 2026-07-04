@@ -28,10 +28,11 @@ public class EquipmentContext {
   }
 
   public LivingEntity getEntity() { return entity; }
+  // sized to fit every EquipmentSlot.getFilterFlag() value (1.21.1 added BODY, filterFlag 6, making the previously-correct hardcoded 6 too small)
   /** Determines if the tool in the given slot was fetched */
-  protected final boolean[] fetchedTool = new boolean[6];
+  protected final boolean[] fetchedTool = new boolean[EquipmentSlot.values().length];
   /** Array of tools currently on the entity */
-  protected final IToolStackView[] toolsInSlots = new IToolStackView[6];
+  protected final IToolStackView[] toolsInSlots = new IToolStackView[EquipmentSlot.values().length];
   /** Cached tinker data capability, saves capability lookup times slightly */
   private TinkerDataCapability.Holder tinkerData = null;
 

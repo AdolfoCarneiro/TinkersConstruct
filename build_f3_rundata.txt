@@ -1,0 +1,504 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Adolfo/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :generateModMetadata UP-TO-DATE
+> Task :processResources
+> Task :downloadAssets UP-TO-DATE
+> Task :writeDataLegacyClasspath UP-TO-DATE
+> Task :prepareDataRun UP-TO-DATE
+> Task :generateEffectiveLombokConfig
+
+> Task :compileJava
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierRepairTinkerStationRecipe.java:28: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierRepairTinkerStationRecipe.java:30: warning: Not generating getIngredient(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierRepairTinkerStationRecipe.java:32: warning: Not generating getRepairAmount(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\ArmorTrimRecipe.java:46: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\worktable\ModifierSetWorktableRecipe.java:59: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\BannerModifierRecipe.java:43: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:82: warning: Not generating getItem(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:85: warning: Not generating getDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:90: warning: Not generating getNbt(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\LootToCapacityModule.java:111: warning: Not generating amount(): A method with that name already exists
+    private int amount;
+                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ConditionalMeleeDamageModule.java:112: warning: Not generating target(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\combat\ConditionalMeleeDamageModule.java:114: warning: Not generating attacker(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> attacker = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ToolActionTransformModule.java:124: warning: Not generating eventId(): A method with that name already exists
+    private int eventId = -1;
+                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:14: warning: Not generating getChangedSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:17: warning: Not generating getOriginal(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:20: warning: Not generating getReplacement(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:23: warning: Not generating getOriginalTool(): A method with that name already exists
+  @Nullable @Getter
+            ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ConditionalStatModule.java:100: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:26: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:31: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:138: warning: Not generating getTotalGold(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\building\ToolBuildingRecipe.java:80: warning: Not generating getOutput(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\item\ranged\ModifiableLauncherItem.java:77: warning: Not generating getToolDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipe.java:63: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\AttributeModule.java:230: warning: Not generating tooltipStyle(): A method with that name already exists
+    private TooltipStyle tooltipStyle = TooltipStyle.ATTRIBUTE;
+                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:27: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:30: warning: Not generating getRepairMaterial(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:33: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\ArmorDyeingRecipe.java:40: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:123: warning: Not generating blocks(): A method with that name already exists
+    private IJsonPredicate<BlockState> blocks = BlockPredicate.ANY;
+                                       ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:125: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\item\ModifiableItem.java:79: warning: Not generating getToolDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\hook\armor\ProtectionModifierHook.java:40: warning: [removal] PROTECTION_CAP in TinkerDataKeys has been deprecated and marked for removal
+    return Math.min(living.getAttributeValue(TinkerAttributes.PROTECTION_CAP) * 25f + data.get(TinkerDataKeys.PROTECTION_CAP, 0f), 25 * 0.95f);
+                                                                                                             ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\capability\fluid\TankModule.java:74: warning: [removal] getDisplayName() in FluidStack has been deprecated and marked for removal
+      return fluid.getDisplayName().copy()
+                  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\capability\fluid\TankModule.java:129: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
+      if (current.getAmount() < capacity && current.isFluidEqual(resource)) {
+                                                   ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\capability\fluid\TankModule.java:147: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
+      if (!current.isEmpty() && current.isFluidEqual(resource)) {
+                                       ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\item\ModifiableItem.java:506: warning: [removal] initializeClient(Consumer<IClientItemExtensions>) in Item has been deprecated and marked for removal
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\item\ranged\ModifiableLauncherItem.java:359: warning: [removal] initializeClient(Consumer<IClientItemExtensions>) in Item has been deprecated and marked for removal
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:183: warning: [removal] <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>) in IModIngredientRegistration has been deprecated and marked for removal
+    registration.register(TConstructJEIConstants.MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
+                ^
+  where V is a type-variable:
+    V extends Object declared in method <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:184: warning: [removal] <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>) in IModIngredientRegistration has been deprecated and marked for removal
+    registration.register(TConstructJEIConstants.PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
+                ^
+  where V is a type-variable:
+    V extends Object declared in method <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:187: warning: [removal] <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>) in IModIngredientRegistration has been deprecated and marked for removal
+    registration.register(TConstructJEIConstants.SLOT_TYPE, slots, new SlotIngredientHelper(), SlotIngredientRenderer.INGREDIENT);
+                ^
+  where V is a type-variable:
+    V extends Object declared in method <V>register(IIngredientType<V>,Collection<V>,IIngredientHelper<V>,IIngredientRenderer<V>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:327: warning: [removal] IIngredientSubtypeInterpreter in mezz.jei.api.ingredients.subtypes has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> tables = (stack, context) -> {
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:327: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> tables = (stack, context) -> {
+                                                      ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:331: warning: [removal] IIngredientSubtypeInterpreter in mezz.jei.api.ingredients.subtypes has been deprecated and marked for removal
+      return IIngredientSubtypeInterpreter.NONE;
+             ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:331: warning: [removal] NONE in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+      return IIngredientSubtypeInterpreter.NONE;
+                                          ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:333: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.craftingStation.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:334: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.partBuilder.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:335: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkerStation.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:336: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.modifierWorktable.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:337: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.smelteryController.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:338: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedDrain.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:339: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedDuct.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:340: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedChute.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:341: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.foundryController.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:342: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDrain.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:343: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDuct.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:344: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedChute.asItem(), tables);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:347: warning: [removal] IIngredientSubtypeInterpreter in mezz.jei.api.ingredients.subtypes has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> anvils = (stack, context) -> {
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:347: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> anvils = (stack, context) -> {
+                                                      ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:355: warning: [removal] IIngredientSubtypeInterpreter in mezz.jei.api.ingredients.subtypes has been deprecated and marked for removal
+      return IIngredientSubtypeInterpreter.NONE;
+             ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:355: warning: [removal] NONE in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+      return IIngredientSubtypeInterpreter.NONE;
+                                          ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:357: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkersAnvil.asItem(), anvils);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:358: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.scorchedAnvil.asItem(), anvils);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:361: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerFluids.potion.asItem(), (PotionSubtypeInterpreter<ItemStack>)stack -> stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag());
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:362: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(NeoForgeTypes.FLUID_STACK, TinkerFluids.potion.get(), (PotionSubtypeInterpreter<FluidStack>)stack -> stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag());
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:366: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+      registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item.value(), ToolPartSubtypeInterpreter.INSTANCE);
+              ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:372: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+      registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, holder.is(TinkerTags.Items.SINGLEPART_TOOL) ? ToolSubtypeInterpreter.FIRST : ToolSubtypeInterpreter.INGREDIENT);
+              ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:376: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.copperCan.get(), (stack, context) -> CopperCanItem.getSubtype(stack));
+                                                                                                 ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:376: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.copperCan.get(), (stack, context) -> CopperCanItem.getSubtype(stack));
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:377: warning: [removal] IIngredientSubtypeInterpreter in mezz.jei.api.ingredients.subtypes has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> tankInterpreter = (stack, context) -> TankItem.getSubtype(stack);
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:377: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    IIngredientSubtypeInterpreter<ItemStack> tankInterpreter = (stack, context) -> TankItem.getSubtype(stack);
+                                                               ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:379: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+      registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedTank.get(type).asItem(), tankInterpreter);
+              ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:380: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+      registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedTank.get(type).asItem(), tankInterpreter);
+              ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:382: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedLantern.asItem(), tankInterpreter);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:383: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedLantern.asItem(), tankInterpreter);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:384: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedFluidCannon.asItem(), tankInterpreter);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:385: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedFluidCannon.asItem(), tankInterpreter);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:386: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.endFluidCannon.asItem(), tankInterpreter);
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:388: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerModifiers.creativeSlotItem.get(), (stack, context) -> {
+                                                                                                         ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:388: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerModifiers.creativeSlotItem.get(), (stack, context) -> {
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:392: warning: [removal] apply(T,UidContext) in IIngredientSubtypeInterpreter has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerModifiers.modifierCrystal.get(), (stack, context) -> {
+                                                                                                        ^
+  where T is a type-variable:
+    T extends Object declared in interface IIngredientSubtypeInterpreter
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\JEIPlugin.java:392: warning: [removal] <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>) in ISubtypeRegistration has been deprecated and marked for removal
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerModifiers.modifierCrystal.get(), (stack, context) -> {
+            ^
+  where B,I are type-variables:
+    B extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+    I extends Object declared in method <B,I>registerSubtypeInterpreter(IIngredientTypeWithSubtypes<B,I>,B,IIngredientSubtypeInterpreter<I>)
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\modifiers\ModifierRecipeCategory.java:155: warning: [removal] getTooltipStrings(T,IRecipeSlotsView,double,double) in IRecipeCategory has been deprecated and marked for removal
+  public List<Component> getTooltipStrings(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+                         ^
+  where T is a type-variable:
+    T extends Object declared in interface IRecipeCategory
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\modifiers\ModifierRecipeCategory.java:61: warning: [removal] getBackground() in IRecipeCategory has been deprecated and marked for removal
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\plugin\jei\modifiers\SlotIngredientHelper.java:44: warning: [removal] getUniqueId(V,UidContext) in IIngredientHelper has been deprecated and marked for removal
+  public String getUniqueId(SlotCount slots, UidContext context) {
+                ^
+  where V is a type-variable:
+    V extends Object declared in interface IIngredientHelper
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\entity\FluidEffectProjectile.java:143: warning: [removal] getDisplayName() in FluidStack has been deprecated and marked for removal
+    return getFluid().getDisplayName();
+                     ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\logic\ModifierEvents.java:114: warning: [removal] KNOCKBACK in TinkerDataKeys has been deprecated and marked for removal
+    double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER) + data.get(TinkerDataKeys.KNOCKBACK, 0f);
+                                                                                                                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modifiers\effect\HelmetChargingEffect.java:34: warning: [removal] initializeClient(Consumer<IClientMobEffectExtensions>) in MobEffect has been deprecated and marked for removal
+  public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modules\interaction\TankInteractionModule.java:96: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
+        if (!drained.isEmpty() && drained.isFluidEqual(fluidStack)) {
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modules\MeltingModule.java:164: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
+      if (!output.isEmpty() && (current.isEmpty() || current.isFluidEqual(output))) {
+                                                            ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modules\MeltingModule.java:219: warning: [removal] isFluidEqual(FluidStack) in FluidStack has been deprecated and marked for removal
+        if (fluid.isEmpty() || fluid.isFluidEqual(output)) {
+                                    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\SmashingModule.java:458: warning: [removal] getDisplayName() in FluidStack has been deprecated and marked for removal
+        stackWithTag(fluid, FluidValues.BOTTLE, getFluidTag(data)).getDisplayName()
+                                                                  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modules\ranged\ammo\SmashingModule.java:472: warning: [removal] getDisplayName() in FluidStack has been deprecated and marked for removal
+        tooltip.add(modifier.getModifier().applyStyle(stackWithTag(fluid, amount, getFluidTag(data)).getDisplayName().copy()
+                                                                                                    ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+93 warnings
+
+> Task :classes
+
+> Task :runData
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[22:52:52] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatadev, --assetIndex, 17, --assetsDir, C:\\Users\\Adolfo\\.gradle\\caches\\neoformruntime\\assets, --gameDir, ., --fml.fmlVersion, 4.0.42, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.234, --fml.neoFormVersion, 20240808.144430, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[22:52:52] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.5+11-LTS
+[22:52:52] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.5 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[22:52:52] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatadev
+[22:52:52] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Adolfo/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23138!/ Service=ModLauncher Env=CLIENT
+[22:52:53] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[22:52:53] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Mantle 1.11 (mantle)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.234 (neoforge)
+		Tinkers' Construct 3.11.2 (tconstruct)
+[22:52:55] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatadev' with arguments [--gameDir, ., --assetsDir, C:\Users\Adolfo\.gradle\caches\neoformruntime\assets, --assetIndex, 17, --mod, tconstruct, --all, --output, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\generated\\resources, --existing, C:\\Users\\Adolfo\\source\\repos\\TinkersConstruct-neo\\src\\main\\resources, --existing-mod, mantle]
+[22:52:57] [main/INFO] [ne.ne.ne.da.lo.DatagenModLoader/]: Initializing Data Gatherer for mods [tconstruct]
+[22:52:58] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[22:53:08] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.234, for MC 1.21.1
+[22:53:08] [modloading-worker-0/INFO] [Mantle/]: Mantle Phase 1 Task 7: capabilities layer loaded.
+[22:53:10] [modloading-worker-0/INFO] [TConstruct/]: TConstruct initialized (NeoForge 1.21.1).
+[22:53:16] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/assets/.mcassetsroot' uses unexpected schema
+[22:53:16] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/C:/Users/Adolfo/source/repos/TinkersConstruct-neo/build/moddev/artifacts/neoforge-21.1.234.jar%23189!/data/.mcassetsroot' uses unexpected schema
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct model sprite provider
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct model sprite provider finished after 79 ms
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Starting provider: atlases generator for tconstruct
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: atlases generator for tconstruct finished after 38 ms
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Starting provider: Item Models: tconstruct
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Item Models: tconstruct finished after 176 ms
+[22:53:17] [main/INFO] [minecraft/DataGenerator]: Starting provider: Block States: tconstruct
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Block States: tconstruct finished after 748 ms
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render fluid provider
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render fluid provider finished after 33 ms
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct block render item provider
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct block render item provider finished after 19 ms
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct mob equipment
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct mob equipment finished after 18 ms
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Structure Repaletter
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Tinkers' Construct Structure Repaletter finished after 555 ms
+[22:53:18] [main/INFO] [minecraft/DataGenerator]: Starting provider: Tinkers' Construct Modifiers
+Exception in thread "main" java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:32)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23)
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210)
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at net.neoforged.devlaunch.Main.main(Main.java:57)
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.dataService(CommonLaunchHandler.java:132)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.NeoForgeDataDevLaunchHandler.runService(NeoForgeDataDevLaunchHandler.java:28)
+	at MC-BOOTSTRAP/fml_loader@4.0.42/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30)
+	... 11 more
+Caused by: java.lang.UnsupportedOperationException: TODO F2: EnchantmentModule.builder(ResourceKey) needs redesign for 1.21.1 data-driven enchantments. Key: minecraft:silk_touch
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule.builder(EnchantmentModule.java:83)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.tools.data.ModifierProvider.addModifiers(ModifierProvider.java:499)
+	at TRANSFORMER/tconstruct@3.11.2/slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider.run(AbstractModifierProvider.java:93)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.HashCache.generateUpdate(HashCache.java:96)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.DataGenerator.lambda$run$0(DataGenerator.java:44)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:986)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.DataGenerator.run(DataGenerator.java:37)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.event.GatherDataEvent$DataGeneratorConfig.lambda$runAll$3(GatherDataEvent.java:201)
+	at java.base/java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:833)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.event.GatherDataEvent$DataGeneratorConfig.runAll(GatherDataEvent.java:196)
+	at TRANSFORMER/neoforge@21.1.234/net.neoforged.neoforge.data.loading.DatagenModLoader.begin(DatagenModLoader.java:64)
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.data.Main.main(Main.java:101)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	... 17 more
+
+> Task :runData FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':runData'.
+> Process 'command 'C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin\java.exe'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 36s
+9 actionable tasks: 4 executed, 5 up-to-date

@@ -16,6 +16,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.minecraft.world.effect.MobEffect;
@@ -72,6 +73,9 @@ public class TinkerEffects extends TinkerModule {
   @SuppressWarnings("removal")
   public TinkerEffects() {
     POTIONS.register(TConstruct.getModEventBus());
+    // RegisterBrewingRecipesEvent fires on the main (game) event bus, not the mod bus, so this instance
+    // cannot be registered via modEventBus.register(...) like the other TinkerXxx modules.
+    NeoForge.EVENT_BUS.register(this);
   }
 
   @SubscribeEvent

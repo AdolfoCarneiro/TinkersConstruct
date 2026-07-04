@@ -1,0 +1,320 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Adolfo/.gradle/wrapper/dists/gradle-8.10.2-bin/a04bxjujx95o3nb99gddekhwo/gradle-8.10.2/lib/native-platform-0.22-milestone-26.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :generateEffectiveLombokConfig
+
+> Task :compileJava
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\book\content\ContentTool.java:297: warning: Not generating getRenderTool(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipe.java:63: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\block\entity\inventory\ModifierWorktableContainerWrapper.java:18: warning: Not generating setPlayer(): A method with that name already exists
+  private Player player;
+                 ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\impl\ComposableModifier.java:89: warning: Not generating levelDisplay(): A method with that name already exists
+    private ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.DEFAULT;
+                                 ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\impl\ComposableModifier.java:91: warning: Not generating tooltipDisplay(): A method with that name already exists
+    private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
+                           ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\impl\ComposableModifier.java:94: warning: Not generating priority(): A method with that name already exists
+    private int priority = Integer.MIN_VALUE;
+                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\ArmorTrimRecipe.java:46: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:25: warning: Not generating getDefaultTraits(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:27: warning: Not generating getTraitsPerStats(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:122: warning: Not generating getDefaultTraits(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\traits\MaterialTraits.java:124: warning: Not generating getTraitsPerStats(): A method with that name already exists
+    @Getter(AccessLevel.PROTECTED)
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:27: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:30: warning: Not generating getRepairMaterial(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairKitRecipe.java:33: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ConditionalStatModule.java:100: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\worktable\ModifierSetWorktableRecipeBuilder.java:22: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\menu\TinkerStationContainerMenu.java:27: warning: Not generating getInputSlots(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\item\ranged\ModifiableLauncherItem.java:77: warning: Not generating getToolDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\block\entity\table\ModifierWorktableBlockEntity.java:46: warning: Not generating getCraftingResult(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\block\entity\table\ModifierWorktableBlockEntity.java:49: warning: Not generating getInventoryWrapper(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\block\entity\table\ModifierWorktableBlockEntity.java:64: warning: Not generating getResult(): A method with that name already exists
+  @Nullable @Getter
+            ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\block\entity\table\ModifierWorktableBlockEntity.java:67: warning: Not generating getCurrentMessage(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidEffectContext.java:125: warning: Not generating getLocation(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidEffectContext.java:260: warning: Not generating projectile(): A method with that name already exists
+    private Projectile projectile = null;
+                       ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidEffectContext.java:263: warning: Not generating stack(): A method with that name already exists
+    private ItemStack stack = ItemStack.EMPTY;
+                      ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\fluid\FluidEffectContext.java:266: warning: Not generating location(): A method with that name already exists
+    private Vec3 location = null;
+                 ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\definition\UpdateToolDefinitionDataPacket.java:22: warning: Not generating getDataMap(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\materials\MaterialGeneratorInfo.java:39: warning: Not generating getTransformer(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\materials\MaterialGeneratorInfo.java:46: warning: Not generating isVariant(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\behavior\ToolActionTransformModule.java:124: warning: Not generating eventId(): A method with that name already exists
+    private int eventId = -1;
+                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\RandomMaterial.java:355: warning: Not generating material(): A method with that name already exists
+    private IJsonPredicate<MaterialVariantId> material = MaterialPredicate.ANY;
+                                              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\menu\AlloyerContainerMenu.java:36: warning: Not generating isHasFuelSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:14: warning: Not generating getChangedSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:17: warning: Not generating getOriginal(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:20: warning: Not generating getReplacement(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\context\EquipmentChangeContext.java:23: warning: Not generating getOriginalTool(): A method with that name already exists
+  @Nullable @Getter
+            ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:82: warning: Not generating getItem(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:85: warning: Not generating getDefinition(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ToolStack.java:90: warning: Not generating getNbt(): A method with that name already exists
+  @Getter(AccessLevel.PROTECTED)
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\data\recipe\SmelteryRecipeBuilder.java:79: warning: Not generating temperature(): A method with that name already exists
+  private int temperature;
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\data\recipe\SmelteryRecipeBuilder.java:82: warning: Not generating optional(): A method with that name already exists
+  private boolean optional = false;
+                  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\material\MaterialRecipe.java:53: warning: Not generating getValue(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\controller\AlloyerBlockEntity.java:57: warning: Not generating getAlloyTank(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\controller\AlloyerBlockEntity.java:62: warning: Not generating getFuelModule(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\definition\MaterialManager.java:52: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\casting\ItemCastingRecipeBuilder.java:35: warning: Not generating setCoolingTime(): A method with that name already exists
+  private int coolingTime = -1;
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\entitymelting\EntityMeltingRecipe.java:32: warning: Not generating getIngredient(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\entitymelting\EntityMeltingRecipe.java:35: warning: Not generating getDamage(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\ModifierRemovalRecipeBuilder.java:31: warning: Not generating setName(): A method with that name already exists
+  private String name = "modifiers";
+                 ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\ModifierRemovalRecipeBuilder.java:35: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\MaterialIdNBT.java:36: warning: Not generating getMaterials(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\layout\StationSlotLayout.java:180: warning: Not generating translationKey(): A method with that name already exists
+    private String translationKey = null;
+                   ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\data\spritetransformer\GreyToSpriteTransformer.java:223: warning: Not generating getGrey(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\materials\json\MaterialTraitsJson.java:19: warning: Not generating getDefaultTraits(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\alloying\AlloyRecipe.java:37: warning: Not generating getInputs(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\alloying\AlloyRecipe.java:42: warning: Not generating getTemperature(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinitionLoader.java:26: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\menu\MelterContainerMenu.java:38: warning: Not generating isHasFuelSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\modifiers\ModifierModelManager.java:41: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:26: warning: Not generating getModifier(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\repairing\ModifierMaterialRepairRecipe.java:31: warning: Not generating getStatType(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\Modifier.java:64: warning: Not generating getHooks(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\common\TinkerTags.java:36: warning: Not generating isTagsLoaded(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\controller\MelterBlockEntity.java:82: warning: Not generating getFuelModule(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\modifiers\traits\skull\ChrysophiliteModifier.java:138: warning: Not generating getTotalGold(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:92: warning: Not generating getTexture(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:95: warning: Not generating getFallbacks(): A method with that name already exists
+    @Getter
+    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:138: warning: Not generating transformer(): A method with that name already exists
+    private ISpriteTransformer transformer;
+                               ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\data\material\AbstractMaterialSpriteProvider.java:140: warning: Not generating variant(): A method with that name already exists
+    private boolean variant = false;
+                    ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:50: warning: Not generating getPattern(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:54: warning: Not generating getCost(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\PartRecipe.java:57: warning: Not generating allowUncraftable(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\capacity\LootToCapacityModule.java:111: warning: Not generating amount(): A method with that name already exists
+    private int amount;
+                ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\tinkerstation\building\ToolBuildingRecipe.java:80: warning: Not generating getOutput(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\client\modifiers\ModifierIconManager.java:35: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\worktable\ModifierSetWorktableRecipe.java:59: warning: Not generating getTitle(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\nbt\ModifierNBT.java:39: warning: Not generating getModifiers(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\menu\ModifierWorktableContainerMenu.java:25: warning: Not generating getInputSlots(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tables\menu\ModifierWorktableContainerMenu.java:27: warning: Not generating getOutputSlot(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\ItemPartRecipe.java:41: warning: Not generating getMaterial(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\ItemPartRecipe.java:43: warning: Not generating getPattern(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\partbuilder\ItemPartRecipe.java:46: warning: Not generating getCost(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\tools\recipe\EnchantmentConvertingRecipeBuilder.java:25: warning: Not generating modifierPredicate(): A method with that name already exists
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
+                                     ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\casting\material\MaterialFluidRecipe.java:36: warning: Not generating getTemperature(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\casting\material\MaterialFluidRecipe.java:39: warning: Not generating getInput(): A method with that name already exists
+  @Nullable @Getter
+            ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\casting\material\MaterialFluidRecipe.java:42: warning: Not generating getOutput(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:67: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:90: warning: Not generating getDefaultValue(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:95: warning: Not generating isModifiersRegistered(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\ModifierManager.java:117: warning: Not generating isDynamicModifiersLoaded(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\tank\SmelteryTank.java:31: warning: Not generating getFluids(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\tank\SmelteryTank.java:36: warning: Not generating getContained(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\recipe\casting\PotionCastingRecipeBuilder.java:36: warning: Not generating setCoolingTime(): A method with that name already exists
+  private int coolingTime = 5;
+              ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinition.java:22: warning: Not generating getId(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\tools\definition\ToolDefinition.java:25: warning: Not generating getData(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\shared\client\ClientGeneratePartTexturesCommand.java:60: warning: Field 'log' already exists.
+@Log4j2
+^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:123: warning: Not generating blocks(): A method with that name already exists
+    private IJsonPredicate<BlockState> blocks = BlockPredicate.ANY;
+                                       ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\library\modifiers\modules\mining\ConditionalMiningSpeedModule.java:125: warning: Not generating holder(): A method with that name already exists
+    private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+                                         ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:53: warning: Not generating getCurrentTime(): A method with that name already exists
+  @Getter
+  ^
+C:\Users\Adolfo\source\repos\TinkersConstruct-neo\src\main\java\slimeknights\tconstruct\smeltery\block\entity\module\MeltingModule.java:56: warning: Not generating getRequiredTime(): A method with that name already exists
+  @Getter
+  ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files additionally use or override a deprecated API that is marked for removal.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 warnings
+
+BUILD SUCCESSFUL in 1m 1s
+3 actionable tasks: 2 executed, 1 up-to-date

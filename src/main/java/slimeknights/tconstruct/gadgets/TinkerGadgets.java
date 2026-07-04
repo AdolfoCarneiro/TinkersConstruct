@@ -21,6 +21,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.gadgets.block.FoodCakeBlock;
 import slimeknights.tconstruct.gadgets.block.FoodCakeBlock.EffectCombination;
 import slimeknights.tconstruct.gadgets.block.InvertedCakeBlock;
@@ -162,7 +163,10 @@ public final class TinkerGadgets extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    generator.addProvider(event.includeServer(), new GadgetRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (event.includeServer()) {
+      RecipeProviderCollector.add(new GadgetRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+    }
   }
 
   /** Adds all relevant items to the creative tab, called by general tab */

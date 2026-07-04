@@ -16,6 +16,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.loot.ToolPartLootEntry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -92,7 +93,8 @@ public final class TinkerToolParts extends TinkerModule {
   public static final ItemObject<ToolPartItem> toolHandle = ITEMS.register("tool_handle", () -> new ToolPartItem(ITEM_PROPS, HandleMaterialStats.ID));
   public static final ItemObject<ToolPartItem> toughHandle = ITEMS.register("tough_handle", () -> new ToolPartItem(ITEM_PROPS, HandleMaterialStats.ID));
   // armor
-  public static final EnumObject<ArmorItem.Type,ToolPartItem> plating = ITEMS.registerEnum(ArmorItem.Type.values(), "plating", type -> new ToolPartItem(ITEM_PROPS, PlatingMaterialStats.TYPES.get(type.ordinal()).getId()));
+  // note: humanoid-only (not ArmorItem.Type.values()) - Tinkers has no body-slot plating textures/stats, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+  public static final EnumObject<ArmorItem.Type,ToolPartItem> plating = ITEMS.registerEnum(ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES, "plating", type -> new ToolPartItem(ITEM_PROPS, PlatingMaterialStats.TYPES.get(type.ordinal()).getId()));
   public static final ItemObject<ToolPartItem> maille = ITEMS.register("maille", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.MAILLE.getIdentifier()));
   public static final ItemObject<ToolPartItem> shieldCore = ITEMS.register("shield_core", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.SHIELD_CORE.getIdentifier()));
   // slimesuit
@@ -136,7 +138,7 @@ public final class TinkerToolParts extends TinkerModule {
     accept(output, arrowShaft);
     accept(output, fletching);
     // plating, pair each one with the dummy plating item
-    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+    for (ArmorItem.Type type : ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES) {
       tab.accept(TinkerSmeltery.dummyPlating.get(type));
       plating.get(type).addVariants(output, "");
     }

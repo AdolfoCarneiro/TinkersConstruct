@@ -7,14 +7,39 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.DataProvider;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.common.network.TinkerPayloadInit;
+import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.shared.TinkerAttributes;
+import slimeknights.tconstruct.shared.TinkerClient;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerEffects;
+import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerStructures;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -23,8 +48,6 @@ import java.util.function.Supplier;
  * TConstruct
  *
  * Central mod object for Tinkers' Construct.
- * Phase 0 stub: minimal NeoForge entrypoint. All subsystems are quarantined
- * under src/_quarantine and restored incrementally in later phases.
  */
 @Mod(TConstruct.MOD_ID)
 public class TConstruct {
@@ -40,8 +63,55 @@ public class TConstruct {
   public TConstruct(IEventBus modEventBus, ModContainer modContainer) {
     TConstruct.modEventBus = modEventBus;
     modEventBus.addListener(TinkerPayloadInit::register);
-    LOG.info("TConstruct Phase 0 stub loaded (NeoForge 1.21.1). Subsystems quarantined.");
-    // Later phases restore: TinkerModule registration, config, datagen, client events.
+    modEventBus.register(this);
+
+    Config.init(modContainer);
+    MaterialRegistry.init();
+
+    // initialize modules, done this way rather than with annotations to give us control over the order
+    // base
+    modEventBus.register(new TinkerCommons());
+    modEventBus.register(new TinkerMaterials());
+    // TinkerEffects has no mod-bus @SubscribeEvent methods; it self-registers its game-bus listener internally.
+    new TinkerEffects();
+    modEventBus.register(new TinkerGadgets());
+    modEventBus.register(new TinkerAttributes());
+    // world
+    modEventBus.register(new TinkerWorld());
+    modEventBus.register(new TinkerStructures());
+    // tools
+    modEventBus.register(new TinkerTables());
+    modEventBus.register(new TinkerModifiers());
+    // TinkerToolParts has no @SubscribeEvent methods; NeoForge's EventBus.register(Object) throws
+    // "has no @SubscribeEvent methods, but register was called anyway" for such classes (unlike Forge, which
+    // registered a no-op silently), so just construct it to run its static field registration.
+    new TinkerToolParts();
+    modEventBus.register(new TinkerTools());
+    // smeltery
+    modEventBus.register(new TinkerSmeltery());
+    modEventBus.register(new TinkerFluids());
+
+    // init deferred registers
+    TinkerModule.initRegisters();
+    TinkerTags.init();
+
+    // init client logic
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      TinkerClient.onConstruct();
+    }
+
+    LOG.info("TConstruct initialized (NeoForge 1.21.1).");
+  }
+
+  /**
+   * Combines every module's recipe {@link DataProvider} (collected via {@link RecipeProviderCollector} instead of
+   * being registered directly - see that class for why) into a single provider and registers it.
+   * Runs at {@link EventPriority#LOWEST} so it fires after every module's own {@code gatherData} listener.
+   */
+  @SubscribeEvent(priority = EventPriority.LOWEST)
+  void combineRecipeProviders(final GatherDataEvent event) {
+    DataProvider combined = RecipeProviderCollector.combineAndClear();
+    event.getGenerator().addProvider(true, combined);
   }
 
   public static ResourceLocation getResource(String name) {

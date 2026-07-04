@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.common.brewing.BrewingRecipe;
@@ -96,6 +97,7 @@ import static slimeknights.tconstruct.fluids.block.MobEffectLiquidBlock.createEf
 public final class TinkerFluids extends TinkerModule {
   public TinkerFluids() {
     NeoForgeMod.enableMilkFluid();
+    NeoForge.EVENT_BUS.addListener(this::registerBrewingRecipes);
   }
 
   /** Creative tab for general items, or those that lack another tab */
@@ -287,7 +289,8 @@ public final class TinkerFluids extends TinkerModule {
       Items.POWDER_SNOW_BUCKET);
   }
 
-  @SubscribeEvent
+  // RegisterBrewingRecipesEvent fires on the main (game) event bus, not the mod bus, so it cannot be
+  // registered via the blanket modEventBus.register(this) call in TConstruct; see the constructor below.
   void registerBrewingRecipes(final RegisterBrewingRecipesEvent event) {
     // brew bottles into each other, bit weird but feels better than shapeless
     // vanilla: Potion->SplashPotion uses gunpowder, SplashPotion->LingeringPotion uses dragon's breath

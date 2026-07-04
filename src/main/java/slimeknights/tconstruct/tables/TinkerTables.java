@@ -28,6 +28,7 @@ import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialsRecipe;
@@ -190,7 +191,10 @@ public final class TinkerTables extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    generator.addProvider(event.includeServer(), new TableRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (event.includeServer()) {
+      RecipeProviderCollector.add(new TableRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+    }
   }
 
   /** Adds all relevant items to the creative tab, called in the general tab */

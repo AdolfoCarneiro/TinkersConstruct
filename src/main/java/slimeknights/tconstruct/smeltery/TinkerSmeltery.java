@@ -48,9 +48,11 @@ import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.fluids.item.EmptyPotionTransfer;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -403,7 +405,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final CastItemObject bootsPlatingCast = ITEMS.registerCast("boots_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.BOOTS)));
   public static final CastItemObject mailleCast = ITEMS.registerCast(TinkerToolParts.maille, ITEM_PROPS);
   // dummy cast creation items
-  public static final EnumObject<ArmorItem.Type,DummyMaterialItem> dummyPlating = ITEMS.registerEnum(ArmorItem.Type.values(), "plating_dummy", type -> new DummyMaterialItem(ITEM_PROPS));
+  // note: humanoid-only (not ArmorItem.Type.values()) - must match TinkerToolParts.plating, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+  public static final EnumObject<ArmorItem.Type,DummyMaterialItem> dummyPlating = ITEMS.registerEnum(ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES, "plating_dummy", type -> new DummyMaterialItem(ITEM_PROPS));
 
 
   /*
@@ -496,7 +499,10 @@ public final class TinkerSmeltery extends TinkerModule {
     boolean server = event.includeServer();
     DataGenerator generator = event.getGenerator();
     PackOutput packOutput = generator.getPackOutput();
-    generator.addProvider(server, new SmelteryRecipeProvider(packOutput, event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (server) {
+      RecipeProviderCollector.add(new SmelteryRecipeProvider(packOutput, event.getLookupProvider()));
+    }
     generator.addProvider(server, new FluidContainerTransferProvider(packOutput));
   }
 

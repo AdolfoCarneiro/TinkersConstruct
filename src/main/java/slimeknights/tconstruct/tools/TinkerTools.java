@@ -34,6 +34,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.config.ConfigurableAction;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.common.data.tags.MaterialTagProvider;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPaletteDebugGenerator;
@@ -64,6 +65,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
@@ -231,8 +233,10 @@ public final class TinkerTools extends TinkerModule {
   }
 
   // armor
-  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
-  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
+  // note: humanoid-only (not ArmorItem.Type.values()) - ArmorDefinitions materials only define tool definitions
+  // for the 4 humanoid slots, see ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES
+  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES, type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
+  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ModifiableArmorMaterial.HUMANOID_ARMOR_TYPES, type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorItem.Type,ModifiableArmorItem>(ArmorItem.Type.class)
     .put(ArmorItem.Type.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, SlimeskullItem.MODEL_LOCATION, UNSTACKABLE_PROPS)))
     // TODO 1.21: rename to slime chestplate as we no longer need the migration
@@ -388,8 +392,11 @@ public final class TinkerTools extends TinkerModule {
     ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
     boolean server = event.includeServer();
     boolean client = event.includeClient();
-    generator.addProvider(server, new ToolsRecipeProvider(packOutput, event.getLookupProvider()));
-    generator.addProvider(server, new MaterialRecipeProvider(packOutput, event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (server) {
+      RecipeProviderCollector.add(new ToolsRecipeProvider(packOutput, event.getLookupProvider()));
+      RecipeProviderCollector.add(new MaterialRecipeProvider(packOutput, event.getLookupProvider()));
+    }
     MaterialDataProvider materials = new MaterialDataProvider(packOutput);
     generator.addProvider(server, materials);
     generator.addProvider(server, new MaterialStatsDataProvider(packOutput, materials));

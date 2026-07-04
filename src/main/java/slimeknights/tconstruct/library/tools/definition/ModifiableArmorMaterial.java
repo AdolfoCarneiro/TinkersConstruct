@@ -12,6 +12,12 @@ import javax.annotation.Nullable;
 public class ModifiableArmorMaterial extends DummyArmorMaterial {
   /** Array of all four armor slot types */
   public static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
+  /**
+   * Array of the four humanoid {@link ArmorItem.Type} values this class supports.
+   * Deliberately excludes {@link ArmorItem.Type#BODY} (added in 1.21.1 for mount/wolf armor); Tinkers has no
+   * body-slot armor items, and the ordinal-indexed {@link #armorDefinitions} array is fixed at length 4.
+   */
+  public static final ArmorItem.Type[] HUMANOID_ARMOR_TYPES = {ArmorItem.Type.HELMET, ArmorItem.Type.CHESTPLATE, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS};
 
   /** Array of slot index to tool definition for the slot */
   private final ToolDefinition[] armorDefinitions;
@@ -33,9 +39,9 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
     return new ModifiableArmorMaterial(id, equipSound, definitions);
   }
 
-  /** Creates a modifiable armor material, creates tool definition for all four armor slots */
+  /** Creates a modifiable armor material, creates tool definition for all four humanoid armor slots */
   public static ModifiableArmorMaterial create(ResourceLocation id, SoundEvent equipSound) {
-    return create(id, equipSound, ArmorItem.Type.values());
+    return create(id, equipSound, HUMANOID_ARMOR_TYPES);
   }
 
   /**

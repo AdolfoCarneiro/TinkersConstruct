@@ -42,6 +42,7 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.data.RecipeProviderCollector;
 import slimeknights.tconstruct.common.data.model.ModelSpriteProvider;
 import slimeknights.tconstruct.common.data.model.TinkerBlockStateProvider;
 import slimeknights.tconstruct.common.data.model.TinkerItemModelProvider;
@@ -228,7 +229,10 @@ public final class TinkerCommons extends TinkerModule {
     generator.addProvider(client, new TinkerBlockStateProvider(output, existingFileHelper));
     generator.addProvider(client, new RenderFluidProvider(output));
     generator.addProvider(client, new RenderItemProvider(output));
-    generator.addProvider(event.includeServer(), new CommonRecipeProvider(output, event.getLookupProvider()));
+    // recipe providers are merged into one by RecipeProviderCollector, see TConstruct.combineRecipeProviders
+    if (event.includeServer()) {
+      RecipeProviderCollector.add(new CommonRecipeProvider(output, event.getLookupProvider()));
+    }
   }
 
   /** Adds all relevant items to the creative tab */
