@@ -16,6 +16,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.PlayerInteractTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
@@ -105,7 +106,11 @@ public class AdvancementsProvider extends GenericDataProvider {
   private final CompletableFuture<HolderLookup.Provider> registries;
 
   public AdvancementsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-    super(output, Target.DATA_PACK, "advancements");
+    // F3.3 BUGFIX: Mojang 1.21 de-pluralized the advancement datapack folder (advancements -> advancement, same as
+    // recipes -> recipe, loot_tables -> loot_table, etc. - see the other pathRenames entries in parity-rules.json);
+    // this was still hardcoded to the old plural name, so every hand-authored advancement in this provider (foundry,
+    // internal, smeltery, tools, world) was written to a folder the 1.21 advancement loader never reads
+    super(output, Target.DATA_PACK, "advancement");
     this.registries = registries;
   }
 
@@ -399,7 +404,7 @@ public class AdvancementsProvider extends GenericDataProvider {
         ItemStack filled = TankItem.setTank(new ItemStack(block), getTankWith(TinkerFluids.moltenManyullyn.get(), block.getCapacity()));
         DataComponentPredicate components = DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, filled.get(DataComponents.CUSTOM_DATA)).build();
         builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
-                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasComponents(components).build()));
+                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).withCount(MinMaxBounds.Ints.atLeast(64)).hasComponents(components).build()));
         builder.requirements(AdvancementRequirements.Strategy.OR);
       };
       with.accept(TinkerSmeltery.searedLantern.get());

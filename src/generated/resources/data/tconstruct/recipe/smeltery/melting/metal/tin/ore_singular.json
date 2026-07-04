@@ -6,6 +6,10 @@
       "match": [
         "c:ores/tin"
       ]
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nickel"
     }
   ],
   "type": "tconstruct:ore_melting",

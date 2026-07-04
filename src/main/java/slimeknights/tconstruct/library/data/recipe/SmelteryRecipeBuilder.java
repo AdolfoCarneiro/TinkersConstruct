@@ -19,7 +19,7 @@ import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
 import net.neoforged.neoforge.common.crafting.IntersectionIngredient;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
-import net.neoforged.neoforge.common.conditions.TrueCondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
@@ -39,6 +39,10 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -215,6 +219,15 @@ public class SmelteryRecipeBuilder {
   /** Adds the given conditions to the given builder */
   @CheckReturnValue
   private RecipeOutput withCondition(ICondition... conditions) {
+    return withCondition(Arrays.asList(conditions));
+  }
+
+  /** Adds the given conditions to the given builder, or returns the unwrapped consumer if the list is empty */
+  @CheckReturnValue
+  private RecipeOutput withCondition(List<ICondition> conditions) {
+    if (conditions.isEmpty()) {
+      return consumer;
+    }
     ConsumerWrapperBuilder builder = ConsumerWrapperBuilder.wrap();
     for (ICondition condition : conditions) {
       builder.addCondition(condition);
@@ -306,40 +319,61 @@ public class SmelteryRecipeBuilder {
     assert oreRate != null;
     assert baseUnit != 0;
     String tagName = tagPrefix + this.name.getPath();
-    RecipeOutput wrapped;
+    List<ICondition> baseConditions = new ArrayList<>();
     Ingredient baseIngredient = Ingredient.of(itemTag(tagName));
     Ingredient ingredient;
     // not everyone sets size, so treat singular as the fallback, means we want anything in the tag that is not sparse or dense
     if (size == Tags.Items.ORE_RATES_SINGULAR) {
       ingredient = DifferenceIngredient.of(baseIngredient, Ingredient.of(TinkerTags.Items.NON_SINGULAR_ORE_RATES));
-      wrapped = withCondition(TagCombinationCondition.difference(itemTag(tagName), TinkerTags.Items.NON_SINGULAR_ORE_RATES));
+      baseConditions.add(TagCombinationCondition.difference(itemTag(tagName), TinkerTags.Items.NON_SINGULAR_ORE_RATES));
       // size tag means we want an intersection between the tag and that size
     } else if (size != null) {
       ingredient = IntersectionIngredient.of(baseIngredient, Ingredient.of(size));
-      wrapped = withCondition(TagCombinationCondition.intersection(itemTag(tagName), size));
+      baseConditions.add(TagCombinationCondition.intersection(itemTag(tagName), size));
       // default only need it to be in the tag
     } else {
       ingredient = baseIngredient;
-      wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
+      if (optional || forceOptional) {
+        baseConditions.add(tagCondition(tagName));
+      }
     }
     Supplier<MeltingRecipeBuilder> supplier = () -> MeltingRecipeBuilder.melting(ingredient, result((int)(baseUnit * scale)), temperature, factor).setOre(oreRate);
     ResourceLocation location = location(meltingFolder, output);
 
     // if no byproducts, just build directly
     if (oreByproducts.length == 0) {
-      supplier.get().save(wrapped, location);
+      supplier.get().save(withCondition(baseConditions), location);
       // if first option is always present, only need that one
     } else if (oreByproducts[0].isAlwaysPresent()) {
       supplier.get()
               .addByproduct(oreByproducts[0].getFluid(scale))
               .setOre(oreRate, oreByproducts[0].getOreRate())
-              .save(wrapped, location);
+              .save(withCondition(baseConditions), location);
     } else {
-      // Compile-clean fallback until the 1.21.1 conditional recipe replacement is ported.
-      supplier.get()
-              .addByproduct(oreByproducts[0].getFluid(scale))
-              .setOre(oreRate, oreByproducts[0].getOreRate())
-              .save(wrapped, location);
+      // Multiple candidate byproducts (e.g. compat-mod metal substitutes), first-match-wins by declaration order.
+      // NeoForge has no single-file multi-branch mechanism (Forge's ConditionalRecipe was removed), so each
+      // candidate is saved to its own file, gated with an explicit NotCondition chain excluding every earlier
+      // candidate's tag - reproduces the original first-match-wins semantics. Mirrors the technique already used
+      // for the smeltery alloy branches (nicrosil/pewter/netherite, see PARITY.md P05).
+      List<ICondition> excludeEarlier = new ArrayList<>();
+      for (IByproduct byproduct : oreByproducts) {
+        boolean alwaysPresent = byproduct.isAlwaysPresent();
+        List<ICondition> branchConditions = new ArrayList<>(baseConditions);
+        branchConditions.addAll(excludeEarlier);
+        ICondition ownCondition = alwaysPresent ? null : tagCondition("ingots/" + byproduct.getName());
+        if (ownCondition != null) {
+          branchConditions.add(ownCondition);
+        }
+        ResourceLocation branchLocation = byproduct == oreByproducts[0] ? location : location(meltingFolder, output + "_" + byproduct.getName().toLowerCase(Locale.ROOT));
+        supplier.get()
+                .addByproduct(byproduct.getFluid(scale))
+                .setOre(oreRate, byproduct.getOreRate())
+                .save(withCondition(branchConditions), branchLocation);
+        if (alwaysPresent) {
+          break;
+        }
+        excludeEarlier.add(new NotCondition(ownCondition));
+      }
     }
   }
 

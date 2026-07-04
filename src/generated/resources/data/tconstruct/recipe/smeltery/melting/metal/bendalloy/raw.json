@@ -3,6 +3,10 @@
     {
       "type": "mantle:tag_filled",
       "tag": "c:raw_materials/bendalloy"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/cadmium"
     }
   ],
   "type": "tconstruct:ore_melting",

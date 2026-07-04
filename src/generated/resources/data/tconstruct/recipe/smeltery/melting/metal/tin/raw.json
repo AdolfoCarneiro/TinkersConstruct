@@ -3,6 +3,10 @@
     {
       "type": "mantle:tag_filled",
       "tag": "c:raw_materials/tin"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nickel"
     }
   ],
   "type": "tconstruct:ore_melting",

@@ -32,6 +32,8 @@ public class ToolStackItemPredicate implements ItemSubPredicate {
     },
     predicate -> new com.mojang.serialization.Dynamic<>(JsonOps.INSTANCE, predicate.serializeToJson())
   );
+  /** Registered {@link ItemSubPredicate.Type} instance; shared between the registry supplier and {@link #ofTool(IJsonPredicate)} so both point at the exact same instance */
+  public static final ItemSubPredicate.Type<ToolStackItemPredicate> TYPE = new ItemSubPredicate.Type<>(CODEC);
 
   private final IJsonPredicate<IToolStackView> predicate;
 
@@ -39,9 +41,9 @@ public class ToolStackItemPredicate implements ItemSubPredicate {
     this.predicate = predicate;
   }
 
-  /** Creates an ItemPredicate that checks tool properties (checks MODIFIABLE tag) */
+  /** Creates an ItemPredicate that checks tool properties (checks MODIFIABLE tag, plus the given tool stack sub-predicate) */
   public static ItemPredicate ofTool(IJsonPredicate<IToolStackView> predicate) {
-    return ItemPredicate.Builder.item().of(Items.MODIFIABLE).build();
+    return ItemPredicate.Builder.item().of(Items.MODIFIABLE).withSubPredicate(TYPE, create(predicate)).build();
   }
 
   public static ItemPredicate ofContext(IJsonPredicate<IToolContext> predicate) {

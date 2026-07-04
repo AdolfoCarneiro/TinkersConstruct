@@ -6,6 +6,10 @@
         "c:ores/tin",
         "c:ore_rates/dense"
       ]
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nickel"
     }
   ],
   "type": "tconstruct:ore_melting",

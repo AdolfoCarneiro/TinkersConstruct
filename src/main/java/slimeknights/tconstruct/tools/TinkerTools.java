@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.advancements.critereon.ItemSubPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -313,7 +312,7 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.ITEM_SUB_PREDICATE_TYPE) {
-      event.register(Registries.ITEM_SUB_PREDICATE_TYPE, ToolStackItemPredicate.ID, () -> new ItemSubPredicate.Type<>(ToolStackItemPredicate.CODEC));
+      event.register(Registries.ITEM_SUB_PREDICATE_TYPE, ToolStackItemPredicate.ID, () -> ToolStackItemPredicate.TYPE);
     }
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
       // register tool stats that are not defined directly in the class; safer than static init registration
