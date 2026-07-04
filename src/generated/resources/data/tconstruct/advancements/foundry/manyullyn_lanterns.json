@@ -5,6 +5,16 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "minecraft:custom_data": {
+                "tank": {
+                  "Fluid": {
+                    "amount": 50,
+                    "id": "tconstruct:molten_manyullyn"
+                  }
+                }
+              }
+            },
             "items": "tconstruct:scorched_lantern"
           }
         ]
@@ -15,6 +25,16 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "minecraft:custom_data": {
+                "tank": {
+                  "Fluid": {
+                    "amount": 50,
+                    "id": "tconstruct:molten_manyullyn"
+                  }
+                }
+              }
+            },
             "items": "tconstruct:seared_lantern"
           }
         ]

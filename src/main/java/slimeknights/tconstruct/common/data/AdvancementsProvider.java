@@ -19,6 +19,8 @@ import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.PlayerInteractTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -380,8 +382,10 @@ public class AdvancementsProvider extends GenericDataProvider {
     AdvancementHolder blazingBlood = builder(TankItem.setTank(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)), getTankWith(TinkerFluids.blazingBlood.get(), TankType.FUEL_GAUGE.getCapacity())),
             resource("foundry/blaze"), foundry, AdvancementType.GOAL, builder -> {
       Consumer<SearedTankBlock> with = block -> {
+        ItemStack filled = TankItem.setTank(new ItemStack(block), getTankWith(TinkerFluids.blazingBlood.get(), block.getCapacity()));
+        DataComponentPredicate components = DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, filled.get(DataComponents.CUSTOM_DATA)).build();
         builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
-                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).build()));
+                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasComponents(components).build()));
         builder.requirements(AdvancementRequirements.Strategy.OR);
       };
       TinkerSmeltery.searedTank.forEach(with);
@@ -392,8 +396,10 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(TankItem.setTank(new ItemStack(TinkerSmeltery.scorchedLantern), getTankWith(TinkerFluids.moltenManyullyn.get(), TinkerSmeltery.scorchedLantern.get().getCapacity())),
             resource("foundry/manyullyn_lanterns"), foundry, AdvancementType.CHALLENGE, builder -> {
       Consumer<SearedLanternBlock> with = block -> {
+        ItemStack filled = TankItem.setTank(new ItemStack(block), getTankWith(TinkerFluids.moltenManyullyn.get(), block.getCapacity()));
+        DataComponentPredicate components = DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, filled.get(DataComponents.CUSTOM_DATA)).build();
         builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
-                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).build()));
+                              InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasComponents(components).build()));
         builder.requirements(AdvancementRequirements.Strategy.OR);
       };
       with.accept(TinkerSmeltery.searedLantern.get());
