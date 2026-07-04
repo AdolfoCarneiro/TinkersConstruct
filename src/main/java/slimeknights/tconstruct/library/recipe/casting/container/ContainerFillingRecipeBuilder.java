@@ -83,7 +83,8 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   @Override
   public void save(RecipeOutput output, ResourceLocation id) {
     net.minecraft.advancements.AdvancementHolder advancementHolder = this.buildOptionalAdvancement(output, id, "casting");
-    net.minecraft.world.item.Item container = BuiltInRegistries.ITEM.get(this.result);
-    output.accept(id, new ContainerFillingRecipe(recipeSerializer, group, fluidAmount, container), advancementHolder);
+    // write the raw id, not a resolved Item - the container may belong to an optional compat mod not present in the
+    // datagen environment, resolving eagerly would permanently bake Items.AIR into the committed recipe JSON (P27)
+    output.accept(id, new ContainerFillingRecipe(recipeSerializer, group, fluidAmount, this.result), advancementHolder);
   }
 }

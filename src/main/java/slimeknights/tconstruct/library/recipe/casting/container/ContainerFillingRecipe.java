@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,19 +38,26 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   public static final RecordLoadable<ContainerFillingRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IntLoadable.FROM_ONE.requiredField("fluid_amount", (ContainerFillingRecipe r) -> r.fluidAmount),
-    Loadables.ITEM.requiredField("container", (ContainerFillingRecipe r) -> r.container),
+    Loadables.RESOURCE_LOCATION.requiredField("container", (ContainerFillingRecipe r) -> r.containerId),
     ContainerFillingRecipe::new);
 
   private final TypeAwareRecipeSerializer<?> serializer;
   private final String group;
   private final int fluidAmount;
-  private final Item container;
+  /** Raw id rather than a resolved {@link Item}: the container may belong to an optional compat mod not present at
+   * datagen time - resolving eagerly would permanently bake {@link Items#AIR} into the committed recipe JSON. */
+  private final ResourceLocation containerId;
 
-  public ContainerFillingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, int fluidAmount, Item container) {
+  public ContainerFillingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, int fluidAmount, ResourceLocation containerId) {
     this.serializer = serializer;
     this.group = group;
     this.fluidAmount = fluidAmount;
-    this.container = container;
+    this.containerId = containerId;
+  }
+
+  /** Resolves the container item lazily, deferring registry lookup to game load instead of datagen time */
+  private Item container() {
+    return BuiltInRegistries.ITEM.get(containerId);
   }
 
   @Override
@@ -93,7 +101,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   public boolean matches(ICastingContainer inv, Level worldIn) {
     ItemStack stack = inv.getStack();
     Fluid fluid = inv.getFluid();
-    if (stack.getItem() != this.container.asItem()) {
+    if (stack.getItem() != container()) {
       return false;
     }
     IFluidHandlerItem handler = stack.getCapability(Capabilities.FluidHandler.ITEM);
@@ -104,7 +112,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   @Override
   @Deprecated
   public ItemStack getResultItem(HolderLookup.Provider access) {
-    return new ItemStack(this.container);
+    return new ItemStack(container());
   }
 
   @Override
@@ -130,6 +138,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   @Override
   public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
+      Item container = container();
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = BuiltInRegistries.FLUID.stream()
                                              .filter(fluid -> fluid.getBucket() != Items.AIR && fluid.isSource(fluid.defaultFluidState()))

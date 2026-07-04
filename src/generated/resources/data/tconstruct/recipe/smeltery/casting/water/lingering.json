@@ -9,5 +9,10 @@
     "amount": 500,
     "tag": "mantle:water"
   },
-  "result": "minecraft:lingering_potion"
+  "result": {
+    "item": "minecraft:lingering_potion",
+    "nbt": {
+      "Potion": "minecraft:water"
+    }
+  }
 }

@@ -467,23 +467,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .build());
     buildModifier(ModifierIds.hydraulic).addModule(
       ConditionalMiningSpeedModule.builder()
-        // F2/F3.3: enchantments moved to the datapack registry in 1.21; BuiltInRegistries.ENCHANTMENT no longer exists and
-        // the AQUA_AFFINITY value cannot be resolved here without HolderLookup.Provider access. The aqua-affinity sub-branch
-        // (fast mining when the enchant is present) is stubbed out to the in-water value pending the enchantment migration.
-        // F3.3 attempted fix: registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.AQUA_AFFINITY).value()
-        // (mirroring FluidEffectProvider#vanillaEnchantment) compiles and matches the pattern used elsewhere in this file,
-        // but crashes runData: "Failed to decode: Missing tag: 'minecraft:enchantable/head_armor' in 'minecraft:item'".
-        // Forcing .value() on a Holder from this datagen-time "lazy full patched registries" snapshot triggers a
-        // Cloner.clone() round-trip through Enchantment's codec, which needs item tags (supported_items) that are not
-        // part of this registries snapshot. FluidEffectProvider avoids this because it only ever consumes the lazy
-        // Holder<Enchantment> itself (BreakBlockFluidEffect accepts a Holder), never forcing .value(). This predicate's
-        // Mantle type, HasEnchantmentEntityPredicate, requires a resolved Enchantment instance in its record field, so it
-        // cannot use the same lazy-holder trick without a Mantle-neo change (e.g. accepting Holder<Enchantment>/ResourceKey
-        // and resolving lazily against the entity's own registry access at match time, the way its matches() method
-        // already does). Left stubbed pending that Mantle-neo design decision - see PARITY.md for this debt.
+        // P29 fixed: Mantle's HasEnchantmentEntityPredicate now stores a ResourceKey<Enchantment> (no registry access
+        // needed to construct) and resolves lazily in matches() against the entity's own live registry access.
         .customVariable("bonus", new EntityConditionalStatVariable(new ConditionalEntityVariable(
           LivingEntityPredicate.EYES_IN_WATER,
-          new ConditionalEntityVariable(LivingEntityPredicate.EYES_IN_WATER, 8, 40),
+          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
           new ConditionalEntityVariable(LivingEntityPredicate.RAINING, 4, 0)
         ), 8)).formula()
         .variable(MULTIPLIER).customVariable("bonus").multiply()
