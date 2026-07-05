@@ -21,7 +21,7 @@ public record InventorySlotSyncPacket(ItemStack itemStack, int slot, BlockPos po
     new Type<>(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "inventory_slot_sync"));
   public static final StreamCodec<RegistryFriendlyByteBuf, InventorySlotSyncPacket> STREAM_CODEC =
     StreamCodec.composite(
-      ItemStack.STREAM_CODEC, InventorySlotSyncPacket::itemStack,
+      ItemStack.OPTIONAL_STREAM_CODEC, InventorySlotSyncPacket::itemStack,
       ByteBufCodecs.SHORT.map(s -> (int) s, i -> (short) (int) i), InventorySlotSyncPacket::slot,
       BlockPos.STREAM_CODEC,  InventorySlotSyncPacket::pos,
       InventorySlotSyncPacket::new);
