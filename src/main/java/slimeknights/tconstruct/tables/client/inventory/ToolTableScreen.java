@@ -94,8 +94,9 @@ public abstract class ToolTableScreen<T extends BlockEntity, C extends TabbedCon
    */
   protected void renderArmorStand(GuiGraphics graphics) {
     if (this.armorStandPreview != null) {
-      // ARMOR_STAND_ANGLE was (float)(-Math.PI / 5) about the X axis in SmithingScreen
-      Quaternionf pose = new Quaternionf().rotationX((float)(-Math.PI / 5)).rotateY(this.armorStandAngle);
+      // matches vanilla SmithingScreen.ARMOR_STAND_ANGLE = rotationXYZ(0.43633232F, 0, PI) (field is private in 1.21.1);
+      // the Z=PI component compensates the scale(scale, scale, -scale) applied inside InventoryScreen.renderEntityInInventory
+      Quaternionf pose = new Quaternionf().rotationXYZ(0.43633232F, 0.0F, (float) Math.PI).rotateY(this.armorStandAngle);
       InventoryScreen.renderEntityInInventory(graphics, this.armorStandX, this.armorStandY, this.armorStandScale, new org.joml.Vector3f(0, 0, 0), pose, null, this.armorStandPreview);
 
       graphics.blit(ICON_TEXTURE, armorStandX - 16, armorStandY - 16, 0, 184, 32, 32);
