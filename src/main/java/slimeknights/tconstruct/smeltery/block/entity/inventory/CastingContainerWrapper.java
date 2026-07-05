@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.smeltery.block.entity.inventory;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
@@ -42,7 +44,7 @@ public class CastingContainerWrapper implements ICastingContainer {
   @Nullable
   @Override
   public CompoundTag getFluidTag() {
-    return new CompoundTag(); // F2: FluidStack CompoundTag NBT removed (now DataComponentPatch); casting fluid-NBT chain needs redesign
+    return fluid.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
   }
 
   /** Uses the input for input (default) */

@@ -3,13 +3,12 @@ package slimeknights.tconstruct.fluids.item;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -17,6 +16,7 @@ import slimeknights.mantle.fluid.transfer.EmptyFluidWithNBTTransfer;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.fluids.fluids.PotionFluidType;
 
 /**
  * Fluid transfer info that empties a fluid from an item, copying the fluid's NBT to the stack
@@ -35,8 +35,11 @@ public class EmptyPotionTransfer extends EmptyFluidWithNBTTransfer {
     if (contents.is(Potions.WATER)) {
       return new FluidStack(Fluids.WATER, fluid.getAmount());
     }
-    // F2: FluidStack no longer carries a CompoundTag (migrated to DataComponentPatch); potion NBT is dropped pending redesign
-    return new FluidStack(fluid.get().getFluid(), fluid.getAmount());
+    // preserve the potion type on the resulting fluid, mirroring PotionFluidType's CUSTOM_DATA "Potion" tag
+    return contents.potion()
+                   .flatMap(Holder::unwrapKey)
+                   .map(key -> PotionFluidType.potionFluid(key, fluid.getAmount()))
+                   .orElseGet(() -> new FluidStack(fluid.get().getFluid(), fluid.getAmount()));
   }
 
   @Override
