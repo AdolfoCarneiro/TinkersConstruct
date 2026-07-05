@@ -18,10 +18,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.client.resources.language.I18n;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -69,12 +70,25 @@ public class Util {
   }
 
   /**
-   * Checks if the given key can be translated
+   * Checks if the given key can be translated.
+   * On a dedicated server there is no language file to check, so we assume the key is always translatable
+   * (see the client-only {@link net.minecraft.client.resources.language.I18n}).
    * @param key  Key to check
    * @return  True if it can be translated
    */
   public static boolean canTranslate(String key) {
-    return !I18n.get(key).equals(key);
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      return ClientOnly.canTranslate(key);
+    }
+    return true;
+  }
+
+  /** This class is only ever loaded client side, isolating the client-only {@link net.minecraft.client.resources.language.I18n} reference */
+  private static class ClientOnly {
+    /** @see Util#canTranslate(String) */
+    public static boolean canTranslate(String key) {
+      return !net.minecraft.client.resources.language.I18n.get(key).equals(key);
+    }
   }
 
   /**
