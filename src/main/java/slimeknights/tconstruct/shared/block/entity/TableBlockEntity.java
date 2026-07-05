@@ -41,6 +41,14 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
   /* Syncing */
 
   @Override
+  public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+    // false prevents the client from re-centering the mouse cursor when switching tabs on a tabbed table (P40).
+    // switching tabs reopens the menu server-side; the default (true) sends a container close packet that
+    // recenters the cursor before the new screen opens, causing a visible double-recenter jump.
+    return false;
+  }
+
+  @Override
   public void setItem(int slot, ItemStack itemstack) {
     // send a slot update to the client when items change, so we can update the TESR
     if (level != null && level instanceof ServerLevel && !level.isClientSide && !ItemStack.matches(itemstack, getItem(slot))) {
