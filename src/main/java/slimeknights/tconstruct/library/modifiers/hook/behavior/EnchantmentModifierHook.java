@@ -51,6 +51,13 @@ public interface EnchantmentModifierHook {
     }
   }
 
+  /** Adds the given enchantment to the mutable enchantments, summing with any existing level (matches 1.20.1 map semantics) */
+  static void addEnchantment(ItemEnchantments.Mutable map, Holder<Enchantment> enchantment, int amount) {
+    if (amount != 0) {
+      map.set(enchantment, map.getLevel(enchantment) + amount);
+    }
+  }
+
   /**
    * Gets the enchantment level for the given tool
    * @param stack        Item stack instance

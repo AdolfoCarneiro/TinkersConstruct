@@ -398,7 +398,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
     @Override
     public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, net.minecraft.world.item.enchantment.ItemEnchantments.Mutable map) {
       if (slots.contains(slot) && condition.matches(tool, modifier) && block.matches(context.getState()) && holder.matches(context.getLiving())) {
-        // TODO: no-op until this hook is fully implemented; enchantmentHolder() is now available (Holder<Enchantment>) whenever this is wired up
+        EnchantmentModifierHook.addEnchantment(map, enchantmentHolder(), getLevel(modifier));
       }
     }
 
