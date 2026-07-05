@@ -2,7 +2,7 @@
   "type": "tconstruct:showcase",
   "title": "能力强化",
   "item": {
-    "type": "forge:nbt",
+    "type": "mantle:nbt",
     "item": "tconstruct:creative_slot",
     "nbt": {
       "slot": "abilities"

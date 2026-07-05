@@ -12,7 +12,7 @@
     "data": "sections/tools.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:pickaxe",
         "nbt": {
           "tic_broken": false,
@@ -33,7 +33,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "detailed": true }},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:pick_head",
         "nbt": { "Material": "tconstruct:ui_render#extra_large" }
       }
@@ -45,7 +45,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "detailed": true }},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:bow_limb",
         "nbt": { "Material": "tconstruct:ui_render#handle" }
       }
@@ -57,7 +57,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "detailed": true }},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:arrow_head",
         "nbt": { "Material": "tconstruct:ui_render#head" }
       }
@@ -68,7 +68,7 @@
     "data": "sections/armor.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:plate_chestplate",
         "nbt": {
           "tic_broken": false,
@@ -88,7 +88,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "detailed": true } },
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:leggings_plating",
         "nbt": { "Material": "tconstruct:ui_render#large" }
       }
@@ -146,7 +146,7 @@
     "data": "sections/upgrades.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "upgrades"
@@ -159,7 +159,7 @@
     "data": "sections/defense.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "defense"
@@ -172,7 +172,7 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "slotless"
@@ -185,7 +185,7 @@
     "data": "sections/abilities.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "abilities"

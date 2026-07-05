@@ -39,7 +39,7 @@
     }}},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:small_axe_head",
         "nbt": { "Material": "tconstruct:seared_stone" }
       }
@@ -51,7 +51,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:bow_grip",
         "nbt": { "Material": "tconstruct:slimewood" }
       }
@@ -63,7 +63,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 0, "max": 2 }, "predicate":  { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" } } },
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:leggings_plating",
         "nbt": { "Material": "tconstruct:gold" }
       }
@@ -73,7 +73,7 @@
     "name": "armor",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:travelers_chestplate",
         "nbt": {
           "tic_broken": false,
@@ -100,7 +100,7 @@
     "data": "sections/upgrades.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "upgrades"
@@ -113,7 +113,7 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:creative_slot",
         "nbt": {
           "slot": "slotless"

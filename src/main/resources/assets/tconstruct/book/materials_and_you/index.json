@@ -12,7 +12,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:tool_binding",
         "nbt": { "Material": "tconstruct:rock#stone" }
       }
@@ -24,7 +24,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:bowstring",
         "nbt": { "Material": "tconstruct:string" }
       }
@@ -36,7 +36,7 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "tag": "tconstruct:book/basic_ammo" }},
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:arrow_shaft",
         "nbt": { "Material": "tconstruct:bamboo" }
       }
@@ -47,7 +47,7 @@
     "data": "sections/tools.json",
     "icon": {
       "item": {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:pickaxe",
         "nbt": {
           "tic_broken": false,

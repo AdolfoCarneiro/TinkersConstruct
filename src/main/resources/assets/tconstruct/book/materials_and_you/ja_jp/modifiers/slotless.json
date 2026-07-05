@@ -2,7 +2,7 @@
   "type": "tconstruct:showcase",
   "title": "スロット不要の改造",
   "item": {
-    "type": "forge:nbt",
+    "type": "mantle:nbt",
     "item": "tconstruct:creative_slot",
     "nbt": {
       "slot": "slotless"

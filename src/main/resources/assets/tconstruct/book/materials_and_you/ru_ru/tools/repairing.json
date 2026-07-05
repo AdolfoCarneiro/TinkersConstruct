@@ -4,7 +4,7 @@
   "grid": [
     [
       {
-        "type": "forge:nbt",
+        "type": "mantle:nbt",
         "item": "tconstruct:pickaxe",
         "nbt": {
           "tic_broken": false,
@@ -24,7 +24,7 @@
     ]
   ],
   "result": {
-    "type": "forge:nbt",
+    "type": "mantle:nbt",
     "item": "tconstruct:pickaxe",
     "nbt": {
       "tic_broken": false,

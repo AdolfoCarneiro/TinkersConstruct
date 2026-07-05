@@ -2,7 +2,7 @@
   "type": "tconstruct:showcase",
   "title": "無槽位強化",
   "item": {
-    "type": "forge:nbt",
+    "type": "mantle:nbt",
     "item": "tconstruct:creative_slot",
     "nbt": {
       "slot": "slotless"

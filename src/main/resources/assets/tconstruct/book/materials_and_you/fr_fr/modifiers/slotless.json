@@ -2,7 +2,7 @@
   "type": "tconstruct:showcase",
   "title": "Modificateurs Sans Emplacement",
   "item": {
-    "type": "forge:nbt",
+    "type": "mantle:nbt",
     "item": "tconstruct:creative_slot",
     "nbt": {
       "slot": "slotless"
