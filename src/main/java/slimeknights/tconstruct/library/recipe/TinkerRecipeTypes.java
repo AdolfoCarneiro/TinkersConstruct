@@ -12,6 +12,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.library.json.condition.TagDifferencePresentCondition;
+import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCondition;
+import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
@@ -40,6 +43,9 @@ public class TinkerRecipeTypes {
 
   static {
     CONDITION_CODECS.register(ConfigEnabledCondition.ID.getPath(), () -> ConfigEnabledCondition.CODEC);
+    CONDITION_CODECS.register("tag_not_empty", () -> TagNotEmptyCondition.CODEC);
+    CONDITION_CODECS.register("tag_intersection_present", () -> TagIntersectionPresentCondition.CODEC);
+    CONDITION_CODECS.register("tag_difference_present", () -> TagDifferencePresentCondition.CODEC);
   }
 
   public static final DeferredHolder<RecipeType<?>, RecipeType<IPartBuilderRecipe>> PART_BUILDER = register("part_builder");
