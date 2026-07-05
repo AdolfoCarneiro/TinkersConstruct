@@ -51,6 +51,11 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
 
     if (tile != null && tile.getLevel() != null) {
       this.detectStationParts(tile.getLevel(), tile.getBlockPos());
+    } else if (tile == null && inv != null && inv.player.level().isClientSide() && FMLEnvironment.dist == Dist.CLIENT) {
+      // client couldn't find the block entity locally (e.g. block just placed, not yet synced) - the server
+      // always has a real tile, so a client menu built without one has fewer slots than the server's and will
+      // desync (and crash) the moment the server broadcasts real slot contents. Bail out instead of showing it.
+      ClientOnly.closeScreenNextTick();
     }
   }
 
@@ -243,6 +248,13 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
 
   /** Methods that only work on the client side */
   private static class ClientOnly {
+    /** Closes the current screen on the next client tick, once the menu construction that triggered this has finished and is set as the active screen */
+    private static void closeScreenNextTick() {
+      Minecraft.getInstance().tell(() -> {
+        Minecraft.getInstance().player.closeContainer();
+      });
+    }
+
     /** Updates the client's screen */
     private static void clientScreenUpdate() {
       Screen screen = Minecraft.getInstance().screen;
