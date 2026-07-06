@@ -180,6 +180,7 @@ public final class TinkerTables extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
+    StationSlotLayoutLoader.init();
     event.enqueueWork(() -> {
       StationSlotLayoutLoader loader = StationSlotLayoutLoader.getInstance();
       loader.registerRequiredLayout(tinkerStation.getId());
