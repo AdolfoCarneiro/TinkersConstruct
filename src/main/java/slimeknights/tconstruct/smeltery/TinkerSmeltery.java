@@ -484,6 +484,9 @@ public final class TinkerSmeltery extends TinkerModule {
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, melter.get(), MelterBlockEntity::createFluidHandler);
     event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, melter.get(), MelterBlockEntity::createItemHandler);
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, alloyer.get(), AlloyerBlockEntity::createFluidHandler);
+    // drain/chute proxy the master's fluid/item capability through themselves - migration from Forge getCapability() overrides dropped these too
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, drain.get(), (be, side) -> be.getProxiedCapability());
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, chute.get(), (be, side) -> be.getProxiedCapability());
   }
 
   @SubscribeEvent
