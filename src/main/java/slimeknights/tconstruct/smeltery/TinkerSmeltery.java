@@ -125,6 +125,7 @@ import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutp
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
 import slimeknights.tconstruct.smeltery.data.FluidContainerTransferProvider;
@@ -475,6 +476,14 @@ public final class TinkerSmeltery extends TinkerModule {
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, table.get(), CastingBlockEntity::createFluidHandler);
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, channel.get(), ChannelBlockEntity::createFluidHandler);
     event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, fluidCannon.get(), FluidCannonBlockEntity::createItemHandler);
+    // controller block entities - migration from Forge getCapability() overrides dropped these
+    // smeltery/foundry expose only the melting inventory as item handler (fluid IO goes through drains via ISmelteryTankHandler)
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, smeltery.get(), HeatingStructureBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, foundry.get(), HeatingStructureBlockEntity::createItemHandler);
+    // melter exposes both its tank and melting inventory; alloyer exposes only its tank
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, melter.get(), MelterBlockEntity::createFluidHandler);
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, melter.get(), MelterBlockEntity::createItemHandler);
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, alloyer.get(), AlloyerBlockEntity::createFluidHandler);
   }
 
   @SubscribeEvent
