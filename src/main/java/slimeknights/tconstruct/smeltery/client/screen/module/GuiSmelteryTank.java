@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -76,6 +77,14 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
    * @param matrices  Matrix stack instance
    */
   public void renderFluids(PoseStack matrices) {
+    // In a MultiModuleScreen the fluid render (invoked from renderBg) runs both during the
+    // main-module pass (leftPos == cornerX) and, on 1.21.1, an extra pass at the combined bounds
+    // leftPos (shifted left to include the side inventory). Rendering during that combined pass
+    // draws the fluid shifted left, leaking it into the side inventory. Only render in the
+    // main-module pass. (1.20.1 vanilla did not do the extra unshifted renderBg call.)
+    if (parent instanceof MultiModuleScreen<?> multi && parent.leftPos != multi.cornerX) {
+      return;
+    }
     // draw liquids
     if (tank.getContained() > 0) {
       int[] heights = calcLiquidHeights(true);

@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
@@ -91,6 +92,11 @@ public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule 
    * @param graphics  Matrix stack instance
    */
   public void draw(GuiGraphics graphics) {
+    // skip the extra combined-bounds renderBg pass in a MultiModuleScreen, else the fuel leaks left
+    // (see GuiSmelteryTank#renderFluids for the full explanation)
+    if (screen instanceof MultiModuleScreen<?> multi && screen.leftPos != multi.cornerX) {
+      return;
+    }
     // draw fire
     int fuel = fuelModule.getFuel();
     int fuelQuality = fuelModule.getFuelQuality();
