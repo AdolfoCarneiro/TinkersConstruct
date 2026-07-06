@@ -179,28 +179,39 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 
     // update all slots in the inventory
     // remove remaining items
+    // NOTE: asCraftInput() trims the grid down to the bounding box of non-empty slots and drops the
+    // offset, so its indices do not line up with the real 3x3 grid unless the placed items already
+    // span the whole grid. Must use the positioned variant + remap through the offset, same as vanilla
+    // ResultSlot#onTake, or partially-filled recipes (most of them) silently touch the wrong slot.
+    CraftingInput.Positioned positioned = craftingInventory.asPositionedCraftInput();
+    CraftingInput input = positioned.input();
+    int offsetX = positioned.left();
+    int offsetY = positioned.top();
     CommonHooks.setCraftingPlayer(player);
-    NonNullList<ItemStack> remaining = recipe.value().getRemainingItems(craftingInventory.asCraftInput());
+    NonNullList<ItemStack> remaining = recipe.value().getRemainingItems(input);
     CommonHooks.setCraftingPlayer(null);
-    for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = this.getItem(i);
-      ItemStack newStack = remaining.get(i);
+    for (int row = 0; row < input.height(); row++) {
+      for (int col = 0; col < input.width(); col++) {
+        int i = (col + offsetX) + (row + offsetY) * craftingInventory.getWidth();
+        ItemStack original = this.getItem(i);
+        ItemStack newStack = remaining.get(col + row * input.width());
 
-      // if empty or size 1, set directly (decreases by 1)
-      if (original.isEmpty() || original.getCount() == 1) {
-        this.setItem(i, newStack);
-      }
-      else if (ItemStack.isSameItemSameComponents(original, newStack)) {
-        // if matching, merge (decreasing by 1
-        newStack.grow(original.getCount() - 1);
-        this.setItem(i, newStack);
-      }
-      else {
-        // directly update the slot
-        this.setItem(i, original.copyWithCount(original.getCount() - 1));
-        // otherwise, drop the item as the player
-        if (!newStack.isEmpty() && !player.getInventory().add(newStack)) {
-          player.drop(newStack, false);
+        // if empty or size 1, set directly (decreases by 1)
+        if (original.isEmpty() || original.getCount() == 1) {
+          this.setItem(i, newStack);
+        }
+        else if (ItemStack.isSameItemSameComponents(original, newStack)) {
+          // if matching, merge (decreasing by 1
+          newStack.grow(original.getCount() - 1);
+          this.setItem(i, newStack);
+        }
+        else {
+          // directly update the slot
+          this.setItem(i, original.copyWithCount(original.getCount() - 1));
+          // otherwise, drop the item as the player
+          if (!newStack.isEmpty() && !player.getInventory().add(newStack)) {
+            player.drop(newStack, false);
+          }
         }
       }
     }
