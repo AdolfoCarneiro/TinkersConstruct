@@ -38,24 +38,27 @@ public class FluidParticle extends TextureSheetParticle {
     return ParticleRenderType.TERRAIN_SHEET;
   }
 
+  // getU/getV take a 0-1 fraction of the sprite in 1.21.1 (old 1.20.1 getInterpolatedU/V took a
+  // 0-16 pixel offset); the "* 16.0F" here is a leftover from that old convention and overshot the
+  // sprite's UV bounds into unrelated atlas regions
   @Override
   protected float getU0() {
-    return this.sprite.getU((this.uCoord + 1.0F) / 4.0F * 16.0F);
+    return this.sprite.getU((this.uCoord + 1.0F) / 4.0F);
   }
 
   @Override
   protected float getU1() {
-    return this.sprite.getU(this.uCoord / 4.0F * 16.0F);
+    return this.sprite.getU(this.uCoord / 4.0F);
   }
 
   @Override
   protected float getV0() {
-    return this.sprite.getV(this.vCoord / 4.0F * 16.0F);
+    return this.sprite.getV(this.vCoord / 4.0F);
   }
 
   @Override
   protected float getV1() {
-    return this.sprite.getV((this.vCoord + 1.0F) / 4.0F * 16.0F);
+    return this.sprite.getV((this.vCoord + 1.0F) / 4.0F);
   }
 
   @Override
